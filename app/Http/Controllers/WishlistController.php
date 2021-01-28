@@ -10,8 +10,7 @@ class WishlistController extends Controller
 {
     public function ShowWishlist()
     {
-        $data = Wishlist::with(['wishlist.images'])->get();
-
+        
         return view('wishlist', [
             'data' => $data,
         ]);
