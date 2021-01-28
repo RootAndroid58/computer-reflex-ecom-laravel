@@ -14,8 +14,6 @@ class WishlistController extends Controller
 
         return view('wishlist', [
             'data' => $data,
-            'dataa' => $dataa,
-
         ]);
     }
 
