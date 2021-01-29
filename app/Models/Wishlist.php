@@ -5,13 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Product;
+use App\Models\ProductImage;
 
 class Wishlist extends Model
 {
     use HasFactory;
 
-    public function wishlist()
+    public function Products()
     {
-        return $this->belongsTo(Product::class, 'product_id', 'id');
+        return $this->hasMany(Product::class, 'id', 'product_id');
+    }
+
+    public function Images()
+    {
+        return $this->hasOne(ProductImage::class, 'product_id', 'product_id')->orderBy('id', 'desc');
     }
 }

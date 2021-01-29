@@ -1,3 +1,10 @@
+.font-weight-500{
+    font-weight: 500;
+}
+.color-0066c0{
+    color: #0066c0;
+}
+
 .est-delivery-date {
     font-size: 15px;
     font-weight: 600;
@@ -431,3 +438,29 @@ Buy now button Custom
 .wish-product-image-container img{
     width: 100%;
 }
+.wishlist-product-container{
+    margin-bottom: 10px;
+    padding: 24px 0 30px 24px;
+}
+.right-wishlist-container{
+    background-color: #fff;
+    min-height: 600px;
+    position: relative;
+}
+.wishlist-basic-padding{
+    padding: 24px 32px;
+}
+
+.wishlist-remove-btn-container {
+    text-align: right;
+}
+
+#WishlistRemoveBtn:hover{
+    color: rgb(255, 51, 0);
+    cursor: pointer;
+}
+#AddToCartBtn:hover{
+    color: #0066c0;;
+    cursor: pointer;
+}
+

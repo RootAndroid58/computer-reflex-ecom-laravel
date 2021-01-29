@@ -57,7 +57,7 @@ Route::group(['middleware' => ['verified', 'auth']], function() { // Verified Mi
 
     Route::get('/wishlist', [App\Http\Controllers\WishlistController::class, 'ShowWishlist'])->name('wishlist');
     
-    Route::post('/wishlist/add-product', [App\Http\Controllers\WishlistController::class, 'ToogleWishlist'])->name('toogle-wishlist-btn');
+    Route::post('/wishlist/toogle', [App\Http\Controllers\WishlistController::class, 'ToogleWishlist'])->name('toogle-wishlist-btn');
 
 
 

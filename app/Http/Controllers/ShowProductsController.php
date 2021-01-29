@@ -17,7 +17,6 @@ class ShowProductsController extends Controller
 
         if ($product->product_status == 1) {
 
-
             $images = ProductImage::Where('product_id' , $pid)->orderBy('id', 'desc')->get();
 
             $specifications = Specification::Where('product_id' , $pid)->orderBy('id', 'asc')->get();

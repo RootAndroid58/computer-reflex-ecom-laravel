@@ -10,8 +10,4 @@ class Product extends Model
 {
     use HasFactory;
 
-    public function images()
-    {
-        return $this->hasMany(ProductImage::class,  'product_id' ,'id');
-    }
 }

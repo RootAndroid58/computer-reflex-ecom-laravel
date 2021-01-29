@@ -10,15 +10,20 @@ class WishlistController extends Controller
 {
     public function ShowWishlist()
     {
+        $wishlist = Wishlist::where('user_id', Auth()->user()->id)->with('Products','Images')->orderBy('id', 'asc')->get();
         
+        $wishlistCount = $wishlist->count();
+        // dd($wishlist);
+        // dd( $wishlist->Products );
+
         return view('wishlist', [
-            'data' => $data,
+            'wishlist'      => $wishlist,
+            'wishlistCount' => $wishlistCount,
         ]);
     }
 
 
-
-
+    
     public function ToogleWishlist(Request $req)
     {
         $req->validate([

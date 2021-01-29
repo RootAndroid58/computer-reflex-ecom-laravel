@@ -85,7 +85,7 @@
                         
                         
                         <li><a data-toggle="modal" data-target="#exampleCompare" href="#"><i class="pe-7s-headphones"></i>Support</a></li>
-                        <li><a href="wishlist.html"><i class="pe-7s-like"></i>Wishlist</a></li>
+                        <li><a href="{{ route('wishlist') }}"><i class="pe-7s-like"></i>Wishlist</a></li>
                         <li><a href="#"><i class="pe-7s-flag"></i>IN</a></li>
                         <li><a class="border-none" href="#"><span>₹</span>INR</a></li>
                     </ul>
@@ -145,7 +145,7 @@
                                         <li><a href="register.html">register</a></li>
                                         <li><a href="cart.html">cart page</a></li>
                                         <li><a href="checkout.html">checkout</a></li>
-                                        <li><a href="wishlist.html">wishlist</a></li>
+                                        <li><a href="{{ route('wishlist') }}">wishlist</a></li>
                                         <li><a href="contact.html">contact</a></li>
                                     </ul>
                                 </li>
@@ -395,7 +395,7 @@
                                     <li><a href="register.html">register</a></li>
                                     <li><a href="cart.html">cart page</a></li>
                                     <li><a href="checkout.html">checkout</a></li>
-                                    <li><a href="wishlist.html">wishlist</a></li>
+                                    <li><a href="{{ route('wishlist') }}">wishlist</a></li>
                                     <li><a href="contact.html">contact</a></li>
                                 </ul>
                             </li>
@@ -412,7 +412,7 @@
                                             <li><a href="shop-list-2-col.html">list 2 column</a></li>
                                             <li><a href="shop-list-box.html">list box style</a></li>
                                             <li><a href="cart.html">shopping cart</a></li>
-                                            <li><a href="wishlist.html">wishlist</a></li>
+                                            <li><a href="{{ route('wishlist') }}">wishlist</a></li>
                                         </ul>
                                     </div>
                                     <div class="category-dropdown-style category-common2 mb-30">
