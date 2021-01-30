@@ -24,7 +24,7 @@ class WishlistController extends Controller
 
 
     
-    public function ToogleWishlist(Request $req)
+    public function ToggleWishlist(Request $req)
     {
         $req->validate([
             'product_id' => 'required|exists:products,id',
@@ -39,8 +39,8 @@ class WishlistController extends Controller
             $wishlist->save();
 
             return 200;
-        } else {
 
+        } else {
             $wishlistCheck->delete();
 
             return 500;

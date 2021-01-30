@@ -84,7 +84,7 @@ $UserName=str_word_count(Auth()->user()->name, 1);
                             <div class="col-md-1">
                                 <div class="wishlist-remove-btn-container">
                                     <div>
-                                        <a id="WishlistRemoveBtn" onClick="ToogleWishlist('{{$Product->id}}')" target="_blank">
+                                        <a id="WishlistRemoveBtn" onClick="ToggleWishlist('{{$Product->id}}')" target="_blank">
                                             <span>
                                                 <i class="fa fa-trash" aria-hidden="true"></i>
                                             </span>
@@ -116,13 +116,13 @@ $UserName=str_word_count(Auth()->user()->name, 1);
 
 <script>
 
-    function ToogleWishlist(product_id) {
+    function ToggleWishlist(product_id) {
 
         $('#WishItem'+product_id).fadeOut()
         $('#WishBreak'+product_id).fadeOut()
 
         $.ajax({
-            url: "{{route('toogle-wishlist-btn')}}",
+            url: "{{route('toggle-wishlist-btn')}}",
             method: 'POST',
             data: {
                 'product_id' : product_id,
@@ -138,11 +138,6 @@ $UserName=str_word_count(Auth()->user()->name, 1);
         })
 
     }
-
-        
-
-
-    
 
 </script>
     

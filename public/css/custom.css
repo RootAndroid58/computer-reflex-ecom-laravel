@@ -479,4 +479,11 @@ Buy now button Custom
     color: #0066c0;;
     cursor: pointer;
 }
+.cart-title-container {
+    padding: 24px 32px;
+}
+.cart-title-container {
+    font-weight: 500;
+
+}
 

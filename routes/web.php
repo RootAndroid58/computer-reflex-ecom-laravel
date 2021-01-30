@@ -56,8 +56,12 @@ Route::group(['middleware' => ['verified', 'auth']], function() { // Verified Mi
     Route::get('/addresses', [App\Http\Controllers\ManageAddressesController::class, 'ShowAddresses'])->name('addresses');
 
     Route::get('/wishlist', [App\Http\Controllers\WishlistController::class, 'ShowWishlist'])->name('wishlist');
+   
+    Route::get('/cart', [App\Http\Controllers\CartController::class, 'ShowCart'])->name('cart');
     
-    Route::post('/wishlist/toogle', [App\Http\Controllers\WishlistController::class, 'ToogleWishlist'])->name('toogle-wishlist-btn');
+    Route::post('/wishlist/toggle', [App\Http\Controllers\WishlistController::class, 'ToggleWishlist'])->name('toggle-wishlist-btn');
+    
+    Route::post('/cart/toggle', [App\Http\Controllers\CartController::class, 'ToggleCart'])->name('toggle-cart-btn');
 
 
 

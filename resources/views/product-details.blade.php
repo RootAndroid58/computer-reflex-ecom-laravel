@@ -85,14 +85,13 @@
                     {{-- Quick actions --}}
                                                 
                     <div class="quickview-plus-minus">
-                        <div class="cart-plus-minus">
-                            <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
+
+                        <div class="quickview-btn-cart" style="margin-left: 0;">
+                            <a class="btn-hover-black" id="ToggleCartBtn" href="#">@if($carted == 1) Remove from cart @else Add to cart @endif</a>
                         </div>
-                        <div class="quickview-btn-cart">
-                            <a class="btn-hover-black" href="#">add to cart</a>
-                        </div>
+
                         <div class="quickview-btn-wishlist">
-                            <a id="ToogleWishlistBtn" class="btn-hover @if($wishlisted == 1) btn-wishlisted @else btn-not-wishlisted @endif " href="#">&nbsp;<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;</a>
+                            <a id="ToggleWishlistBtn" class="btn-hover @if($wishlisted == 1) btn-wishlisted @else btn-not-wishlisted @endif " href="#">&nbsp;<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;</a>
                         </div>
                     </div>
 
@@ -365,7 +364,6 @@
 {{-- Data for ajax requests --}}
 <div class="d-none">
     <form>
-        @csrf
         <input name="product_id" value="{{ $product->id }}">
     </form> 
 </div>
@@ -375,29 +373,63 @@
 
 
 @section('bottom-js')
+    {{-- Toggle Cart --}}
     <script>
         $(document).ready(function() {
 
-            $('#ToogleWishlistBtn').click(function (e) {
+            $('#ToggleCartBtn').click(function (e) {
 
                 e.preventDefault()
 
-                var _token      = $('input[name="_token"]').val()
                 var product_id  = $('input[name="product_id"]').val()
 
+                console.log(product_id)
+
                 $.ajax({
-                    url: "{{route('toogle-wishlist-btn')}}",
+                    url: "{{route('toggle-cart-btn')}}",
                     method: 'POST',
                     data: {
-                        '_token'     : _token,
                         'product_id' : product_id,
                     },
                     success: function (data) {
 
                         if (data == 200) {
-                            $('#ToogleWishlistBtn').addClass('btn-wishlisted').removeClass('btn-not-wishlisted')
+                            console.log('Added to cart')
+                            $('#ToggleCartBtn').html('remove from cart')
                         } else if(data == 500) {
-                            $('#ToogleWishlistBtn').addClass('btn-not-wishlisted').removeClass('btn-wishlisted')
+                            $('#ToggleCartBtn').html('add to cart')
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+
+
+    {{-- Toggle Wishlist --}}
+    <script>
+        $(document).ready(function() {
+
+            $('#ToggleWishlistBtn').click(function (e) {
+
+                e.preventDefault()
+
+                var product_id  = $('input[name="product_id"]').val()
+
+                console.log(product_id)
+
+                $.ajax({
+                    url: "{{route('toggle-wishlist-btn')}}",
+                    method: 'POST',
+                    data: {
+                        'product_id' : product_id,
+                    },
+                    success: function (data) {
+
+                        if (data == 200) {
+                            $('#ToggleWishlistBtn').addClass('btn-wishlisted').removeClass('btn-not-wishlisted')
+                        } else if(data == 500) {
+                            $('#ToggleWishlistBtn').addClass('btn-not-wishlisted').removeClass('btn-wishlisted')
                         }
                     }
                 })
