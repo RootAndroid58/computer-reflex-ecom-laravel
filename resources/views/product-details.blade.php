@@ -396,8 +396,10 @@
                         if (data == 200) {
                             console.log('Added to cart')
                             $('#ToggleCartBtn').html('remove from cart')
+                            $('#CartCount').load("{{ route('cart') }} #CartCount")
                         } else if(data == 500) {
                             $('#ToggleCartBtn').html('add to cart')
+                            $('#CartCount').load("{{ route('cart') }} #CartCount")
                         }
                     }
                 })

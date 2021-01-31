@@ -114,7 +114,7 @@
                             <a href="#"><i class="pe-7s-cart"></i></a>
                         </div>
                         <div class="same-style-text">
-                            <a href="cart.html">My Cart <br>02 Item</a>
+                            <a href="{{ route('cart') }}">My Cart <br>{{ App\Models\Cart::get()->count() }} Item</a>
                         </div>
                     </div>
                 </div>
@@ -143,7 +143,7 @@
                                         <li><a href="menu-list.html">menu list</a></li>
                                         <li><a href="login.html">login</a></li>
                                         <li><a href="register.html">register</a></li>
-                                        <li><a href="cart.html">cart page</a></li>
+                                        <li><a href="{{ route('cart') }}">cart page</a></li>
                                         <li><a href="checkout.html">checkout</a></li>
                                         <li><a href="{{ route('wishlist') }}">wishlist</a></li>
                                         <li><a href="contact.html">contact</a></li>
@@ -393,7 +393,7 @@
                                     <li><a href="menu-list.html">menu list</a></li>
                                     <li><a href="login.html">login</a></li>
                                     <li><a href="register.html">register</a></li>
-                                    <li><a href="cart.html">cart page</a></li>
+                                    <li><a href="{{ route('cart') }}">cart page</a></li>
                                     <li><a href="checkout.html">checkout</a></li>
                                     <li><a href="{{ route('wishlist') }}">wishlist</a></li>
                                     <li><a href="contact.html">contact</a></li>
@@ -411,7 +411,7 @@
                                             <li><a href="shop-list-1-col.html"> list 1 column</a></li>
                                             <li><a href="shop-list-2-col.html">list 2 column</a></li>
                                             <li><a href="shop-list-box.html">list box style</a></li>
-                                            <li><a href="cart.html">shopping cart</a></li>
+                                            <li><a href="{{ route('cart') }}">shopping cart</a></li>
                                             <li><a href="{{ route('wishlist') }}">wishlist</a></li>
                                         </ul>
                                     </div>
@@ -1862,7 +1862,7 @@
                             <div class="footer-widget-content-3">
                                 <ul>
                                     <li><a href="login.html">Login Hare</a></li>
-                                    <li><a href="cart.html">Cart History</a></li>
+                                    <li><a href="{{ route('cart') }}">Cart History</a></li>
                                     <li><a href="checkout.html"> Payment History</a></li>
                                     <li><a href="shop.html">Product Tracking</a></li>
                                     <li><a href="register.html">Register</a></li>

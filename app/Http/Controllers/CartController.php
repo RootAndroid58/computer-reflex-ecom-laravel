@@ -9,8 +9,27 @@ class CartController extends Controller
 {
     public function ShowCart()
     {
-        return view('cart');
+        $cart = Cart::where('user_id', Auth()->user()->id)->with('Products','Images')->orderBy('id', 'asc')->get();
+
+        $cartCount = $cart->count();
+
+        return view('cart', [
+            'cart'      => $cart,
+            'cartCount' => $cartCount,
+
+        ]);
     }
+
+    public function ChangeQty(Request $req)
+    {
+        Cart::where('product_id', $req->product_id)->where('user_id', Auth()->user()->id)->update([
+            'qty' => $req->cart_qty,
+        ]);
+
+        return 200;
+    }
+
+
 
 
     public function ToggleCart(Request $req)

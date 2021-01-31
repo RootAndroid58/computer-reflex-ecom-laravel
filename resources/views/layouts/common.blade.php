@@ -109,11 +109,13 @@
 
 
                         {{-- Header Cart Button --}}
-                        <div class="header-cart">
-                            <a class="icon-cart-furniture" href="#">
-                                <i class="ti-shopping-cart"></i>
-                                <span class="shop-count-furniture green">02</span>
-                            </a>
+                        <div id="CartCount">
+                            <div class="header-cart">
+                                <a class="icon-cart-furniture" href="#">
+                                    <i class="ti-shopping-cart"></i>
+                                    <span class="shop-count-furniture green">{{ App\Models\Cart::get()->count() }}</span>
+                                </a>
+                            </div>                         
                         </div>
                     </div>
 

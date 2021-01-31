@@ -63,6 +63,8 @@ Route::group(['middleware' => ['verified', 'auth']], function() { // Verified Mi
     
     Route::post('/cart/toggle', [App\Http\Controllers\CartController::class, 'ToggleCart'])->name('toggle-cart-btn');
 
+    Route::post('/cart/change-qty', [App\Http\Controllers\CartController::class, 'ChangeQty'])->name('change-qty');
+
 
 
 // Admin Prefix Routes

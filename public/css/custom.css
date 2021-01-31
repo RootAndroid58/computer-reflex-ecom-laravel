@@ -475,6 +475,10 @@ Buy now button Custom
     color: rgb(255, 51, 0);
     cursor: pointer;
 }
+#CartRemoveBtn:hover{
+    color: rgb(255, 51, 0);
+    cursor: pointer;
+}
 #AddToCartBtn:hover{
     color: #0066c0;;
     cursor: pointer;
