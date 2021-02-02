@@ -74,10 +74,10 @@
                         @can('Admin')
                             <li><a href="{{route('admin-dashboard')}}"><i class="fa fa-desktop"></i>Admin</a>
                         @endcan
-                            <li><a href="#"><i class="pe-7s-users"></i>My Account</a>
+                            <li><a href="{{route('my-account')}}"><i class="pe-7s-users"></i>My Account</a>
                             <ul>
                                 <li><a href="#">My Orders</a></li>
-                                <li><a href="#">My Wishlists</a></li>
+                                <li><a href="{{route('wishlist')}}">My Wishlists</a></li>
                                 <li><a href="{{ route('logout')}}">Logout</a></li>
                             </ul>
                             </li>
@@ -111,7 +111,7 @@
                 <div class="trace-cart-wrapper">
                     <div class="categories-cart same-style">
                         <div class="same-style-icon">
-                            <a href="#"><i class="pe-7s-cart"></i></a>
+                            <a href="{{ route('cart') }}"><i class="pe-7s-cart"></i></a>
                         </div>
                         <div class="same-style-text">
                             <a href="{{ route('cart') }}">My Cart <br>{{ App\Models\Cart::get()->count() }} Item</a>

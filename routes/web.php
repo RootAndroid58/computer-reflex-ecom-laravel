@@ -64,6 +64,18 @@ Route::group(['middleware' => ['verified', 'auth']], function() { // Verified Mi
     Route::post('/cart/toggle', [App\Http\Controllers\CartController::class, 'ToggleCart'])->name('toggle-cart-btn');
 
     Route::post('/cart/change-qty', [App\Http\Controllers\CartController::class, 'ChangeQty'])->name('change-qty');
+    
+    Route::post('/account/update-name', [App\Http\Controllers\AccountController::class, 'UpdateName'])->name('update-name');
+
+    Route::post('/account/update-email', [App\Http\Controllers\AccountController::class, 'UpdateEmail'])->name('update-email');
+
+    Route::post('/account/update-mobile', [App\Http\Controllers\AccountController::class, 'UpdateMobile'])->name('update-mobile');
+    
+    Route::get('/ajax/get-auth-name', [App\Http\Controllers\AjaxController::class, 'GetAuthName'])->name('get-auth-name');
+
+    Route::get('/ajax/get-auth-email', [App\Http\Controllers\AjaxController::class, 'GetAuthEmail'])->name('get-auth-email');
+
+    Route::get('/ajax/get-auth-mobile', [App\Http\Controllers\AjaxController::class, 'GetAuthMobile'])->name('get-auth-mobile');
 
 
 

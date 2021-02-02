@@ -15,5 +15,8 @@ class VerifyCsrfToken extends Middleware
         '/wishlist/toggle',
         '/cart/toggle',
         '/cart/change-qty',
+        '/account/update-name',
+        '/account/update-email',
+        '/account/update-mobile',
     ];
 }

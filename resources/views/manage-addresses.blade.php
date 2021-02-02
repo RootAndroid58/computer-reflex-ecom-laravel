@@ -4,6 +4,7 @@
 
 @section('manage-addresses-nav', 'account-menu-item-active')
 
+
 @section('right-col-menu')
     
 <div class="account-details-container">
@@ -16,7 +17,7 @@
 
         <div class="wishlist-container">
             <div class="add-address-box-wrapper">
-                <a href="#AddAddress">
+                <a href="#AddAddress" data-toggle="modal" data-target="#AddAddressModal">
                     <div class="add-address-box">
                         <img src="{{ asset('img/svg/times.svg') }}" alt="" srcset="">
                         <span>ADD A NEW ADDRESS</span>

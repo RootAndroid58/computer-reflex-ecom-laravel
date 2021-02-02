@@ -1,11 +1,14 @@
 @extends('layouts.common')
 
 @section('content') <div class="body-container">
+
+    @yield('modals')
     
 <div class="container">
     <div class="row">
 
     <div class="col-md-3">
+            <div id="ProfileDetailsDiv">
                 <div class="account-details-container row" style="padding: 12px;">
                     <img class="account-dp" src="{{ asset('storage/images/dp/'.Auth()->user()->dp)}}">
                     <div class="account-greet">
@@ -13,6 +16,7 @@
                         <div class="account-name">{{Auth()->user()->name}}</div>
                     </div>
                 </div>
+            </div>
         
                 <div class="account-details-container row">
                     <div class="account-menu-items-container">

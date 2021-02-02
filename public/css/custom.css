@@ -161,20 +161,26 @@ Buy now button Custom
     background-color: #363636;
     border-radius: 2px;
 }
-/* .buy-now-btn-container a {
-    float: right;
-    margin-right: 15%;
+
+.cart-checkout-btn-container button{
     text-align: center;
+    padding: 17px 35px;
     font-weight: 600;
     letter-spacing: 1.2px;
     display: block;
-    width: 60%;
+    width: 100%;
     color: white;
     text-transform: uppercase;
-    background-color: rgb(29, 29, 29);
-    
-    padding: 17px 35px;
-} */
+    background-color: #363636;
+    border-radius: 2px;
+    transition: 300ms;
+}
+.cart-checkout-btn-container button:hover{
+    color: white;
+    text-transform: uppercase;
+    background-color: #000000;
+    transition: 300ms;
+}
 .buy-now-btn-container a:hover{
     color: white;
     text-transform: uppercase;

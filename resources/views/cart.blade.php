@@ -149,8 +149,8 @@
                         <span>Total Amount</span>
                         <span class="float-right"><font class="rupees">&#8377;</font>{{ number_format($ProductPriceTotal, 2, ".", ",") }}</span>
                     </div>
-                    <div class="account-menu-items-container text-center" style="margin-bottom: 18px;">
-                        <span> Happy Shopping! </span>
+                    <div class="w-100 cart-checkout-btn-container">
+                        <button class="">CHECKOUT &nbsp;<i class="fa fa-credit-card" aria-hidden="true"></i></button>
                     </div>
 
                     <div class="account-menu-break"></div> 

@@ -95,8 +95,6 @@
                                 <div class="form-group"><label for="email"><strong>Email Address</strong></label><input class="form-control" type="email" value="{{ Auth::user()->email }}" disabled></div>
                             </div>
                         </div>
-
-                 
                             
                             <fieldset class="form-group">
                                 <div class="row">
@@ -115,8 +113,6 @@
                                   
                                 </div>
                               </fieldset>
-                            
-                    
 
                         <div class="form-group text-right"><a class="btn btn-primary btn-sm" href="#">Request Changes</a></div>
                     </div>

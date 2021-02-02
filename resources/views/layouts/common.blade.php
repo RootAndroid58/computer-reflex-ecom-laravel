@@ -111,7 +111,7 @@
                         {{-- Header Cart Button --}}
                         <div id="CartCount">
                             <div class="header-cart">
-                                <a class="icon-cart-furniture" href="#">
+                                <a class="icon-cart-furniture" href="{{ route('cart') }}">
                                     <i class="ti-shopping-cart"></i>
                                     <span class="shop-count-furniture green">{{ App\Models\Cart::get()->count() }}</span>
                                 </a>
@@ -146,7 +146,7 @@
                                                 <li><a href="menu-list.html">menu list</a></li>
                                                 <li><a href="login.html">login</a></li>
                                                 <li><a href="register.html">register</a></li>
-                                                <li><a href="cart.html">cart page</a></li>
+                                                <li><a href="{{ route('cart') }}">cart page</a></li>
                                                 <li><a href="checkout.html">checkout</a></li>
                                                 <li><a href="wishlist.html">wishlist</a></li>
                                                 <li><a href="contact.html">contact</a></li>
@@ -258,7 +258,7 @@
                                 <h3 class="footer-widget-title">Custom Service</h3>
                                 <div class="footer-widget-content">
                                     <ul>
-                                        <li><a href="cart.html">Cart</a></li>
+                                        <li><a href="{{ route('cart') }}">Cart</a></li>
                                         <li><a href="{{ route('my-account')}}">My Account</a></li>
                                         <li><a href="login.html">Login</a></li>
                                         <li><a href="register.html">Register</a></li>
@@ -346,6 +346,7 @@
         <script src="{{ asset('ezone/js/plugins.js') }}"></script>
         <script src="{{ asset('ezone/js/main.js') }}"></script>
         <script src="{{ asset('js/zoomsl.min.js') }}"></script>
+        <script src="{{ asset('js/jquery.bootstrap-growl.min.js')}}"></script>
         <script src="{{ asset('js/main.js') }}"></script>
 
         {{-- <script>
