@@ -55,6 +55,10 @@ Route::group(['middleware' => ['verified', 'auth']], function() { // Verified Mi
     
     Route::get('/addresses', [App\Http\Controllers\ManageAddressesController::class, 'ShowAddresses'])->name('addresses');
 
+    Route::post('/address/add', [App\Http\Controllers\ManageAddressesController::class, 'AddAddress'])->name('add-address-submit');
+
+    Route::post('/address/remove', [App\Http\Controllers\ManageAddressesController::class, 'RemoveAddress'])->name('remove-address-submit');
+
     Route::get('/wishlist', [App\Http\Controllers\WishlistController::class, 'ShowWishlist'])->name('wishlist');
    
     Route::get('/cart', [App\Http\Controllers\CartController::class, 'ShowCart'])->name('cart');

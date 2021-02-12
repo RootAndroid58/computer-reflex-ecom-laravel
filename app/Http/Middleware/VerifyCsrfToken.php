@@ -18,5 +18,6 @@ class VerifyCsrfToken extends Middleware
         '/account/update-name',
         '/account/update-email',
         '/account/update-mobile',
+        '/address/remove',
     ];
 }
