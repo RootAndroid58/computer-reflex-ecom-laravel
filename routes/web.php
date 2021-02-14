@@ -58,10 +58,22 @@ Route::group(['middleware' => ['verified', 'auth']], function() { // Verified Mi
     Route::post('/address/add', [App\Http\Controllers\ManageAddressesController::class, 'AddAddress'])->name('add-address-submit');
 
     Route::post('/address/remove', [App\Http\Controllers\ManageAddressesController::class, 'RemoveAddress'])->name('remove-address-submit');
+    
+    Route::post('/address/edit/fetch', [App\Http\Controllers\ManageAddressesController::class, 'EditAddressFetch'])->name('edit-address-fetch');
+
+    Route::post('/address/edit/submit', [App\Http\Controllers\ManageAddressesController::class, 'EditAddressSubmit'])->name('edit-address-submit');
 
     Route::get('/wishlist', [App\Http\Controllers\WishlistController::class, 'ShowWishlist'])->name('wishlist');
    
     Route::get('/cart', [App\Http\Controllers\CartController::class, 'ShowCart'])->name('cart');
+
+    Route::post('/checkout', [App\Http\Controllers\CheckoutController::class, 'CheckoutView'])->name('checkout-post');
+    
+    Route::post('/checkout/submit', [App\Http\Controllers\CheckoutController::class, 'CheckoutSubmit'])->name('checkout-submit');
+
+    Route::post('/ajax/calcMRP', [App\Http\Controllers\AjaxController::class, 'CalcMRPPrice'])->name('calc-mrp-price');
+
+    Route::post('/cart/checkout', [App\Http\Controllers\CheckoutController::class, 'CartCheckout'])->name('cart-checkout');
     
     Route::post('/wishlist/toggle', [App\Http\Controllers\WishlistController::class, 'ToggleWishlist'])->name('toggle-wishlist-btn');
     

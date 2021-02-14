@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html class="no-js" lang="en">
     <head>
@@ -41,6 +42,8 @@
         </style>
     </head>
     <body>
+
+        @yield('modals')
         <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -319,7 +322,7 @@
                             <div class="copyright">
                                 <p>
                                     Copyright ©
-                                    <a href="https://hastech.company/">HasTech</a> 2018 . All Right Reserved.
+                                    <a href="{{url('')}}">Computer Reflex</a> 2021 . All Right Reserved.
                                 </p>
                             </div>
                         </div>

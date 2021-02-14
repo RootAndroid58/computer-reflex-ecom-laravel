@@ -528,3 +528,30 @@ Buy now button Custom
 
 ._1w3ZZo:focus~._1osQq7{-webkit-transform:translateY(-15%) scale(.815);transform:translateY(-15%) scale(.815);padding:18px 0 0 15px}
 
+.address-select-box{
+    padding: 5px;
+}
+
+.AddressSelected{
+    background-color: rgba(180, 227, 255, 0.301);
+}
+
+.show-none{
+    display: none;
+}
+
+.payment-option-container{
+    border: 1px solid #f0f0f0;
+    padding: 20px 10px;
+}
+.cursor-pointer{
+    cursor: pointer;
+}
+
+.payment-option-container span{
+    font-size: 16px;
+}
+
+.payment-option-active{
+    background-color: rgba(180, 227, 255, 0.301);
+}

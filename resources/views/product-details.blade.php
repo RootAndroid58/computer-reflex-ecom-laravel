@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    
+
 @php
     $counter = 1;
     $counter2 = 1;
@@ -65,9 +65,9 @@
 
                     {{-- Mrp - Price - Dsicount --}}
                     <div class="details-price">
-                        <span class="text-muted" style="font-size: 15px;"><font class="rupees"><s>&#8377;</font> {{ number_format($product->product_mrp, 2, ".", ",") }}</s></span>
+                        <span class="text-muted" style="font-size: 15px;"><font class="rupees"><s>&#8377;</font> {{ moneyFormatIndia($product->product_mrp) }}</s></span>
                         <br>
-                        <span><font class="rupees">&#8377;</font> {{ number_format($product->product_price, 2, ".", ",") }} 
+                        <span><font class="rupees">&#8377;</font> {{ moneyFormatIndia($product->product_price) }} 
                             <b style="font-size: 17px; color: #388e3c; font-weight: 500;">{{ $discount }}% off</b>
                         </span>
                     </div>

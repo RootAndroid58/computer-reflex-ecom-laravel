@@ -11,7 +11,12 @@ class Cart extends Model
     
     public function Products()
     {
-        return $this->hasMany(Product::class, 'id', 'product_id');
+        return $this->hasMany(Product::class, 'id', 'product_id')->where('product_status', 1);
+    }
+    
+    public function CheckoutProducts()
+    {
+        return $this->hasOne(Product::class, 'id', 'product_id')->where('product_status', 1);
     }
 
     public function Images()

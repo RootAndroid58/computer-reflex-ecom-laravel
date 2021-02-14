@@ -52,6 +52,7 @@
                     @else
                             
                 <div class="wishlist-container">   
+                    <form action="{{ route('checkout-post') }}" method="post" id="CartCheckOutForm"> @csrf
                     @foreach ($cart as $cart)
                     @foreach ($cart->Products as $Product) 
     
@@ -73,30 +74,38 @@
                                     </a>
                                     
                                     <div class="details-price" style="margin-bottom: 0;">
-                                        <span class="text-muted" style="font-size: 15px;"><font class="rupees"><s>₹</s></font><s> {{ number_format($Product->product_mrp * $cart->qty, 2, ".", ",") }}</s></span>
+                                        <span class="text-muted" style="font-size: 15px;"><font class="rupees"><s>₹</s></font><s> {{ moneyFormatIndia($Product->product_mrp * $cart->qty) }}</s></span>
                                         <br>
-                                        <span><font class="rupees" style="font-size: 18px">₹</font> <span style="font-size: 18px;">{{ number_format($Product->product_price * $cart->qty, 2, ".", ",") }}</span> 
+                                        <span><font class="rupees" style="font-size: 18px">₹</font> <span style="font-size: 18px;">{{ moneyFormatIndia($Product->product_price * $cart->qty) }}</span> 
                                             <b style="font-size: 15px; color: #388e3c; font-weight: 500;"> 
                                                 {{ ((($Product->product_mrp - $Product->product_price) / $Product->product_mrp)*100)%100 }}% off
                                             </b>  
                                         </span>
-
                                         @php
+                                        if (!$Product->product_stock <= 0) {
                                             $ProductMRPTotal = $ProductMRPTotal+$Product->product_mrp * $cart->qty;
                                             $ProductPriceTotal = $ProductPriceTotal+$Product->product_price * $cart->qty;
+                                            
+                                        }
                                         @endphp
-                                        
-                                        <div class="input-group input-group-sm" style="max-width: 160px;">
-                                            <div class="input-group-prepend">
-                                              <label class="input-group-text" for="product-quantity">Qty</label>
+
+                                        @if($Product->product_stock <= 0)
+                                            <p class="text-danger" style="font-weight: 500;"></i>Out of stock!</p>
+                                        @else
+                                        <input type="hidden" name="product_id[]" value="{{ $Product->id }}">
+                                            <div class="input-group input-group-sm" style="max-width: 160px;">
+                                                <div class="input-group-prepend">
+                                                <label class="input-group-text" for="product-quantity">Qty</label>
+                                                </div>
+                                                <select class="custom-select" id="product-quantity-{{ $Product->id }}" name="product_qty[]" onchange="ChangeQty('{{ $Product->id }}')">
+                                                @while ($StockCounter <= $Product->product_stock)
+                                                    <option @if ($cart->qty == $StockCounter) selected @endif value="{{$StockCounter}}">{{$StockCounter}}</option>
+                                                    {{ $StockCounter++ }}
+                                                @endwhile
+                                                </select>
                                             </div>
-                                            <select class="custom-select" id="product-quantity-{{ $Product->id }}" onchange="ChangeQty('{{ $Product->id }}')">
-                                            @while ($StockCounter <= $Product->product_stock)
-                                                <option @if ($cart->qty == $StockCounter) selected @endif value="{{$StockCounter}}">{{$StockCounter}}</option>
-                                                {{ $StockCounter++ }}
-                                            @endwhile
-                                            </select>
-                                        </div>
+                                        @endif
+                                        
 
                                     </div>
                                 </div>
@@ -119,6 +128,7 @@
                         <div class="account-menu-break" id="CartBreak{{ $Product->id }}"></div>      
                         @endforeach 
                         @endforeach 
+                    </form>
                     </div> 
                     @endif
 
@@ -135,11 +145,11 @@
                 <div class="account-details-container row">
                     <div class="account-menu-items-container">
                             <span>MRP</span>
-                            <span class="float-right"><strong><font class="rupees">&#8377;</font>{{ number_format($ProductMRPTotal, 2, ".", ",") }}</strong></span>
+                            <span class="float-right"><strong><font class="rupees">&#8377;</font>{{ moneyFormatIndia($ProductMRPTotal) }}</strong></span>
                     </div>
                     <div class="account-menu-items-container">
                         <span>Discount</span>
-                        <span class="float-right"><strong style="font-weight: 500; color: #388e3c;">- <font class="rupees">&#8377;</font>{{ number_format($ProductMRPTotal - $ProductPriceTotal, 2, ".", ",") }}</strong></span>
+                        <span class="float-right"><strong style="font-weight: 500; color: #388e3c;">- <font class="rupees">&#8377;</font>{{ moneyFormatIndia($ProductMRPTotal - $ProductPriceTotal) }}</strong></span>
                     </div>
                     <div class="account-menu-items-container">
                         <span>Delivery Charges</span>
@@ -147,11 +157,13 @@
                     </div>
                     <div class="account-menu-items-container"  style="font-weight: 600; color: black; font-size: 18px; border-top: 1px dashed #e0e0e0; border-bottom: 1px dashed #e0e0e0; margin-top: 18px; margin-bottom: 18px;">
                         <span>Total Amount</span>
-                        <span class="float-right"><font class="rupees">&#8377;</font>{{ number_format($ProductPriceTotal, 2, ".", ",") }}</span>
+                        <span class="float-right"><font class="rupees">&#8377;</font>{{ moneyFormatIndia($ProductPriceTotal) }}</span>
                     </div>
-                    <div class="w-100 cart-checkout-btn-container">
-                        <button class="">CHECKOUT &nbsp;<i class="fa fa-credit-card" aria-hidden="true"></i></button>
-                    </div>
+                        {{-- <a href="{{ route('cart-checkout-view') }}" class="w-100"> --}}
+                            <div class="w-100 cart-checkout-btn-container">
+                                <button type="submit" form="CartCheckOutForm" class="">CHECKOUT &nbsp;<i class="fa fa-credit-card" aria-hidden="true"></i></button>
+                            </div>
+                        {{-- </a> --}}
 
                     <div class="account-menu-break"></div> 
 

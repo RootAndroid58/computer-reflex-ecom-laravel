@@ -9,6 +9,16 @@ class CartController extends Controller
 {
     public function ShowCart()
     {
+        $cartQuery = Cart::where('user_id', Auth()->user()->id)->with('Products','Images')->orderBy('id', 'asc')->get();
+        
+        foreach ($cartQuery as $item ) {
+            if ($item->qty > $item->Products[0]->product_stock) {
+                Cart::where('id', $item->id)->update([
+                    'qty' => 1,
+                ]);
+            }
+        }
+
         $cart = Cart::where('user_id', Auth()->user()->id)->with('Products','Images')->orderBy('id', 'asc')->get();
 
         $cartCount = $cart->count();
@@ -16,7 +26,6 @@ class CartController extends Controller
         return view('cart', [
             'cart'      => $cart,
             'cartCount' => $cartCount,
-
         ]);
     }
 

@@ -19,5 +19,9 @@ class VerifyCsrfToken extends Middleware
         '/account/update-email',
         '/account/update-mobile',
         '/address/remove',
+        '/address/remove',
+        '/address/edit/fetch',
+        '/ajax/calcPrice',
+        '/ajax/calcMRP',
     ];
 }

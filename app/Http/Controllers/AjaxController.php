@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class AjaxController extends Controller
 {
@@ -20,4 +21,15 @@ class AjaxController extends Controller
     {
         return Auth()->user()->mobile;
     }
+
+    public function CalcMRPPrice(Request $req)
+    {
+        $product = Product::where('id', $req->ProdID)->first();
+
+        return response()->json([
+            'mrp'   => moneyFormatIndia($product->product_mrp * $req->qty), 
+            'price' => moneyFormatIndia($product->product_price * $req->qty), 
+        ]);
+    }
+
 }

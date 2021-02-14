@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('user_id')->foreign('id')->on('users');
             $table->bigInteger('address_id')->foreign('id')->on('addresses');
             $table->string('price');
+            $table->string('mrp');
             $table->string('payment_method');
             $table->string('status');
             $table->timestamps();

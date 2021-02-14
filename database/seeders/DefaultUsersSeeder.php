@@ -16,14 +16,15 @@ class DefaultUsersSeeder extends Seeder
     {
         $users = [
             [
-                'id'              => 1,
-                'name'            => 'Master Admin',
-                'email'           => 'admin@computer-reflex.tk',
-                'mobile'          => '8902984277',
-                'password'        => bcrypt('Password1234'),
-                'status'          => 'active',
-                'created_at'      => date('y-m-d h:m:s'),
-                'dp'              => 'default.png',
+                'id'                => 1,
+                'name'              => 'Master Admin',
+                'email'             => 'admin@computer-reflex.tk',
+                'mobile'            => '8902984277',
+                'password'          => bcrypt('Password1234'),
+                'status'            => 'active',
+                'email_verified_at' => date('y-m-d h:m:s'),
+                'created_at'        => date('y-m-d h:m:s'),
+                'dp'                => 'default.png',
             ],
         ];
 
