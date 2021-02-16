@@ -44,7 +44,9 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('/product/{product_id}/{product_name?}', 'App\Http\Controllers\ShowProductsController@ProductIndex')->name('product-index');
     
+    Route::post('/checkout/payment/response/payu', [App\Http\Controllers\CheckoutController::class, 'PayuResponse'])->name('checkout-payu-response');
 
+    Route::post('/checkout/payment/response/paytm', [App\Http\Controllers\CheckoutController::class, 'PaytmResponse'])->name('checkout-paytm-response');
 
 
 Route::group(['middleware' => ['verified', 'auth']], function() { // Verified Middleware Start
@@ -66,6 +68,8 @@ Route::group(['middleware' => ['verified', 'auth']], function() { // Verified Mi
     Route::get('/wishlist', [App\Http\Controllers\WishlistController::class, 'ShowWishlist'])->name('wishlist');
    
     Route::get('/cart', [App\Http\Controllers\CartController::class, 'ShowCart'])->name('cart');
+    
+    // Route::get('/checkout', [App\Http\Controllers\CheckoutController::class, 'CartCheckoutView'])->name('cart-checkout-view');
 
     Route::post('/checkout', [App\Http\Controllers\CheckoutController::class, 'CheckoutView'])->name('checkout-post');
     
@@ -184,6 +188,10 @@ Route::group(['prefix' => 'ajax/data-table'], function() {
     Route::get('admin-products-table', 'App\Http\Controllers\AjaxDataTable@AdminProductsTable')->name('ajax-datatable.AdminProductsTable');
     Route::get('admin-products-publish-table', 'App\Http\Controllers\AjaxDataTable@AdminProductsPublishTable')->name('ajax-datatable.AdminProductsPublishTable');
     Route::get('admin-products-publish-table', 'App\Http\Controllers\AjaxDataTable@AdminProductsPublishTable')->name('ajax-datatable.AdminProductsPublishTable');
+});
+
+Route::group(['prefix' => 'jquery/load/components'], function() {
+    Route::get('/checkout-address-container-div', [App\Http\Controllers\JqueryLoadController::class, 'CheckoutAddressContainerDiv'])->name('CheckoutAddressContainerDiv');
 });
 
 

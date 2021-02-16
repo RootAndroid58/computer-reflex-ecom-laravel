@@ -17,6 +17,7 @@
         "laravel/socialite": "^5.1",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
+        "softon/indipay": "^1.2",
         "spatie/laravel-permission": "^3.18",
         "yajra/laravel-datatables-oracle": "^9.15"
     },

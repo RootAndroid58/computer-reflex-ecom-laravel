@@ -417,7 +417,6 @@
 
 {{-- Payment Section Start --}} 
     <div class="col-md-9 d-none display-pages-section" id="PaymentSection">
-        <div id="addresses-container-div">
             <div class="account-details-container">
                 <div class="right-account-container ">
                     <div class="account-details-title">
@@ -460,7 +459,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+       
     </div>
 {{-- Payment Section End --}}
 

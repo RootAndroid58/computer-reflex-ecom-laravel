@@ -398,7 +398,6 @@
 
 {{-- Payment Section Start --}} 
     <div class="col-md-9 d-none display-pages-section" id="PaymentSection">
-        <div id="addresses-container-div">
             <div class="account-details-container">
                 <div class="right-account-container ">
                     <div class="account-details-title">
@@ -424,7 +423,6 @@
                     </div>
                 </div>
             </div>
-        </div>
     </div>
 {{-- Payment Section End --}}
 
@@ -553,6 +551,174 @@
                     })
         }
         
+    })
+</script>
+
+
+
+
+
+{{-- Address CRUD --}}
+<script>
+    function EditAddress(AddressID) {
+      
+        $.ajax({
+            url: "{{ route('edit-address-fetch') }}",
+            method: 'POST',
+            data: {
+                'AddressID'      : AddressID,
+            },
+            success: function (data) {
+                console.log(data)
+                $('#EditAddressForm').find("input[name='address_id']").val(data.address.id)
+                $('#EditAddressForm').find("input[name='name']").val(data.address.name)
+                $('#EditAddressForm').find("input[name='house']").val(data.address.house_no)
+                $('#EditAddressForm').find("input[name='locality']").val(data.address.locality)
+                $('#EditAddressForm').find("input[name='city']").val(data.address.city)
+                $('#EditAddressForm').find("input[name='district']").val(data.address.district)
+                $('#EditAddressForm').find("input[name='state']").val(data.address.state)
+                $('#EditAddressForm').find("input[name='pin_code']").val(data.address.pin_code)
+                $('#EditAddressForm').find("input[name='mobile']").val(data.address.mobile)
+                $('#EditAddressForm').find("input[name='altMobile']").val(data.address.alt_mobile)
+                $('#EditAddressModal').modal("toggle")
+            }
+        })
+    }
+
+    $('#EditAddressForm').submit(function (e) {
+        e.preventDefault()
+
+        $.ajax({
+            url: "{{ route('edit-address-submit') }}",
+            method: 'POST',
+            data: {
+                '_token'        : $(this).find("input[name='_token']").val(),
+                'address_id'    : $(this).find("input[name='address_id']").val(),
+                'name'          : $(this).find("input[name='name']").val(),
+                'house'         : $(this).find("input[name='house']").val(),
+                'locality'      : $(this).find("input[name='locality']").val(),
+                'city'          : $(this).find("input[name='city']").val(),
+                'district'      : $(this).find("input[name='district']").val(),
+                'state'         : $(this).find("input[name='state']").val(),
+                'pin_code'      : $(this).find("input[name='pin_code']").val(),
+                'mobile'        : $(this).find("input[name='mobile']").val(),
+                'altMobile'     : $(this).find("input[name='altMobile']").val(),
+            },
+            success: function (data) {
+                if (data.status == 200) {
+                    $('#EditAddressForm').find("input[name='address_id']").val('')
+                    $('#EditAddressForm').find("input[name='name']").val('')
+                    $('#EditAddressForm').find("input[name='house']").val('')
+                    $('#EditAddressForm').find("input[name='locality']").val('')
+                    $('#EditAddressForm').find("input[name='city']").val('')
+                    $('#EditAddressForm').find("input[name='district']").val('')
+                    $('#EditAddressForm').find("input[name='state']").val('')
+                    $('#EditAddressForm').find("input[name='pin_code']").val('')
+                    $('#EditAddressForm').find("input[name='mobile']").val('')
+                    $('#EditAddressForm').find("input[name='altMobile']").val('')
+
+                    $('#EditAddressModal').modal("toggle")
+
+                    $('#addresses-container-div').load("{{ route('CheckoutAddressContainerDiv') }} #addresses-container-div")
+                    $(".bootstrap-growl").remove();
+                    $.bootstrapGrowl("Address Updated.", {
+                        type: "success",
+                        offset: {from:"bottom", amount: 50},
+                        align: 'center',
+                        allow_dismis: true,
+                        stack_spacing: 10,
+                    })
+                }
+            }
+        })
+    })
+
+    function RemoveAddress(AddressID) {
+
+            $.ajax({
+            url: "{{ route('remove-address-submit') }}",
+            method: 'POST',
+            data: {
+                'AddressID'      : AddressID,
+            },
+            success: function (data) {
+                if (data == 200) {
+                    $(".bootstrap-growl").remove();
+                    $.bootstrapGrowl("Address Removed.", {
+                        type: "info",
+                        offset: {from:"bottom", amount: 50},
+                        align: 'center',
+                        allow_dismis: true,
+                        stack_spacing: 10,
+                    })
+                    $('#addresses-container-div').load("{{ route('CheckoutAddressContainerDiv') }} #addresses-container-div")
+                    
+                    if (AddressID == $('#CheckoutForm').find("input[name='address_id']").val()) {
+                        $('#CheckoutForm').find("input[name='address_id']").val('')
+                    }
+                }
+            }
+        })
+    }
+
+    $('#AddAddressForm').submit(function (e) { 
+        
+        e.preventDefault()
+
+        var _token    = $(this).find("input[name='_token']").val()
+        var name      = $(this).find("input[name='name']").val()
+        var house     = $(this).find("input[name='house']").val()
+        var locality  = $(this).find("input[name='locality']").val()
+        var city      = $(this).find("input[name='city']").val()
+        var district  = $(this).find("input[name='district']").val()
+        var state     = $(this).find("input[name='state']").val()
+        var pin_code  = $(this).find("input[name='pin_code']").val()
+        var mobile    = $(this).find("input[name='mobile']").val()
+        var altMobile = $(this).find("input[name='altMobile']").val()
+
+            $.ajax({
+            url: "{{route('add-address-submit')}}",
+            method: 'POST',
+            data: {
+                '_token'    : _token,
+                'name'      : name,
+                'house'     : house,
+                'locality'  : locality,
+                'city'      : city,
+                'district'  : district,
+                'state'     : state,
+                'pin_code'  : pin_code,
+                'mobile'    : mobile,
+                'altMobile' : altMobile,
+            },
+            success: function (data) {
+                if (data.status == 200) {
+                    $('#AddAddressForm').find("input[name='name']").val('')
+                    $('#AddAddressForm').find("input[name='house']").val('')
+                    $('#AddAddressForm').find("input[name='locality']" ).val('')
+                    $('#AddAddressForm').find("input[name='city']").val('')
+                    $('#AddAddressForm').find("input[name='district']").val('')
+                    $('#AddAddressForm').find("input[name='state']").val('')
+                    $('#AddAddressForm').find("input[name='pin_code']").val('')
+                    $('#AddAddressForm').find("input[name='mobile']" ).val('')
+                    $('#AddAddressForm').find("input[name='altMobile']").val('')
+
+                    $(".bootstrap-growl").remove();
+
+                    $.bootstrapGrowl("Address Added.", {
+                        type: "success",
+                        offset: {from:"bottom", amount: 50},
+                        align: 'center',
+                        allow_dismis: true,
+                        stack_spacing: 10,
+                    })
+
+                    $('#AddAddressModal').modal('toggle');
+
+                    $('#addresses-container-div').load("{{ route('CheckoutAddressContainerDiv') }} #addresses-container-div")
+                }
+            }
+        })
     })
 </script>
 @endsection
