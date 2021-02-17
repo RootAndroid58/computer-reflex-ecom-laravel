@@ -57,6 +57,8 @@ Route::group(['middleware' => ['verified', 'auth']], function() { // Verified Mi
 
     Route::get('/account', [App\Http\Controllers\AccountController::class, 'ShowAccount'])->name('my-account');
     
+    Route::get('/contact', [App\Http\Controllers\IndexController::class, 'ShowContact'])->name('contact');
+    
     Route::get('/addresses', [App\Http\Controllers\ManageAddressesController::class, 'ShowAddresses'])->name('addresses');
     
     Route::get('/orders', [App\Http\Controllers\OrdersController::class, 'ViewOrders'])->name('orders');
@@ -127,9 +129,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'permission:Admin'], function
     Route::get('/manage-ui','App\Http\Controllers\Admin\AdminController@ManageUI')->name('admin-manage-ui')->middleware('permission:Master Admin');
 
     Route::get('/manage-banners','App\Http\Controllers\Admin\AdminController@ManageBanners')->name('admin-manage-banners')->middleware('permission:Master Admin');
+    
+    Route::get('/manage-orders','App\Http\Controllers\Admin\ManageOrdersController@ViewManageOrders')->name('admin-manage-orders')->middleware('permission:Master Admin');
+
+    Route::get('/ship-orders','App\Http\Controllers\Admin\ManageOrdersController@ShipOrdersPage')->name('admin-ship-orders')->middleware('permission:Master Admin');
+    
+    Route::get('/manage-order/{order_id}/ship','App\Http\Controllers\Admin\ManageOrdersController@ShipOrder')->name('admin-ship-order')->middleware('permission:Master Admin');
+
+    Route::post('/manage-order/start-packing/submit','App\Http\Controllers\Admin\ManageOrdersController@StartPacking')->name('admin-start-packing-order')->middleware('permission:Master Admin');
 
     Route::get('/new-banner','App\Http\Controllers\Admin\AdminController@NewBanner')->name('admin-new-banner')->middleware('permission:Master Admin');
-
+    
     Route::post('/new-banner/submit','App\Http\Controllers\Admin\AdminController@NewBannerSubmit')->name('admin-new-banner-submit')->middleware('permission:Master Admin');
 
     Route::get('/publish-banner','App\Http\Controllers\Admin\AdminController@PublishBanners')->name('admin-publish-banners')->middleware('permission:Master Admin');
@@ -191,7 +201,8 @@ Route::group(['prefix' => 'ajax/data-table'], function() {
 
     Route::get('admin-products-table', 'App\Http\Controllers\AjaxDataTable@AdminProductsTable')->name('ajax-datatable.AdminProductsTable');
     Route::get('admin-products-publish-table', 'App\Http\Controllers\AjaxDataTable@AdminProductsPublishTable')->name('ajax-datatable.AdminProductsPublishTable');
-    Route::get('admin-products-publish-table', 'App\Http\Controllers\AjaxDataTable@AdminProductsPublishTable')->name('ajax-datatable.AdminProductsPublishTable');
+    Route::get('admin-orders-table', 'App\Http\Controllers\AjaxDataTable@AdminOrdersTable')->name('ajax-datatable.AdminOrdersTable');
+    Route::get('admin-ship-orders-table', 'App\Http\Controllers\AjaxDataTable@AdminShipOrdersTable')->name('ajax-datatable.AdminShipOrdersTable');
 });
 
 Route::group(['prefix' => 'jquery/load/components'], function() {

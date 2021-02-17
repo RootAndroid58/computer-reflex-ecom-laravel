@@ -91,7 +91,7 @@ $UserName=str_word_count(Auth()->user()->name, 1);
                                                 <span style="">
                                                     <i class="fa fa-circle" aria-hidden="true"></i>
                                                 </span>
-                                                Waiting to be shipped.
+                                                Order Placed.
                                             </span>
                                         @elseif($order->status == 'payment_failed') 
                                             <span style="color: #ff6161">
@@ -101,11 +101,11 @@ $UserName=str_word_count(Auth()->user()->name, 1);
                                                 Payment Declined.
                                             </span>
                                         @elseif($order->status == 'order_packing') 
-                                            <span style="color: #ff6161">
+                                            <span style="color: #2874f0">
                                                 <span style="">
                                                     <i class="fa fa-circle" aria-hidden="true"></i>
                                                 </span>
-                                                Packing.
+                                                Packing Started.
                                             </span>
                                         @endif
                                         

@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{ asset('css/jquery.tagit.css')}}">
     <link rel="stylesheet" href="{{ asset('css/tagit.ui-zendesk.css')}}">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     
 
     <script src="{{ asset('SB-Admin/js/jquery.min.js')}}"></script>
@@ -56,6 +57,8 @@
 
                 <li class="nav-item"><a class="nav-link @yield('nav-admin-user-management')" href="{{ route('admin-user-management')}}"><i class="fas fa-users"></i><span>Admin User Management</span></a></li>
                 
+                <li class="nav-item"><a class="nav-link @yield('nav-manage-orders')" href="{{ route('admin-manage-orders')}}"><i class="fas fa-archive"></i><span>Manage Orders</span></a></li>
+
                 <li class="nav-item"><a class="nav-link @yield('nav-manage-products')" href="{{ route('admin-manage-products')}}"><i class="fas fa-tags"></i><span>Manage Products</span></a></li>
                 
                 <li class="nav-item"><a class="nav-link @yield('nav-manage-ui')" href="{{ route('admin-manage-ui')}}"><i class="fas fa-window-maximize"></i><span>Manage UI</span></a></li>
@@ -87,11 +90,11 @@
                         
                         <div class="d-none d-sm-block topbar-divider"></div>
                         <li class="nav-item dropdown no-arrow">
-                        <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">{{ Auth::user()->name }}</span><img class="border rounded-circle img-profile" src="{{ asset('/storage/images/dp/'.Auth::user()->dp) }}"></a>
-                                <div
-                                    class="dropdown-menu shadow dropdown-menu-right animated--grow-in"><a class="dropdown-item" href="{{ route('admin-profile')}}"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a>
-                                
-                            <div class="dropdown-divider"></div><a class="dropdown-item" href="{{ route('logout') }}"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Logout</a></div>
+                            <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">{{ Auth::user()->name }}</span><img class="border rounded-circle img-profile" src="{{ asset('/storage/images/dp/'.Auth::user()->dp) }}"></a>
+                                    <div
+                                        class="dropdown-menu shadow dropdown-menu-right animated--grow-in"><a class="dropdown-item" href="{{ route('admin-profile')}}"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a>
+                                    
+                                <div class="dropdown-divider"></div><a class="dropdown-item" href="{{ route('logout') }}"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Logout</a></div>
                             </div>
                         </li>
                 </ul>

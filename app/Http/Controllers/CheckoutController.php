@@ -8,7 +8,9 @@ use App\Models\Product;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Address;
+use App\Mail\OrderPlacedMail;
 use Softon\Indipay\Facades\Indipay;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
@@ -149,6 +151,8 @@ class CheckoutController extends Controller
         // Process the order as Placed
         if ($order->status == 'order_placed') 
         {
+            mail::to(Auth()->user()->email)->send(new OrderPlacedMail($data));  
+
             return view('checkout.success', [
                 'data' => $data,
             ]);
@@ -202,8 +206,30 @@ class CheckoutController extends Controller
     }
     
     public function PayuResponse(Request $req)
-    {
-        dd($req);
+    { dd($req);
+        if ($req->status == 'TXN_SUCCESS') {
+            Order::where('id', $req->txnid)->update([
+                'status' => 'order_placed'
+            ]);
+    
+            return redirect()->route('checkout-order-confirmation', $req->txnid);
+        }
+
+        else if ($req->status == 'TXN_FAILURE') {
+            Order::where('id', $req->txnid)->update([
+                'status' => 'payment_failed'
+            ]);
+
+            return redirect()->route('checkout-order-confirmation', $req->txnid);
+        }
+
+        else {
+            Order::where('id', $req->txnid)->update([
+                'status' => 'payment_pending'
+            ]);
+
+            return redirect()->route('checkout-order-confirmation', $req->txnid);
+        }
     }
 
 

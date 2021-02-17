@@ -4,9 +4,202 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Order;
 
 class AjaxDataTable extends Controller
 {
+    public function AdminShipOrdersTable(Request $req)
+    {
+        if (Request()->ajax()) {
+
+            return datatables()->of(Order::with(['OrderItems', 'User'])->where('status', 'order_placed')->orwhere('status', 'order_packing')->latest()->get())
+            
+            ->addColumn('order_id', function($data){
+
+                $order_id = $data->id;
+
+                return $order_id;
+            })
+            ->addColumn('order_date', function($data){
+
+                $order_date = $data->created_at;
+
+                return $order_date;
+            })
+            ->addColumn('customer_name', function($data){
+
+                $customer_name = $data->User->name;
+
+                return $customer_name;
+            })
+            ->addColumn('registered_mobile', function($data){
+
+                $registered_mobile = $data->User->mobile;
+
+                return $registered_mobile;
+            })
+            ->addColumn('registered_email', function($data){
+
+                $registered_email = '<a href="mailto:'.$data->User->email.'" target="_blank">'.$data->User->email.'</a>';
+
+                return $registered_email;
+            })
+            ->addColumn('price', function($data){
+
+                $price = '<span><font class="rupees">₹</font>'.moneyFormatIndia($data->price).'</span>' ;
+                
+                return $price;
+            })
+            ->addColumn('status', function($data){
+
+                if ($data->status == 'order_placed') {
+                    $status = '<span style="color: #2874f0"><span style=""><i class="fa fa-circle" aria-hidden="true"></i></span> Order Placed.</span>';
+                } 
+                elseif ($data->status == 'payment_failed') {
+                    $status = '<span style="color: #ff6161"><span style=""><i class="fa fa-circle" aria-hidden="true"></i></span> Payment Declined.</span>';
+                } 
+                elseif ($data->status == 'checkout_pending') {
+                    $status = '<span style="color: #f6c23e"><span style=""><i class="fa fa-circle" aria-hidden="true"></i></span> Checkout Pending.</span>';
+                }
+                elseif ($data->status == 'order_packing') {
+                    $status = '<span style="color: #2874f0"><span style=""><i class="fa fa-circle" aria-hidden="true"></i></span> Packing Started.</span>';
+                }
+                    
+                return $status;
+            })
+            ->addColumn('payment_method', function($data){
+
+                if ($data->payment_method == 'payu') {
+                    $payment_method = 'PayU';
+                } 
+                elseif ($data->payment_method == 'paytm') {
+                    $payment_method = 'PayTM';
+                } 
+                elseif ($data->payment_method == 'cod') {
+                    $payment_method = 'Cash On Delivery';
+                }
+                    
+                return $payment_method;
+            })
+            ->addColumn('action', function($data){
+
+                $action = '<a href="'.route('admin-ship-order', $data->id).'" class="btn btn-primary">Ship</a>';
+                    
+                return $action;
+            })
+
+            ->rawColumns(['order_id', 'status', 'price', 'payment_method', 'registered_email', 'action'])->make(true);
+
+        } else 
+        { 
+            return redirect()->route('home'); 
+        }
+    }
+
+
+    public function AdminOrdersTable(Request $req)
+    {
+        if (Request()->ajax()) {
+
+            return datatables()->of(Order::with(['OrderItems', 'User'])->latest()->get())
+            
+            ->addColumn('order_id', function($data){
+
+                $order_id = $data->id;
+
+                return $order_id;
+            })
+            ->addColumn('order_date', function($data){
+
+                $order_date = $data->created_at;
+
+                return $order_date;
+            })
+            ->addColumn('customer_name', function($data){
+
+                $customer_name = $data->User->name;
+
+                return $customer_name;
+            })
+            ->addColumn('registered_mobile', function($data){
+
+                $registered_mobile = $data->User->mobile;
+
+                return $registered_mobile;
+            })
+            ->addColumn('registered_email', function($data){
+
+                $registered_email = '<a href="mailto:'.$data->User->email.'" target="_blank">'.$data->User->email.'</a>';
+
+                return $registered_email;
+            })
+            ->addColumn('price', function($data){
+
+                $price = '<span><font class="rupees">₹</font>'.moneyFormatIndia($data->price).'</span>' ;
+                
+                return $price;
+            })
+            ->addColumn('status', function($data){
+
+                if ($data->status == 'order_placed') {
+                    $status = '<span style="color: #2874f0"><span style=""><i class="fa fa-circle" aria-hidden="true"></i></span> Order Placed.</span>';
+                } 
+                elseif ($data->status == 'payment_failed') {
+                    $status = '<span style="color: #ff6161"><span style=""><i class="fa fa-circle" aria-hidden="true"></i></span> Payment Declined.</span>';
+                } 
+                elseif ($data->status == 'checkout_pending') {
+                    $status = '<span style="color: #f6c23e"><span style=""><i class="fa fa-circle" aria-hidden="true"></i></span> Checkout Pending.</span>';
+                } 
+                elseif ($data->status == 'order_packing') {
+                    $status = '<span style="color: #2874f0"><span style=""><i class="fa fa-circle" aria-hidden="true"></i></span> Packing Started.</span>';
+                }
+                    
+                return $status;
+            })
+            ->addColumn('payment_method', function($data){
+
+                if ($data->payment_method == 'payu') {
+                    $payment_method = 'PayU';
+                } 
+                elseif ($data->payment_method == 'paytm') {
+                    $payment_method = 'PayTM';
+                } 
+                elseif ($data->payment_method == 'cod') {
+                    $payment_method = 'Cash On Delivery';
+                }
+                    
+                return $payment_method;
+            })
+
+            ->rawColumns(['order_id', 'status', 'price', 'payment_method', 'registered_email'])->make(true);
+
+        } else 
+        { 
+            return redirect()->route('home'); 
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     function AdminProductsTable(Request $req)
     {
         if (Request()->ajax()) {
@@ -113,5 +306,9 @@ class AjaxDataTable extends Controller
 
         } else { return redirect()->route('home'); }
     }
+
+
+
+
 
 }
