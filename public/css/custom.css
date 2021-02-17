@@ -555,3 +555,14 @@ Buy now button Custom
 .payment-option-active{
     background-color: rgba(180, 227, 255, 0.301);
 }
+.order-confirmation-notes a{
+    color: blue;
+}
+
+.bg-grey {
+    background-color: #f0f0f0;
+}
+
+.orders-header {
+    background-color: #f1f1f1;
+}

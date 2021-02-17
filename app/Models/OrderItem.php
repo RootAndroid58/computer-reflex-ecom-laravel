@@ -15,6 +15,6 @@ class OrderItem extends Model
     }
     public function image()
     {
-        return $this->hasOne(ProductImage::class, 'id', 'product_id')->orderBy('id', 'asc');
+        return $this->hasOne(ProductImage::class, 'product_id', 'product_id')->orderBy('id', 'desc');
     }
 }

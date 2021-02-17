@@ -47,6 +47,8 @@ use Illuminate\Support\Facades\Route;
     Route::post('/checkout/payment/response/payu', [App\Http\Controllers\CheckoutController::class, 'PayuResponse'])->name('checkout-payu-response');
 
     Route::post('/checkout/payment/response/paytm', [App\Http\Controllers\CheckoutController::class, 'PaytmResponse'])->name('checkout-paytm-response');
+    
+    Route::get('/checkout/order/{order_id}/confirmation', [App\Http\Controllers\CheckoutController::class, 'AfterPayment'])->name('checkout-order-confirmation');
 
 
 Route::group(['middleware' => ['verified', 'auth']], function() { // Verified Middleware Start
@@ -56,6 +58,10 @@ Route::group(['middleware' => ['verified', 'auth']], function() { // Verified Mi
     Route::get('/account', [App\Http\Controllers\AccountController::class, 'ShowAccount'])->name('my-account');
     
     Route::get('/addresses', [App\Http\Controllers\ManageAddressesController::class, 'ShowAddresses'])->name('addresses');
+    
+    Route::get('/orders', [App\Http\Controllers\OrdersController::class, 'ViewOrders'])->name('orders');
+    
+    Route::get('/order/{order_id}', [App\Http\Controllers\OrdersController::class, 'OrderPage'])->name('order-page');
 
     Route::post('/address/add', [App\Http\Controllers\ManageAddressesController::class, 'AddAddress'])->name('add-address-submit');
 
@@ -69,8 +75,6 @@ Route::group(['middleware' => ['verified', 'auth']], function() { // Verified Mi
    
     Route::get('/cart', [App\Http\Controllers\CartController::class, 'ShowCart'])->name('cart');
     
-    // Route::get('/checkout', [App\Http\Controllers\CheckoutController::class, 'CartCheckoutView'])->name('cart-checkout-view');
-
     Route::post('/checkout', [App\Http\Controllers\CheckoutController::class, 'CheckoutView'])->name('checkout-post');
     
     Route::post('/checkout/submit', [App\Http\Controllers\CheckoutController::class, 'CheckoutSubmit'])->name('checkout-submit');

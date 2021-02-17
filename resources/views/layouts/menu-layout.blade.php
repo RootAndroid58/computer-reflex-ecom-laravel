@@ -19,15 +19,17 @@
             </div>
         
                 <div class="account-details-container row">
+                    
                     <div class="account-menu-items-container">
+                        <a style="width: 100%;" href="{{ route('orders') }}" >
                         <div class="account-head-menu">
                             <img src="{{ asset('img/svg/orders.svg') }}" alt="" srcset="">
-                            <a style="width: 100%;" href="#" >
-                            MY ORDERS
-                                <img src="{{ asset('img/svg/next.svg') }}" alt="" class="account-menu-arrow " >
-                            </a>
+                            <span style="width: calc(100% - 26px);padding-left: 20px;font-size: 16px;font-weight: 500;margin-top: 10px;">MY ORDERS</span> 
+                            <img src="{{ asset('img/svg/next.svg') }}" alt="" class="account-menu-arrow " >
                         </div>
+                    </a>
                     </div>
+                
 
                     <div class="account-menu-break"></div> {{-- Underline --}}
 

@@ -3,6 +3,7 @@
 @php
     $ProductMRPTotal = 0;
     $ProductPriceTotal = 0;
+    $UserName=str_word_count(Auth()->user()->name, 1); 
 @endphp
 
 @section('title', 'My Cart')
@@ -26,7 +27,7 @@
     
             <div class="wishlist-basic-padding">
                 <div class="account-details-title" style="padding-bottom: 0px;">
-                    <span>Master's Shopping Cart ({{$cartCount}} @if ($cartCount > 1)Items @else Item @endif)</span>
+                    <span>{{$UserName[0]}}'s Shopping Cart ({{$cartCount}} @if ($cartCount > 1)Items @else Item @endif)</span>
                 </div>
             </div>
     

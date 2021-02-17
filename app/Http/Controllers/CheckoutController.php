@@ -66,7 +66,7 @@ class CheckoutController extends Controller
         $order->mrp             = $mrp;
         $order->price           = $price;
         $order->payment_method  = $req->payment_method;
-        $order->status          = 'payment_pending';
+        $order->status          = 'checkout_pending';
         $order->save();
 
         // Add items for order
@@ -122,27 +122,53 @@ class CheckoutController extends Controller
                 'status' => 'order_placed',
             ]);
 
-            $items = OrderItem::where('order_id', $order->id)->with('product')->with('image')->get();
-
-            $data = [
-                'order_id'      => $order->id,
-                'order_price'   => $order->price,
-                'order_mrp'     => $order->mrp,
-                'order_date'    => $order->created_at,
-                'items'         => $items,
-                'address'       => $address,
-            ];
-            // dd($data);
-
-            $this->AfterPayment($data);
+            return redirect()->route('checkout-order-confirmation', $order->id);
+            // return $this->AfterPayment($order->id);
         }
 
     }
 
     // Process after payment
-    public function AfterPayment($data)
+    public function AfterPayment($order_id)
     {
-        dd($data);
+        $order = Order::where('id', $order_id)->where('user_id', Auth()->user()->id)->first();
+
+        // Redirect back if order is invalid or not right user.
+        if (!isset($order)) {
+            return redirect()->back();
+        }
+
+        $address = Address::where('id', $order->address_id)->first();
+        $items = OrderItem::where('order_id', $order->id)->with('product')->with('image')->get();
+        $data = [
+            'order'         => $order,
+            'items'         => $items,
+            'address'       => $address,
+        ];
+
+        // Process the order as Placed
+        if ($order->status == 'order_placed') 
+        {
+            return view('checkout.success', [
+                'data' => $data,
+            ]);
+        }
+        // Process the order as Payment Failed
+        else if ($order->status == 'payment_failed') 
+        {
+            return view('checkout.failed', [
+                'data' => $data,
+            ]);
+        } 
+        // Process the order as Payment Pending
+        else 
+        {
+            return view('checkout.pending', [
+                'data' => $data,
+            ]);
+        }
+        
+
         
     }
 
@@ -154,7 +180,23 @@ class CheckoutController extends Controller
                 'status' => 'order_placed'
             ]);
     
-            return 'Order Placed';
+            return redirect()->route('checkout-order-confirmation', $req->ORDERID);
+        }
+
+        else if ($req->STATUS == 'TXN_FAILURE') {
+            Order::where('id', $req->ORDERID)->update([
+                'status' => 'payment_failed'
+            ]);
+
+            return redirect()->route('checkout-order-confirmation', $req->ORDERID);
+        }
+
+        else {
+            Order::where('id', $req->ORDERID)->update([
+                'status' => 'payment_pending'
+            ]);
+
+            return redirect()->route('checkout-order-confirmation', $req->ORDERID);
         }
 
     }
