@@ -33,7 +33,6 @@ class CheckoutController extends Controller
 
     public function CheckoutSubmit(Request $req)
     {   
-
         $address = Address::where('user_id', Auth()->user()->id)->where('id', $req->address_id)->first();
            
         if (!isset($address)) {  // Check if address is invalid then abort 
@@ -69,6 +68,7 @@ class CheckoutController extends Controller
         $order->price           = $price;
         $order->payment_method  = $req->payment_method;
         $order->status          = 'checkout_pending';
+        $order->delivery_date   = date_create(date('y-m-d h:m:s', strtotime ('+10 day')));
         $order->save();
 
         // Add items for order

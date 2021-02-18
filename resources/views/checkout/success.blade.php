@@ -29,7 +29,7 @@
                             <div class="account-menu-break"></div>     
                                 <div class="wishlist-basic-padding" id="CartItem2" style="padding-bottom: 0;">
                                     <div class="order-confirmation-notes">
-                                        <span>Order will get delivered by <span style="font-weight: 500;">{{date_format($data['order']->created_at->modify( '+10 days' ), "dS M, Y (D)")}}</span></span><br>
+                                        <span>Order will get delivered by <span style="font-weight: 500;">{{date_format(new DateTime($data['order']->delivery_date), "dS M, Y (D)")}}</span></span><br>
                                         <span>You'll receive email once your order gets shipped.</span><br>
                                         <span>If you need any help, feel free to <a href="#">Contact us</a>.</span>
                                     </div>

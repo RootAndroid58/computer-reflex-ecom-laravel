@@ -107,6 +107,13 @@ $UserName=str_word_count(Auth()->user()->name, 1);
                                                 </span>
                                                 Packing Started.
                                             </span>
+                                        @elseif($order->status == 'packing_completed') 
+                                            <span style="color: #2874f0">
+                                                <span style="">
+                                                    <i class="fa fa-circle" aria-hidden="true"></i>
+                                                </span>
+                                                Packing Completed. 
+                                            </span>
                                         @endif
                                         
                                     </div>

@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration
             $table->string('mrp');
             $table->string('payment_method');
             $table->string('status');
+            $table->timestamp('delivery_date')->nullable();
             $table->timestamps();
         });
     }

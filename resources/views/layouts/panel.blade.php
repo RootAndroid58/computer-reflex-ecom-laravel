@@ -34,12 +34,13 @@
 
     {{-- MDB --}}
 
-
     @yield('css-js')
 
 
 
 <body id="page-top">
+    
+    @yield('modals')
 
     <div id="wrapper">
     <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0" style="transition: 300ms;">

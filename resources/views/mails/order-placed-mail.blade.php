@@ -164,7 +164,7 @@ a[x-apple-data-detectors] {
                          </tr> 
                          <tr style="border-collapse:collapse"> 
                           <td style="padding:0;Margin:0;font-size:14px;line-height:21px">Est. Delivery:</td> 
-                          <td style="padding:0;Margin:0;font-size:14px;line-height:21px">{{date_format($data['order']->created_at->modify( '+10 days' ), "dS M, Y (D)")}}</td> 
+                          <td style="padding:0;Margin:0;font-size:14px;line-height:21px">{{date_format(new DateTime($data['order']->delivery_date), "dS M, Y (D)")}}</td> 
                          </tr> 
                          <tr style="border-collapse:collapse"> 
                           <td style="padding:0;Margin:0;font-size:14px;line-height:21px">Order Total:</td> 
