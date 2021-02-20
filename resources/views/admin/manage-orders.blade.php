@@ -23,10 +23,6 @@
         <div class="col-md-4">
             <a href="{{route('admin-ship-orders')}}" class="btn btn-block btn-lg btn-primary">Ship Orders</a>
         </div>
-        <div class="col-md-4">
-            <a href="{{route('admin-product-publish')}}" class="btn btn-block btn-lg btn-primary">Publish Products</a>
-        </div>
-
     </div>
 
 <br><br>

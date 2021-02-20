@@ -59,17 +59,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
     <div class="row">
         <div class="col-md-4">
             <a href="{{route('admin-new-product-listing')}}" class="btn btn-block btn-lg btn-primary">New Product Listing</a>

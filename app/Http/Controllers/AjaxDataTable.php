@@ -12,7 +12,7 @@ class AjaxDataTable extends Controller
     {
         if (Request()->ajax()) {
 
-            return datatables()->of(Order::with(['OrderItems', 'User'])->where('status', 'order_placed')->orwhere('status', 'order_packing')->orwhere('status', 'packing_completed')->latest()->get())
+            return datatables()->of(Order::with(['OrderItems', 'User'])->where('status', 'order_placed')->orwhere('status', 'order_packing')->orwhere('status', 'packing_completed')->orwhere('status', 'shipment_created')->latest()->get())
             
             ->addColumn('order_id', function($data){
 
@@ -66,6 +66,9 @@ class AjaxDataTable extends Controller
                 }
                 elseif ($data->status == 'packing_completed') {
                     $status = '<span style="color: #2874f0"><span style=""><i class="fa fa-circle" aria-hidden="true"></i></span> Packing Completed.</span>';
+                }
+                elseif ($data->status == 'shipment_created') {
+                    $status = '<span style="color: #2874f0"><span style=""><i class="fa fa-circle" aria-hidden="true"></i></span> Shipment Created.</span>';
                 }
                     
                 return $status;
@@ -158,6 +161,12 @@ class AjaxDataTable extends Controller
                 }
                 elseif ($data->status == 'packing_completed') {
                     $status = '<span style="color: #2874f0"><span style=""><i class="fa fa-circle" aria-hidden="true"></i></span> Packing Completed.</span>';
+                }
+                elseif ($data->status == 'shipment_created') {
+                    $status = '<span style="color: #2874f0"><span style=""><i class="fa fa-circle" aria-hidden="true"></i></span> Shipment Created.</span>';
+                }
+                elseif ($data->status == 'order_shipped') {
+                    $status = '<span style="color: #2874f0"><span style=""><i class="fa fa-circle" aria-hidden="true"></i></span> Order Shipped.</span>';
                 }
                     
                 return $status;

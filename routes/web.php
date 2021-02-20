@@ -139,6 +139,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'permission:Admin'], function
     Route::post('/manage-order/start-packing/submit','App\Http\Controllers\Admin\ManageOrdersController@StartPacking')->name('admin-start-packing-order')->middleware('permission:Master Admin');
     
     Route::post('/manage-order/packing-completed/submit','App\Http\Controllers\Admin\ManageOrdersController@CompletePacking')->name('admin-complete-packing-order')->middleware('permission:Master Admin');
+    
+    Route::post('/manage-order/create-shipment/submit','App\Http\Controllers\Admin\ManageOrdersController@CreateShipping')->name('admin-create-shipping-order')->middleware('permission:Master Admin');
+    
+    Route::post('/manage-order/order-pickup-done/submit','App\Http\Controllers\Admin\ManageOrdersController@PickupDone')->name('admin-order-pickup-done')->middleware('permission:Master Admin');
 
     Route::get('/new-banner','App\Http\Controllers\Admin\AdminController@NewBanner')->name('admin-new-banner')->middleware('permission:Master Admin');
     

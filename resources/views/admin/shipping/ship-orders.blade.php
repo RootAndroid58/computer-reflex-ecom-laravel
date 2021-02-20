@@ -13,6 +13,12 @@
 
     <h3>Ship Orders</h3>
 
+    @if(Session::has('OrderShipped'))
+    <div class="alert alert-success" role="alert">
+        Order<strong>#{{ session('OrderShipped') }}</strong> shipped successfully.
+    </div> 
+    @endif
+
 <!--Products Table Start-->
 <table id="AdminShipOrdersTable" class="table table-striped table-bordered table-fluid">
     <thead class="bg-primary text-white">
@@ -37,7 +43,7 @@
         <th style="width: 10%">Payment</th>
         <th style="width: 15%">Total Price</th>
         <th style="width: 20%">Status</th>
-        <th style="width: 20%">Status</th>
+        <th style="width: 20%">Action</th>
     </tr>
     </tfoot>
 </table>

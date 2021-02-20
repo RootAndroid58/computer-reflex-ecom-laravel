@@ -8,6 +8,38 @@
     
 @endsection
 
+
+@section('modals')
+    
+    <!-- Modal -->
+    <div class="modal fade" id="ConfirmStartPackingModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Start Packing Confirmation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <form action="{{ route('admin-start-packing-order') }}" method="POST">
+                <div class="modal-body">
+                        @csrf
+                        <input type="hidden" name="order_id" value="{{ $order->id }}">
+                        Are you sure, that you currently want to start the packaging of Order #{{ date_format($order->created_at,"Y-mdHis").'-'.$order->id }} 
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Yes, START PACKING</button>
+                </div>
+                </form> 
+            </div>
+        </div>
+    </div>
+@endsection
+
+
+
 @section('content')
 <div class="container-fluid">
 
@@ -48,17 +80,53 @@
                                     <span>Order ID: <span style="font-weight: 600; color: black;">{{ $order->id }}</span></span><br>
                                     <span>Order Date: <span style="font-weight: 600; color: black;">{{ $order->created_at }}</span></span><br>
                                     <span>Delivery By: <span style="font-weight: 600; color: black;">{{date_format(new DateTime($order->delivery_date), "dS M, Y (D)")}}</span></span><br>
+                                    <span>Status By: 
+                                        @if ($order->status == 'payment_pending') 
+                                        <span style="color: #f6c23e">
+                                            <span style="">
+                                                <i class="fa fa-circle" aria-hidden="true"></i>
+                                            </span>
+                                            Payment Pending.
+                                        </span>
+                                    @elseif($order->status == 'order_placed') 
+                                        <span style="color: #2874f0">
+                                            <span style="">
+                                                <i class="fa fa-circle" aria-hidden="true"></i>
+                                            </span>
+                                            Order Placed.
+                                        </span>
+                                    @elseif($order->status == 'payment_failed') 
+                                        <span style="color: #ff6161">
+                                            <span style="">
+                                                <i class="fa fa-circle" aria-hidden="true"></i>
+                                            </span>
+                                            Payment Declined.
+                                        </span>
+                                    @elseif($order->status == 'order_packing') 
+                                        <span style="color: #2874f0">
+                                            <span style="">
+                                                <i class="fa fa-circle" aria-hidden="true"></i>
+                                            </span>
+                                            Packing Started.
+                                        </span>
+                                    @elseif($order->status == 'packing_completed') 
+                                        <span style="color: #2874f0">
+                                            <span style="">
+                                                <i class="fa fa-circle" aria-hidden="true"></i>
+                                            </span>
+                                            Packing Completed. 
+                                        </span>
+                                    @endif
+                                    </span>
+                                    
+                                    <br>
                                 </div>
                             </div>
                             
                             
                             <div class="wishlist-basic-padding" >
                                 <div class="btn-container" >
-                                    <form action="{{ route('admin-start-packing-order') }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="order_id" value="{{ $order->id }}">
-                                        <button type="submit" class="btn btn-dark">START PACKING</button>
-                                    </form> 
+                                        <button data-toggle="modal" data-target="#ConfirmStartPackingModal" class="btn btn-dark">START PACKING</button>
                                 </div>
                             </div>
 

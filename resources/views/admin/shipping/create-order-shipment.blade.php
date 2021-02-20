@@ -89,14 +89,15 @@
                         <div class="account-menu-break"></div>     
                          
                             <div class="wishlist-basic-padding" style="padding-bottom: 0;">
-                                    <form action="" method="post">
-
+                                    <form action="{{ route('admin-create-shipping-order') }}" method="post"> @csrf
+                                        <input type="hidden" name="order_id" value="{{$order->id}}">
                                         <div class="row">
                                             <div class="form-group col-6">
                                             <label for="courier_name">Shipping Courier</label>
                                             <select class="form-control" name="courier_name" id="courier_name">
                                                 <option value="delhivery">Delhivery</option>
                                                 <option value="bluedart">Blue Dart</option>
+                                                <option value="dtdc">DTDC</option>
                                             </select>
                                             </div>
 
@@ -112,7 +113,12 @@
                                               <label for="">Delivery Date</label>
                                               <input type="date"
                                                 class="form-control" name="delivery_date" id="" aria-describedby="helpId" placeholder="">
+                                            </div>
+                                        </div>
 
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button type="submit" class="btn btn-success float-right">Create Shipment</button>
                                             </div>
                                         </div>
 

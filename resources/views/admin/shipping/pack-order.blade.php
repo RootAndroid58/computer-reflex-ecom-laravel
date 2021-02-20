@@ -71,6 +71,30 @@
                                     <span>Order ID: <span style="font-weight: 600; color: black;">{{ $order->id }}</span></span><br>
                                     <span>Order Date: <span style="font-weight: 600; color: black;">{{ $order->created_at }}</span></span><br>
                                     <span>Delivery By: <span style="font-weight: 600; color: black;">{{date_format(new DateTime($order->delivery_date), "dS M, Y (D)")}}</span></span><br>
+                                    <span>Status By: 
+                                    @if($order->status == 'order_placed') 
+                                        <span style="color: #2874f0">
+                                            <span style="">
+                                                <i class="fa fa-circle" aria-hidden="true"></i>
+                                            </span>
+                                            Order Placed.
+                                        </span>
+                                    @elseif($order->status == 'order_packing') 
+                                        <span style="color: #2874f0">
+                                            <span style="">
+                                                <i class="fa fa-circle" aria-hidden="true"></i>
+                                            </span>
+                                            Packing Started.
+                                        </span>
+                                    @elseif($order->status == 'packing_completed') 
+                                        <span style="color: #2874f0">
+                                            <span style="">
+                                                <i class="fa fa-circle" aria-hidden="true"></i>
+                                            </span>
+                                            Packing Completed. 
+                                        </span>
+                                    @endif
+                                    </span>
                                 </div>
                             </div>
                             
