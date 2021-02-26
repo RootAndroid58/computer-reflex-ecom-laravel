@@ -147,7 +147,7 @@ Product Images Area Start
 Buy now button Custom
 -------------------- */ 
 
-.buy-now-btn-container a{
+.buy-now-btn-container button{
     float: right;
     margin-right: 4%;
     text-align: center;
@@ -160,6 +160,7 @@ Buy now button Custom
     text-transform: uppercase;
     background-color: #363636;
     border-radius: 2px;
+    transition: 300ms;
 }
 
 .cart-checkout-btn-container button{
@@ -181,7 +182,7 @@ Buy now button Custom
     background-color: #000000;
     transition: 300ms;
 }
-.buy-now-btn-container a:hover{
+.buy-now-btn-container button:hover{
     color: white;
     text-transform: uppercase;
     background-color: #000000;
@@ -566,3 +567,58 @@ Buy now button Custom
 .orders-header {
     background-color: #f1f1f1;
 }
+
+._2b0bUo {
+    color: #a3a3a3;
+    font-size: 14px; 
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-justify-content: stretch;
+    -ms-flex-pack: stretch;
+    justify-content: stretch;
+}
+._2b0bUo ._1YAKP4 {
+    display: inline-block;
+    -webkit-flex-grow: 2;
+    -ms-flex-positive: 2;
+    flex-grow: 2;
+}
+._2YxCDZ {
+    width: 100%;
+    border: 1px solid #e0e0e0;
+    border-radius: 1px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: #fff ;
+    height: 24px;
+    font-size: 14px;
+    color: #212121;
+    line-height: 1;
+    padding: 0 5px;
+    outline: none;
+}
+._2b0bUo ._3zohzR {
+    display: inline-block;
+    margin: 0 9px;
+    font-size: 14px;
+    color: #878787;
+    line-height: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    text-align: center;
+}
+
+._2b0bUo ._3uDYxP {
+    display: inline-block;
+    margin-left: 1.5px;
+    -webkit-flex-grow: 2;
+    -ms-flex-positive: 2;
+    flex-grow: 2;
+}
+

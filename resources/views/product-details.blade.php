@@ -37,7 +37,11 @@
                 </div>
 
                 <div class="buy-now-btn-container">
-                    <a href="#">Buy Now</a>
+                    <form action="{{ route('checkout-post') }}" method="post"> @csrf 
+                        <input type="hidden" name="product_id[]" value="{{ $product->id }}">
+                        <input type="hidden" name="product_qty[]" value="1">
+                        <button href="#">Buy Now</button>
+                    </form>
                 </div>
 
             </div> {{-- Images section End --}}

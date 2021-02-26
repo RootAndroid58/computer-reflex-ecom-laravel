@@ -41,6 +41,8 @@ use Illuminate\Support\Facades\Route;
 
 // Public routes
     Route::get('/', [App\Http\Controllers\IndexController::class, 'Index'])->name('home');
+    
+    Route::get('/search', [App\Http\Controllers\IndexController::class, 'Search'])->name('search');
 
     Route::get('/product/{product_id}/{product_name?}', 'App\Http\Controllers\ShowProductsController@ProductIndex')->name('product-index');
     

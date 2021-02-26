@@ -29,8 +29,7 @@
 </head>
 
 <body>
-  
-    {{-- {{ dd(   date_format( date_create(date('y-m-d h:m:s', strtotime ('+10 day'))) , "dS M, Y (D)")  ) }} --}}
+
     <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -104,9 +103,9 @@
                 <div class="categories-search-wrapper">
                     
                     <div class="categories-wrapper">
-                        <form action="#">
-                            <input placeholder="Enter Your key word" type="text">
-                            <button type="button"> Search </button>
+                        <form action="{{ route('search') }}" method="GET">
+                            <input placeholder="Enter Your key word" type="text" name="search">
+                            <button type="submit"> Search </button>
                         </form>
                     </div>
                 </div>

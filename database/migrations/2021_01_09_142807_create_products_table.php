@@ -18,8 +18,8 @@ class CreateProductsTable extends Migration
             $table->string('product_name');
             $table->longText('product_description');
             $table->string('product_brand');
-            $table->string('product_mrp');
-            $table->string('product_price');
+            $table->bigInteger('product_mrp');
+            $table->bigInteger('product_price');
             $table->bigInteger('product_stock')->default(0);
             $table->boolean('product_status')->default(0);
             $table->boolean('product_published')->default(0);
