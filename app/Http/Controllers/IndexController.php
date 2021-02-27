@@ -16,14 +16,29 @@ class IndexController extends Controller
         return view('index', ['banners' => $banners]);
     }
 
+
+
+
+    
     public function Search(Request $req)
     {
+        if (isset($req->min_price)) { $min_price = $req->min_price; } else { $min_price = 0; }
+        if (isset($req->max_price)) { $max_price = $req->max_price; } else { $max_price = 9999999999999999999999999999999999; }
+        if (isset($req->stock)) { $stock = $req->stock; } else { $stock =  null;}
+
+        if ($req->stock == 'checked') {
+            $stock = 0;
+        } else {
+            $stock = 1;
+        }
+        // dd($req);
+        $cat = (strtoupper($req->category)) ?? '';
 
         // split on 1+ whitespace & ignore empty (eg. trailing space)
         $searchArr = preg_split('/\s+/', $req->get('search'), -1, PREG_SPLIT_NO_EMPTY); 
 
-        $products = Product::with(['images', 'tags'])
-            ->where('product_price', '>', $req->min_price)
+        $products = Product::with(['images', 'tags', 'category'])
+            
             ->where(function ($query) use ($searchArr) {
                 foreach ($searchArr as $search) {
                     $query->orWhere('id', 'LIKE' , '%'.$search.'%')
@@ -32,20 +47,38 @@ class IndexController extends Controller
                     ->orWhere('product_description', 'LIKE' , '%'.$search.'%');
                 }
             })
-            ->orWhereHas('tags', function ($query) use ($searchArr) {
+            ->whereHas('tags', function ($query) use ($searchArr) {
                 foreach ($searchArr as $search) {
-                    $query->where('product_tag', 'LIKE', '%'.$search.'%');
+                    $query->orWhere('product_tag', 'LIKE', '%'.$search.'%');
                 }
-            })
+            });
 
-            ->get();
-
-
+            if ($cat != 'ALL' && $cat != '') {
+                $products->whereHas('category', function ($query) use ($cat) { 
+                    $query->where('category', $cat);
+               });
+            }
+                
+            $products->whereBetween('product_price', [$min_price, $max_price])
+            
+            ->where('product_stock', '>=', $stock)
+            ;
+                
+            
+        $count = $products->count();    
+         
+        $products = $products->skip(0)->take(30)->get();
+        
+        $paginate = ceil($count/30);
+        
+        // dd($paginate, $count);
         $categories = Category::get();
 
         return view('searched-products', [
-            'products'      => $products,
-            'categories'    => $categories,
+            'products'          => $products,
+            'categories'        => $categories,
+            'paginate'          => $paginate,
         ]);
     }
+    
 }

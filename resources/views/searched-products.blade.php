@@ -102,20 +102,23 @@
 
 <div class="shop-page-wrapper shop-page-padding ptb-50">
     <div class="container-fluid">
-        <div class="row" >
+        <div id="RowDiv">
+        <div class="row">
 
             {{-- Sidebar Start --}}
             <div class="col-lg-2">
                 <div class="shop-sidebar mr-50">
                  <form method="GET" action="{{ route('search') }}" id="filter_form">
+                   
+                    <input type="hidden" name="search" value="{{ request()->search }}">
                     <div class="sidebar-widget mb-45">
                         <h3 class="sidebar-title">Filter By Category</h3>
                         <div class="sidebar-categories">
                            <div class="form-group">
-                             <select class="" name="category" id="" style="height: 30px; cursor: pointer;" onchange="FilterSubmit()">
-                               <option  value="all">All</option>
+                             <select class="" name="category" id="" style="height: 30px; cursor: pointer;" >
+                               <option value="all">All</option>
                                @foreach ($categories as $category)
-                               <option value="{{$category->category}}">{{$category->category}}</option>
+                               <option value="{{$category->category}}" @if($category->category == request()->category) selected @endif>{{$category->category}}</option>
                                @endforeach
                              </select>
                            </div>
@@ -128,14 +131,14 @@
                             <div class="price_slider_amount">
                                 <div class="_2b0bUo">
                                     <div class="_1YAKP4">
-                                        <input type="number" name="min_price" class="_2YxCDZ" step="1000" onkeyup="FilterSubmit()">
+                                        <input type="number" name="min_price" class="_2YxCDZ" value="{{ request()->min_price ?? '0' }}">
                                         <small id="helpId" class="form-text text-muted">Min Price</small>
                                     </div>
 
                                         <div class="_3zohzR">To</div>
-                                        
+                                    
                                         <div class="_3uDYxP">
-                                            <input type="number" name="max_price" class="_2YxCDZ" step="1000" onkeyup="FilterSubmit()">
+                                            <input type="number" name="max_price" class="_2YxCDZ" value="{{ request()->max_price ?? '' }}">
                                             <small id="helpId" class="form-text text-muted">Max Price</small>
                                         </div>
                                 </div>
@@ -146,7 +149,7 @@
                     <div class="sidebar-widget mb-40">
                         <h3 class="sidebar-title">Availability</h3>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="out_of_stock" value="checked" id="flexCheckDefault" onchange="FilterSubmit()">
+                                <input class="form-check-input" type="checkbox" name="stock" value="checked" id="flexCheckDefault" @if(request()->stock == 'checked') checked @endif>
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Show Out Of Stock Items
                                 </label>
@@ -199,7 +202,6 @@
                             <div id="grid-sidebar3" class="tab-pane fade active show">
                                 <div class="row">
 
-                                    
                                     {{-- Product Col Start --}}
                                     @foreach ($products as $product)
                                  
@@ -224,6 +226,8 @@
                                                     {{ moneyFormatIndia($product->product_price) }}
                                                     <b style="font-size: 17px; color: #388e3c; font-weight: 500;">{{((($product->product_mrp - $product->product_price) / $product->product_mrp)*100)%100}}% off</b>
                                                 </span>
+
+                                                <span></span>
                                             </div>
                                         </div>
                                     </div>
@@ -251,6 +255,7 @@
                 </div>
             </div>
         </div>
+        </div>
     </div>
 </div>
 
@@ -262,18 +267,6 @@
 
 @section('bottom-js')
 
-    <script>
-        
-    </script>
 
-    <script>
-        function FilterSubmit() {
-            var min_price       = $('#filter_form').find("input[name='min_price']").val()
-            var max_price       = $('#filter_form').find("input[name='max_price']").val()
-            var out_of_stock    = $('#filter_form').find("input[name='out_of_stock']").val()
 
-            
-
-        }
-    </script>
 @endsection
