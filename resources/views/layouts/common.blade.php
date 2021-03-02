@@ -219,8 +219,11 @@
 
                         {{-- Search Bar --}}
                         <div class="furniture-search">
-                            <form action="#">
-                                <input placeholder="I am Searching for . . ." type="text">
+                            <form method="GET" action="{{ route('search') }}">
+                                <input placeholder="I am Searching for . . ." type="text" value="{{ request()->search ?? '' }}" name="search">
+                                <input type="hidden" name="min_price" value="{{ request()->min_price ?? '0' }}">
+                                <input type="hidden" name="max_price" value="{{ request()->max_price ?? '' }}">
+                                <input type="hidden" name="stock" value="{{ request()->stock ?? '' }}">
                                 <button>
                                     <i class="ti-search"></i>
                                 </button>

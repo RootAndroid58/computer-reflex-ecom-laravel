@@ -24,8 +24,7 @@ class IndexController extends Controller
     {
         if (isset($req->min_price)) { $min_price = $req->min_price; } else { $min_price = 0; }
         if (isset($req->max_price)) { $max_price = $req->max_price; } else { $max_price = 9999999999999999999999999999999999; }
-        if (isset($req->stock)) { $stock = $req->stock; } else { $stock =  null;}
-
+    
         if ($req->stock == 'checked') {
             $stock = 0;
         } else {
@@ -37,6 +36,8 @@ class IndexController extends Controller
         // split on 1+ whitespace & ignore empty (eg. trailing space)
         $searchArr = preg_split('/\s+/', $req->get('search'), -1, PREG_SPLIT_NO_EMPTY); 
 
+        $categories = Category::get();
+
         $products = Product::with(['images', 'tags', 'category'])
             
             ->where(function ($query) use ($searchArr) {
@@ -46,12 +47,13 @@ class IndexController extends Controller
                     ->orWhere('product_brand', 'LIKE' , '%'.$search.'%')
                     ->orWhere('product_description', 'LIKE' , '%'.$search.'%');
                 }
-            })
-            ->whereHas('tags', function ($query) use ($searchArr) {
-                foreach ($searchArr as $search) {
-                    $query->orWhere('product_tag', 'LIKE', '%'.$search.'%');
-                }
+                $query->orWhereHas('tags', function ($query) use ($searchArr) {
+                    foreach ($searchArr as $search) {
+                        $query->orWhere('product_tag', 'LIKE', '%'.$search.'%');
+                    }
+                });
             });
+            
 
             if ($cat != 'ALL' && $cat != '') {
                 $products->whereHas('category', function ($query) use ($cat) { 
@@ -65,19 +67,16 @@ class IndexController extends Controller
             ;
                 
             
-        $count = $products->count();    
+        $ProductsCount = $products->count();    
          
-        $products = $products->skip(0)->take(30)->get();
+        $products = $products->paginate(12)->appends(request()->query());
         
-        $paginate = ceil($count/30);
-        
-        // dd($paginate, $count);
-        $categories = Category::get();
+
 
         return view('searched-products', [
             'products'          => $products,
             'categories'        => $categories,
-            'paginate'          => $paginate,
+            'ProductsCount'     => $ProductsCount,
         ]);
     }
     

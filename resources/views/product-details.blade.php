@@ -37,11 +37,14 @@
                 </div>
 
                 <div class="buy-now-btn-container">
-                    <form action="{{ route('checkout-post') }}" method="post"> @csrf 
-                        <input type="hidden" name="product_id[]" value="{{ $product->id }}">
-                        <input type="hidden" name="product_qty[]" value="1">
-                        <button href="#">Buy Now</button>
-                    </form>
+                    @if ($product->product_stock > 0) 
+                        <form action="{{ route('checkout-post') }}" method="post"> @csrf 
+                            <input type="hidden" name="product_id[]" value="{{ $product->id }}">
+                            <input type="hidden" name="product_qty[]" value="1">
+                            <button href="#">Buy Now</button>
+                        </form>
+                    @endif
+                    
                 </div>
 
             </div> {{-- Images section End --}}
@@ -74,6 +77,10 @@
                         <span><font class="rupees">&#8377;</font> {{ moneyFormatIndia($product->product_price) }} 
                             <b style="font-size: 17px; color: #388e3c; font-weight: 500;">{{ $discount }}% off</b>
                         </span>
+                        @if ($product->product_stock <= 0)
+                        <br>
+                        <span class="text-danger">Out Of Stock</span>
+                        @endif
                     </div>
 
                     <div class="est-delivery-date">
