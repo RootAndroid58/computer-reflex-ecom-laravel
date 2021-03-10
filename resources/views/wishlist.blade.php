@@ -11,6 +11,7 @@ $UserName=str_word_count(Auth()->user()->name, 1);
 @endsection
 
 @section('right-col-menu')
+<div id="DynamicDiv">
 <div class="account-details-container">
 
     <div class="right-wishlist-container ">
@@ -43,7 +44,7 @@ $UserName=str_word_count(Auth()->user()->name, 1);
                 </div>
             </div> 
             @else
-    
+            
             <div class="wishlist-container">
                 @foreach ($wishlist as $wishlist)
                     @foreach ($wishlist->Products as $Product) 
@@ -71,11 +72,10 @@ $UserName=str_word_count(Auth()->user()->name, 1);
                                         </b>  
                                     </span>
                                     <div>
-                                        <a id="AddToCartBtn" target="_blank" class="">
-                                            <span>
-                                                <i class="fa fa-cart-plus" aria-hidden="true"></i> Add To Cart 
+                                        
+                                            <span onclick="ToogleCart({{$Product->id}})" class="@if(isset($wishlist->Cart)) static-red @else hover-blue  @endif">
+                                                <i class="fa fa-cart-plus" aria-hidden="true"></i>@if(isset($wishlist->Cart)) Remove From Cart  @else Add To Cart   @endif
                                             </span>
-                                        </a>  
                                     </div>
 
                                 </div>
@@ -108,13 +108,56 @@ $UserName=str_word_count(Auth()->user()->name, 1);
     </div>
 
 
-
+</div>
 </div>
 @endsection
 
 @section('bottom-js')
 
 <script>
+
+
+function ToogleCart(product_id) {
+
+$.ajax({
+url: "{{route('toggle-cart-btn')}}",
+method: 'POST',
+data: {
+    'product_id' : product_id,
+},
+success: function (data) {
+
+    if (data == 200) {
+        $('#CartCount').load("{{ route('cart') }} #CartCount")
+        $(".bootstrap-growl").remove();
+        $.bootstrapGrowl("Added To Cart.", {
+            type: "success",
+            offset: {from:"bottom", amount: 50},
+            align: 'center',
+            allow_dismis: true,
+            stack_spacing: 10,
+        })
+        $('#DynamicDiv').load("{{route('wishlist')}} #DynamicDiv")
+
+    } else if (data == 500) {
+        $('#CartCount').load("{{ route('cart') }} #CartCount")
+        $(".bootstrap-growl").remove();
+        $.bootstrapGrowl("Removed From Cart.", {
+            type: "danger",
+            offset: {from:"bottom", amount: 50},
+            align: 'center',
+            allow_dismis: true,
+            stack_spacing: 10,
+        })
+        $('#DynamicDiv').load("{{route('wishlist')}} #DynamicDiv")
+
+    }
+}
+})
+
+}
+
+
 
     function ToggleWishlist(product_id) {
 
@@ -130,7 +173,15 @@ $UserName=str_word_count(Auth()->user()->name, 1);
             success: function (data) {
 
                 if (data == 500) {
-                    console.log('Product ID. ' + product_id + ' removed from wishlist')
+                    $(".bootstrap-growl").remove();
+                    $.bootstrapGrowl("Removed From Wishlist.", {
+                        type: "danger",
+                        offset: {from:"bottom", amount: 50},
+                        align: 'center',
+                        allow_dismis: true,
+                        stack_spacing: 10,
+                    })
+                    $('#DynamicDiv').load("{{route('wishlist')}} #DynamicDiv")
                 } else if(data == 200) {
                     console.log('Error removing product from wishlist.')
                 }

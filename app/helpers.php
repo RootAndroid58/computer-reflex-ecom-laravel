@@ -20,6 +20,13 @@
             $thecash = $num;
         }
         return $thecash; // writes the final format where $currency is the currency symbol.
-    }   
+    }
+    
+    
+    function FirstWord($s)
+    {
+        $arr1 = explode(' ',trim($s));
+        return $arr1[0];
+    }
 
 ?>

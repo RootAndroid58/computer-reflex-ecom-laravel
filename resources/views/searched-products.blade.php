@@ -15,7 +15,7 @@
             {{-- Sidebar Start --}}
             <div class="col-lg-2">
                 <div class="shop-sidebar mr-50">
-                 <form method="GET" action="{{ route('search') }}" id="filter_form">
+                 <form method="GET" action="{{ route('search') }}" id="filter_form" onsubmit="SubmitSearchFilterForm()">
                    
                     <input type="hidden" name="search" value="{{ request()->search }}">
                     <div class="sidebar-widget mb-45">
@@ -118,8 +118,8 @@
                                                     <img src="{{ asset('storage/images/products/'.$product->images[0]->image)}}" alt="">
                                                 </a>
                                                 <div class="product-action">
-                                                    <a class="animate-left" title="Wishlist" href="#"><i class="pe-7s-like"></i></a>
-                                                    <a class="animate-top" title="Add To Cart" href="#"><i class="pe-7s-cart"></i></a>
+                                                    <a class="animate-left" onclick="ToggleWishlist({{$product->id}})" title="Wishlist" href="#"><i class="pe-7s-like"></i></a>
+                                                    <a class="animate-top" onclick="ToogleCart({{$product->id}})" title="Add To Cart" href="#"><i class="pe-7s-cart"></i></a>
                                                 </div>
                                             </div>
                                             <div class="product-content">
@@ -162,7 +162,105 @@
 
 
 @section('bottom-js')
+<script>
+function ToggleWishlist(product_id) {
+
+$.ajax({
+    url: "{{route('toggle-wishlist-btn')}}",
+    method: 'POST',
+    data: {
+        'product_id' : product_id,
+    },
+    success: function (data) {
+
+        if (data == 500) {
+            $(".bootstrap-growl").remove();
+            $.bootstrapGrowl("Removed from wishlist.", {
+                type: "danger",
+                offset: {from:"bottom", amount: 50},
+                align: 'center',
+                allow_dismis: true,
+                stack_spacing: 10,
+            })
+        } else if(data == 200) {
+            $(".bootstrap-growl").remove();
+            $.bootstrapGrowl("Added to wishlist.", {
+                type: "success",
+                offset: {from:"bottom", amount: 50},
+                align: 'center',
+                allow_dismis: true,
+                stack_spacing: 10,
+            })
+        }
+    }
+})
+
+}
+
+function ToogleCart(product_id) {
+
+    $.ajax({
+    url: "{{route('toggle-cart-btn')}}",
+    method: 'POST',
+    data: {
+        'product_id' : product_id,
+    },
+    success: function (data) {
+
+        if (data == 200) {
+            $('#CartCount').load("{{ route('cart') }} #CartCount")
+            $(".bootstrap-growl").remove();
+            $.bootstrapGrowl("Added To Cart.", {
+                type: "success",
+                offset: {from:"top", amount: 100},
+                align: 'center',
+                allow_dismis: true,
+                stack_spacing: 10,
+            })
+        } else if(data == 500) {
+            $('#CartCount').load("{{ route('cart') }} #CartCount")
+            $(".bootstrap-growl").remove();
+            $.bootstrapGrowl("Removed From Cart.", {
+                type: "danger",
+                offset: {from:"top", amount: 100},
+                align: 'center',
+                allow_dismis: true,
+                stack_spacing: 10,
+            })
+        }
+    }
+})
+
+}
 
 
+$('#ToggleCartBtn').click(function (e) {
+
+e.preventDefault()
+
+var product_id  = $('input[name="product_id"]').val()
+
+console.log(product_id)
+
+$.ajax({
+    url: "{{route('toggle-cart-btn')}}",
+    method: 'POST',
+    data: {
+        'product_id' : product_id,
+    },
+    success: function (data) {
+
+        if (data == 200) {
+            console.log('Added to cart')
+            $('#ToggleCartBtn').html('remove from cart')
+            $('#CartCount').load("{{ route('cart') }} #CartCount")
+        } else if(data == 500) {
+            $('#ToggleCartBtn').html('add to cart')
+            $('#CartCount').load("{{ route('cart') }} #CartCount")
+        }
+    }
+})
+})
+</script>
 
 @endsection

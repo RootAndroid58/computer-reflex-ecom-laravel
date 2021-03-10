@@ -43,7 +43,7 @@
     @yield('modals')
 
     <div id="wrapper">
-    <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0" style="transition: 300ms;">
+    <nav class="toggled navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0" style="transition: 300ms;">
         <div class="container-fluid d-flex flex-column p-0">
             <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="/admin">
                 <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
@@ -130,7 +130,7 @@
 <script src="{{ asset('SB-Admin/js/theme.js')}}"></script>
 <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
 <script src="{{ asset('js/summernote-bs4.js')}}"></script>
-
+<script src="{{ asset('js/jquery.bootstrap-growl.min.js')}}"></script>
 
 <script>
     $(function () {

@@ -22,6 +22,7 @@
         <link rel="stylesheet" href="{{ asset('ezone/css/icofont.css')}}">
         <link rel="stylesheet" href="{{ asset('ezone/css/meanmenu.min.css')}}">
         <link rel="stylesheet" href="{{ asset('ezone/css/easyzoom.css')}}">
+        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('ezone/css/bundle.css')}}">
         <link rel="stylesheet" href="{{ asset('ezone/css/style.css')}}">
         <link rel="stylesheet" href="{{ asset('ezone/css/responsive.css')}}">
@@ -116,7 +117,13 @@
                             <div class="header-cart">
                                 <a class="icon-cart-furniture" href="{{ route('cart') }}">
                                     <i class="ti-shopping-cart"></i>
-                                    <span class="shop-count-furniture green">{{ App\Models\Cart::get()->count() }}</span>
+                                    <span class="shop-count-furniture green">
+                                        @if (Auth::check())
+                                            {{ App\Models\Cart::where('user_id', Auth()->user()->id)->get()->count() }} 
+                                        @else
+                                            0
+                                        @endif
+                                    </span>
                                 </a>
                             </div>                         
                         </div>
@@ -203,7 +210,7 @@
                         @if (Auth::check())
                             <div class="furniture-login">
                                 <ul>
-                                    <li>Hello, <b>{{ Auth()->user()->name }}</b></li>
+                                    <li>Hello, <a href="{{ route('my-account')}}">{{ FirstWord(Auth()->user()->name) }}</a></li>
                                     <li><a href="{{ route('my-account')}}">Account </a></li>
                                 </ul>
                             </div>
@@ -352,6 +359,7 @@
         <script src="{{ asset('ezone/js/plugins.js') }}"></script>
         <script src="{{ asset('ezone/js/main.js') }}"></script>
         <script src="{{ asset('js/zoomsl.min.js') }}"></script>
+        <script src="{{ asset('js/summernote-bs4.js') }}"></script>
         <script src="{{ asset('js/jquery.bootstrap-growl.min.js')}}"></script>
         <script src="{{ asset('js/main.js') }}"></script>
 

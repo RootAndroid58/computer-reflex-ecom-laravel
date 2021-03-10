@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('CartTest', 'App\Http\Controllers\CartController@Test');
+
+
 // Authentication Routes Start...
     Route::get('login', 'App\Http\Controllers\Auth\LoginController@showLoginForm')->name('login');
     Route::post('login', 'App\Http\Controllers\Auth\LoginController@login');
@@ -43,7 +46,7 @@ use Illuminate\Support\Facades\Route;
     Route::get('/', [App\Http\Controllers\IndexController::class, 'Index'])->name('home');
     
     Route::get('/search', [App\Http\Controllers\IndexController::class, 'Search'])->name('search');
-
+    
     Route::get('/product/{product_id}/{product_name?}', 'App\Http\Controllers\ShowProductsController@ProductIndex')->name('product-index');
     
     Route::post('/checkout/payment/response/payu', [App\Http\Controllers\CheckoutController::class, 'PayuResponse'])->name('checkout-payu-response');
@@ -51,13 +54,28 @@ use Illuminate\Support\Facades\Route;
     Route::post('/checkout/payment/response/paytm', [App\Http\Controllers\CheckoutController::class, 'PaytmResponse'])->name('checkout-paytm-response');
     
     Route::get('/checkout/order/{order_id}/confirmation', [App\Http\Controllers\CheckoutController::class, 'AfterPayment'])->name('checkout-order-confirmation');
+    
+    Route::get('/cart', [App\Http\Controllers\CartController::class, 'ShowCart'])->name('cart');
+
+    Route::post('/cart/toggle', [App\Http\Controllers\CartController::class, 'ToggleCart'])->name('toggle-cart-btn');
 
 
-Route::group(['middleware' => ['verified', 'auth']], function() { // Verified Middleware Start
+
+
+
+// Verified Middleware Start
+
+    Route::group(['middleware' => ['verified', 'auth']], function() { 
 
     Route::post('/dp/update', [App\Http\Controllers\DpUpdateController::class, 'DpUpdate'])->name('dp-update');
 
     Route::get('/account', [App\Http\Controllers\AccountController::class, 'ShowAccount'])->name('my-account');
+    
+    Route::get('/support', [App\Http\Controllers\SupportController::class, 'Support'])->name('support');
+
+    Route::get('/support/raise-support-ticket', [App\Http\Controllers\SupportController::class, 'RaiseSupportTicket'])->name('raise-support-ticket');
+    
+    Route::get('/support/support-tickets', [App\Http\Controllers\SupportController::class, 'SupportTickets'])->name('support-tickets');
     
     Route::get('/contact', [App\Http\Controllers\IndexController::class, 'ShowContact'])->name('contact');
     
@@ -76,8 +94,6 @@ Route::group(['middleware' => ['verified', 'auth']], function() { // Verified Mi
     Route::post('/address/edit/submit', [App\Http\Controllers\ManageAddressesController::class, 'EditAddressSubmit'])->name('edit-address-submit');
 
     Route::get('/wishlist', [App\Http\Controllers\WishlistController::class, 'ShowWishlist'])->name('wishlist');
-   
-    Route::get('/cart', [App\Http\Controllers\CartController::class, 'ShowCart'])->name('cart');
     
     Route::post('/checkout', [App\Http\Controllers\CheckoutController::class, 'CheckoutView'])->name('checkout-post');
     
@@ -89,8 +105,6 @@ Route::group(['middleware' => ['verified', 'auth']], function() { // Verified Mi
     
     Route::post('/wishlist/toggle', [App\Http\Controllers\WishlistController::class, 'ToggleWishlist'])->name('toggle-wishlist-btn');
     
-    Route::post('/cart/toggle', [App\Http\Controllers\CartController::class, 'ToggleCart'])->name('toggle-cart-btn');
-
     Route::post('/cart/change-qty', [App\Http\Controllers\CartController::class, 'ChangeQty'])->name('change-qty');
     
     Route::post('/account/update-name', [App\Http\Controllers\AccountController::class, 'UpdateName'])->name('update-name');
@@ -129,6 +143,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'permission:Admin'], function
     Route::get('/manage-products','App\Http\Controllers\Admin\AdminController@ManageProducts')->name('admin-manage-products')->middleware('permission:Master Admin');
 
     Route::get('/manage-ui','App\Http\Controllers\Admin\AdminController@ManageUI')->name('admin-manage-ui')->middleware('permission:Master Admin');
+    
+    Route::get('/manage-ui/home-carousel-sliders','App\Http\Controllers\Admin\AdminController@ManageHomeCarouselSlider')->name('admin-manage-home-carousel-sliders')->middleware('permission:Master Admin');
+    
+    Route::post('/manage-ui/home-carousel-sliders/create','App\Http\Controllers\Admin\AdminController@CreateHomeCarouselSlider')->name('admin-create-home-carousel-sliders')->middleware('permission:Master Admin');
+    
+    Route::post('/manage-ui/home-carousel-sliders/edit','App\Http\Controllers\Admin\AdminController@EditHomeCarouselSliderSubmit')->name('admin-edit-home-carousel-sliders-submit')->middleware('permission:Master Admin');
+    
+    Route::get('/manage-ui/home-carousel-slider/{slider_id}/edit','App\Http\Controllers\Admin\AdminController@EditHomeCarouselSlider')->name('admin-edit-home-carousel-slider')->middleware('permission:Master Admin');
 
     Route::get('/manage-banners','App\Http\Controllers\Admin\AdminController@ManageBanners')->name('admin-manage-banners')->middleware('permission:Master Admin');
     
@@ -138,13 +160,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'permission:Admin'], function
     
     Route::get('/manage-order/{order_id}/ship','App\Http\Controllers\Admin\ManageOrdersController@ShipOrder')->name('admin-ship-order')->middleware('permission:Master Admin');
 
-    Route::post('/manage-order/start-packing/submit','App\Http\Controllers\Admin\ManageOrdersController@StartPacking')->name('admin-start-packing-order')->middleware('permission:Master Admin');
+    Route::get('/manage-order/{order_item_id}/start-packing','App\Http\Controllers\Admin\ManageOrdersController@StartPacking')->name('admin-start-packing-order')->middleware('permission:Master Admin');
     
-    Route::post('/manage-order/packing-completed/submit','App\Http\Controllers\Admin\ManageOrdersController@CompletePacking')->name('admin-complete-packing-order')->middleware('permission:Master Admin');
+    Route::get('/manage-order/{order_item_id}/packing-completed','App\Http\Controllers\Admin\ManageOrdersController@CompletePacking')->name('admin-complete-packing-order')->middleware('permission:Master Admin');
     
-    Route::post('/manage-order/create-shipment/submit','App\Http\Controllers\Admin\ManageOrdersController@CreateShipping')->name('admin-create-shipping-order')->middleware('permission:Master Admin');
+    Route::get('/manage-order/{order_item_id}/create-shipment','App\Http\Controllers\Admin\ManageOrdersController@CreateShipmentView')->name('admin-create-shipment-view')->middleware('permission:Master Admin');
     
-    Route::post('/manage-order/order-pickup-done/submit','App\Http\Controllers\Admin\ManageOrdersController@PickupDone')->name('admin-order-pickup-done')->middleware('permission:Master Admin');
+    Route::post('/manage-order/create-shipment/submit','App\Http\Controllers\Admin\ManageOrdersController@CreateShipment')->name('admin-create-shipment-submit')->middleware('permission:Master Admin');
+    
+    Route::get('/manage-order/{order_item_id}/pickup-done','App\Http\Controllers\Admin\ManageOrdersController@PickupDone')->name('admin-order-pickup-done')->middleware('permission:Master Admin');
 
     Route::get('/new-banner','App\Http\Controllers\Admin\AdminController@NewBanner')->name('admin-new-banner')->middleware('permission:Master Admin');
     
@@ -211,6 +235,7 @@ Route::group(['prefix' => 'ajax/data-table'], function() {
     Route::get('admin-products-publish-table', 'App\Http\Controllers\AjaxDataTable@AdminProductsPublishTable')->name('ajax-datatable.AdminProductsPublishTable');
     Route::get('admin-orders-table', 'App\Http\Controllers\AjaxDataTable@AdminOrdersTable')->name('ajax-datatable.AdminOrdersTable');
     Route::get('admin-ship-orders-table', 'App\Http\Controllers\AjaxDataTable@AdminShipOrdersTable')->name('ajax-datatable.AdminShipOrdersTable');
+    Route::get('admin-slider-products-table', 'App\Http\Controllers\AjaxDataTable@SliderProductsTable')->name('ajax-datatable.AdminSliderProductsTable');
 });
 
 Route::group(['prefix' => 'jquery/load/components'], function() {

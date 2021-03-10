@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Shipment;
+use App\Models\OrderItem;
 use DateTime;
 
 class ManageOrdersController extends Controller
@@ -22,102 +23,102 @@ class ManageOrdersController extends Controller
 
     public function ShipOrder ($order_id)
     {
-        $order = Order::with(['OrderItems', 'Address'])->where('id', $order_id)->first();
+        $order = Order::with('OrderItems')->where('id', $order_id)->first();
 
         if ($order->status == 'order_placed') {
-            return view('admin.shipping.mark-as-packing',[
-                'order' => $order,
-            ]);
-        }
-        elseif ($order->status == 'order_packing') {
-            return view('admin.shipping.pack-order', [
-                'order' => $order,
-            ]);
-        }
-        elseif ($order->status == 'packing_completed') {
-            return view('admin.shipping.create-order-shipment', [
-                'order' => $order,
-            ]);
-        }
-        elseif ($order->status == 'shipment_created') {
-            return view('admin.shipping.shipment-pickup', [
+            return view('admin.shipping.process-order',[
                 'order' => $order,
             ]);
         }
     }
 
-    public function StartPacking(Request $req)
+    public function StartPacking($order_item_id)
     {
-        $req->validate([
-            'order_id' => 'required'
-        ]);
-
-        $order = Order::where('id', $req->order_id)->first();
-
-        if ($order->status == 'order_placed') {
-            Order::where('id', $req->order_id)->update([
-                'status' => 'order_packing',
+        $OrderItem = OrderItem::where('id', $order_item_id)->where('status', 'order_placed')->first();
+        
+        if (isset($OrderItem)) {
+            OrderItem::where('id', $order_item_id)->update([
+                'status' => 'packing_started',
             ]);
 
-            return redirect()->route('admin-ship-order', $req->order_id);
+            return redirect()->route('admin-ship-order', $OrderItem->order_id);
         }
+
     }
 
-    public function CompletePacking(Request $req)
+    public function CompletePacking($order_item_id)
     {
-        $order = Order::where('id', $req->order_id)->first();
-
-        if ($order->status == 'order_packing') {
-            Order::where('id', $req->order_id)->update([
+        $OrderItem = OrderItem::where('id', $order_item_id)->where('status', 'packing_started')->first();
+        
+        if (isset($OrderItem)) {
+            OrderItem::where('id', $order_item_id)->update([
                 'status' => 'packing_completed',
             ]);
 
-            return redirect()->route('admin-ship-order', $req->order_id);
+            return redirect()->route('admin-ship-order', $OrderItem->order_id);
         }
+
     }
 
-    public function CreateShipping(Request $req)
+    public function CreateShipmentView($order_item_id)
     {
-        
+        $OrderItem = OrderItem::with('product')->where('id', $order_item_id)->first();
+
+        return view('admin.shipping.create-shipment', [
+            'item' => $OrderItem,
+        ]);
+    }
+
+    public function CreateShipment(Request $req)
+    {
         $req->validate([
             'courier_name'      => 'required',
             'tracking_id'       => 'required',
             'delivery_date'     => 'required',
-            'order_id'          => 'required',
+            'order_item_id'     => 'required',
         ]);
 
-        $order = Order::where('id', $req->order_id)->first();
+        $item = OrderItem::where('id', $req->order_item_id)->first();
 
-        if ($order->status == 'packing_completed') 
-        {
-            $shipment = new Shipment;
-            $shipment->order_id = $req->order_id;
-            $shipment->courier_name = $req->courier_name;
-            $shipment->tracking_id = $req->tracking_id;
-            $shipment->save();
-
-            Order::where('id', $req->order_id)->update([
-                'delivery_date' => new DateTime($req->delivery_date),
-                'status'        => 'shipment_created',
+        if ($item->status == 'packing_completed') {
+            
+            OrderItem::where('id', $req->order_item_id)->update([
+                'delivery_date' => $req->delivery_date,
+                'status' => 'shipment_created',
             ]);
     
-            return redirect()->route('admin-ship-order', $req->order_id);
-        } 
+            $Shimpent = new Shipment;
+            $Shimpent->order_item_id = $req->order_item_id;
+            $Shimpent->courier_name = $req->courier_name;
+            $Shimpent->tracking_id = $req->tracking_id;
+            $Shimpent->save();
 
-        
+            return redirect()->route('admin-ship-order', $item->order_id);
+        }
     }
 
-    public function PickupDone(Request $req)
+    public function PickupDone($order_item_id)
     {
-        $order = Order::where('id', $req->order_id)->first();
+        $OrderItem = OrderItem::with('product')->where('id', $order_item_id)->first();
         
-        if ($order->status == 'shipment_created') 
+        if (isset($OrderItem)) 
         { 
-            Order::where('id', $req->order_id)->update([
-                'status'        => 'order_shipped',
+            OrderItem::where('id', $order_item_id)->update([
+                'status'        => 'item_shipped',
             ]);
+
+            $a = OrderItem::where('order_id', $OrderItem->order_id)->get();
+            $b = OrderItem::where('order_id', $OrderItem->order_id)->where('status', 'item_shipped')->get();
             
-            return redirect()->route('admin-ship-orders')->with(['OrderShipped' => $req->order_id]);
+            if ($a->count() == $b->count()) {
+                Order::where('id', $OrderItem->order_id)->update([
+                    'status' => 'order_shipped',
+                ]);
+
+                return redirect()->route('admin-ship-orders')->with(['OrderShipped' => $OrderItem->order_id]);
+            } else {
+                return redirect()->route('admin-ship-order', $OrderItem->order_id);
+            }
         }
     }
 }

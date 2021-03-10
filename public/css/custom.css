@@ -622,3 +622,197 @@ Buy now button Custom
     flex-grow: 2;
 }
 
+.hover-blue:hover {
+    cursor: pointer;
+    color: #0066c0;
+}
+.static-red {
+    cursor: pointer;
+    color: rgb(255, 51, 0);
+}
+
+
+.products-carousel-container .carousel {
+	margin: 50px auto;
+	padding: 0 70px;
+}
+.products-carousel-container .carousel .carousel-item {
+	min-height: 330px;
+	text-align: center;
+	overflow: hidden;
+}
+.products-carousel-container .carousel .carousel-item .img-box {
+	height: 160px;
+	width: 100%;
+	position: relative;
+}
+.products-carousel-container .carousel .carousel-item h4 {
+	font-size: 18px;
+	margin: 10px 0;
+}
+.products-carousel-container .carousel .carousel-item .btn {
+	color: #333;
+	border-radius: 0;
+	font-size: 11px;
+	text-transform: uppercase;
+	font-weight: bold;
+	background: none;
+	border: 1px solid #ccc;
+	padding: 5px 10px;
+	margin-top: 5px;
+	line-height: 16px;
+}
+.products-carousel-container .carousel .carousel-item .btn:hover, .carousel .carousel-item .btn:focus {
+	color: #fff;
+	background: #000;
+	border-color: #000;
+	box-shadow: none;
+}
+.products-carousel-container .carousel .carousel-item .btn i {
+	font-size: 14px;
+	font-weight: bold;
+	margin-left: 5px;
+}
+.products-carousel-container .carousel .thumb-wrapper {
+	text-align: center;
+}
+.carousel .thumb-content {
+	padding: 15px;
+}
+.products-carousel-container .carousel-control-prev, .products-carousel-container .carousel-control-next {
+	height: 100px;
+	width: 40px;
+	background: none;
+	margin: auto 0;
+	background: rgba(0, 0, 0, 0.2);
+}
+.products-carousel-container .carousel-control-prev i, .products-carousel-container .carousel-control-next i {
+	font-size: 30px;
+	position: absolute;
+	top: 50%;
+	display: inline-block;
+	margin: -16px 0 0 0;
+	z-index: 5;
+	left: 0;
+	right: 0;
+	color: rgba(0, 0, 0, 0.8);
+	text-shadow: none;
+	font-weight: bold;
+}
+.products-carousel-container .carousel-control-prev i {
+	margin-left: -3px;
+}
+.products-carousel-container .carousel-control-next i {
+	margin-right: -3px;
+}
+.products-carousel-container .carousel .item-price {
+	font-size: 13px;
+	padding: 2px 0;
+}
+.products-carousel-container .carousel .item-price strike {
+	color: #999;
+	margin-right: 5px;
+}
+.products-carousel-container .carousel .item-price span {
+	color: #86bd57;
+	font-size: 110%;
+}	
+.products-carousel-container .carousel .carousel-indicators {
+	bottom: -50px;
+}
+.products-carousel-container .carousel-indicators li, .products-carousel-container .carousel-indicators li.active {
+	width: 10px;
+	height: 10px;
+	margin: 4px;
+	border-radius: 50%;
+	border-color: transparent;
+	border: none;
+}
+.products-carousel-container .carousel-indicators li {	
+	background: rgba(0, 0, 0, 0.2);
+}
+.products-carousel-container .carousel-indicators li.active {	
+	background: rgba(0, 0, 0, 0.6);
+}
+.products-carousel-container .star-rating li {
+	padding: 0;
+}
+.products-carousel-container .star-rating i {
+	font-size: 14px;
+	color: #ffc000;
+}
+
+.rupees{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+    .carousel-inner .carousel-item > div {
+        display: none;
+    }
+    .carousel-inner .carousel-item > div:first-child {
+        display: block;
+    }
+}
+
+.carousel-inner .carousel-item.active,
+.carousel-inner .carousel-item-next,
+.carousel-inner .carousel-item-prev {
+    display: flex;
+}
+
+/* medium - display 4  */
+@media (min-width: 768px) {
+
+    .carousel-inner .carousel-item-right.active,
+    .carousel-inner .carousel-item-next {
+      transform: translateX(50%);
+    }
+    
+    .carousel-inner .carousel-item-left.active, 
+    .carousel-inner .carousel-item-prev {
+      transform: translateX(-50%);
+    }
+}
+
+/* large - display 6 */
+@media (min-width: 992px) {
+    
+    .carousel-inner .carousel-item-right.active,
+    .carousel-inner .carousel-item-next {
+      transform: translateX(50%);
+    }
+    
+    .carousel-inner .carousel-item-left.active, 
+    .carousel-inner .carousel-item-prev {
+      transform: translateX(-50%);
+    }
+}
+
+.carousel-inner .carousel-item-right, .carousel-inner .carousel-item-left{ 
+  transform: translateX(0);
+}
+
+
+
+.home-section-header {
+    padding: 15px 20px;
+}
+
+
+
+.left-menu-container{
+    border: black 2px;
+}

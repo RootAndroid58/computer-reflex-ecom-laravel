@@ -68,7 +68,6 @@ class CheckoutController extends Controller
         $order->price           = $price;
         $order->payment_method  = $req->payment_method;
         $order->status          = 'checkout_pending';
-        $order->delivery_date   = date_create(date('y-m-d h:m:s', strtotime ('+10 day')));
         $order->save();
 
         // Add items for order
@@ -80,6 +79,8 @@ class CheckoutController extends Controller
             $orderItem->qty = $req->product_qty[$key];
             $orderItem->unit_price = $prod->product_price;
             $orderItem->total_price = $prod->product_price * $req->product_qty[$key];
+            $orderItem->delivery_date   = date_create(date('y-m-d h:m:s', strtotime ('+10 day')));
+            $orderItem->status = 'checkout_pending';
             $orderItem->save();
         }
 
@@ -123,6 +124,9 @@ class CheckoutController extends Controller
             Order::where('id', $order->id)->update([
                 'status' => 'order_placed',
             ]);
+            OrderItem::where('order_id', $order->id)->update([
+                'status' => 'order_placed',
+            ]);
 
             return redirect()->route('checkout-order-confirmation', $order->id);
             // return $this->AfterPayment($order->id);
@@ -133,6 +137,7 @@ class CheckoutController extends Controller
     // Process after payment
     public function AfterPayment($order_id)
     {
+        
         $order = Order::where('id', $order_id)->where('user_id', Auth()->user()->id)->first();
 
         // Redirect back if order is invalid or not right user.
@@ -183,8 +188,11 @@ class CheckoutController extends Controller
             Order::where('id', $req->ORDERID)->update([
                 'status' => 'order_placed'
             ]);
+
+            OrderItem::where('order_id', $req->ORDERID)->update([
+                'status' => 'order_placed'
+            ]);
     
-            return redirect()->route('checkout-order-confirmation', $req->ORDERID);
         }
 
         else if ($req->STATUS == 'TXN_FAILURE') {
@@ -192,7 +200,10 @@ class CheckoutController extends Controller
                 'status' => 'payment_failed'
             ]);
 
-            return redirect()->route('checkout-order-confirmation', $req->ORDERID);
+            OrderItem::where('order_id', $req->ORDERID)->update([
+                'status' => 'payment_failed'
+            ]);
+
         }
 
         else {
@@ -200,27 +211,37 @@ class CheckoutController extends Controller
                 'status' => 'payment_pending'
             ]);
 
-            return redirect()->route('checkout-order-confirmation', $req->ORDERID);
+            OrderItem::where('order_id', $req->ORDERID)->update([
+                'status' => 'payment_pending'
+            ]);
+
         }
+        
+        return redirect()->route('checkout-order-confirmation', $req->ORDERID);
 
     }
     
     public function PayuResponse(Request $req)
-    { dd($req);
-        if ($req->status == 'TXN_SUCCESS') {
+    { 
+        if ($req->status == 'success') {
             Order::where('id', $req->txnid)->update([
                 'status' => 'order_placed'
             ]);
-    
-            return redirect()->route('checkout-order-confirmation', $req->txnid);
+
+            OrderItem::where('order_id', $req->txnid)->update([
+                'status' => 'order_placed'
+            ]);
         }
 
-        else if ($req->status == 'TXN_FAILURE') {
+        else if ($req->status == 'failure') {
             Order::where('id', $req->txnid)->update([
                 'status' => 'payment_failed'
             ]);
 
-            return redirect()->route('checkout-order-confirmation', $req->txnid);
+            OrderItem::where('order_id', $req->txnid)->update([
+                'status' => 'payment_failed'
+            ]);
+
         }
 
         else {
@@ -228,8 +249,12 @@ class CheckoutController extends Controller
                 'status' => 'payment_pending'
             ]);
 
-            return redirect()->route('checkout-order-confirmation', $req->txnid);
+            OrderItem::where('order_id', $req->txnid)->update([
+                'status' => 'payment_pending'
+            ]);
         }
+
+        return redirect()->route('checkout-order-confirmation', $req->txnid);
     }
 
 

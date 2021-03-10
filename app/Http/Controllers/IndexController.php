@@ -6,14 +6,23 @@ use Illuminate\Http\Request;
 use App\Models\Banner;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\HomeSection;
+
 
 class IndexController extends Controller
 {
     public function Index()
     {
         $banners = Banner::where('banner_status', 1)->orderBy('banner_position', 'ASC')->get();
+        $categories = Category::get();
+        $sections = HomeSection::with(['SectionProducts.product.images', 'SectionProducts.product.category'])->get();    
 
-        return view('index', ['banners' => $banners]);
+        // dd($sections);
+        return view('index', [
+            'banners'       => $banners,
+            'sections'      => $sections,
+            'categories'    => $categories,
+        ]);
     }
 
 

@@ -824,7 +824,6 @@
     display: inline-block;
     left: 0;
     opacity: 0;
-    padding: 0 20px;
     position: absolute;
     right: 0;
     text-align: center;
@@ -4974,11 +4973,7 @@ a.icon-cart-furniture span.green {
     padding: 14px 30px 12px;
     text-transform: uppercase;
 }
-.table,
-.table-cell {
-    display: table;
-    height: 100%;
-}
+
 .table-cell {
     display: table-cell;
     vertical-align: middle;
@@ -9391,7 +9386,6 @@ a.bundle-btn {
 .modal-body {
     display: flex;
     justify-content: space-between;
-    padding: 50px;
 }
 .modal-quickview-width {
     margin: 150px auto;

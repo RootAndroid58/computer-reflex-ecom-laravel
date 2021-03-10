@@ -15,7 +15,7 @@ class CreateShipmentsTable extends Migration
     {
         Schema::create('shipments', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('order_id')->foreign('id')->on('orders')->onDelete('cascade');
+            $table->bigInteger('order_item_id')->foreign('id')->on('order_items')->onDelete('cascade');
             $table->string('courier_name');
             $table->string('tracking_id');
             $table->timestamps();

@@ -20,6 +20,8 @@ class CreateOrderItemsTable extends Migration
             $table->bigInteger('qty');
             $table->string('unit_price');
             $table->string('total_price');
+            $table->string('status');
+            $table->timestamp('delivery_date')->nullable();
             $table->timestamps();
         });
     }

@@ -23,12 +23,16 @@
     <link rel="stylesheet" href="{{ asset('ezone/css/bundle.css')}}">
     <link rel="stylesheet" href="{{ asset('ezone/css/style.css')}}">
     <link rel="stylesheet" href="{{ asset('ezone/css/responsive.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/custom.css')}}">
     <script src="{{ asset('ezone/js/vendor/modernizr-2.8.3.min.js')}}"></script>
 
 
 </head>
 
 <body>
+
+<!-- Button trigger modal -->
+
 
     <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -77,7 +81,7 @@
                         @endcan
                             <li><a href="{{route('my-account')}}"><i class="pe-7s-users"></i>My Account</a>
                             <ul>
-                                <li><a href="#">My Orders</a></li>
+                                <li><a href="{{route('orders')}}">My Orders</a></li>
                                 <li><a href="{{route('wishlist')}}">My Wishlists</a></li>
                                 <li><a href="{{ route('logout')}}">Logout</a></li>
                             </ul>
@@ -85,7 +89,7 @@
                         @endif
                         
                         
-                        <li><a data-toggle="modal" data-target="#exampleCompare" href="#"><i class="pe-7s-headphones"></i>Support</a></li>
+                        <li><a data-toggle="modal" data-target="#exampleCompare" href="{{route('support')}}"><i class="pe-7s-headphones"></i>Support</a></li>
                         <li><a href="{{ route('wishlist') }}"><i class="pe-7s-like"></i>Wishlist</a></li>
                         <li><a href="#"><i class="pe-7s-flag"></i>IN</a></li>
                         <li><a class="border-none" href="#"><span>₹</span>INR</a></li>
@@ -100,22 +104,47 @@
                         <img src="{{ asset('ezone/img/logo/logo.png')}}" alt="">
                     </a>
                 </div>
+
+
+
                 <div class="categories-search-wrapper">
-                    
+                    <div class="all-categories">
+                        <div class="select-wrapper">
+                            <select class="select" id="CategorySelect">
+                                <option value="all">All Categories</option>
+                                @foreach ($categories as $category)
+                                <option value="{{$category->category}}">{{$category->category}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                     <div class="categories-wrapper">
-                        <form action="{{ route('search') }}" method="GET">
-                            <input placeholder="Enter Your key word" type="text" name="search">
+                        <form action="{{route('search')}}" method="GET">
+                            <input name="category" id="CategoryInput" type="hidden" value="all">
+                            <input name="search" type="text" placeholder="Enter Your key word">
                             <button type="submit"> Search </button>
                         </form>
                     </div>
                 </div>
+
+
+
+
                 <div class="trace-cart-wrapper">
                     <div class="categories-cart same-style">
                         <div class="same-style-icon">
                             <a href="{{ route('cart') }}"><i class="pe-7s-cart"></i></a>
                         </div>
                         <div class="same-style-text">
-                            <a href="{{ route('cart') }}">My Cart <br>{{ App\Models\Cart::get()->count() }} Item</a>
+                            <a href="{{ route('cart') }}">My Cart <br>
+                                @if (Auth::check())
+                                {{ App\Models\Cart::where('user_id', Auth()->user()->id)->get()->count() }} 
+                                @else
+                                0
+                                @endif
+                                
+                                
+                                Item</a>
                         </div>
                     </div>
                 </div>
@@ -147,7 +176,7 @@
                                         <li><a href="{{ route('cart') }}">cart page</a></li>
                                         <li><a href="checkout.html">checkout</a></li>
                                         <li><a href="{{ route('wishlist') }}">wishlist</a></li>
-                                        <li><a href="contact.html">contact</a></li>
+                                        <li><a href="{{route('support')}}">contact</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="#">shop</a>
@@ -179,7 +208,7 @@
                                         <li><a href="blog-details-sidebar.html">blog details 2</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="contact.html"> Contact  </a></li>
+                                <li><a href="{{route('support')}}"> Contact  </a></li>
                             </ul>
                         </nav>
                     </div>
@@ -188,6 +217,10 @@
         </div>
     </header>
     <!-- header end -->
+
+<div class="body-container">
+
+
     <div class="pl-200 pr-200 overflow clearfix">
         <div class="categori-menu-slider-wrapper clearfix">
             <div class="categories-menu">
@@ -397,7 +430,7 @@
                                     <li><a href="{{ route('cart') }}">cart page</a></li>
                                     <li><a href="checkout.html">checkout</a></li>
                                     <li><a href="{{ route('wishlist') }}">wishlist</a></li>
-                                    <li><a href="contact.html">contact</a></li>
+                                    <li><a href="{{route('support')}}">contact</a></li>
                                 </ul>
                             </li>
                             <li><a href="shop.html">shop <i class="pe-7s-angle-down"></i> <span class="sticker-new">hot</span></a>
@@ -446,7 +479,7 @@
                                     <li><a href="blog-details-sidebar.html">blog details 2</a></li>
                                 </ul>
                             </li>
-                            <li><a href="contact.html">contact</a></li>
+                            <li><a href="{{route('support')}}">contact</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -517,820 +550,143 @@
             </div>
         </div>
     </div>
-    <div class="electro-product-wrapper wrapper-padding pt-95 pb-45">
-        <div class="container-fluid">
-            <div class="section-title-4 text-center mb-40">
-                <h2>Top Products</h2>
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@php $SectionCounter = 1; @endphp
+@foreach ($sections as $section)
+<div class="product-area-2 wrapper-padding" style="background-color: white;">
+    <div class="container-fluid">
+
+        <div class="account-menu-break"></div>
+
+        <div class="home-section-header">
+            <h4 style="font-weight: 500;">{{ $section->title }} </h4>
+            <span>{{ $section->caption }}</span>
+        </div>
+       
+        <div class="account-menu-break"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="products-carousel-container">
+                <div id="myCarousel{{$section->id}}" class="carousel slide multi-item-carousel" data-ride="carousel" data-interval="0">
+  
+                <!-- Wrapper for carousel items -->
+                <div class="carousel-inner">
+                    
+                        <div class="row">
+                            @php $ItemCounter = 1; @endphp
+                            @foreach ($section->SectionProducts as $SectionProduct)
+                            @if (isset($SectionProduct->product))
+                            @php $product = $SectionProduct->product @endphp
+                            <div class="carousel-item item @if ($ItemCounter == 1) active @endif">
+                            <div class="col-md-3 col-xl-2">
+                                <div class="product-wrapper mb-30">
+                                    <div class="product-img">
+                                        <a href="{{route('product-index', $product->id)}}" target="_blank">
+                                            <img src="{{asset('/storage/images/products/'.$product->images[0]->image)}}" alt="">
+                                        </a>
+                                        <div class="product-action">
+                                            <a class="animate-left" onclick="ToggleWishlist({{$product->id}})" title="Wishlist" href="#"><i class="pe-7s-like"></i></a>
+                                            <a class="animate-top" onclick="ToogleCart({{$product->id}})" title="Add To Cart" href="#"><i class="pe-7s-cart"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h4><a href="{{route('product-index', $product->id)}}" target="_blank"> {{$product->product_name}} </a></h4>
+                                        <span><font class="rupees">₹</font> 
+                                            {{ moneyFormatIndia($product->product_price) }}
+                                            <b style="font-size: 17px; color: #388e3c; font-weight: 500;">{{((($product->product_mrp - $product->product_price) / $product->product_mrp)*100)%100}}% off</b>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @php
+                            $ItemCounter++
+                        @endphp
+                            @endif
+                            
+                            @endforeach
+                    </div>
+        
+                </div>
+                <!-- Carousel controls -->
+                <a class="carousel-control-prev" href="#myCarousel{{$section->id}}" data-slide="prev">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                <a class="carousel-control-next" href="#myCarousel{{$section->id}}" data-slide="next">
+                    <i class="fa fa-angle-right"></i>
+                </a>
             </div>
-            <div class="top-product-style">
-                <div class="product-tab-list3 text-center mb-80 nav product-menu-mrg" role="tablist">
-                    <a class="active" href="#electro1" data-toggle="tab" role="tab">
-                        <h4>Fiction </h4>
-                    </a>
-                    <a href="#electro2" data-toggle="tab" role="tab">
-                        <h4>Satire </h4>
-                    </a>
-                    <a href="#electro3" data-toggle="tab" role="tab">
-                        <h4>Anthologies</h4>
-                    </a>
-                </div>
-                <div class="tab-content">
-                    <div class="tab-pane active show fade" id="electro1" role="tabpanel">
-                        <div class="custom-row-2">
-                            <div class="custom-col-style-2 custom-col-4">
-                                <div class="product-wrapper product-border mb-24">
-                                    <div class="product-img-3">
-                                        <a href="product-details.html">
-                                            <img src="ezone/img/product/electro/1.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-right">
-                                            <a class="animate-right" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                <i class="pe-7s-look"></i>
-                                            </a>
-                                            <a class="animate-top" title="Add To Cart" href="#">
-                                                <i class="pe-7s-cart"></i>
-                                            </a>
-                                            <a class="animate-left" title="Wishlist" href="#">
-                                                <i class="pe-7s-like"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-4 text-center">
-                                        <div class="product-rating-4">
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4><a href="product-details.html">First Air Headphone Black</a></h4>
-                                        <span>Headphone</span>
-                                        <h5>$133.00</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="custom-col-style-2 custom-col-4">
-                                <div class="product-wrapper product-border mb-24">
-                                    <div class="product-img-3">
-                                        <a href="product-details.html">
-                                            <img src="ezone/img/product/electro/2.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-right">
-                                            <a class="animate-right" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                <i class="pe-7s-look"></i>
-                                            </a>
-                                            <a class="animate-top" title="Add To Cart" href="#">
-                                                <i class="pe-7s-cart"></i>
-                                            </a>
-                                            <a class="animate-left" title="Wishlist" href="#">
-                                                <i class="pe-7s-like"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-4 text-center">
-                                        <div class="product-rating-4">
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4><a href="product-details.html">Full Bast Doule Speaker</a></h4>
-                                        <span>Headphone</span>
-                                        <h5>$110.00</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="custom-col-style-2 custom-col-4">
-                                <div class="product-wrapper product-border mb-24">
-                                    <div class="product-img-3">
-                                        <a href="product-details.html">
-                                            <img src="ezone/img/product/electro/3.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-right">
-                                            <a class="animate-right" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                <i class="pe-7s-look"></i>
-                                            </a>
-                                            <a class="animate-top" title="Add To Cart" href="#">
-                                                <i class="pe-7s-cart"></i>
-                                            </a>
-                                            <a class="animate-left" title="Wishlist" href="#">
-                                                <i class="pe-7s-like"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-4 text-center">
-                                        <div class="product-rating-4">
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4><a href="product-details.html">Xo GoPro Hero</a></h4>
-                                        <span>Headphone</span>
-                                        <h5>$133.00</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="custom-col-style-2 custom-col-4">
-                                <div class="product-wrapper product-border mb-24">
-                                    <div class="product-img-3">
-                                        <a href="product-details.html">
-                                            <img src="ezone/img/product/electro/4.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-right">
-                                            <a class="animate-right" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                <i class="pe-7s-look"></i>
-                                            </a>
-                                            <a class="animate-top" title="Add To Cart" href="#">
-                                                <i class="pe-7s-cart"></i>
-                                            </a>
-                                            <a class="animate-left" title="Wishlist" href="#">
-                                                <i class="pe-7s-like"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-4 text-center">
-                                        <div class="product-rating-4">
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4><a href="product-details.html">Twin Wash Dual</a></h4>
-                                        <span>Headphone</span>
-                                        <h5>$120.00</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="custom-col-style-2 custom-col-4">
-                                <div class="product-wrapper product-border mb-24">
-                                    <div class="product-img-3">
-                                        <a href="product-details.html">
-                                            <img src="ezone/img/product/electro/5.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-right">
-                                            <a class="animate-right" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                <i class="pe-7s-look"></i>
-                                            </a>
-                                            <a class="animate-top" title="Add To Cart" href="#">
-                                                <i class="pe-7s-cart"></i>
-                                            </a>
-                                            <a class="animate-left" title="Wishlist" href="#">
-                                                <i class="pe-7s-like"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-4 text-center">
-                                        <div class="product-rating-4">
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4><a href="product-details.html">Play Station Suporting</a></h4>
-                                        <span>Headphone</span>
-                                        <h5>$180.00</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="custom-col-style-2 custom-col-4">
-                                <div class="product-wrapper product-border mb-24">
-                                    <div class="product-img-3">
-                                        <a href="product-details.html">
-                                            <img src="ezone/img/product/electro/6.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-right">
-                                            <a class="animate-right" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                <i class="pe-7s-look"></i>
-                                            </a>
-                                            <a class="animate-top" title="Add To Cart" href="#">
-                                                <i class="pe-7s-cart"></i>
-                                            </a>
-                                            <a class="animate-left" title="Wishlist" href="#">
-                                                <i class="pe-7s-like"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-4 text-center">
-                                        <div class="product-rating-4">
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4><a href="product-details.html">Cannon D300R</a></h4>
-                                        <span>Headphone</span>
-                                        <h5>$170.00</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="custom-col-style-2 custom-col-4">
-                                <div class="product-wrapper product-border mb-24">
-                                    <div class="product-img-3">
-                                        <a href="product-details.html">
-                                            <img src="ezone/img/product/electro/7.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-right">
-                                            <a class="animate-right" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                <i class="pe-7s-look"></i>
-                                            </a>
-                                            <a class="animate-top" title="Add To Cart" href="#">
-                                                <i class="pe-7s-cart"></i>
-                                            </a>
-                                            <a class="animate-left" title="Wishlist" href="#">
-                                                <i class="pe-7s-like"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-4 text-center">
-                                        <div class="product-rating-4">
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4><a href="product-details.html">Wifi Printer For Office</a></h4>
-                                        <span>Headphone</span>
-                                        <h5>$150.00</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="custom-col-style-2 custom-col-4">
-                                <div class="product-wrapper product-border mb-24">
-                                    <div class="product-img-3">
-                                        <a href="product-details.html">
-                                            <img src="ezone/img/product/electro/8.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-right">
-                                            <a class="animate-right" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                <i class="pe-7s-look"></i>
-                                            </a>
-                                            <a class="animate-top" title="Add To Cart" href="#">
-                                                <i class="pe-7s-cart"></i>
-                                            </a>
-                                            <a class="animate-left" title="Wishlist" href="#">
-                                                <i class="pe-7s-like"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-4 text-center">
-                                        <div class="product-rating-4">
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4><a href="product-details.html">Featured Tab Windows</a></h4>
-                                        <span>Headphone</span>
-                                        <h5>$145.00</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="electro2" role="tabpanel">
-                        <div class="custom-row-2">
-                            <div class="custom-col-style-2 custom-col-4">
-                                <div class="product-wrapper product-border mb-24">
-                                    <div class="product-img-3">
-                                        <a href="product-details.html">
-                                            <img src="ezone/img/product/electro/8.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-right">
-                                            <a class="animate-right" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                <i class="pe-7s-look"></i>
-                                            </a>
-                                            <a class="animate-top" title="Add To Cart" href="#">
-                                                <i class="pe-7s-cart"></i>
-                                            </a>
-                                            <a class="animate-left" title="Wishlist" href="#">
-                                                <i class="pe-7s-like"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-4 text-center">
-                                        <div class="product-rating-4">
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4><a href="product-details.html">First Air Headphone Black</a></h4>
-                                        <span>Headphone</span>
-                                        <h5>$133.00</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="custom-col-style-2 custom-col-4">
-                                <div class="product-wrapper product-border mb-24">
-                                    <div class="product-img-3">
-                                        <a href="product-details.html">
-                                            <img src="ezone/img/product/electro/7.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-right">
-                                            <a class="animate-right" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                <i class="pe-7s-look"></i>
-                                            </a>
-                                            <a class="animate-top" title="Add To Cart" href="#">
-                                                <i class="pe-7s-cart"></i>
-                                            </a>
-                                            <a class="animate-left" title="Wishlist" href="#">
-                                                <i class="pe-7s-like"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-4 text-center">
-                                        <div class="product-rating-4">
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4><a href="product-details.html">Full Bast Doule Speaker</a></h4>
-                                        <span>Headphone</span>
-                                        <h5>$110.00</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="custom-col-style-2 custom-col-4">
-                                <div class="product-wrapper product-border mb-24">
-                                    <div class="product-img-3">
-                                        <a href="product-details.html">
-                                            <img src="ezone/img/product/electro/6.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-right">
-                                            <a class="animate-right" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                <i class="pe-7s-look"></i>
-                                            </a>
-                                            <a class="animate-top" title="Add To Cart" href="#">
-                                                <i class="pe-7s-cart"></i>
-                                            </a>
-                                            <a class="animate-left" title="Wishlist" href="#">
-                                                <i class="pe-7s-like"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-4 text-center">
-                                        <div class="product-rating-4">
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4><a href="product-details.html">Xo GoPro Hero</a></h4>
-                                        <span>Headphone</span>
-                                        <h5>$133.00</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="custom-col-style-2 custom-col-4">
-                                <div class="product-wrapper product-border mb-24">
-                                    <div class="product-img-3">
-                                        <a href="product-details.html">
-                                            <img src="ezone/img/product/electro/5.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-right">
-                                            <a class="animate-right" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                <i class="pe-7s-look"></i>
-                                            </a>
-                                            <a class="animate-top" title="Add To Cart" href="#">
-                                                <i class="pe-7s-cart"></i>
-                                            </a>
-                                            <a class="animate-left" title="Wishlist" href="#">
-                                                <i class="pe-7s-like"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-4 text-center">
-                                        <div class="product-rating-4">
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4><a href="product-details.html">Twin Wash Dual</a></h4>
-                                        <span>Headphone</span>
-                                        <h5>$120.00</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="custom-col-style-2 custom-col-4">
-                                <div class="product-wrapper product-border mb-24">
-                                    <div class="product-img-3">
-                                        <a href="product-details.html">
-                                            <img src="ezone/img/product/electro/4.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-right">
-                                            <a class="animate-right" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                <i class="pe-7s-look"></i>
-                                            </a>
-                                            <a class="animate-top" title="Add To Cart" href="#">
-                                                <i class="pe-7s-cart"></i>
-                                            </a>
-                                            <a class="animate-left" title="Wishlist" href="#">
-                                                <i class="pe-7s-like"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-4 text-center">
-                                        <div class="product-rating-4">
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4><a href="product-details.html">Play Station Suporting</a></h4>
-                                        <span>Headphone</span>
-                                        <h5>$180.00</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="custom-col-style-2 custom-col-4">
-                                <div class="product-wrapper product-border mb-24">
-                                    <div class="product-img-3">
-                                        <a href="product-details.html">
-                                            <img src="ezone/img/product/electro/3.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-right">
-                                            <a class="animate-right" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                <i class="pe-7s-look"></i>
-                                            </a>
-                                            <a class="animate-top" title="Add To Cart" href="#">
-                                                <i class="pe-7s-cart"></i>
-                                            </a>
-                                            <a class="animate-left" title="Wishlist" href="#">
-                                                <i class="pe-7s-like"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-4 text-center">
-                                        <div class="product-rating-4">
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4><a href="product-details.html">Cannon D300R</a></h4>
-                                        <span>Headphone</span>
-                                        <h5>$170.00</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="custom-col-style-2 custom-col-4">
-                                <div class="product-wrapper product-border mb-24">
-                                    <div class="product-img-3">
-                                        <a href="product-details.html">
-                                            <img src="ezone/img/product/electro/2.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-right">
-                                            <a class="animate-right" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                <i class="pe-7s-look"></i>
-                                            </a>
-                                            <a class="animate-top" title="Add To Cart" href="#">
-                                                <i class="pe-7s-cart"></i>
-                                            </a>
-                                            <a class="animate-left" title="Wishlist" href="#">
-                                                <i class="pe-7s-like"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-4 text-center">
-                                        <div class="product-rating-4">
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4><a href="product-details.html">Wifi Printer For Office</a></h4>
-                                        <span>Headphone</span>
-                                        <h5>$150.00</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="custom-col-style-2 custom-col-4">
-                                <div class="product-wrapper product-border mb-24">
-                                    <div class="product-img-3">
-                                        <a href="product-details.html">
-                                            <img src="ezone/img/product/electro/1.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-right">
-                                            <a class="animate-right" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                <i class="pe-7s-look"></i>
-                                            </a>
-                                            <a class="animate-top" title="Add To Cart" href="#">
-                                                <i class="pe-7s-cart"></i>
-                                            </a>
-                                            <a class="animate-left" title="Wishlist" href="#">
-                                                <i class="pe-7s-like"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-4 text-center">
-                                        <div class="product-rating-4">
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4><a href="product-details.html">Featured Tab Windows</a></h4>
-                                        <span>Headphone</span>
-                                        <h5>$145.00</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="electro3" role="tabpanel">
-                        <div class="custom-row-2">
-                            <div class="custom-col-style-2 custom-col-4">
-                                <div class="product-wrapper product-border mb-24">
-                                    <div class="product-img-3">
-                                        <a href="product-details.html">
-                                            <img src="ezone/img/product/electro/4.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-right">
-                                            <a class="animate-right" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                <i class="pe-7s-look"></i>
-                                            </a>
-                                            <a class="animate-top" title="Add To Cart" href="#">
-                                                <i class="pe-7s-cart"></i>
-                                            </a>
-                                            <a class="animate-left" title="Wishlist" href="#">
-                                                <i class="pe-7s-like"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-4 text-center">
-                                        <div class="product-rating-4">
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4><a href="product-details.html">First Air Headphone Black</a></h4>
-                                        <span>Headphone</span>
-                                        <h5>$133.00</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="custom-col-style-2 custom-col-4">
-                                <div class="product-wrapper product-border mb-24">
-                                    <div class="product-img-3">
-                                        <a href="product-details.html">
-                                            <img src="ezone/img/product/electro/3.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-right">
-                                            <a class="animate-right" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                <i class="pe-7s-look"></i>
-                                            </a>
-                                            <a class="animate-top" title="Add To Cart" href="#">
-                                                <i class="pe-7s-cart"></i>
-                                            </a>
-                                            <a class="animate-left" title="Wishlist" href="#">
-                                                <i class="pe-7s-like"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-4 text-center">
-                                        <div class="product-rating-4">
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4><a href="product-details.html">Full Bast Doule Speaker</a></h4>
-                                        <span>Headphone</span>
-                                        <h5>$110.00</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="custom-col-style-2 custom-col-4">
-                                <div class="product-wrapper product-border mb-24">
-                                    <div class="product-img-3">
-                                        <a href="product-details.html">
-                                            <img src="ezone/img/product/electro/2.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-right">
-                                            <a class="animate-right" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                <i class="pe-7s-look"></i>
-                                            </a>
-                                            <a class="animate-top" title="Add To Cart" href="#">
-                                                <i class="pe-7s-cart"></i>
-                                            </a>
-                                            <a class="animate-left" title="Wishlist" href="#">
-                                                <i class="pe-7s-like"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-4 text-center">
-                                        <div class="product-rating-4">
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4><a href="product-details.html">Xo GoPro Hero</a></h4>
-                                        <span>Headphone</span>
-                                        <h5>$133.00</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="custom-col-style-2 custom-col-4">
-                                <div class="product-wrapper product-border mb-24">
-                                    <div class="product-img-3">
-                                        <a href="product-details.html">
-                                            <img src="ezone/img/product/electro/1.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-right">
-                                            <a class="animate-right" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                <i class="pe-7s-look"></i>
-                                            </a>
-                                            <a class="animate-top" title="Add To Cart" href="#">
-                                                <i class="pe-7s-cart"></i>
-                                            </a>
-                                            <a class="animate-left" title="Wishlist" href="#">
-                                                <i class="pe-7s-like"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-4 text-center">
-                                        <div class="product-rating-4">
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4><a href="product-details.html">Twin Wash Dual</a></h4>
-                                        <span>Headphone</span>
-                                        <h5>$120.00</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="custom-col-style-2 custom-col-4">
-                                <div class="product-wrapper product-border mb-24">
-                                    <div class="product-img-3">
-                                        <a href="product-details.html">
-                                            <img src="ezone/img/product/electro/8.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-right">
-                                            <a class="animate-right" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                <i class="pe-7s-look"></i>
-                                            </a>
-                                            <a class="animate-top" title="Add To Cart" href="#">
-                                                <i class="pe-7s-cart"></i>
-                                            </a>
-                                            <a class="animate-left" title="Wishlist" href="#">
-                                                <i class="pe-7s-like"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-4 text-center">
-                                        <div class="product-rating-4">
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4><a href="product-details.html">Play Station Suporting</a></h4>
-                                        <span>Headphone</span>
-                                        <h5>$180.00</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="custom-col-style-2 custom-col-4">
-                                <div class="product-wrapper product-border mb-24">
-                                    <div class="product-img-3">
-                                        <a href="product-details.html">
-                                            <img src="ezone/img/product/electro/7.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-right">
-                                            <a class="animate-right" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                <i class="pe-7s-look"></i>
-                                            </a>
-                                            <a class="animate-top" title="Add To Cart" href="#">
-                                                <i class="pe-7s-cart"></i>
-                                            </a>
-                                            <a class="animate-left" title="Wishlist" href="#">
-                                                <i class="pe-7s-like"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-4 text-center">
-                                        <div class="product-rating-4">
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4><a href="product-details.html">Cannon D300R</a></h4>
-                                        <span>Headphone</span>
-                                        <h5>$170.00</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="custom-col-style-2 custom-col-4">
-                                <div class="product-wrapper product-border mb-24">
-                                    <div class="product-img-3">
-                                        <a href="product-details.html">
-                                            <img src="ezone/img/product/electro/6.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-right">
-                                            <a class="animate-right" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                <i class="pe-7s-look"></i>
-                                            </a>
-                                            <a class="animate-top" title="Add To Cart" href="#">
-                                                <i class="pe-7s-cart"></i>
-                                            </a>
-                                            <a class="animate-left" title="Wishlist" href="#">
-                                                <i class="pe-7s-like"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-4 text-center">
-                                        <div class="product-rating-4">
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4><a href="product-details.html">Wifi Printer For Office</a></h4>
-                                        <span>Headphone</span>
-                                        <h5>$150.00</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="custom-col-style-2 custom-col-4">
-                                <div class="product-wrapper product-border mb-24">
-                                    <div class="product-img-3">
-                                        <a href="product-details.html">
-                                            <img src="ezone/img/product/electro/5.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-right">
-                                            <a class="animate-right" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                <i class="pe-7s-look"></i>
-                                            </a>
-                                            <a class="animate-top" title="Add To Cart" href="#">
-                                                <i class="pe-7s-cart"></i>
-                                            </a>
-                                            <a class="animate-left" title="Wishlist" href="#">
-                                                <i class="pe-7s-like"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-4 text-center">
-                                        <div class="product-rating-4">
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star yellow"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4><a href="product-details.html">Featured Tab Windows</a></h4>
-                                        <span>Headphone</span>
-                                        <h5>$145.00</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            </div>
+            </div>
+        </div>
+
+        <div class="account-menu-break"></div>
+
+    </div>
+</div>
+
+@if ($SectionCounter == 2 && !isset($BannerBreak1))
+@php
+    $BannerBreak1 = 1;
+@endphp
+<div class="banner-area wrapper-padding pt-30 pb-50">
+    <div class="container-fluid">
+        <div class="electro-fexible-banner bg-img" style="background-image: url(ezone/img/banner/1.jpg)">
+            <div class="fexible-content">
+                <h3>Play with flexible</h3>
+                <p>Multicontrol Smooth Controller, Black Color All Buttons
+                    <br>are somooth, Super Shine.</p>
+                <a class="btn-hover flexible-btn" href="product-details.html">Buy Now</a>
             </div>
         </div>
     </div>
-    <div class="banner-area wrapper-padding pt-30 pb-95">
-        <div class="container-fluid">
-            <div class="electro-fexible-banner bg-img" style="background-image: url(ezone/img/banner/1.jpg)">
-                <div class="fexible-content">
-                    <h3>Play with flexible</h3>
-                    <p>Multicontrol Smooth Controller, Black Color All Buttons
-                        <br>are somooth, Super Shine.</p>
-                    <a class="btn-hover flexible-btn" href="product-details.html">Buy Now</a>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
+@endif
+
+
+@php $SectionCounter++ @endphp
+@endforeach
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div class="best-selling-area pb-95">
         <div class="section-title-4 text-center mb-60">
             <h2>Best Selling</h2>
@@ -1545,25 +901,8 @@
             </div>
         </div>
     </div>
-    <div class="androit-banner-wrapper wrapper-padding pb-175">
-        <div class="container-fluid">
-            <div class="androit-banner-img bg-img" style="background-image: url(ezone/img/banner/36.jpg)">
-                <div class="androit-banner-content">
-                    <h3>Xolo Fast T2 Smartphone, Android <br>7.0 Unlocked.</h3>
-                    <a href="product-details.html">Buy Now →</a>
-                </div>
-                <div class="banner-price text-center">
-                    <div class="banner-price-position">
-                        <span class="banner-price-new">$125.00</span>
-                        <span class="banner-price-old">$199.00</span>
-                    </div>
-                </div>
-                <div class="phn-img">
-                    <img src="ezone/img/banner/10.png" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
+
+    
     <div class="product-area-2 wrapper-padding pb-70">
         <div class="container-fluid">
             <div class="row">
@@ -1795,7 +1134,7 @@
                 <div class="col-md-12 col-lg-6">
                     <div class="section-title-5">
                         <h2>Newsletter</h2>
-                        <p>Sign Up for get all update news & Get <span>15% off</span></p>
+                        <p>Sign Up for get all update news & Get <span>Exciting Discounts</span></p>
                     </div>
                 </div>
                 <div class="col-md-12 col-lg-6">
@@ -1819,6 +1158,13 @@
             </div>
         </div>
     </div>
+
+
+
+
+</div>
+
+
     <footer class="footer-area">
         <div class="footer-top-3 black-bg pt-75 pb-25">
             <div class="container">
@@ -2166,6 +1512,7 @@
     <script src="{{ asset('ezone/js/owl.carousel.min.js')}}"></script>
     <script src="{{ asset('ezone/js/plugins.js')}}"></script>
     <script src="{{ asset('ezone/js/main.js')}}"></script>
+    <script src="{{ asset('js/main.js')}}"></script>
 
 
 </body>

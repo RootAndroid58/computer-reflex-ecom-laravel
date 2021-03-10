@@ -21,6 +21,9 @@
     <div class="col-md-3">
         <a class="btn btn-lg btn-block btn-primary" href="{{route('admin-manage-banners')}}">Manage Banners</a>
     </div>
+    <div class="col-md-3">
+        <a class="btn btn-lg btn-block btn-primary" href="{{route('admin-manage-home-carousel-sliders')}}">Home Products Carousels</a>
+    </div>
 </div>
 
 

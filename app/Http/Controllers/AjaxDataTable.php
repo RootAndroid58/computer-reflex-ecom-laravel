@@ -8,6 +8,103 @@ use App\Models\Order;
 
 class AjaxDataTable extends Controller
 {
+
+    function SliderProductsTable(Request $req)
+    {
+        if (Request()->ajax()) {
+
+            return datatables()->of(Product::with('images')->where('product_published', 1)->latest()->get())
+
+            ->addColumn('stock', function($data){
+
+                if ($data->product_stock > 0) {
+                    $stock = '<i class="fa fa-circle" style="color: #10c469;"></i>&nbsp;'.$data->product_stock;
+                    $stock .= '&nbsp;&nbsp;';
+                } 
+                elseif ($data->product_stock < 1){
+                    $stock = '<i class="fa fa-circle" style="color: #F44336;"></i>&nbsp;Unavailable';
+                    $stock .= '&nbsp;&nbsp;';
+                } else {
+
+                    $stock = 'Unknown';
+                }
+                
+                return $stock;
+        })
+            ->addColumn('product_mrp_custom', function($data){
+
+                $mrp = number_format($data->product_mrp, 2, ".", ",");
+                
+                return $mrp;
+        })
+            ->addColumn('product_price_custom', function($data){
+
+                $price = number_format($data->product_price, 2, ".", ",");
+
+                return $price;
+        })
+            ->addColumn('product_status', function($data){
+
+                if ($data->product_status == 1) {
+                    $status = '<i class="fa fa-circle" style="color: #10c469;"></i>&nbsp;Active';
+                    $status .= '&nbsp;&nbsp;';
+                } 
+                elseif ($data->product_status == 0) {
+                    $status = '<i class="fa fa-circle" style="color: #F44336;"></i>&nbsp;Inactive';
+                    $status .= '&nbsp;&nbsp;';
+                }
+                $data->product_status;
+
+                return $status;
+        })
+            ->addColumn('action', function($data){
+
+                $ProductURL = route('product-index', $data->id);
+
+                $EditURL = route('edit-product',$data->id);
+                $image = asset('storage/images/products/'.$data->images[0]->image);
+                $button = '<button class="btn btn-primary" onclick="AddToSlider(\'' . $data->id . '\',\''.$image.'\',\'' . $data->product_name . '\')">Add To Slider</button>';
+
+                
+                return $button;
+        })
+            ->rawColumns(['action', 'product_mrp_custom', 'product_price_custom', 'stock', 'product_status'])->make(true);
+
+        } else { return redirect()->route('home'); }
+
+        
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function AdminShipOrdersTable(Request $req)
     {
         if (Request()->ajax()) {

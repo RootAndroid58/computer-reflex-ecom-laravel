@@ -26,7 +26,28 @@ $UserName=str_word_count(Auth()->user()->name, 1);
                 <div class="account-menu-break"></div>   
                                                 
                     <div class="wishlist-container">        
-                            <div class="account-menu-break"></div>     
+                        <div class="account-menu-break"></div>     
+                     
+                        @if ($orders->count() == 0)
+                            <div class="wishlist-basic-padding" >
+                                <div class="w-100">
+                                    <div class="blank-wishlist-container text-center">
+                                        <div class="blank-wishlist-img-container" style="margin-top: 50px;">
+                                            <img class="img-nodrag" style="max-width: 25%" src="{{asset('img/svg/empty-cart.svg')}}">
+                                        </div>
+                                        <div class="blank-wishlist-txt-container text-center mb-3" style="margin-top: 30px;">
+                                            <span style="font-weight: 500; font-size: 20px;">No Orders!</span>
+                                            <br>
+                                            <span>You have no orders on your account.</span>
+                                            
+                                        </div>
+                                        <a href="{{ route('home') }}" class="btn btn-dark btn-lg">Start Shopping!</a>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                            
 
                             @foreach ($orders as $order)
                             
@@ -34,6 +55,20 @@ $UserName=str_word_count(Auth()->user()->name, 1);
                                 <div class="row " style="color: black;">
                                     <div class="col-5 ">
                                         <span>Order <a style="color: #0066c0;" href="{{ route('order-page', $order->id) }}">#{{date_format($order->created_at,"Y-mdHis").'-'.$order->id}}</a></span>
+
+                                    @if ($order->status == 'payment_pending') 
+                                        <span style="color: #f6c23e">
+                                            (Payment Pending.)
+                                        </span>
+                                    @elseif($order->status == 'order_placed') 
+                                        <span style="color: #2874f0">
+                                            (Order Placed.)
+                                        </span>
+                                    @elseif($order->status == 'payment_failed') 
+                                        <span style="color: #ff6161">
+                                            (Payment Declined.)
+                                        </span>
+                                    @endif
                                     </div>
                                     <div class="col-3 ">
                                         <span>Order Placed: <span style="font-weight: 500;">{{date_format($order->created_at,"dS M, Y (D)")}}</span></span>
@@ -79,43 +114,45 @@ $UserName=str_word_count(Auth()->user()->name, 1);
                                     </div>
 
                                     <div class="col-md-2">
-                                        @if ($order->status == 'payment_pending') 
-                                            <span style="color: #f6c23e">
-                                                <span style="">
-                                                    <i class="fa fa-circle" aria-hidden="true"></i>
-                                                </span>
-                                                Payment Pending.
+                                        @if ($item->status == 'order_placed')
+                                        <span style="color: #2874f0">
+                                            <span style="">
+                                                <i class="fa fa-circle" aria-hidden="true"></i>
                                             </span>
-                                        @elseif($order->status == 'order_placed') 
-                                            <span style="color: #2874f0">
-                                                <span style="">
-                                                    <i class="fa fa-circle" aria-hidden="true"></i>
-                                                </span>
-                                                Order Placed.
+                                            Order Placed.
+                                        </span>
+                                        @elseif($item->status == 'packing_started')
+                                        <span style="color: #2874f0">
+                                            <span style="">
+                                                <i class="fa fa-circle" aria-hidden="true"></i>
                                             </span>
-                                        @elseif($order->status == 'payment_failed') 
-                                            <span style="color: #ff6161">
-                                                <span style="">
-                                                    <i class="fa fa-circle" aria-hidden="true"></i>
-                                                </span>
-                                                Payment Declined.
+                                            Packing Started.
+                                        </span>
+                                        @elseif($item->status == 'packing_completed')
+                                        <span style="color: #2874f0">
+                                            <span style="">
+                                                <i class="fa fa-circle" aria-hidden="true"></i>
                                             </span>
-                                        @elseif($order->status == 'order_packing') 
-                                            <span style="color: #2874f0">
-                                                <span style="">
-                                                    <i class="fa fa-circle" aria-hidden="true"></i>
-                                                </span>
-                                                Packing Started.
+                                            Packing Completed.
+                                        </span>
+                                        @elseif($item->status == 'shipment_created')
+                                        <span style="color: #2874f0">
+                                            <span style="">
+                                                <i class="fa fa-circle" aria-hidden="true"></i>
                                             </span>
-                                        @elseif($order->status == 'packing_completed') 
-                                            <span style="color: #2874f0">
-                                                <span style="">
-                                                    <i class="fa fa-circle" aria-hidden="true"></i>
-                                                </span>
-                                                Packing Completed. 
+                                            Shipment Created, Waiting For Pickup.
+                                        </span>
+                                        @elseif($item->status == 'item_shipped')
+                                        <span style="color: #2874f0">
+                                            <span style="">
+                                                <i class="fa fa-circle" aria-hidden="true"></i>
                                             </span>
-                                        @endif
+                                            Product Shipped Via <b>{{ $item->shipment->courier_name }}</b>.<br>
+                                          
+                                                Delivery By: <b>{{date_format(new DateTime($item->delivery_date), "dS M,(D)")}}</b>
                                         
+                                        </span>
+                                        @endif
                                     </div>
                                 </div>
 

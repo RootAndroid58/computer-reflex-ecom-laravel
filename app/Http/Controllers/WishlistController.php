@@ -10,7 +10,7 @@ class WishlistController extends Controller
 {
     public function ShowWishlist()
     {
-        $wishlist = Wishlist::where('user_id', Auth()->user()->id)->with('Products','Images')->orderBy('id', 'asc')->get();
+        $wishlist = Wishlist::where('user_id', Auth()->user()->id)->with(['Products','Images', 'Cart'])->orderBy('id', 'asc')->get();
         
         $wishlistCount = $wishlist->count();
         // dd($wishlist);
