@@ -17,6 +17,7 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id');
             $table->string('product_name');
             $table->longText('product_description');
+            $table->longText('product_long_description')->nullable();
             $table->string('product_brand');
             $table->bigInteger('product_mrp');
             $table->bigInteger('product_price');

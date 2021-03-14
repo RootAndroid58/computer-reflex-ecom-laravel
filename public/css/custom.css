@@ -816,3 +816,30 @@ Buy now button Custom
 .left-menu-container{
     border: black 2px;
 }
+
+.sm-prod-img-container{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 100%; 
+    height: 175px;
+}
+
+
+    .gl-star-rating .gl-star-rating--stars > span {
+        --gl-star-size: 42px;
+    }
+    .gl-star-rating--stars{
+        margin: auto;
+    }
+.custom-modal-container{
+    position: relative;
+}
+
+.prod-back-div{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+

@@ -10,21 +10,7 @@ use Auth;
 
 class CartController extends Controller
 {
-    public function Test(Request $req)
-    {
-        dd(Session::getId());
 
-        // $req->session()->forget('cart');
-        // $cart = [
-        //             'product_id'    => 2,
-        //             'qty'           => 20,
-        //         ];  
-        
-        // request()->session()->push('cart', $cart);
-
-        // session()->save();
-        
-    }
 
     public function ShowCart()
     {
@@ -112,10 +98,18 @@ class CartController extends Controller
 
     public function ChangeQty(Request $req)
     {
-        Cart::where('product_id', $req->product_id)->where('user_id', Auth()->user()->id)->update([
-            'qty' => $req->cart_qty,
-        ]);
 
+        if (Auth::check()) {
+            Cart::where('product_id', $req->product_id)->where('user_id', Auth()->user()->id)->update([
+                'qty' => $req->cart_qty,
+            ]);
+        }
+        else {
+            SessionCart::where('product_id', $req->product_id)->where('session_id', Session::getId())->update([
+                'qty' => $req->cart_qty,
+            ]);
+        }
+        
         return 200;
     }
 

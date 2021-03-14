@@ -140,7 +140,7 @@
                                 @if (Auth::check())
                                 {{ App\Models\Cart::where('user_id', Auth()->user()->id)->get()->count() }} 
                                 @else
-                                0
+                                {{ App\Models\SessionCart::where('session_id', Session::getId())->get()->count() }}
                                 @endif
                                 
                                 
@@ -608,7 +608,7 @@
                                 <div class="product-wrapper mb-30">
                                     <div class="product-img">
                                         <a href="{{route('product-index', $product->id)}}" target="_blank">
-                                            <img src="{{asset('/storage/images/products/'.$product->images[0]->image)}}" alt="">
+                                            <div class="sm-prod-img-container" style="background-image: url('{{ asset('storage/images/products/'.$product->images[0]->image) }}');"></div>
                                         </a>
                                         <div class="product-action">
                                             <a class="animate-left" onclick="ToggleWishlist({{$product->id}})" title="Wishlist" href="#"><i class="pe-7s-like"></i></a>

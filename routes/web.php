@@ -48,25 +48,25 @@ Route::get('CartTest', 'App\Http\Controllers\CartController@Test');
     Route::get('/search', [App\Http\Controllers\IndexController::class, 'Search'])->name('search');
     
     Route::get('/product/{product_id}/{product_name?}', 'App\Http\Controllers\ShowProductsController@ProductIndex')->name('product-index');
+      
+    Route::get('/cart', [App\Http\Controllers\CartController::class, 'ShowCart'])->name('cart');
+
+    Route::post('/cart/toggle', [App\Http\Controllers\CartController::class, 'ToggleCart'])->name('toggle-cart-btn');
+
+    Route::post('/cart/change-qty', [App\Http\Controllers\CartController::class, 'ChangeQty'])->name('change-qty');
     
     Route::post('/checkout/payment/response/payu', [App\Http\Controllers\CheckoutController::class, 'PayuResponse'])->name('checkout-payu-response');
 
     Route::post('/checkout/payment/response/paytm', [App\Http\Controllers\CheckoutController::class, 'PaytmResponse'])->name('checkout-paytm-response');
     
-    Route::get('/checkout/order/{order_id}/confirmation', [App\Http\Controllers\CheckoutController::class, 'AfterPayment'])->name('checkout-order-confirmation');
-    
-    Route::get('/cart', [App\Http\Controllers\CartController::class, 'ShowCart'])->name('cart');
-
-    Route::post('/cart/toggle', [App\Http\Controllers\CartController::class, 'ToggleCart'])->name('toggle-cart-btn');
-
-
-
 
 
 // Verified Middleware Start
 
-    Route::group(['middleware' => ['verified', 'auth']], function() { 
+Route::group(['middleware' => ['verified', 'auth']], function() { 
 
+    Route::get('/checkout/order/{order_id}/confirmation', [App\Http\Controllers\CheckoutController::class, 'AfterPayment'])->name('checkout-order-confirmation');
+      
     Route::post('/dp/update', [App\Http\Controllers\DpUpdateController::class, 'DpUpdate'])->name('dp-update');
 
     Route::get('/account', [App\Http\Controllers\AccountController::class, 'ShowAccount'])->name('my-account');
@@ -76,8 +76,6 @@ Route::get('CartTest', 'App\Http\Controllers\CartController@Test');
     Route::get('/support/raise-support-ticket', [App\Http\Controllers\SupportController::class, 'RaiseSupportTicket'])->name('raise-support-ticket');
     
     Route::get('/support/support-tickets', [App\Http\Controllers\SupportController::class, 'SupportTickets'])->name('support-tickets');
-    
-    Route::get('/contact', [App\Http\Controllers\IndexController::class, 'ShowContact'])->name('contact');
     
     Route::get('/addresses', [App\Http\Controllers\ManageAddressesController::class, 'ShowAddresses'])->name('addresses');
     
@@ -105,19 +103,23 @@ Route::get('CartTest', 'App\Http\Controllers\CartController@Test');
     
     Route::post('/wishlist/toggle', [App\Http\Controllers\WishlistController::class, 'ToggleWishlist'])->name('toggle-wishlist-btn');
     
-    Route::post('/cart/change-qty', [App\Http\Controllers\CartController::class, 'ChangeQty'])->name('change-qty');
-    
     Route::post('/account/update-name', [App\Http\Controllers\AccountController::class, 'UpdateName'])->name('update-name');
 
     Route::post('/account/update-email', [App\Http\Controllers\AccountController::class, 'UpdateEmail'])->name('update-email');
 
     Route::post('/account/update-mobile', [App\Http\Controllers\AccountController::class, 'UpdateMobile'])->name('update-mobile');
     
+    Route::get('/product/pid/{product_id}/reviews/', [App\Http\Controllers\ReviewController::class, 'AllProductReviews'])->name('all-product-reviews');
+    
+    Route::post('/review/product/submit', [App\Http\Controllers\ReviewController::class, 'ReviewSubmit'])->name('review-submit');
+    
     Route::get('/ajax/get-auth-name', [App\Http\Controllers\AjaxController::class, 'GetAuthName'])->name('get-auth-name');
 
     Route::get('/ajax/get-auth-email', [App\Http\Controllers\AjaxController::class, 'GetAuthEmail'])->name('get-auth-email');
 
     Route::get('/ajax/get-auth-mobile', [App\Http\Controllers\AjaxController::class, 'GetAuthMobile'])->name('get-auth-mobile');
+    
+    Route::post('/ajax/get-product-reviews', [App\Http\Controllers\AjaxController::class, 'GetProductReviews'])->name('get-product-reviews');
 
 
 

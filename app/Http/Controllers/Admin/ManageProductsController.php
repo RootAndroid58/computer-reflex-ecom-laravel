@@ -183,29 +183,33 @@ class ManageProductsController extends Controller
 
     public function EditProductSubmit(Request $req)
     {
+ 
         $req->validate([
-            'product_name'          => 'required',
-            'product_status'        => 'required|numeric|in:0,1',
-            'product_stock'         => 'required|numeric',
-            'product_mrp'           => 'required|numeric|gt:product_price',
-            'product_price'         => 'required|numeric',
-            'product_description'   => 'required',
-            'tags'                  => 'required',
+            'product_name'                  => 'required',
+            'product_status'                => 'required|numeric|in:0,1',
+            'product_stock'                 => 'required|numeric',
+            'product_mrp'                   => 'required|numeric|gt:product_price',
+            'product_price'                 => 'required|numeric',
+            'product_description'           => 'required',
+            'product_long_description'      => 'nullable',
+            'tags'                          => 'required',
         ]);
 
         
         Product::where('id', $req->product_id)->update([
-            'product_name'          => $req->product_name,
-            'product_stock'         => $req->product_stock, 
-            'product_mrp'           => $req->product_mrp, 
-            'product_price'         => $req->product_price, 
-            'product_status'        => $req->product_status, 
-            'product_description'   => $req->product_description, 
+            'product_name'              => $req->product_name,
+            'product_stock'             => $req->product_stock, 
+            'product_mrp'               => $req->product_mrp, 
+            'product_price'             => $req->product_price, 
+            'product_status'            => $req->product_status, 
+            'product_description'       => $req->product_description, 
+            'product_long_description'  => $req->product_long_description, 
         ]);
 
         ProductTag::where('product_id', $req->product_id)->delete();
 
         foreach ($req->tags as $req->tag) {
+
             $data = new ProductTag;
             $data->product_id = $req->product_id;
             $data->product_tag = $req->tag;

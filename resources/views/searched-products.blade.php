@@ -115,7 +115,7 @@
                                         <div class="product-wrapper mb-30">
                                             <div class="product-img">
                                                 <a href="{{route('product-index', $product->id)}}" target="_blank">
-                                                    <img src="{{ asset('storage/images/products/'.$product->images[0]->image)}}" alt="">
+                                                    <div class="sm-prod-img-container" style="background-image: url('{{ asset('storage/images/products/'.$product->images[0]->image) }}');"></div>
                                                 </a>
                                                 <div class="product-action">
                                                     <a class="animate-left" onclick="ToggleWishlist({{$product->id}})" title="Wishlist" href="#"><i class="pe-7s-like"></i></a>
@@ -177,7 +177,7 @@ $.ajax({
             $(".bootstrap-growl").remove();
             $.bootstrapGrowl("Removed from wishlist.", {
                 type: "danger",
-                offset: {from:"bottom", amount: 50},
+                offset: {from:"bottom", amount: 100},
                 align: 'center',
                 allow_dismis: true,
                 stack_spacing: 10,
@@ -186,7 +186,7 @@ $.ajax({
             $(".bootstrap-growl").remove();
             $.bootstrapGrowl("Added to wishlist.", {
                 type: "success",
-                offset: {from:"bottom", amount: 50},
+                offset: {from:"bottom", amount: 100},
                 align: 'center',
                 allow_dismis: true,
                 stack_spacing: 10,
@@ -212,7 +212,7 @@ function ToogleCart(product_id) {
             $(".bootstrap-growl").remove();
             $.bootstrapGrowl("Added To Cart.", {
                 type: "success",
-                offset: {from:"top", amount: 100},
+                offset: {from:"bottom", amount: 100},
                 align: 'center',
                 allow_dismis: true,
                 stack_spacing: 10,
@@ -222,7 +222,7 @@ function ToogleCart(product_id) {
             $(".bootstrap-growl").remove();
             $.bootstrapGrowl("Removed From Cart.", {
                 type: "danger",
-                offset: {from:"top", amount: 100},
+                offset: {from:"bottom", amount: 100},
                 align: 'center',
                 allow_dismis: true,
                 stack_spacing: 10,

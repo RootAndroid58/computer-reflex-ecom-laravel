@@ -117,7 +117,6 @@
 @section('bottom-js')
 
 
-
 <script>
 
     $('#AdminProductsTable').DataTable({

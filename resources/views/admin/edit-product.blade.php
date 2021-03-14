@@ -138,8 +138,16 @@
 
 
             <div class="form-group">
-                <label class="text-dark">Description</label>
+                <label class="text-dark">Short Description</label>
                 <textarea name="product_description" id="description" class="form-control @error('product_description') is-invalid @enderror" placeholder="Product description." rows="7"></textarea>
+                @error('product_description')
+                <div class="invalid-feedback">{{$message}}</div>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label class="text-dark">Detailed Description</label>
+                <textarea name="product_long_description" id="long_description" class="form-control @error('product_description') is-invalid @enderror" placeholder="Product description." rows="7"></textarea>
                 @error('product_description')
                 <div class="invalid-feedback">{{$message}}</div>
                 @enderror
@@ -174,6 +182,7 @@
 
 
 <div class="d-none" id="prefilledDescription">{!! $product->product_description !!}</div>
+<div class="d-none" id="prefilledLongDescription">{!! $product->product_long_description !!}</div>
 
 
 </div> <!--Container-Fluid End-->
@@ -205,9 +214,26 @@
 <script>
     $(document).ready(function() {
 
+        // Description
         $('#description').summernote({
         toolbar: [
-        // [groupName, [list of button]]
+        ['color', ['color']],
+        ['style', ['bold', 'italic', 'underline', 'clear', ]],
+        ['view', ['codeview']],
+        ['para', ['ul', 'ol']],
+        ['table', ['table']],
+    ],
+            minHeight: 220,         // set minimum height of editor
+            maxHeight: 500,         // set maximum height of editor
+            focus: true,    
+        }).summernote('code', $('#prefilledDescription').html()); 
+
+        // Long Description
+        $('#long_description').summernote({
+        toolbar: [
+        ['color', ['color']],
+        ['para', ['ul', 'ol']],
+        ['table', ['table']],
         ['style', ['bold', 'italic', 'underline', 'clear', ]],
         ['insert', ['link', 'picture', 'video']],
         ['view', ['codeview']]
@@ -215,7 +241,9 @@
             minHeight: 220,         // set minimum height of editor
             maxHeight: 500,         // set maximum height of editor
             focus: true,    
-        }).summernote('code', $('#prefilledDescription').html()); 
+        }).summernote('code', $('#prefilledLongDescription').html()); 
+
+
     });
 </script>
 

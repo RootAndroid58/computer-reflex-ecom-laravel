@@ -18,6 +18,7 @@
         <link rel="stylesheet" href="{{ asset('ezone/css/themify-icons.css')}}">
         <link rel="stylesheet" href="{{ asset('ezone/css/pe-icon-7-stroke.css')}}">
         <link rel="stylesheet" href="{{ asset('css/fa.min.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/star-rating.css')}}">
 
         <link rel="stylesheet" href="{{ asset('ezone/css/icofont.css')}}">
         <link rel="stylesheet" href="{{ asset('ezone/css/meanmenu.min.css')}}">
@@ -120,6 +121,8 @@
                                     <span class="shop-count-furniture green">
                                         @if (Auth::check())
                                             {{ App\Models\Cart::where('user_id', Auth()->user()->id)->get()->count() }} 
+                                        @elseif(!Auth::check())
+                                            {{ App\Models\SessionCart::where('session_id', Session::getId())->get()->count() }} 
                                         @else
                                             0
                                         @endif
@@ -361,6 +364,7 @@
         <script src="{{ asset('js/zoomsl.min.js') }}"></script>
         <script src="{{ asset('js/summernote-bs4.js') }}"></script>
         <script src="{{ asset('js/jquery.bootstrap-growl.min.js')}}"></script>
+        <script src="{{ asset('js/star-rating.js?ver=4.1.2')}}"></script>
         <script src="{{ asset('js/main.js') }}"></script>
 
         {{-- <script>
