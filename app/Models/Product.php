@@ -24,4 +24,8 @@ class Product extends Model
     {
         return $this->hasOne(Category::class, 'id', 'product_category_id')->orderBy('id', 'desc');
     }
+    public function comission()
+    {
+        return $this->hasOne(ProductComission::class, 'product_id', 'id')->orderBy('id', 'desc');
+    }
 }

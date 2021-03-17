@@ -217,7 +217,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'permission:Admin'], function
         Route::get('/', [App\Http\Controllers\AffiliateController::class, 'Index'])->name('affiliate');
         Route::get('/join', [App\Http\Controllers\AffiliateController::class, 'ShowJoinPage'])->name('affiliate.join');
         Route::post('/join/submit', [App\Http\Controllers\AffiliateController::class, 'JoinSubmit'])->name('affiliate.join-submit');
-        Route::get('/dashboard', [App\Http\Controllers\AffiliateController::class, 'ShowDashboardPage'])->name('affiliate.dashboard');
+        Route::get('/referred-purchases', [App\Http\Controllers\AffiliateController::class, 'ReferredPurchasesPage'])->name('affiliate.referred-purchases');
+        Route::get('/reports', [App\Http\Controllers\AffiliateController::class, 'ReportsPage'])->name('affiliate.reports');
+        Route::get('/wallet', [App\Http\Controllers\AffiliateController::class, 'WalletPage'])->name('affiliate.wallet');
+        Route::get('/payment-modes', [App\Http\Controllers\AffiliateController::class, 'PaymentModesPage'])->name('affiliate.payment-modes');
+        Route::get('/payout', [App\Http\Controllers\AffiliateController::class, 'PayoutPage'])->name('affiliate.payout');
+        
+        
+        Route::get('/settings', [App\Http\Controllers\AffiliateController::class, 'SettingsPage'])->name('affiliate.settings');
     });
 
 

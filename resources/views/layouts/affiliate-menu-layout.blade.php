@@ -20,6 +20,15 @@
         
                 <div class="account-details-container row">
                     
+                    <div class="account-menu-items-container @yield('affiliate-settings-nav')">
+                        <a style="width: 100%;" href="{{ route('affiliate.settings') }}" >
+                        <div class="account-head-menu">
+                            <img src="{{ asset('img/svg/settings.svg') }}" alt="" srcset="">
+                            <span style="width: calc(100% - 26px);padding-left: 20px;font-size: 16px;font-weight: 500;margin-top: 10px;">SETTINGS</span> 
+                            <img src="{{ asset('img/svg/next.svg') }}" alt="" class="account-menu-arrow " >
+                        </div>
+                    </a>
+                    </div>
                 
                     <div class="account-menu-break"></div> {{-- Underline --}}
 
@@ -32,9 +41,8 @@
                         
                     
                     <div class="w-100" style="padding-bottom: 12px;">
-                        <a style="width: 100%;" href="{{ route('my-account') }}"><div class="account-menu-item @yield('profile-information-nav')">Profile Information</div></a>
-                        <a style="width: 100%;" href="{{ route('addresses') }}"><div class="account-menu-item @yield('manage-addresses-nav')">Manage Addresses</div></a>
-                        <a style="width: 100%;" href="/account/pancard"><div class="account-menu-item">PAN Card Information</div></a>
+                        <a style="width: 100%;" href="{{ route('affiliate.referred-purchases') }}"><div class="account-menu-item @yield('referred-purchases-nav')">Referred Purchases</div></a>
+                        <a style="width: 100%;" href="{{ route('affiliate.reports') }}"><div class="account-menu-item @yield('affiliate-reports-nav')">Affiliate Reports</div></a>
                     </div>
 
 
@@ -42,13 +50,15 @@
 
                     <div class="account-menu-items-container">
                         <div class="account-head-menu">
-                            <img src="{{ asset('img/svg/stuff.svg') }}" alt="" srcset="">
+                            <img src="{{ asset('img/svg/wallets2.svg') }}" alt="" srcset="">
                             <a style="cursor: default; width: 100%;">PAYMENT</a>
                         </div>
                     </div>
 
                     <div class="w-100" style="padding-bottom: 12px;">
-                        <a href="{{route('wishlist')}}"><div class="account-menu-item @yield('wishlist-information-nav')">My Wishlist</div></a>
+                        <a href="{{route('affiliate.wallet')}}"><div class="account-menu-item @yield('wishlist-information-nav')">Wallet</div></a>
+                        <a href="{{route('affiliate.payment-modes')}}"><div class="account-menu-item @yield('wishlist-information-nav')">Payment Modes</div></a>
+                        <a href="{{route('affiliate.payout')}}"><div class="account-menu-item @yield('wishlist-information-nav')">Payout</div></a>
                     </div>
                     
                     <div class="account-menu-break"></div> {{-- Underline --}}

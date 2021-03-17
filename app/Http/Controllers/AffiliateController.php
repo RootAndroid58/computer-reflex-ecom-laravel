@@ -13,7 +13,7 @@ class AffiliateController extends Controller
     public function Index()
     {
         if (Auth()->user()->can('Affiliate')) {
-            return redirect()->route('affiliate.dashboard');
+            return redirect()->route('affiliate.referred-purchases');
         } 
         else 
         {
@@ -41,14 +41,24 @@ class AffiliateController extends Controller
         }
     }   
 
-    public function ShowDashboardPage()
+    public function ReferredPurchasesPage()
     {
         if (Auth()->user()->can('Affiliate')) {
-            return view('affiliate.dashboard');
+            return view('affiliate.referred-purchases');
         } 
         else {
            return $this->Index();
         }
+    }
+
+    public function SettingsPage()
+    {
+        return view('affiliate.settings');
+    }
+
+    public function ReportsPage()
+    {
+        return view('affiliate.reports');
     }
 
 
