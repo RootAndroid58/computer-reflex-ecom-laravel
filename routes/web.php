@@ -208,11 +208,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'permission:Admin'], function
 
     Route::get('/manage-products/pid/{product_id}/remove', 'App\Http\Controllers\Admin\ManageProductsController@RemoveProduct')->name('remove-product')->middleware('permission:Master Admin');
 
-
-
-
-
 });
+
+
+    
+    // Affiliate Links Prefix Routes
+    Route::group(['prefix' => 'affiliate',], function() {
+        Route::get('/', [App\Http\Controllers\AffiliateController::class, 'Index'])->name('affiliate');
+        Route::get('/join', [App\Http\Controllers\AffiliateController::class, 'ShowJoinPage'])->name('affiliate.join');
+        Route::post('/join/submit', [App\Http\Controllers\AffiliateController::class, 'JoinSubmit'])->name('affiliate.join-submit');
+        Route::get('/dashboard', [App\Http\Controllers\AffiliateController::class, 'ShowDashboardPage'])->name('affiliate.dashboard');
+    });
 
 
 

@@ -842,4 +842,23 @@ Buy now button Custom
     background-size: contain;
 }
 
+.green-star {
+    color: #28a745!important;
+}
+
+
+
+.ac-welcome-page-benefit-step-no {
+    margin: auto;
+    border-radius: 50%;
+    background: #000;
+    color: #fff;
+    display: inline-block;
+    width: 24px;
+    line-height: 24px;
+    margin-bottom: 10px;
+    font-family: AmazonEmber_Bd, "Amazon Ember", Arial, sans-serif;
+}
+
+
 

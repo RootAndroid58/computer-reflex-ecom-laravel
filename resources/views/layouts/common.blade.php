@@ -28,8 +28,7 @@
         <link rel="stylesheet" href="{{ asset('ezone/css/style.css')}}">
         <link rel="stylesheet" href="{{ asset('ezone/css/responsive.css')}}">
         <link rel="stylesheet" href="{{ asset('css/custom.css')}}">
-
-        <script src="{{ asset('js/fa.min.js') }}"></script>
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
         <script src="{{ asset('ezone/js/vendor/modernizr-2.8.3.min.js')}}"></script>
         @yield('css-js')
         <style>

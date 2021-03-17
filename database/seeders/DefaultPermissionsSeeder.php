@@ -27,6 +27,12 @@ class DefaultPermissionsSeeder extends Seeder
                 'guard_name'            => 'web',
                 'created_at'            => date('y-m-d h:m:s'),
             ],
+            [
+                'id'                    => 2,
+                'name'                  => 'Affiliate',
+                'guard_name'            => 'web',
+                'created_at'            => date('y-m-d h:m:s'),
+            ],
         ];
 
         Permission::insert($permission);

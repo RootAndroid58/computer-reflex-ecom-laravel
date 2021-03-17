@@ -38,6 +38,11 @@ class AjaxController extends Controller
         $searchArr = preg_split('/\s+/', $req->get('review_search'), -1, PREG_SPLIT_NO_EMPTY); 
 
         $reviews = ProductReview::with('user')->where('product_id', $req->product_id);
+        
+        $reviews = $reviews->where(function ($query) use ($searchArr) {
+                $query->orWhereNotNull('title')
+                ->orWhereNotNull('message');
+        });
 
         if (isset($req->review_search)) {
             $reviews = $reviews->where(function ($query) use ($searchArr) {
@@ -59,13 +64,18 @@ class AjaxController extends Controller
         if ($req->sort_by == 'Negative First') {
             $reviews = $reviews->orderBy('stars', 'asc');
         }
+
+        $TotalReviews = $reviews;
+        $reviews = $reviews->skip($req->skip_count)->take(5)->get();
+
+        foreach ($reviews as $review) {
+            $review->days_ago = HowMuchOldDate($review->created_at, 'days');
+        }
         
-
-
         return [
             'status'        => 200,
-            'reviews'       => $reviews->skip($req->skip_count)->take(5)->get(),
-            'reviewsCount'  => $reviews->count(),
+            'reviews'       => $reviews,
+            'reviewsCount'  => $TotalReviews->count(),
         ];
     }
 

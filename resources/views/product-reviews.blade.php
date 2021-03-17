@@ -183,18 +183,18 @@
                               
                             <div style="padding: 24px 32px;">
                                 <div class="mb-3">
-                                    <span style="font-size: 18px; font-weight: 500;">Rate This Product</span>
+                                    <span style="font-size: 18px; font-weight: 500;">Rate This Product <font style="color: red;">*</font></span>
                                 </div>
                                 <input type="hidden" value="{{$product->id}}" name="product_id">
                             
                                 <div class="form-field w-100">
                                     <select id="glsr-ltr" class="star-rating" name="rating" required>
                                         <option value="" disabled selected>Select a rating</option>
-                                        <option value="5" @if($ReviewCheck->stars == 5) selected @endif>Fantastic</option>
-                                        <option value="4" @if($ReviewCheck->stars == 4) selected @endif>Great</option>
-                                        <option value="3" @if($ReviewCheck->stars == 3) selected @endif>Good</option>
-                                        <option value="2" @if($ReviewCheck->stars == 2) selected @endif>Poor</option>
-                                        <option value="1" @if($ReviewCheck->stars == 1) selected @endif>Terrible</option>
+                                        <option value="5" @if(isset($ReviewCheck->stars) && $ReviewCheck->stars == 5) selected @endif>Fantastic</option>
+                                        <option value="4" @if(isset($ReviewCheck->stars) && $ReviewCheck->stars == 4) selected @endif>Great</option>
+                                        <option value="3" @if(isset($ReviewCheck->stars) && $ReviewCheck->stars == 3) selected @endif>Good</option>
+                                        <option value="2" @if(isset($ReviewCheck->stars) && $ReviewCheck->stars == 2) selected @endif>Poor</option>
+                                        <option value="1" @if(isset($ReviewCheck->stars) && $ReviewCheck->stars == 1) selected @endif>Terrible</option>
                                     </select>
                                 </div>
                             </div>
@@ -204,12 +204,12 @@
                             <div style="padding: 24px 32px;">
                                 <span style="font-size: 18px; font-weight: 500;">Review This Product</span> 
                                 <div class="form-group mt-3">
-                                <input type="text" value="{{ $ReviewCheck->title }}"
+                                <input type="text" value="{{ $ReviewCheck->title  ?? '' }}"
                                     class="form-control" maxlength="50" name="title" id="title" aria-describedby="helpId" placeholder="Title (Optional)">
                                 </div>
                     
                                 <div class="form-group">
-                                <textarea maxlength="300" class="form-control" name="message" id="" rows="4" placeholder="Detailed Review...">{{ $ReviewCheck->message }}</textarea>
+                                <textarea maxlength="300" class="form-control" name="message" id="" rows="4" placeholder="Detailed Review...">{{ $ReviewCheck->message ?? '' }}</textarea>
                                 </div>
                             </div>
                             
@@ -232,9 +232,11 @@
                            
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                      <span class="input-group-text" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
+                                      <span class="input-group-text" id="searchPre">
+                                          <i class="fa fa-search" aria-hidden="true"></i>
+                                        </span>
                                     </div>
-                                    <input onkeyup="fetchReviews()" type="text" id="review_search" class="form-control" placeholder="Search for reviews..." aria-label="Username" aria-describedby="basic-addon1">
+                                    <input type="text" id="review_search" class="form-control" placeholder="Search for reviews..." aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
                         </div>
                         <div class="col-3">
@@ -289,10 +291,12 @@
             </div>
         </div>
     </div>
-
+    
     
 </div>
     
+
+<input type="hidden" id="fetchType" value="new">
 @endsection
     
 
@@ -303,14 +307,32 @@ $('document').ready( function (){
     fetchReviews('new')
 })
 
-        
-$(window).on('scroll', function() { 
-    if ($(window).scrollTop() >= $( 
-        '#ShowReviewsArea').offset().top + $('#ShowReviewsArea'). 
-        outerHeight() - window.innerHeight) { 
-        fetchReviews('more');
-    } 
-}); 
+
+
+//setup before functions
+var typingTimer;                //timer identifier
+var doneTypingInterval = 1500;  //time in ms, 5 second for example
+var $input = $('#review_search');
+
+//on keyup, start the countdown
+$input.on('keyup', function () {
+    $('#searchPre').html(`<i class="fa fa-spinner fa-spin"></i>`)
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(doneTyping, doneTypingInterval);
+});
+
+//on keydown, clear the countdown 
+$input.on('keydown', function () {
+  clearTimeout(typingTimer);
+});
+
+//user is "finished typing," do something
+function doneTyping () {
+    $('#searchPre').html(`<i class="fa fa-search" aria-hidden="true"></i>`)
+    $('#searchPre').removeClass('searchLoading')
+    fetchReviews('new')
+}
+
 
 </script>
 

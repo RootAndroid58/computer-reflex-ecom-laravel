@@ -47,14 +47,13 @@ class IndexController extends Controller
 
         $categories = Category::get();
 
-        $products = Product::with(['images', 'tags', 'category'])
+        $products = Product::with(['images', 'tags', 'category'])->where('product_status', 1)
             
             ->where(function ($query) use ($searchArr) {
                 foreach ($searchArr as $search) {
                     $query->orWhere('id', 'LIKE' , '%'.$search.'%')
                     ->orWhere('product_name', 'LIKE' , '%'.$search.'%')
-                    ->orWhere('product_brand', 'LIKE' , '%'.$search.'%')
-                    ->orWhere('product_description', 'LIKE' , '%'.$search.'%');
+                    ->orWhere('product_brand', 'LIKE' , '%'.$search.'%');
                 }
                 $query->orWhereHas('tags', function ($query) use ($searchArr) {
                     foreach ($searchArr as $search) {

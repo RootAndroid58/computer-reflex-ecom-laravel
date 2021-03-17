@@ -57,6 +57,9 @@ class ReviewController extends Controller
     public function AllProductReviews($pid)
     {
         $product = Product::with('images')->where('id', $pid)->where('product_status', 1)->where('product_published', 1)->first();
+        if (!isset($product)) {
+            return redirect()->route('product-index', $pid);
+        }
         $reviews = ProductReview::where('product_id', $pid);
         $ReviewCheck = ProductReview::where('product_id', $pid)->where('user_id', Auth()->user()->id)->first();
 
@@ -94,14 +97,24 @@ class ReviewController extends Controller
         ]; 
 
         $maxRatingCount = max($ratingCounts);
-
-        $ratingPerc = [
-            'fivePerc'  => ($ratingCounts['five']*100)/$maxRatingCount,
-            'fourPerc'  => ($ratingCounts['four']*100)/$maxRatingCount,
-            'threePerc' => ($ratingCounts['three']*100)/$maxRatingCount,
-            'twoPerc'   => ($ratingCounts['two']*100)/$maxRatingCount,
-            'onePerc'   => ($ratingCounts['one']*100)/$maxRatingCount,
-        ];
+        if ($maxRatingCount != 0) {
+            $ratingPerc = [
+                'fivePerc'  => ($ratingCounts['five']*100)/$maxRatingCount,
+                'fourPerc'  => ($ratingCounts['four']*100)/$maxRatingCount,
+                'threePerc' => ($ratingCounts['three']*100)/$maxRatingCount,
+                'twoPerc'   => ($ratingCounts['two']*100)/$maxRatingCount,
+                'onePerc'   => ($ratingCounts['one']*100)/$maxRatingCount,
+            ];
+        } else { 
+            $ratingPerc = [
+                'fivePerc'  => 0,
+                'fourPerc'  => 0,
+                'threePerc' => 0,
+                'twoPerc'   => 0,
+                'onePerc'   => 0,
+            ];
+         }
+    
 
         return view('product-reviews',[
             'product'           => $product,

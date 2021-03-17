@@ -72,14 +72,16 @@
                     <h3>{{$product->product_name}}</h3>
                     <div class="rating-number">
                         <div class="quick-view-rating">
-                            <i class="pe-7s-star red-star"></i>
-                            <i class="pe-7s-star red-star"></i>
-                            <i class="pe-7s-star"></i>
-                            <i class="pe-7s-star"></i>
-                            <i class="pe-7s-star"></i>
+                            
+                            <i class="fa @if ($stars >= 1) fa-star green-star @else fa-star-o @endif" aria-hidden="true"></i>
+                            <i class="fa @if ($stars >= 2) fa-star green-star @else fa-star-o @endif" aria-hidden="true"></i>
+                            <i class="fa @if ($stars >= 3) fa-star green-star @else fa-star-o @endif" aria-hidden="true"></i>
+                            <i class="fa @if ($stars >= 4) fa-star green-star @else fa-star-o @endif" aria-hidden="true"></i>
+                            <i class="fa @if ($stars >= 5) fa-star green-star @else fa-star-o @endif" aria-hidden="true"></i>
                         </div>
                         <div class="quick-view-number">
-                            <span>2 Ratting (S)</span>
+                            <span>{{$reviews->count()}} Rating/Review @if($reviews->count() > 1)(S)@endif 
+</span>
                         </div>
                     </div>
 
@@ -683,11 +685,9 @@ function ToggleCart(product_id) {
 
     	<!-- Image Change On Hover -->
 	<script>
-		$(document).ready(function(){
-			$('.small_img').hover(function(){
-				$('.big_img').attr('src', $(this).attr('src'))
-			})
-		})
+        $('.small_img').hover(function(){
+            $('.big_img').attr('src', $(this).attr('src'))
+        })
 	</script>
 
 	<!-- Initilize ImageZoomSL -->
