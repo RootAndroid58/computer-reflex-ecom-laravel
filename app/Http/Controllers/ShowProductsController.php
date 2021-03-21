@@ -12,7 +12,9 @@ use App\Models\Order;
 use App\Models\SessionCart;
 use App\Models\Wishlist;
 use App\Models\ProductReview;
+use App\Models\AffiliateLink;
 use Auth;
+use Str;
 use Session;
 
 class ShowProductsController extends Controller
@@ -56,17 +58,21 @@ class ShowProductsController extends Controller
             }
 
 
-            $OrderCheck = Order::where('user_id', Auth()->user()->id)
-            ->whereHas('OrderItems', function ($query) use ($pid) {
-                $query->where('product_id', $pid);
-            })->first();
-            $ReviewCheck = ProductReview::where('product_id', $pid)->where('user_id', Auth()->user()->id)->first();
-            $wishlistCheck = Wishlist::where('user_id', Auth()->user()->id ?? 'Fake')->where('product_id', $pid)->first();
-            
-
             if (Auth::check()) {
+                
+                $ReviewCheck = ProductReview::where('product_id', $pid)->where('user_id', Auth()->user()->id)->first();
+                
+                $wishlistCheck = Wishlist::where('user_id', Auth()->user()->id ?? 'Fake')->where('product_id', $pid)->first();
+                
+                $OrderCheck = Order::where('user_id', Auth()->user()->id)
+                ->whereHas('OrderItems', function ($query) use ($pid) {
+                    $query->where('product_id', $pid);
+                })->first();
+
                 $cartCheck = Cart::where('user_id', Auth()->user()->id)->where('product_id', $pid)->first();
-            } else {
+            } 
+            else 
+            {
                 $cartCheck = SessionCart::where('session_id', Session::getId())->where('product_id', $pid)->first();
             }
 
@@ -123,13 +129,27 @@ class ShowProductsController extends Controller
                     'onePerc'   => 0,
                 ];
              }
+             
+             if (Auth::check()) {
+                if (Auth()->user()->can('Affiliate')) {
+                    $affiliateLink = AffiliateLink::where('associate_id', Auth()->user()->id)->where('product_id', $product->id)->first();
+                     if (!isset($affiliateLink)) {
+                        $affiliateLink = new AffiliateLink;
+                        $affiliateLink->associate_id = Auth()->user()->id;
+                        $affiliateLink->short_url = Str::random(8);
+                        $affiliateLink->product_id = $product->id;
+                        $affiliateLink->save();
+                    }
+                } else { $affiliateLink = null; }
+             }
+             
             
 
             return view('product-details', [
                 'product'           => $product,
                 'stars'             => $stars,
                 'ordered'           => $ordered,
-                'ReviewCheck'       => $ReviewCheck,
+                'ReviewCheck'       => $ReviewCheck ?? null,
                 'reviewed'          => $reviewed,
                 'reviews'           => $reviews->get(),
                 'RelatedProducts'   => $RelatedProducts,
@@ -141,6 +161,7 @@ class ShowProductsController extends Controller
                 'specifications'    => $specifications,
                 'ratingCounts'      => $ratingCounts,
                 'ratingPerc'        => $ratingPerc,
+                'affiliateLink'     => $affiliateLink ?? null,
             ]);
 
         } else {

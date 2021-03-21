@@ -19,6 +19,7 @@ class CreateOrderItemsTable extends Migration
             $table->bigInteger('product_id')->foreign('id')->on('products')->onDelete('cascade');
             $table->bigInteger('qty');
             $table->string('unit_price');
+            $table->string('unit_mrp');
             $table->string('total_price');
             $table->string('status');
             $table->timestamp('delivery_date')->nullable();

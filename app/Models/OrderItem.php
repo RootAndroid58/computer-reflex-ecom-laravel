@@ -21,5 +21,13 @@ class OrderItem extends Model
     {
         return $this->hasOne(Shipment::class, 'order_item_id', 'id');
     }
+    public function order()
+    {
+        return $this->hasOne(Order::class, 'id', 'order_id');
+    }
+    public function AffiliateOrderItem()
+    {
+        return $this->hasOne(AffiliateOrderItem::class, 'order_item_id', 'id');
+    }
 
 }

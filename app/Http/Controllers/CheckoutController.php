@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Address;
+use App\Models\AffiliateOrderItem;
 use App\Mail\OrderPlacedMail;
 use Softon\Indipay\Facades\Indipay;
 use Illuminate\Support\Facades\Mail;
@@ -72,16 +73,28 @@ class CheckoutController extends Controller
 
         // Add items for order
         foreach ($req->product_id as $key => $pid) {
-            $prod = Product::where('id', $pid)->first();
+            $prod = Product::with('comission')->where('id', $pid)->first();
             $orderItem = new OrderItem;
             $orderItem->order_id = $order->id;
             $orderItem->product_id = $pid;
             $orderItem->qty = $req->product_qty[$key];
             $orderItem->unit_price = $prod->product_price;
+            $orderItem->unit_mrp = $prod->product_mrp;
             $orderItem->total_price = $prod->product_price * $req->product_qty[$key];
             $orderItem->delivery_date   = date_create(date('y-m-d h:m:s', strtotime ('+10 day')));
             $orderItem->status = 'checkout_pending';
             $orderItem->save();
+
+            if (isset($prod->comission->comission) && isset(Auth()->user()->affiliate->associate_id)) {
+                if ($prod->comission->comission > 0) {
+                    $affiliateOrderItem = new AffiliateOrderItem;
+                    $affiliateOrderItem->associate_id = Auth()->user()->affiliate->associate_id;
+                    $affiliateOrderItem->order_item_id = $orderItem->id;
+                    $affiliateOrderItem->comission = CalcPerc($prod->comission->comission, $prod->product_price) * $req->product_qty[$key];
+                    $affiliateOrderItem->status = 'pending';
+                    $affiliateOrderItem->save();
+                }
+            }
         }
 
         // Send user to paytm for payment

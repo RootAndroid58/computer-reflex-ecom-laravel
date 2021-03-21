@@ -47,6 +47,8 @@ Route::get('CartTest', 'App\Http\Controllers\CartController@Test');
     
     Route::get('/search', [App\Http\Controllers\IndexController::class, 'Search'])->name('search');
     
+    Route::get('/r/{short_url}', [App\Http\Controllers\IndexController::class, 'ShortUrlRedirect'])->name('ShortUrlRedirect');
+    
     Route::get('/product/{product_id}/{product_name?}', 'App\Http\Controllers\ShowProductsController@ProductIndex')->name('product-index');
       
     Route::get('/cart', [App\Http\Controllers\CartController::class, 'ShowCart'])->name('cart');
@@ -134,7 +136,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'permission:Admin'], function
 
     Route::post('/user-management/user/search/submit','App\Http\Controllers\Admin\AdminController@UserSearchSubmit')->name('admin-user-search-submit')->middleware('permission:Master Admin');
 
-    Route::post('/user-management/user/create/submit','App\Http\Controllers\Admin\AdminController@AdminUserCreateubmit')->name('admin-user-create-submit')->middleware('permission:Master Admin');
+    Route::post('/user-management/user/create/submit','App\Http\Controllers\Admin\AdminController@AdminUserCreateSubmit')->name('admin-user-create-submit')->middleware('permission:Master Admin');
 
     Route::get('/user-management/id/{id}/delete','App\Http\Controllers\Admin\AdminController@AdminUserRemove')->middleware('permission:Master Admin');
 
@@ -160,7 +162,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'permission:Admin'], function
 
     Route::get('/ship-orders','App\Http\Controllers\Admin\ManageOrdersController@ShipOrdersPage')->name('admin-ship-orders')->middleware('permission:Master Admin');
     
+    Route::get('/delivery-confirmation','App\Http\Controllers\Admin\ManageOrdersController@DeliveryConfirmationPage')->name('admin-delivery-confirmation')->middleware('permission:Master Admin');
+    
     Route::get('/manage-order/{order_id}/ship','App\Http\Controllers\Admin\ManageOrdersController@ShipOrder')->name('admin-ship-order')->middleware('permission:Master Admin');
+    
+    Route::get('/manage-order/{order_item_id}/delivered','App\Http\Controllers\Admin\ManageOrdersController@ItemDeliveredConfirmation')->name('admin-item-delivered-confirmation')->middleware('permission:Master Admin');
 
     Route::get('/manage-order/{order_item_id}/start-packing','App\Http\Controllers\Admin\ManageOrdersController@StartPacking')->name('admin-start-packing-order')->middleware('permission:Master Admin');
     
@@ -251,6 +257,8 @@ Route::group(['prefix' => 'ajax/data-table'], function() {
     Route::get('admin-orders-table', 'App\Http\Controllers\AjaxDataTable@AdminOrdersTable')->name('ajax-datatable.AdminOrdersTable');
     Route::get('admin-ship-orders-table', 'App\Http\Controllers\AjaxDataTable@AdminShipOrdersTable')->name('ajax-datatable.AdminShipOrdersTable');
     Route::get('admin-slider-products-table', 'App\Http\Controllers\AjaxDataTable@SliderProductsTable')->name('ajax-datatable.AdminSliderProductsTable');
+    Route::get('referred-purchases-table', 'App\Http\Controllers\AjaxDataTable@ReferredPurchasesTable')->name('ajax-datatable.ReferredPurchasesTable');
+    Route::get('admin-delivery-confirmation-table', 'App\Http\Controllers\AjaxDataTable@AdminDeliveryConfirmationTable')->name('ajax-datatable.AdminDeliveryConfirmationTable');
 });
 
 Route::group(['prefix' => 'jquery/load/components'], function() {

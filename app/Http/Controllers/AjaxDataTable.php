@@ -5,9 +5,188 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Order;
+use App\Models\AffiliateOrderItem;
+use App\Models\OrderItem;
+use DateTime;
 
 class AjaxDataTable extends Controller
 {
+
+
+
+
+
+
+    public function AdminDeliveryConfirmationTable(Request $req)
+    {
+        if (Request()->ajax()) {
+
+            return datatables()->of(OrderItem::with('product')->with('order.User')->where('status', 'item_shipped')->latest()->get())
+            
+            ->addColumn('order_id', function($data){
+
+                $order_id = $data->order_id;
+
+                return $order_id;
+            })
+            ->addColumn('order_date', function($data){
+
+                $order_date = $data->order->created_at;
+
+                return $order_date;
+            })
+            ->addColumn('customer_name', function($data){
+
+                $customer_name = $data->order->User->name;
+
+                return $customer_name;
+            })
+            ->addColumn('registered_mobile', function($data){
+
+                $registered_mobile = $data->order->User->mobile;
+
+                return $registered_mobile;
+            })
+            ->addColumn('registered_email', function($data){
+                
+                $registered_email = '<a href="mailto:'.$data->order->User->email.'" target="_blank">'.$data->order->User->email.'</a>';
+
+                return $registered_email;
+            })
+            ->addColumn('price', function($data){
+
+                $price = '<span><font class="rupees">₹</font>'.moneyFormatIndia($data->total_price).'</span>' ;
+                
+                return $price;
+            })
+            ->addColumn('status', function($data){
+
+                if ($data->status == 'item_shipped') {
+                    $status = '<span style="color: #2874f0"><span style=""><i class="fa fa-circle" aria-hidden="true"></i></span> Item Shipped.</span>';
+                }
+                    
+                return $status;
+            })
+            ->addColumn('payment_method', function($data){
+
+                if ($data->order->payment_method == 'payu') {
+                    $payment_method = 'PayU';
+                } 
+                elseif ($data->order->payment_method == 'paytm') {
+                    $payment_method = 'PayTM';
+                } 
+                elseif ($data->order->payment_method == 'cod') {
+                    $payment_method = 'Cash On Delivery';
+                }
+                    
+                return $payment_method;
+            })
+            ->addColumn('action', function($data){
+
+                $action = '<a href="'.route('admin-item-delivered-confirmation', $data->id).'" class="btn btn-primary">Delivered</a>';
+                    
+                return $action;
+            })
+
+            ->rawColumns(['order_id', 'status', 'price', 'payment_method', 'registered_email', 'action'])->make(true);
+
+        } else 
+        { 
+            return redirect()->route('home'); 
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    function ReferredPurchasesTable(Request $req)
+    {
+        if (Request()->ajax()) {
+
+            return datatables()->of(AffiliateOrderItem::with('OrderItem.product')
+            ->where('associate_id', Auth()->user()->id)
+            ->whereHas('OrderItem', function ($query) use ($req) {
+                $query->where('status', '!=', 'checkout_pending');
+            })      
+            ->latest()->get())
+
+            ->addColumn('product', function($data){
+
+                $product = $data->OrderItem->product->product_name;
+                
+                return $product;
+        })
+            ->addColumn('price', function($data){
+
+                $price = '<font class="rupees">₹</font>'.moneyFormatIndia($data->OrderItem->total_price);
+                
+                return $price;
+        })
+            ->addColumn('comission', function($data){
+
+                $comission = '<font class="rupees">₹</font>'.moneyFormatIndia($data->comission);
+
+                return $comission;
+        })
+            ->addColumn('purchase_date', function($data){
+
+                $purchase_date = date_format(new DateTime($data->OrderItem->created_at), "dS M, Y");
+
+                return $purchase_date;
+        })
+            ->addColumn('status', function($data){
+                if ($data->status == 'pending') {
+                    $status = 'In-Progress';
+                } else {
+                    $status = $data->status;
+                }
+                
+                
+                return $status;
+        })
+            ->rawColumns(['product', 'price', 'comission', 'purchase_date', 'status'])->make(true);
+
+        } else { return redirect()->route('home'); }
+
+        
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     function SliderProductsTable(Request $req)
     {
@@ -200,6 +379,19 @@ class AjaxDataTable extends Controller
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function AdminOrdersTable(Request $req)
     {
         if (Request()->ajax()) {
@@ -264,6 +456,9 @@ class AjaxDataTable extends Controller
                 }
                 elseif ($data->status == 'order_shipped') {
                     $status = '<span style="color: #2874f0"><span style=""><i class="fa fa-circle" aria-hidden="true"></i></span> Order Shipped.</span>';
+                }
+                elseif ($data->status == 'order_delivered') {
+                    $status = '<span style="color: #0f6848"><span style=""><i class="fa fa-circle" aria-hidden="true"></i></span> Order Delivered.</span>';
                 }
                     
                 return $status;

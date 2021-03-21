@@ -9,9 +9,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico')}}">
-		
+        <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css')}}">
+        <script src="{{ asset('fontawesome/js/all.js') }}"></script>
 		<!-- all css here -->
         <link rel="stylesheet" href="{{ asset('ezone/css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
         <link rel="stylesheet" href="{{ asset('ezone/css/magnific-popup.css')}}">
         <link rel="stylesheet" href="{{ asset('ezone/css/animate.css')}}">
         <link rel="stylesheet" href="{{ asset('ezone/css/owl.carousel.min.css')}}">
@@ -28,7 +30,6 @@
         <link rel="stylesheet" href="{{ asset('ezone/css/style.css')}}">
         <link rel="stylesheet" href="{{ asset('ezone/css/responsive.css')}}">
         <link rel="stylesheet" href="{{ asset('css/custom.css')}}">
-        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
         <script src="{{ asset('ezone/js/vendor/modernizr-2.8.3.min.js')}}"></script>
         @yield('css-js')
         <style>
@@ -364,6 +365,8 @@
         <script src="{{ asset('js/summernote-bs4.js') }}"></script>
         <script src="{{ asset('js/jquery.bootstrap-growl.min.js')}}"></script>
         <script src="{{ asset('js/star-rating.js?ver=4.1.2')}}"></script>
+        <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
         <script src="{{ asset('js/main.js') }}"></script>
 
         {{-- <script>

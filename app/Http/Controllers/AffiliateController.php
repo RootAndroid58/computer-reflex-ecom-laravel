@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\OrderItem;
+use App\Models\AffiliateOrderItem;
+use App\Models\AffiliateWalletTxn;
 use App\Models\User;
+use App\Mail\AffiliateComissionCreditedMail;
+use Mail;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -60,6 +65,8 @@ class AffiliateController extends Controller
     {
         return view('affiliate.reports');
     }
+
+
 
 
 

@@ -28,7 +28,7 @@ class DefaultPermissionsSeeder extends Seeder
                 'created_at'            => date('y-m-d h:m:s'),
             ],
             [
-                'id'                    => 2,
+                'id'                    => 3,
                 'name'                  => 'Affiliate',
                 'guard_name'            => 'web',
                 'created_at'            => date('y-m-d h:m:s'),

@@ -21,6 +21,37 @@ class ManageOrdersController extends Controller
         return view('admin.shipping.ship-orders');
     }
 
+    public function DeliveryConfirmationPage()
+    {
+        return view('admin.manage-orders.delivery-confirmation');
+    }
+
+    public function ItemDeliveredConfirmation ($order_item_id)
+    {
+        $OrderItem = OrderItem::where('id', $order_item_id)->first();
+        if (isset($OrderItem)) {
+            if ($OrderItem->status == 'item_shipped') {
+                $OrderItem->where('id', $order_item_id)->update([
+                    'status' => 'item_delivered',
+                ]);
+            }
+
+            $a = OrderItem::where('order_id', $OrderItem->order_id)->get();
+            $b = OrderItem::where('order_id', $OrderItem->order_id)->where('status', 'item_delivered')->get();
+            
+            if ($a->count() == $b->count()) {
+                Order::where('id', $OrderItem->order_id)->update([
+                    'status' => 'order_delivered',
+                ]);
+                // admin-delivery-confirmation
+            } 
+                return redirect()->route('admin-delivery-confirmation')->with([
+                    'ItemDelivered' => $OrderItem->order_id,
+                ]);
+        }
+       
+    }
+
     public function ShipOrder ($order_id)
     {
         $order = Order::with('OrderItems')->where('id', $order_id)->first();

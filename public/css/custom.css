@@ -66,7 +66,7 @@
     color: #ff4343 !important;
 }
 .btn-wishlisted i{
-    color: white !important;
+    color: #ff4343 !important;
 }
 
 .btn-not-wishlisted{
@@ -79,15 +79,17 @@
 .btn-not-wishlisted:hover{
     color: white !important;
 }
-.btn-not-wishlisted i{
-    color: white !important;
-}
-.btn-not-wishlisted i{
-    color: white !important;
-}
+
 
 .wishlist-btn:focus{
     color: unset !important;
+}
+
+.hover-bg-dark-blue{
+    background-color: #363636;
+}
+.hover-bg-dark-blue:hover{
+    background-color: #0066c0;
 }
 
 

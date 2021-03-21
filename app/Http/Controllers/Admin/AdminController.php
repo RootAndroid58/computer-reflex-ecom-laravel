@@ -291,17 +291,19 @@ class AdminController extends Controller
 
     }
 
-    public function AdminUserCreateubmit(Request $req)
+    public function AdminUserCreateSubmit(Request $req)
     {
 
         $user = User::where('id', $req->user_id)->first();
 
         if (isset($user)) {
-            $user->givePermissionTo('Admin');
+            if (!$user->can('Admin')) {
+                $user->givePermissionTo('Admin');
 
-            Mail::to($user->email)->send(new AdminUserCreatedMail($user));
-
-            return back()->with(['AdminUserAdded' => $user->email]);
+                Mail::to($user->email)->send(new AdminUserCreatedMail($user));
+    
+                return back()->with(['AdminUserAdded' => $user->email]);
+            }
         } else {
             return 'Failed';
         }

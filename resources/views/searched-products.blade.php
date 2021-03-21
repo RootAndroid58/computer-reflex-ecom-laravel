@@ -118,8 +118,8 @@
                                                     <div class="sm-prod-img-container" style="background-image: url('{{ asset('storage/images/products/'.$product->images[0]->image) }}');"></div>
                                                 </a>
                                                 <div class="product-action">
-                                                    <a class="animate-left" onclick="ToggleWishlist({{$product->id}})" title="Wishlist" href="#"><i class="pe-7s-like"></i></a>
-                                                    <a class="animate-top" onclick="ToogleCart({{$product->id}})" title="Add To Cart" href="#"><i class="pe-7s-cart"></i></a>
+                                                    <a class="animate-left cursor-pointer" onclick="ToggleWishlist({{$product->id}})" title="Wishlist"><i class="pe-7s-like"></i></a>
+                                                    <a class="animate-top cursor-pointer" onclick="ToogleCart({{$product->id}})" title="Add To Cart"><i class="pe-7s-cart"></i></a>
                                                 </div>
                                             </div>
                                             <div class="product-content">

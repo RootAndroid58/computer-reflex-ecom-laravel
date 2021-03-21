@@ -73,11 +73,11 @@
                     <div class="rating-number">
                         <div class="quick-view-rating">
                             
-                            <i class="fa @if ($stars >= 1) fa-star green-star @else fa-star-o @endif" aria-hidden="true"></i>
-                            <i class="fa @if ($stars >= 2) fa-star green-star @else fa-star-o @endif" aria-hidden="true"></i>
-                            <i class="fa @if ($stars >= 3) fa-star green-star @else fa-star-o @endif" aria-hidden="true"></i>
-                            <i class="fa @if ($stars >= 4) fa-star green-star @else fa-star-o @endif" aria-hidden="true"></i>
-                            <i class="fa @if ($stars >= 5) fa-star green-star @else fa-star-o @endif" aria-hidden="true"></i>
+                            <i class="@if ($stars >= 1)fas fa-star green-star @else fas fa-star @endif" aria-hidden="true"></i>
+                            <i class="@if ($stars >= 2)fas fa-star green-star @else fas fa-star @endif" aria-hidden="true"></i>
+                            <i class="@if ($stars >= 3)fas fa-star green-star @else fas fa-star @endif" aria-hidden="true"></i>
+                            <i class="@if ($stars >= 4)fas fa-star green-star @else fas fa-star @endif" aria-hidden="true"></i>
+                            <i class="@if ($stars >= 5)fas fa-star green-star @else fas fa-star @endif" aria-hidden="true"></i>
                         </div>
                         <div class="quick-view-number">
                             <span>{{$reviews->count()}} Rating/Review @if($reviews->count() > 1)(S)@endif 
@@ -109,10 +109,47 @@
                         <p class="top-description">{!! $product->product_description !!}</p>
                     </section>
 
-                    {{-- Quick actions --}}
-                                                
-                    <div class="quickview-plus-minus">
 
+                    @if (isset($affiliateLink))
+                    @can('Affiliate') 
+                    <div class="row">
+                        <div class="col-12 mb-1">
+                            <span style="font-weight: 600; font-size: 16px;">Affiliate Tools</span>
+                            <p>
+                                <span>Commision: <span style="font-weight: 700;">2% (<font class="rupees">₹<font>125)</span></span>
+                            </p>
+                        </div>
+                        <div class="col-12 mb-3">
+
+                            <button type="button" class="btn btn-dark btn-copy js-tooltip js-copy" data-toggle="tooltip" 
+                                data-placement="top" data-copy="{{ route('ShortUrlRedirect', $affiliateLink->short_url) }}" title="Copy to clipboard">
+                                Link
+                                <i class="fa fa-link" aria-hidden="true"></i>
+                            </button>
+
+                            <button type="button" class="btn btn-primary btn-copy js-tooltip js-copy" data-toggle="tooltip" 
+                            data-placement="top" data-copy="{{ route('ShortUrlRedirect', $affiliateLink->short_url) }}" title="Copy to clipboard">
+                            <i class="fab fa-facebook-square"></i>
+                            </button>
+
+                            <button type="button" class="btn btn-success btn-copy js-tooltip js-copy" data-toggle="tooltip" 
+                            data-placement="top" data-copy="{{ route('ShortUrlRedirect', $affiliateLink->short_url) }}" title="Copy to clipboard">
+                            <i class="fab fa-whatsapp-square"></i>
+                            </button>
+
+                            <button type="button" class="btn btn-primary btn-copy js-tooltip js-copy" data-toggle="tooltip" 
+                            data-placement="top" data-copy="{{ route('ShortUrlRedirect', $affiliateLink->short_url) }}" title="Copy to clipboard">
+                            <i class="fab fa-twitter-square"></i>   
+                            </button>
+
+                        </div>  
+                    </div>
+                    @endcan
+                    @endif
+                    
+
+                    {{-- Quick actions --}}           
+                    <div class="quickview-plus-minus">
                         <div class="quickview-btn-cart" style="margin-left: 0;">
                             <a class="btn-hover-black" id="ToggleCartBtn" href="#">@if($carted == 1) Remove from cart @else Add to cart @endif</a>
                         </div>
@@ -131,16 +168,6 @@
                         </ul>
                     </div>
                     
-                    <div class="product-details-cati-tag mtb-10">
-                        <ul>
-                            <li class="categories-title">Tags :</li>
-                            <li><a href="#">fashion</a></li>
-                            <li><a href="#">electronics</a></li>
-                            <li><a href="#">toys</a></li>
-                            <li><a href="#">food</a></li>
-                            <li><a href="#">jewellery</a></li>
-                        </ul>
-                    </div>
 
 
                 </div>
@@ -528,6 +555,62 @@
 
 
 @section('bottom-js')
+
+
+
+
+
+<script>
+
+// COPY TO CLIPBOARD
+// Attempts to use .execCommand('copy') on a created text field
+// Falls back to a selectable alert if not supported
+// Attempts to display status in Bootstrap tooltip
+// ------------------------------------------------------------------------------
+
+function copyToClipboard(text, el) {
+  var copyTest = document.queryCommandSupported('copy');
+  var elOriginalText = el.attr('data-original-title');
+
+  if (copyTest === true) {
+    var copyTextArea = document.createElement("textarea");
+    copyTextArea.value = text;
+    document.body.appendChild(copyTextArea);
+    copyTextArea.select();
+    try {
+      var successful = document.execCommand('copy');
+      var msg = successful ? 'Copied!' : 'Whoops, not copied!';
+      el.attr('data-original-title', msg).tooltip('show');
+    } catch (err) {
+      console.log('Oops, unable to copy');
+    }
+    document.body.removeChild(copyTextArea);
+    el.attr('data-original-title', elOriginalText);
+  } else {
+    // Fallback if browser doesn't support .execCommand('copy')
+    window.prompt("Copy to clipboard: Ctrl+C or Command+C, Enter", text);
+  }
+}
+
+$(document).ready(function() {
+  // Initialize
+  // ---------------------------------------------------------------------
+
+  // Tooltips
+  // Requires Bootstrap 3 for functionality
+  $('.js-tooltip').tooltip();
+
+  // Copy to clipboard
+  // Grab any text in the attribute 'data-copy' and pass it to the 
+  // copy function
+  $('.js-copy').click(function() {
+    var text = $(this).attr('data-copy');
+    var el = $(this);
+    copyToClipboard(text, el);
+  });
+});
+</script>
+
 
 
 

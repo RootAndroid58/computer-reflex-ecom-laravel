@@ -7,6 +7,7 @@ use App\Models\Banner;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\HomeSection;
+use App\Models\AffiliateLink;
 
 
 class IndexController extends Controller
@@ -86,6 +87,16 @@ class IndexController extends Controller
             'categories'        => $categories,
             'ProductsCount'     => $ProductsCount,
         ]);
+    }
+
+
+    public function ShortUrlRedirect($short_url)
+    {
+        $affiliateLink = AffiliateLink::where('short_url', $short_url)->first();
+        if (!isset($affiliateLink)) {
+            return redirect()->back();
+        }
+        return redirect()->to(route('product-index', $affiliateLink->product_id).'/?aff='.$affiliateLink->associate_id);
     }
     
 }

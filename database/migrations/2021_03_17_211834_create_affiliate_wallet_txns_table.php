@@ -15,6 +15,12 @@ class CreateAffiliateWalletTxnsTable extends Migration
     {
         Schema::create('affiliate_wallet_txns', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id')->foreign('id')->on('users')->onDelete('cascade');
+            $table->string('type');
+            $table->longText('description');
+            $table->bigInteger('txn_amount');
+            $table->bigInteger('ob');
+            $table->bigInteger('cb');
             $table->timestamps();
         });
     }

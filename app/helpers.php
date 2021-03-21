@@ -65,4 +65,12 @@
     
     }
 
+
+    function CalcPerc($perc, $total)
+    {
+        $output = (($perc/100)*$total);
+        return $output;
+    }
+    
+
 ?>
