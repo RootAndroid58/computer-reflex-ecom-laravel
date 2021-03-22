@@ -12,6 +12,13 @@ use App\Models\AffiliateLink;
 
 class IndexController extends Controller
 {
+    public function demo()
+    {
+        return view('test');
+    }
+
+
+
     public function Index()
     {
         $banners = Banner::where('banner_status', 1)->orderBy('banner_position', 'ASC')->get();

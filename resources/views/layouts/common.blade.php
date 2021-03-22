@@ -21,7 +21,6 @@
         <link rel="stylesheet" href="{{ asset('ezone/css/pe-icon-7-stroke.css')}}">
         <link rel="stylesheet" href="{{ asset('css/fa.min.css')}}">
         <link rel="stylesheet" href="{{ asset('css/star-rating.css')}}">
-
         <link rel="stylesheet" href="{{ asset('ezone/css/icofont.css')}}">
         <link rel="stylesheet" href="{{ asset('ezone/css/meanmenu.min.css')}}">
         <link rel="stylesheet" href="{{ asset('ezone/css/easyzoom.css')}}">
@@ -345,7 +344,7 @@
         </footer>
 
 		
-		
+        
 		
 		
 		<!-- all js here -->
@@ -366,8 +365,12 @@
         <script src="{{ asset('js/jquery.bootstrap-growl.min.js')}}"></script>
         <script src="{{ asset('js/star-rating.js?ver=4.1.2')}}"></script>
         <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
         <script src="{{ asset('js/main.js') }}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    
 
         {{-- <script>
             $(document).ready(function () {

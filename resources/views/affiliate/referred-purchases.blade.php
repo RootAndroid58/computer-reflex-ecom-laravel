@@ -14,8 +14,8 @@
     
 <div class="container-fluid">
 <!--Products Table Start-->
-<table id="ReferredPurchasesTable" class="table table-striped table-bordered table-fluid w-100">
-    <thead class="bg-secondary   text-white">
+<table id="ReferredPurchasesTable" class="table table-striped table-bordered table-fluid">
+    <thead class="bg-secondary text-white">
     <tr>
         <th style="width: 50%">Product Purchased</th>
         <th style="width: 10%">Price</th>

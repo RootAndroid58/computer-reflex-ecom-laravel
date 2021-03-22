@@ -145,6 +145,8 @@ class AjaxDataTable extends Controller
             ->addColumn('status', function($data){
                 if ($data->status == 'pending') {
                     $status = 'In-Progress';
+                } else if ($data->status == 'comission_credited') {
+                    $status = 'Comission Credited';
                 } else {
                     $status = $data->status;
                 }
