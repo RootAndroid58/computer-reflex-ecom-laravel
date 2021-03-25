@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductReview;
 use App\Models\Order;
+use Auth;
 
 class ReviewController extends Controller
 {
@@ -61,8 +62,11 @@ class ReviewController extends Controller
             return redirect()->route('product-index', $pid);
         }
         $reviews = ProductReview::where('product_id', $pid);
-        $ReviewCheck = ProductReview::where('product_id', $pid)->where('user_id', Auth()->user()->id)->first();
 
+        if (Auth::check()) {
+            $ReviewCheck = ProductReview::where('product_id', $pid)->where('user_id', Auth()->user()->id)->first();
+        }
+       
         if (isset($ReviewCheck)) {
             $reviewed = 1;
         } else {
@@ -78,13 +82,6 @@ class ReviewController extends Controller
             $stars = $TotalStars/$reviews->get('stars')->count();
         } else {
             $stars = 0;
-        }
-
-        $ReviewCheck = ProductReview::where('product_id', $pid)->where('user_id', Auth()->user()->id)->first();
-        if (isset($ReviewCheck)) {
-            $reviewed = 1;
-        } else {
-            $reviewed = 0;
         }
 
 
@@ -123,7 +120,7 @@ class ReviewController extends Controller
             'stars'             => $stars,
             'ratingCounts'      => $ratingCounts,
             'ratingPerc'        => $ratingPerc,
-            'ReviewCheck'        => $ReviewCheck,
+            'ReviewCheck'        => $ReviewCheck ?? '',
         ]);
     }
 }

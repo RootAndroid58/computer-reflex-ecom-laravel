@@ -56,9 +56,9 @@
                     </div>
 
                     <div class="w-100" style="padding-bottom: 12px;">
-                        <a href="{{route('affiliate.wallet')}}"><div class="account-menu-item @yield('wishlist-information-nav')">Wallet</div></a>
-                        <a href="{{route('affiliate.payment-modes')}}"><div class="account-menu-item @yield('wishlist-information-nav')">Payment Modes</div></a>
-                        <a href="{{route('affiliate.payout')}}"><div class="account-menu-item @yield('wishlist-information-nav')">Payout</div></a>
+                        <a href="{{route('affiliate.wallet')}}"><div class="account-menu-item @yield('wallet-nav')">Wallet</div></a>
+                        <a href="{{route('affiliate.payment-modes')}}"><div class="account-menu-item @yield('payment-nav')">Payment Modes</div></a>
+                        <a href="{{route('affiliate.payout')}}"><div class="account-menu-item @yield('payout-nav')">Payout</div></a>
                     </div>
                     
                     <div class="account-menu-break"></div> {{-- Underline --}}

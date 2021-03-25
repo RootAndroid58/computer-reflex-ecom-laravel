@@ -39,11 +39,10 @@ class AffiliateController extends Controller
     public function JoinSubmit(Request $req)
     {
         // Permission::create(['name' => 'Affiliate']);
-        if (Auth()->user()->can('Affiliate')) {
-            return $this->Index();
-        } else {
+        if (!Auth()->user()->can('Affiliate')) {
             Auth()->user()->givePermissionTo('Affiliate');
         }
+        return $this->Index();
     }   
 
     public function ReferredPurchasesPage()
@@ -64,6 +63,22 @@ class AffiliateController extends Controller
     public function ReportsPage()
     {
         return view('affiliate.reports');
+    }
+
+    
+    public function WalletPage()
+    {
+        return view('affiliate.wallet');
+    }
+
+    public function PaymentModesPage()
+    {
+        # code...
+    }
+    
+    public function PayoutPage()
+    {
+        # code...
     }
 
 

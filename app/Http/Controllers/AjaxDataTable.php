@@ -7,10 +7,71 @@ use App\Models\Product;
 use App\Models\Order;
 use App\Models\AffiliateOrderItem;
 use App\Models\OrderItem;
+use App\Models\AffiliateWalletTxn;
 use DateTime;
 
 class AjaxDataTable extends Controller
 {
+
+
+
+
+
+
+    public function WalletTxnTable(Request $req)
+    {
+        if (Request()->ajax()) {
+
+            return datatables()->of(AffiliateWalletTxn::where('user_id', Auth()->user()->id)->orderBy('id', 'desc')->latest()->get())
+            
+            ->addColumn('txn_id', function($data){
+
+                $txn_id = $data->id;
+
+                return $txn_id;
+            })
+            ->addColumn('date', function($data){
+
+                $date = $data->created_at;
+
+                return $date;
+            })
+            ->addColumn('description', function($data){
+
+                $description = $data->description;
+
+                return $description;
+            })
+            ->addColumn('type', function($data){
+
+                if ($data->type == 'credit') {
+                    $type = 'Cr (+)';
+                } elseif ($data->type == 'debit') {
+                    $type = 'Dr (-)';
+                }
+
+                return $type;
+            })
+            ->addColumn('amount', function($data){
+
+                $amount =  '<font class="rupees">₹</font>'.moneyFormatIndia($data->txn_amount);
+
+                return $amount;
+            })
+            ->addColumn('cb', function($data){
+                
+                $cb = '<font class="rupees">₹</font>'.moneyFormatIndia($data->cb);
+
+                return $cb;
+            })
+
+            ->rawColumns(['txn_id', 'description', 'type', 'amount', 'cb'])->make(true);
+
+        } else 
+        { 
+            return redirect()->route('home'); 
+        }
+    }
 
 
 

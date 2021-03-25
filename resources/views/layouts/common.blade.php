@@ -106,7 +106,7 @@
                                             <li><a href="blog.html">blog 3 colunm</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="contact.html">contact</a></li>
+                                    <li><a href="{{route('support')}}">support</a></li>
                                 </ul>
                             </nav>
                         </div>

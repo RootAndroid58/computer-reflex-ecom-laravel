@@ -286,8 +286,8 @@
                                                         <div class="input-group-prepend">
                                                         <label class="input-group-text" for="product-quantity">Qty</label>
                                                         </div>
-                                                        <input type="hidden" name="product_id[]" id="" value="{{ $item->id }}">
-                                                        <select name="product_qty[]" class="custom-select" id="product-quantity-{{ $item->id }}" onchange="ChangeQty('{{ $item->id }}')">
+                                                        <input type="hidden" class="product_ids" name="product_id[]" id="" value="{{ $item->id }}">
+                                                        <select name="product_qty[]" class="custom-select qtys" id="product-quantity-{{ $item->id }}" onchange="ChangeQty('{{ $item->id }}')">
                                                         @while ($StockCounter <= $item->product_stock)
                                                             <option @if ($qty[$key] == $StockCounter) selected @endif value="{{$StockCounter}}">{{$StockCounter}}</option>
                                                             {{ $StockCounter++ }}
@@ -435,20 +435,38 @@
     </div>
     <div class="account-details-container row">
         <div class="account-menu-items-container">
-                <span>MRP</span>
-                <span class="float-right"><strong><font class="rupees">&#8377;</font>{{ moneyFormatIndia(10000) }}</strong></span>
+            <span>MRP</span>
+            <span class="float-right">
+                <strong><font class="rupees">&#8377;</font>
+                    <span id="MRPSpan">
+                        {{-- {{ moneyFormatIndia(10000) }} --}}
+                    </span>
+                </strong>
+            </span>
         </div>
         <div class="account-menu-items-container">
             <span>Discount</span>
-            <span class="float-right"><strong style="font-weight: 500; color: #388e3c;">- <font class="rupees">&#8377;</font>{{ moneyFormatIndia(100) }}</strong></span>
+            <span class="float-right">
+                <strong style="font-weight: 500; color: #388e3c;">- <font class="rupees">&#8377;</font>
+                    <span id="DiscountSpan">
+                        {{-- {{ moneyFormatIndia(10000) }} --}}
+                    </span>
+                </strong>
+            </span>
         </div>
         <div class="account-menu-items-container">
             <span>Delivery Charges</span>
-            <span class="float-right"><strong style="font-weight: 500; color: #388e3c;">FREE</strong></span>
+            <span class="float-right">
+                <strong style="font-weight: 500; color: #388e3c;">FREE</strong>
+            </span>
         </div>
         <div class="account-menu-items-container"  style="font-weight: 600; color: black; font-size: 18px; border-top: 1px dashed #e0e0e0; border-bottom: 1px dashed #e0e0e0; margin-top: 18px; margin-bottom: 18px;">
             <span>Total Amount</span>
-            <span class="float-right"><font class="rupees">&#8377;</font>{{ moneyFormatIndia(200) }}</span>
+            <span class="float-right"><font class="rupees">&#8377;</font>
+                <span id="TotalSpan">
+                    {{-- {{ moneyFormatIndia(200) }} --}}
+                </span>
+            </span>
         </div>
        
             <div class="w-100 cart-checkout-btn-container">
@@ -472,6 +490,38 @@
 
 
 @section('bottom-js')
+<script>
+    $(document).ready(function () {
+        syncPrice();
+    })
+
+    function syncPrice() {
+        var product_ids = $('.product_ids').map(function(){ 
+                    return this.value; 
+            }).get();
+
+        var qtys = $('.qtys').map(function(){ 
+                    return this.value; 
+            }).get();
+
+        $.ajax({
+                url: "{{ route('sync-price') }}",
+                method: 'POST',
+                data: {
+                    'product_ids'   : product_ids,
+                    'qtys'          : qtys,
+                },
+                success: function (data) {
+                    $('#MRPSpan').html(data.mrp)
+                    $('#TotalSpan').html(data.price)
+                    $('#DiscountSpan').html(data.discount)
+                }
+
+        })
+    }
+</script>
+
+
 <script>
     $('.paytm_btn').click(function () {
         $('.payment-option-container').removeClass('payment-option-active')
@@ -504,6 +554,8 @@
 <script>
     // Change QTY (Fetching price and MRP using AJAX)
         function ChangeQty(ProdID) {
+
+            syncPrice();
 
             var qty = $('#product-quantity-'+ProdID).val()
 

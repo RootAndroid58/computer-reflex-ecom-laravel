@@ -191,21 +191,23 @@
 
              {{-- Description & Specifications Toggle Buttons --}}
             <div class="description-review-title nav" role=tablist>
-                @if (isset($product->product_long_description))
+                @if ($product->product_long_description != '')
                 <a class="active" href="#pro-dec" data-toggle="tab" role="tab" aria-selected="true">Description</a>
                 @endif
-                <a href="#pro-specifications" data-toggle="tab" role="tab" aria-selected="false">Specifications</a>
+                <a class="@if (!isset($product->product_long_description)) active @endif" href="#pro-specifications" data-toggle="tab" role="tab" aria-selected="false">Specifications</a>
             </div>
 
 
             <div class="description-review-text tab-content">
                 {{-- Description --}}
-                <div class="tab-pane active show fade" id="pro-dec" role="tabpanel">
-                    <p>{!! $product->product_long_description !!}</p>
-                </div>
-
+                @if (isset($product->product_long_description))
+                    <div class="tab-pane active show fade" id="pro-dec" role="tabpanel">
+                        <p>{!! $product->product_long_description !!}</p>
+                    </div>
+                @endif
+                
                 {{-- Specifications --}}
-                <div class="tab-pane fade" id="pro-specifications" role="tabpanel">
+                <div class="tab-pane @if (!isset($product->product_long_description)) show active @endif fade" id="pro-specifications" role="tabpanel">
                     
                     <div class="row">
                         <div class="col-6">
@@ -441,7 +443,7 @@
                                     {{-- 6969696 --}}
                                     {{$review->stars}} <span><i class="fa fa-star" aria-hidden="true"></i></span>
                                 </button>
-                                <span style="padding-left: 12px; padding-top: 3px; font-size: 14px; color: #212121; font-weight: 500;">{{ $ReviewCheck->title }}</span>
+                                <span style="padding-left: 12px; padding-top: 3px; font-size: 14px; color: #212121; font-weight: 500;">{{ $review->title ?? '' }}</span>
                             </div>
                             <div class="row">
                                 <span style="margin: 12px 0;">
@@ -451,7 +453,7 @@
 
                             <div class="row">
                                 <span style="margin: 12px 0;">
-                                    {{ $review->user->name }} <img width="14" src="{{asset('img/svg/verified-tick.svg')}}" alt=""> (Buyer), {{ HowMuchOldDate($ReviewCheck->created_at, 'days') }} ago
+                                    {{ $review->user->name }} <img width="14" src="{{asset('img/svg/verified-tick.svg')}}" alt=""> (Buyer), {{ HowMuchOldDate($review->created_at, 'days') }} ago
                                 </span>
                             </div>
                         </div>        

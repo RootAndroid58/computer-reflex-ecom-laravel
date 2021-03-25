@@ -9,9 +9,12 @@
         <div class="row">
             <div class="col-3">
                 <div class="row">
-                    <div class="w-100" style="padding: 24px 20px 24px 20px">
-                        <div class="w-100 prod-back-div" style="height: 246px; background-image: url('{{asset('storage/images/products/'.$product->images[0]->image)}}');"></div>
-                    </div>
+                    <a href="{{ route('product-index', $product->id) }}" class="w-100">
+                        <div class="w-100" style="padding: 24px 20px 24px 20px">
+                            <div class="w-100 prod-back-div" style="height: 246px; background-image: url('{{asset('storage/images/products/'.$product->images[0]->image)}}');"></div>
+                        </div>
+                    </a>
+
                     <div class="w-100" style="padding: 0px 20px 24px 20px">
                         <a href="{{ route('product-index', $product->id) }}" target="_blank">
                             <div class="w-100">

@@ -17,6 +17,7 @@ class AffCheck
      * @param  \Closure  $next
      * @return mixed
      */
+    
     public function handle(Request $request, Closure $next)
     {
         Affiliate::where('exp_date', '<', date_create(date('y-m-d h:m:s')))->delete();

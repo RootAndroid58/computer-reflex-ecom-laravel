@@ -23,6 +23,7 @@ class VerifyCsrfToken extends Middleware
         '/address/edit/fetch',
         '/ajax/calcPrice',
         '/ajax/calcMRP',
+        '/ajax/sync-price',
         '/checkout/payment/response/*'  
     ];
 }
