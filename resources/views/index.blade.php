@@ -91,7 +91,7 @@
                         @endif
                         
                         
-                        <li><a data-toggle="modal" data-target="#exampleCompare" href="{{route('support')}}"><i class="pe-7s-headphones"></i>Support</a></li>
+                        <li><a href="{{route('support')}}"><i class="pe-7s-headphones"></i>Support</a></li>
                         <li><a href="{{ route('wishlist') }}"><i class="pe-7s-like"></i>Wishlist</a></li>
                         <li><a href="#"><i class="pe-7s-flag"></i>IN</a></li>
                         <li><a class="border-none" href="#"><span>₹</span>INR</a></li>

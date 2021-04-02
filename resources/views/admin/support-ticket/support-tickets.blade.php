@@ -1,29 +1,17 @@
-@extends('layouts.support-menu-layout')
+@extends('layouts.panel')
 
-@section('nav-support-tickets', 'account-menu-item-active')
+@section('title', 'Support Tickets')
+    
 
-@section('title', 'Raise Support Ticket')
+@section('nav-support-tickets', 'active')
+    
+@section('content')
 
-@section('right-menu-col')
-<div class="right-account-container" style="padding: 0;">
-   
-    <div class="wishlist-basic-padding">
-        <span style="font-size: 17px; font-weight: 600;">
-            <span>
-                <i class="fas fa-ticket-alt"></i>&nbsp;
-            </span>
-            <span>
-                My Support Tickets
-            </span>
-        </span>
-    </div>
-
-
-    <div class="wishlist-basic-padding" style="padding-top: 0;">
-
+<div class="container-fluid">
+    
         <!--Products Table Start-->
-        <table id="ReferredPurchasesTable" class="table table-hover table-striped table-bordered table-fluid">
-            <thead class="thead-dark">
+        <table id="AdminSupportTickets" class="table table-hover table-striped table-bordered table-fluid">
+            <thead  class="bg-primary text-white">
             <tr>
                 <th style="width: 15%">Ticket #</th>
                 <th style="width: 10%">Status</th>
@@ -45,23 +33,19 @@
             </tr>
             </tfoot>
         </table>
-
-    </div>
-
-
+    
 </div>
-@endsection
 
+@endsection
 
 
 @section('bottom-js')
 <script>
-        
-    $('#ReferredPurchasesTable').DataTable({
+    $('#AdminSupportTickets').DataTable({
         processing: true,
         serverSide: true,
         ajax:{
-            url: "{{route('ajax-datatable.SupportTicketsTable')}}"
+            url: "{{route('ajax-datatable.AdminSupportTicketsTable')}}"
         },
         columns: [
             {
@@ -89,5 +73,5 @@
 
 
     });
-    </script>
+</script>
 @endsection

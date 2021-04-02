@@ -8,14 +8,122 @@ use App\Models\Order;
 use App\Models\AffiliateOrderItem;
 use App\Models\OrderItem;
 use App\Models\AffiliateWalletTxn;
+use App\Models\SupportTicket;
 use DateTime;
 
 class AjaxDataTable extends Controller
 {
 
 
+    public function AdminSupportTicketsTable(Request $req)
+    {
+        if (Request()->ajax()) {
 
+            return datatables()->of(SupportTicket::with('msgs.user')->where('status', 'open')->orderBy('id', 'desc')->latest()->get())
+            
+            ->addColumn('ticket_id', function($data){
 
+                $ticket_id = '<a class=" cursor-pointer static-blue" href="'.route('admin-manage-support-ticket', $data->id).'">  #'.$data->id.'</a>';
+
+                return $ticket_id;
+            })
+            ->addColumn('subject', function($data){
+
+                $subject = '<a class=" cursor-pointer static-blue" href="'.route('admin-manage-support-ticket', $data->id).'">'.$data->subject.'</a>';;
+                
+                return $subject;
+            })
+            ->addColumn('status', function($data){
+
+                if ($data->status == 'open') {
+                    $status = '<a href="'.route('admin-manage-support-ticket', $data->id).'" class="btn btn-sm btn-info">Open</a>';
+                } elseif ($data->status == 'resolved') {
+                    $status = '<a href="'.route('admin-manage-support-ticket', $data->id).'" class="btn btn-sm btn-success">Resolved</a>';
+                } else {
+                    $status = $data->subject;
+                }
+                
+                return $status;
+
+            })
+            ->addColumn('last_replier', function($data){
+
+                $last_replier = '<a href="'.route('admin-manage-support-ticket', $data->id).'" class="static-blue">'.$data->msgs[0]->user->name.'</a>';
+
+                if ($data->msgs[0]->type == 'staff') {
+                    $last_replier = $last_replier.' <button type="button" class="btn btn-sm btn-success">Staff <i class="fas fa-check"></i></button></button>';
+                }
+                return $last_replier;
+            })
+            ->addColumn('created_at', function($data){
+                
+                $created_at =  '<a href="'.route('admin-manage-support-ticket', $data->id).'" class="static-blue">'.date_format(new DateTime($data->created_at), 'dS M, Y').'</a>';
+
+                return $created_at;
+            })
+
+            ->rawColumns(['ticket_id', 'subject', 'status', 'last_replier', 'created_at'])->make(true);
+
+        } else 
+        { 
+            return redirect()->route('home'); 
+        }
+    }
+
+    public function SupportTicketsTable(Request $req)
+    {
+        if (Request()->ajax()) {
+
+            return datatables()->of(SupportTicket::with('msgs.user')->where('user_id', Auth()->user()->id)->orderBy('id', 'desc')->latest()->get())
+            
+            ->addColumn('ticket_id', function($data){
+
+                $ticket_id = '<a class=" cursor-pointer static-blue" href="'.route('support.show-ticket', $data->id).'">  #'.$data->id.'</a>';
+
+                return $ticket_id;
+            })
+            ->addColumn('subject', function($data){
+
+                $subject = '<a class=" cursor-pointer static-blue" href="'.route('support.show-ticket', $data->id).'">'.$data->subject.'</a>';;
+                
+                return $subject;
+            })
+            ->addColumn('status', function($data){
+
+                if ($data->status == 'open') {
+                    $status = '<a href="'.route('support.show-ticket', $data->id).'" class="btn btn-sm btn-info">Open</a>';
+                } elseif ($data->status == 'resolved') {
+                    $status = '<a href="'.route('support.show-ticket', $data->id).'" class="btn btn-sm btn-success">Resolved</a>';
+                } else {
+                    $status = $data->subject;
+                }
+                
+                return $status;
+
+            })
+            ->addColumn('last_replier', function($data){
+
+                $last_replier = '<a href="'.route('support.show-ticket', $data->id).'" class="static-blue">'.$data->msgs[0]->user->name.'</a>';
+
+                if ($data->msgs[0]->type == 'staff') {
+                    $last_replier = $last_replier.' <button type="button" class="btn btn-sm btn-success">Staff <i class="fas fa-check"></i></button></button>';
+                }
+                return $last_replier;
+            })
+            ->addColumn('created_at', function($data){
+                
+                $created_at =  '<a href="'.route('support.show-ticket', $data->id).'" class="static-blue">'.date_format(new DateTime($data->created_at), 'dS M, Y').'</a>';
+
+                return $created_at;
+            })
+
+            ->rawColumns(['ticket_id', 'subject', 'status', 'last_replier', 'created_at'])->make(true);
+
+        } else 
+        { 
+            return redirect()->route('home'); 
+        }
+    }
 
 
     public function WalletTxnTable(Request $req)

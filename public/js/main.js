@@ -1,4 +1,23 @@
 
+$('#help_topic').on('change', function () {
+  if ($('#help_topic').val() == 'Order Related') {
+    $('#subOptionDiv').html($('#forOrders').html());
+  } 
+  else if ($('#help_topic').val() == 'Return/Refund') {
+    $('#subOptionDiv').html($('#forOrders').html());
+  } 
+  else {
+    $('#subOptionDiv').html('');
+  }
+})
+
+
+
+
+
+
+
+
 
 
 

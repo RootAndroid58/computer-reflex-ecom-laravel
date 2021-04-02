@@ -74,8 +74,16 @@ Route::get('CartTest', 'App\Http\Controllers\CartController@Test');
 Route::group(['middleware' => ['verified', 'auth']], function() { 
 
     Route::get('/support/raise-support-ticket', [App\Http\Controllers\SupportController::class, 'RaiseSupportTicket'])->name('support.raise-support-ticket');
+    
+    Route::post('/support/raise-support-ticket/submit', [App\Http\Controllers\SupportController::class, 'RaiseSupportTicketSubmit'])->name('support.raise-support-ticket-submit');
+    
+    Route::post('/support/add-reply/submit', [App\Http\Controllers\SupportController::class, 'AddReply'])->name('support.support-add-reply');
+    
+    Route::post('/support/ticket/mark-as-resolved/submit', [App\Http\Controllers\SupportController::class, 'MarkAsResolved'])->name('support.ticket-mark-resolved');
 
     Route::get('/support/support-tickets', [App\Http\Controllers\SupportController::class, 'SupportTickets'])->name('support.support-tickets');
+    
+    Route::get('/support/ticket/id/{ticket_id}', [App\Http\Controllers\SupportController::class, 'ShowTicket'])->name('support.show-ticket');
 
     Route::get('/checkout/order/{order_id}/confirmation', [App\Http\Controllers\CheckoutController::class, 'AfterPayment'])->name('checkout-order-confirmation');
       
@@ -148,6 +156,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:Admin', 'verifie
 
     Route::get('/manage-ui','App\Http\Controllers\Admin\AdminController@ManageUI')->name('admin-manage-ui');
     
+    Route::get('/support/tickets','App\Http\Controllers\SupportController@AdminShowTicketsPage')->name('admin-support-tickets');
+    
+    Route::get('/support/ticket/{ticket_id}/manage','App\Http\Controllers\SupportController@AdminManageTicketPage')->name('admin-manage-support-ticket');
+    
+    Route::post('/support/add-reply/submit', [App\Http\Controllers\SupportController::class, 'AdminAddReply'])->name('admin.support-add-reply');
+
     Route::get('/manage-ui/home-carousel-sliders','App\Http\Controllers\Admin\AdminController@ManageHomeCarouselSlider')->name('admin-manage-home-carousel-sliders');
     
     Route::post('/manage-ui/home-carousel-sliders/create','App\Http\Controllers\Admin\AdminController@CreateHomeCarouselSlider')->name('admin-create-home-carousel-sliders');
@@ -258,6 +272,8 @@ Route::group(['prefix' => 'ajax/data-table'], function() {
     Route::get('admin-ship-orders-table', 'App\Http\Controllers\AjaxDataTable@AdminShipOrdersTable')->name('ajax-datatable.AdminShipOrdersTable');
     Route::get('admin-slider-products-table', 'App\Http\Controllers\AjaxDataTable@SliderProductsTable')->name('ajax-datatable.AdminSliderProductsTable');
     Route::get('referred-purchases-table', 'App\Http\Controllers\AjaxDataTable@ReferredPurchasesTable')->name('ajax-datatable.ReferredPurchasesTable');
+    Route::get('support-tickets-table', 'App\Http\Controllers\AjaxDataTable@SupportTicketsTable')->name('ajax-datatable.SupportTicketsTable');
+    Route::get('admin-support-tickets-table', 'App\Http\Controllers\AjaxDataTable@AdminSupportTicketsTable')->name('ajax-datatable.AdminSupportTicketsTable');
     Route::get('admin-delivery-confirmation-table', 'App\Http\Controllers\AjaxDataTable@AdminDeliveryConfirmationTable')->name('ajax-datatable.AdminDeliveryConfirmationTable');
     Route::get('admin-Wallet-txn-table', 'App\Http\Controllers\AjaxDataTable@WalletTxnTable')->name('ajax-datatable.WalletTxnTable');
 });

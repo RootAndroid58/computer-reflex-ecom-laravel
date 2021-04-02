@@ -63,6 +63,8 @@
                 <li class="nav-item"><a class="nav-link @yield('nav-manage-products')" href="{{ route('admin-manage-products')}}"><i class="fas fa-tags"></i><span>Manage Products</span></a></li>
                 
                 <li class="nav-item"><a class="nav-link @yield('nav-manage-ui')" href="{{ route('admin-manage-ui')}}"><i class="fas fa-window-maximize"></i><span>Manage UI</span></a></li>
+                
+                <li class="nav-item"><a class="nav-link @yield('nav-support-tickets')" href="{{ route('admin-support-tickets')}}"><i class="fas fa-ticket-alt"></i><span>Support Tickets</span></a></li>
 
             </ul>
             <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
