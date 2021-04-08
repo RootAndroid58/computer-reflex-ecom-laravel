@@ -24,8 +24,7 @@
                 <div class="account-menu-break"></div>   
                                                     
                     <div class="wishlist-container">   
-                        <form action="http://localhost:8000/checkout" method="post" id="CartCheckOutForm"> <input type="hidden" name="_token" value="WwI9Iew3SQzo763ogSnhQVllI4PQx3i4qUOQURAF">                                         
-    
+                                                                 
                             <div class="account-menu-break"></div>     
                                 <div class="wishlist-basic-padding" id="CartItem2" style="padding-bottom: 0;">
                                     <div class="order-confirmation-notes">
@@ -38,8 +37,6 @@
                                 <div class="row wishlist-basic-padding" style="padding-top: 0;"></div>
                             <div class="account-menu-break" id="CartBreak2"></div>      
                              
-                             
-                        </form>
                         </div> 
                         
                     </div>

@@ -19,7 +19,17 @@ class AjaxDataTable extends Controller
     {
         if (Request()->ajax()) {
 
-            return datatables()->of(SupportTicket::with('msgs.user')->where('status', 'open')->orderBy('id', 'desc')->latest()->get())
+            if ($req->search_status == 'resolved') {
+                $query = SupportTicket::with('msgs.user')->where('status', 'resolved')->orderBy('id', 'desc')->latest()->get();
+            } 
+            else if ($req->search_status == 'open') {
+                $query = SupportTicket::with('msgs.user')->where('status', 'open')->orderBy('id', 'desc')->latest()->get();
+            } 
+            else {
+                $query = SupportTicket::with('msgs.user')->orderBy('id', 'desc')->latest()->get();
+            }
+
+            return datatables()->of($query)
             
             ->addColumn('ticket_id', function($data){
 
@@ -34,7 +44,6 @@ class AjaxDataTable extends Controller
                 return $subject;
             })
             ->addColumn('status', function($data){
-
                 if ($data->status == 'open') {
                     $status = '<a href="'.route('admin-manage-support-ticket', $data->id).'" class="btn btn-sm btn-info">Open</a>';
                 } elseif ($data->status == 'resolved') {
@@ -72,6 +81,7 @@ class AjaxDataTable extends Controller
 
     public function SupportTicketsTable(Request $req)
     {
+        
         if (Request()->ajax()) {
 
             return datatables()->of(SupportTicket::with('msgs.user')->where('user_id', Auth()->user()->id)->orderBy('id', 'desc')->latest()->get())

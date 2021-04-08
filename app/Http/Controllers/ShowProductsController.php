@@ -29,7 +29,7 @@ class ShowProductsController extends Controller
             $specifications = Specification::Where('product_id' , $pid)->orderBy('id', 'asc')->get();
             $category = Category::where('id' , $product->product_category_id)->first();
             $discount = ((($product->product_mrp - $product->product_price) / $product->product_mrp)*100)%100;
-            $RelatedProducts = Product::with('images')
+            $RelatedProducts = Product::where('product_status', 1)->with('images')
             ->where('product_category_id', $product->product_category_id)
             ->where(function ($query) use ($product) {
                 foreach ($product->tags as $search) {

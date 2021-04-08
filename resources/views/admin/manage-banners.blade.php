@@ -24,7 +24,7 @@
     </div>
 
     <div class="col-md-4">
-        <a class="btn btn-lg btn-block btn-primary">Show / Edit Banners</a>
+        <a class="btn btn-lg btn-block btn-primary" href="{{ route('admin-edit-banners') }}">Show / Edit Banners</a>
     </div>
 
     <div class="col-md-4">

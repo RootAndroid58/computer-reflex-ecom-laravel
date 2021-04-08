@@ -18,6 +18,14 @@ class OrdersController extends Controller
 
     public function OrderPage($order_id)
     {
-        # code...
+        $order = Order::with('Address')->with('OrderItems')->where('id', $order_id)->first();
+
+        if (!isset($order)) {
+            return redirect()->back();
+        }
+        // dd($order);
+        return view('order-page', [
+            'order' => $order,
+        ]);
     }
 }

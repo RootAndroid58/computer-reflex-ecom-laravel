@@ -172,6 +172,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:Admin', 'verifie
 
     Route::get('/manage-banners','App\Http\Controllers\Admin\AdminController@ManageBanners')->name('admin-manage-banners');
     
+    Route::get('/edit-banners','App\Http\Controllers\Admin\AdminController@EditBanners')->name('admin-edit-banners');
+    
+    Route::get('/banner/{banner_id}/edit','App\Http\Controllers\Admin\AdminController@EditBannerPage')->name('admin-edit-banner-page');
+
+    Route::post('/banner/edit/submit','App\Http\Controllers\Admin\AdminController@EditBannerSubmit')->name('admin-edit-banner-submit');
+    
     Route::get('/manage-orders','App\Http\Controllers\Admin\ManageOrdersController@ViewManageOrders')->name('admin-manage-orders');
 
     Route::get('/ship-orders','App\Http\Controllers\Admin\ManageOrdersController@ShipOrdersPage')->name('admin-ship-orders');

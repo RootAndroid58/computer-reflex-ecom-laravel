@@ -183,11 +183,13 @@ class CheckoutController extends Controller
             ]);
         } 
         // Process the order as Payment Pending
-        else 
+        else if ($order->status == 'payment_pending')
         {
             return view('checkout.pending', [
                 'data' => $data,
             ]);
+        } else {
+            return redirect()->back();
         }
         
 

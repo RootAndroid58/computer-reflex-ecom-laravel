@@ -15,7 +15,7 @@
             {{-- Sidebar Start --}}
             <div class="col-lg-2">
                 <div class="shop-sidebar mr-50">
-                 <form method="GET" action="{{ route('search') }}" id="filter_form" onsubmit="SubmitSearchFilterForm()">
+                 <form method="GET" action="{{ route('search') }}" id="filter_form">
                    
                     <input type="hidden" name="search" value="{{ request()->search }}">
                     <div class="sidebar-widget mb-45">
@@ -120,10 +120,11 @@
                                                 <div class="product-action">
                                                     <a class="animate-left cursor-pointer" onclick="ToggleWishlist({{$product->id}})" title="Wishlist"><i class="pe-7s-like"></i></a>
                                                     <a class="animate-top cursor-pointer" onclick="ToogleCart({{$product->id}})" title="Add To Cart"><i class="pe-7s-cart"></i></a>
+                                                    <a class="animate-right cursor-pointer" onclick="ToggleCompare({{$product->id}})" title="Compare"><i class="pe-7s-repeat"></i></a>
                                                 </div>
                                             </div>
                                             <div class="product-content">
-                                                <h4><a href="{{route('product-index', $product->id)}}"> {{$product->product_name}} </a></h4>
+                                                <h4><a class="line-limit-3" href="{{route('product-index', $product->id)}}"> {{$product->product_name}} </a></h4>
                                                 <span><font class="rupees">₹</font> 
                                                     {{ moneyFormatIndia($product->product_price) }}
                                                     <b style="font-size: 17px; color: #388e3c; font-weight: 500;">{{((($product->product_mrp - $product->product_price) / $product->product_mrp)*100)%100}}% off</b>

@@ -24,12 +24,34 @@ class IndexController extends Controller
         $banners = Banner::where('banner_status', 1)->orderBy('banner_position', 'ASC')->get();
         $categories = Category::get();
         $sections = HomeSection::with(['SectionProducts.product.images', 'SectionProducts.product.category'])->get();    
+        
+        $BestSellingProducts = Product::with('images')->with('stars')->where('product_status', 1)->whereIn('id', [
+                1,2,3,4,5,6,7,8,9,10
+            ])->get();
 
-        // dd($sections);
+        // Top Products Section
+        $topProducts1 = Product::with('images')->with('stars')->where('product_status', 1)->whereIn('id', [
+                4,2,
+            ])->get();
+
+        $topProducts2 = Product::with('images')->with('stars')->where('product_status', 1)->whereIn('id', [
+                3,
+            ])->get();
+
+        $topProducts3 = Product::with('images')->with('stars')->where('product_status', 1)->whereIn('id', [
+                5,
+            ])->get();
+
+            // dd($sections);
+
         return view('index', [
-            'banners'       => $banners,
-            'sections'      => $sections,
-            'categories'    => $categories,
+            'banners'               => $banners,
+            'sections'              => $sections,
+            'categories'            => $categories,
+            'BestSellingProducts'   => $BestSellingProducts,
+            'topProducts1'          => $topProducts1,
+            'topProducts2'          => $topProducts2,
+            'topProducts3'          => $topProducts3,
         ]);
     }
 
@@ -55,39 +77,52 @@ class IndexController extends Controller
 
         $categories = Category::get();
 
-        $products = Product::with(['images', 'tags', 'category'])->where('product_status', 1)
-            
-            ->where(function ($query) use ($searchArr) {
-                foreach ($searchArr as $search) {
-                    $query->orWhere('id', 'LIKE' , '%'.$search.'%')
-                    ->orWhere('product_name', 'LIKE' , '%'.$search.'%')
-                    ->orWhere('product_brand', 'LIKE' , '%'.$search.'%');
-                }
-                $query->orWhereHas('tags', function ($query) use ($searchArr) {
-                    foreach ($searchArr as $search) {
-                        $query->orWhere('product_tag', 'LIKE', '%'.$search.'%');
-                    }
-                });
-            });
+        // $products = Product::with(['images', 'tags', 'category'])
+        
+        //     ->where('product_status', 1)
+        //     ->where(function ($query) use ($searchArr) {
+        //         foreach ($searchArr as $search) {
+        //             $query->orWhere('id', 'LIKE' , '%'.$search.'%')
+        //             ->orWhere('product_name', 'LIKE' , '%'.$search.'%')
+        //             ->orWhere('product_brand', 'LIKE' , '%'.$search.'%')
+        //             ->orWhereHas('tags', function ($query) use ($search) {
+        //                 $query->where('product_tag', 'LIKE', '%'.$search.'%');
+        //             });
+        //         }
+        //     });
             
 
-            if ($cat != 'ALL' && $cat != '') {
-                $products->whereHas('category', function ($query) use ($cat) { 
-                    $query->where('category', $cat);
-               });
-            }
                 
-            $products->whereBetween('product_price', [$min_price, $max_price])
+        //     $products->whereBetween('product_price', [$min_price, $max_price])
             
-            ->where('product_stock', '>=', $stock)
-            ;
-                
             
-        $ProductsCount = $products->count();    
+        //     ->where('product_stock', '>=', $stock)
+        //     ;
+
+        // dd(1);
+
+
+
+        // $products = Product::search($req->search)->get();
+
          
+        $products = Product::search($req->search)
+        ->where('product_status', 1)
+        ->where('product_stock', '>=', $stock)
+        ->whereBetween('product_price', [$min_price, $max_price]);
+
+        
+        if ($cat != 'ALL' && $cat != '') {
+            $products->whereHas('category', function ($query) use ($cat) { 
+                $query->where('category', $cat);
+           });
+        }
+        $ProductsCount = $products->count(); 
+
         $products = $products->paginate(12)->appends(request()->query());
         
-
+        // dd($products);
+           
 
         return view('searched-products', [
             'products'          => $products,

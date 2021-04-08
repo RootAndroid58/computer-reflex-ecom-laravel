@@ -152,6 +152,13 @@ $UserName=str_word_count(Auth()->user()->name, 1);
                                                 Delivery By: <b>{{date_format(new DateTime($item->delivery_date), "dS M,(D)")}}</b>
                                         
                                         </span>
+                                        @elseif($item->status == 'item_delivered')
+                                        <span style="color: #28a745">
+                                            <span style="">
+                                                <i class="fa fa-circle" aria-hidden="true"></i>
+                                            </span>
+                                            Delivered On: <b>{{date_format(new DateTime($item->delivery_date), "dS M,(D)")}}</b>
+                                        </span>
                                         @endif
                                     </div>
                                 </div>

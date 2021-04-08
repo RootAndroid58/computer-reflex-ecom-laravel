@@ -31,7 +31,7 @@
 
 
 <div class="product-details ptb-100 pb-90">
-    <div class="container">
+    <div class="container" >
         <div class="row">
 
 
@@ -186,7 +186,7 @@
 
 {{-- Description & Specification Area  --}}
 <div class="product-description-review-area pb-90">
-    <div class="container">
+    <div class="container-fluid" style="max-width: 1500px;">
         <div class="product-description-review text-center">
 
              {{-- Description & Specifications Toggle Buttons --}}
@@ -214,8 +214,8 @@
                             <table class="specification-table">
                                 @foreach ($specifications as $specification)
                                 <tr>
-                                    <th class="table-secondary">{{$specification->specification_key}}</th>
-                                    <td>{{$specification->specification_value}}</td>
+                                    <td style="width: 30%; background-color: #F3F3F3;">{{$specification->specification_key}}</td>
+                                    <td style="width: 70%;">{{$specification->specification_value}}</td>
                                 </tr>
                                 @endforeach
 
@@ -526,7 +526,7 @@
                         </div>
                     </div>
                     <div class="product-content">
-                        <h4><a href="{{route('product-index', $RelatedProduct->id)}}" target="_blank"> {{$RelatedProduct->product_name}} </a></h4>
+                        <h4><a href="{{route('product-index', $RelatedProduct->id)}}" target="_blank" class="line-limit-2" title="{{$RelatedProduct->product_name}}"> {{$RelatedProduct->product_name}} </a></h4>
                         <span><font class="rupees">₹</font> 
                             {{ moneyFormatIndia($RelatedProduct->product_price) }}
                             <b style="font-size: 17px; color: #388e3c; font-weight: 500;">{{((($RelatedProduct->product_mrp - $RelatedProduct->product_price) / $RelatedProduct->product_mrp)*100)%100}}% off</b>

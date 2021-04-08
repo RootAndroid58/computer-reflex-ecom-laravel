@@ -84,12 +84,39 @@ class AdminController extends Controller
         $banner->banner_btn_txt     = $req->banner_btn_txt;
         $banner->banner_btn_link    = $req->banner_btn_link;
         $banner->banner_btn_color   = '#1a1a1a';
-        $banner->banner_img         = env('APP_URL').'/storage/images/banner/'.$req->banner_img->hashName();
+        $banner->banner_img         = $req->banner_img->hashName();
         $banner->banner_status      = 0;
         
         $banner->save();
 
         return back()->with(['BannerCreatedSuccess' => $banner->banner_name]);
+    }
+
+    
+    public function EditBannerSubmit(Request $req)
+    {
+        $banner = Banner::where('id', $req->banner_id)->first();
+        
+        if (isset($req->banner_img)) {
+            Storage::delete('images/banner/'.$banner->banner_img);
+            $req->banner_img->store('images/banner' , 'public');
+            Banner::where('id', $req->banner_id)->update([
+                'banner_img' => $req->banner_img->hashName(),
+            ]);
+        }
+
+        Banner::where('id', $req->banner_id)->update([
+            'banner_name'       => $req->banner_name,
+            'banner_header'     => $req->banner_header, 
+            'banner_header_2'   => $req->banner_header_2, 
+            'banner_caption'    => $req->banner_caption, 
+            'banner_btn_txt'    => $req->banner_btn_txt, 
+            'banner_btn_link'   => $req->banner_btn_link,
+        ]);
+
+        return redirect()->back()->with([
+            'updated' => 200,
+        ]);
     }
 
     public function PublishBanners()
@@ -220,6 +247,33 @@ class AdminController extends Controller
         }
         
     }
+
+
+
+    public function EditBanners()
+    {
+        $banners = Banner::get(); 
+        // dd($banners);
+        return view('admin.edit-banners', [
+            'banners' => $banners,
+        ]);
+    }
+    public function EditBannerPage($banner_id)
+    {
+        $banner = Banner::where('id', $banner_id)->first();
+        
+        if (!isset($banner)) {
+            return redirect()->back();
+        }
+
+        // dd($banners);
+        return view('admin.edit-banner-page', [
+            'banner' => $banner,
+        ]);
+    }
+
+
+
 
     public function AdminUserEditSubmit(Request $req)
     {

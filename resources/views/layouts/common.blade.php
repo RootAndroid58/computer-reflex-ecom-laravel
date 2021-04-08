@@ -210,11 +210,19 @@
                     <div class="furniture-bottom-wrapper">
 
                         @if (Auth::check())
-                            <div class="furniture-login">
-                                <ul>
-                                    <li>Hello, <a href="{{ route('my-account')}}">{{ FirstWord(Auth()->user()->name) }}</a></li>
-                                    <li><a href="{{ route('my-account')}}">Account </a></li>
-                                </ul>
+                            <div class="furniture-login menu-hover">
+                                <nav>
+                                    <ul >
+                                        <li>Hello,  <a href="{{ route('my-account')}}">{{ FirstWord(Auth()->user()->name) }}</a></li>
+                                        <li>        <a href="{{ route('my-account')}}">Account</a>
+                                            <ul class="single-dropdown" style="margin-top: 15px;">
+                                                <li><a href="{{ route('orders')}}">My Orders</a></li>
+                                                <li><a href="{{ route('wishlist')}}">My Wishlist</a></li>
+                                                <li><a href="{{ route('support')}}">Support</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </nav>
                             </div>
                         @else 
                             <div class="furniture-login">
@@ -242,7 +250,7 @@
                         {{-- Right side buttons container --}}
                         <div class="furniture-wishlist">
                             <ul>
-                                <li><a data-toggle="modal" data-target="#exampleCompare" href="#"><i class="ti-reload"></i> Compare</a></li>
+                                <li><a data-toggle="modal" data-target="#exampleCompare" href="#"><i class="pe-7s-repeat"></i> Compare</a></li>
                                 <li><a href="{{ route('wishlist')}}"><i class="ti-heart"></i> Wishlist</a></li>
                             </ul>
                         </div>
