@@ -124,7 +124,6 @@
                                                 </div>
                                             </div>
                                             <div class="product-content">
-                                                
                                                 <h4><a class="line-limit-3" href="{{route('product-index', $product->id)}}"> {{$product->product_name}} </a></h4>
                                                 <span><font class="rupees">₹</font> 
                                                     {{ moneyFormatIndia($product->product_price) }}
