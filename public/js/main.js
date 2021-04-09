@@ -31,6 +31,8 @@ $('#filter_form').on('submit', function (e) {
 
     $('#RowDiv').load(formGetURL+' #RowDiv')
 
+    history.pushState({page: null}, null, formGetURL);
+
     $.getScript('/js/main.js'); 
 })
 

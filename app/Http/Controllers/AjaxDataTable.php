@@ -9,10 +9,57 @@ use App\Models\AffiliateOrderItem;
 use App\Models\OrderItem;
 use App\Models\AffiliateWalletTxn;
 use App\Models\SupportTicket;
+use App\Models\Catalog;
 use DateTime;
 
 class AjaxDataTable extends Controller
 {
+
+
+    public function AdminFeaturedCatalogsTable(Request $req)
+    {
+        if (Request()->ajax()) {
+
+            $query = Catalog::with('CatalogProducts')->latest()->get();
+
+            return datatables()->of($query)
+            
+            ->addColumn('catalog_id', function($data){
+
+                $catalog_id = $data->id;
+
+                return $catalog_id;
+            })
+            ->addColumn('slug', function($data){
+
+                $slug = $data->slug;
+
+                return $slug;
+            })
+            ->addColumn('total_products', function($data){
+
+                $total_products = $data->CatalogProducts->count();
+
+                return $total_products;
+            })
+            ->addColumn('action', function($data){
+
+                $action = '
+                        <a target="_blank" href="'.route('show-catalog', $data->slug).'" class="btn btn-primary"><i class="fas fa-eye"></i></a>
+                        <a href="#" class="btn btn-dark"><i class="fas fa-cog"></i></a>
+                ';
+
+                return $action;
+            })
+
+            ->rawColumns(['action', 'total_products', 'slug', 'catalog_id'])->make(true);
+
+        } else 
+        { 
+            return redirect()->route('home'); 
+        }
+
+    }
 
 
     public function AdminSupportTicketsTable(Request $req)
@@ -423,7 +470,7 @@ class AjaxDataTable extends Controller
 
                 $EditURL = route('edit-product',$data->id);
                 $image = asset('storage/images/products/'.$data->images[0]->image);
-                $button = '<button class="btn btn-primary" onclick="AddToSlider(\'' . $data->id . '\',\''.$image.'\',\'' . $data->product_name . '\')">Add To Slider</button>';
+                $button = '<button class="btn btn-primary" onclick="AddToSlider(\'' . $data->id . '\',\''.$image.'\',\'' . $data->product_name . '\')">Add This Product</button>';
 
                 
                 return $button;

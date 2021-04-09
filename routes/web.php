@@ -48,6 +48,8 @@ Route::get('CartTest', 'App\Http\Controllers\CartController@Test');
     
     Route::get('/search', [App\Http\Controllers\IndexController::class, 'Search'])->name('search')->middleware(['VerifiedNoAuth']);
     
+    Route::get('/catalog/{slug}', [App\Http\Controllers\IndexController::class, 'Catalog'])->name('show-catalog')->middleware(['VerifiedNoAuth']);
+    
     Route::get('/r/{short_url}', [App\Http\Controllers\IndexController::class, 'ShortUrlRedirect'])->name('ShortUrlRedirect')->middleware(['VerifiedNoAuth']);
     
     Route::get('/product/{product_id}/{product_name?}', 'App\Http\Controllers\ShowProductsController@ProductIndex')->name('product-index')->middleware(['VerifiedNoAuth']);
@@ -162,6 +164,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:Admin', 'verifie
     
     Route::post('/support/add-reply/submit', [App\Http\Controllers\SupportController::class, 'AdminAddReply'])->name('admin.support-add-reply');
 
+    Route::get('/manage-ui/featured-catalogs','App\Http\Controllers\Admin\AdminController@ManageFeaturedCatalogs')->name('admin-manage-featured-catalogs');
+   
+    Route::get('/manage-ui/create-new-catalog','App\Http\Controllers\Admin\AdminController@CreateNewCatalog')->name('admin-create-new-catalog');
+
+    Route::post('/manage-ui/create-new-catalog/submit','App\Http\Controllers\Admin\AdminController@CreateNewCatalogSubmit')->name('admin-create-new-catalog-submit');
+
     Route::get('/manage-ui/home-carousel-sliders','App\Http\Controllers\Admin\AdminController@ManageHomeCarouselSlider')->name('admin-manage-home-carousel-sliders');
     
     Route::post('/manage-ui/home-carousel-sliders/create','App\Http\Controllers\Admin\AdminController@CreateHomeCarouselSlider')->name('admin-create-home-carousel-sliders');
@@ -272,6 +280,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:Admin', 'verifie
 
 Route::group(['prefix' => 'ajax/data-table'], function() {
 
+    Route::get('admin-featured-catalogs-table', 'App\Http\Controllers\AjaxDataTable@AdminFeaturedCatalogsTable')->name('ajax-datatable.AdminFeaturedCatalogsTable');
     Route::get('admin-products-table', 'App\Http\Controllers\AjaxDataTable@AdminProductsTable')->name('ajax-datatable.AdminProductsTable');
     Route::get('admin-products-publish-table', 'App\Http\Controllers\AjaxDataTable@AdminProductsPublishTable')->name('ajax-datatable.AdminProductsPublishTable');
     Route::get('admin-orders-table', 'App\Http\Controllers\AjaxDataTable@AdminOrdersTable')->name('ajax-datatable.AdminOrdersTable');

@@ -21,7 +21,10 @@ use App\Models\ProductImage;
 use App\Models\Specification;
 use App\Models\HomeSection;
 use App\Models\HomeSectionProduct;
+use App\Models\Catalog;
+use App\Models\CatalogProduct;
 use App\Mail\AdminUserCreatedMail;
+
 
 
 class AdminController extends Controller
@@ -433,6 +436,46 @@ class AdminController extends Controller
             return redirect()->route('admin-manage-home-carousel-sliders')->with([
                 'SliderUpdated' => 200
             ]);
+    }
+
+
+
+    public function ManageFeaturedCatalogs()
+    {
+        return view('admin.catalog.manage-catalogs');
+    }
+
+    public function CreateNewCatalog()
+    {
+        return view('admin.catalog.create-new-catalog');
+    }
+
+    public function CreateNewCatalogSubmit(Request $req)
+    {
+        $req->merge([
+            'slug' => strtolower(preg_replace('/\s+/', '-', $req->slug)),
+        ]);
+
+        $req->validate([
+            'slug'              => 'required|unique:catalogs,slug',
+            'product_ids'       => 'required',
+        ]);
+
+        $catalog = new Catalog;
+        $catalog->slug = $req->slug;
+        $catalog->save();
+
+        foreach ($req->product_ids as $key => $product_id) {
+            $catalogProduct = new CatalogProduct;
+            $catalogProduct->product_id = $product_id;
+            $catalogProduct->catalog_id = $catalog->id;
+            $catalogProduct->save();
+        }
+
+        return redirect()->route('admin-manage-featured-catalogs')->with([
+            'catalogCreated' => $catalog->slug,
+        ]);
+
     }
 
 

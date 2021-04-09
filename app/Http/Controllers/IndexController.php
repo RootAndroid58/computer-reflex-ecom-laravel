@@ -8,15 +8,11 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\HomeSection;
 use App\Models\AffiliateLink;
+use App\Models\Catalog;
 
 
 class IndexController extends Controller
 {
-    public function demo()
-    {
-        return view('test');
-    }
-
 
 
     public function Index()
@@ -62,7 +58,7 @@ class IndexController extends Controller
     public function Search(Request $req)
     {
         if (isset($req->min_price)) { $min_price = $req->min_price; } else { $min_price = 0; }
-        if (isset($req->max_price)) { $max_price = $req->max_price; } else { $max_price = 9999999999999999999999999999999999; }
+        if (isset($req->max_price) && $req->max_price != 0) { $max_price = $req->max_price; } else { $max_price = 9999999999999999999999999999999999; }
     
         if ($req->stock == 'checked') {
             $stock = 0;
@@ -73,38 +69,9 @@ class IndexController extends Controller
         $cat = (strtoupper($req->category)) ?? '';
 
         // split on 1+ whitespace & ignore empty (eg. trailing space)
-        $searchArr = preg_split('/\s+/', $req->get('search'), -1, PREG_SPLIT_NO_EMPTY); 
+        // $searchArr = preg_split('/\s+/', $req->get('search'), -1, PREG_SPLIT_NO_EMPTY); 
 
         $categories = Category::get();
-
-        // $products = Product::with(['images', 'tags', 'category'])
-        
-        //     ->where('product_status', 1)
-        //     ->where(function ($query) use ($searchArr) {
-        //         foreach ($searchArr as $search) {
-        //             $query->orWhere('id', 'LIKE' , '%'.$search.'%')
-        //             ->orWhere('product_name', 'LIKE' , '%'.$search.'%')
-        //             ->orWhere('product_brand', 'LIKE' , '%'.$search.'%')
-        //             ->orWhereHas('tags', function ($query) use ($search) {
-        //                 $query->where('product_tag', 'LIKE', '%'.$search.'%');
-        //             });
-        //         }
-        //     });
-            
-
-                
-        //     $products->whereBetween('product_price', [$min_price, $max_price])
-            
-            
-        //     ->where('product_stock', '>=', $stock)
-        //     ;
-
-        // dd(1);
-
-
-
-        // $products = Product::search($req->search)->get();
-
          
         $products = Product::search($req->search)
         ->where('product_status', 1)
@@ -117,12 +84,10 @@ class IndexController extends Controller
                 $query->where('category', $cat);
            });
         }
+
         $ProductsCount = $products->count(); 
 
         $products = $products->paginate(12)->appends(request()->query());
-        
-        // dd($products);
-           
 
         return view('searched-products', [
             'products'          => $products,
@@ -139,6 +104,65 @@ class IndexController extends Controller
             return redirect()->back();
         }
         return redirect()->to(route('product-index', $affiliateLink->product_id).'/?aff='.$affiliateLink->associate_id);
+    }
+
+
+    public function Catalog($slug, Request $req)
+    {
+        if (isset($req->min_price)) { $min_price = $req->min_price; } else { $min_price = 0; }
+        if (isset($req->max_price) && $req->max_price != 0) { $max_price = $req->max_price; } else { $max_price = 9999999999999999999999999999999999; }
+    
+        if ($req->stock == 'checked') {
+            $stock = 0;
+        } else {
+            $stock = 1;
+        }
+        // dd($req);
+        $cat = (strtoupper($req->category)) ?? '';
+
+        // split on 1+ whitespace & ignore empty (eg. trailing space)
+        // $searchArr = preg_split('/\s+/', $req->get('search'), -1, PREG_SPLIT_NO_EMPTY); 
+
+        $categories = Category::get();
+
+        $catalog = Catalog::with('CatalogProducts.product')->where('slug', $slug)->first();
+
+        // dd($catalog->CatalogProducts);
+
+        foreach ($catalog->CatalogProducts as $key => $CatalogProduct) {
+            if ($key == 0) {
+                $product_ids = $CatalogProduct->product->id.' ';
+            } else {
+                $product_ids .= $CatalogProduct->product->id.' ';
+            }
+        }
+
+        $product_ids = preg_split('/\s+/', $product_ids, -1, PREG_SPLIT_NO_EMPTY); 
+
+        // dd($product_ids);
+         
+        $products = Product::whereIn('id', $product_ids)
+        ->where('product_status', 1)
+        ->where('product_stock', '>=', $stock)
+        ->whereBetween('product_price', [$min_price, $max_price]);
+
+        
+        if ($cat != 'ALL' && $cat != '') {
+            $products->whereHas('category', function ($query) use ($cat) { 
+                $query->where('category', $cat);
+           });
+        }
+
+        $ProductsCount = $products->count(); 
+
+        $products = $products->paginate(12)->appends(request()->query());
+
+        return view('catalog-products', [
+            'products'          => $products,
+            'catalog'           => $catalog,
+            'categories'        => $categories,
+            'ProductsCount'     => $ProductsCount,
+        ]);
     }
     
 }

@@ -648,19 +648,15 @@
 
 
 
-<div class="banner-area wrapper-padding pt-30 pb-50">
-    <div class="container-fluid">
-        <div class="electro-fexible-banner bg-img" style="background-image: url(ezone/img/banner/1.jpg)">
-            <div class="fexible-content">
-                <h3>Play with flexible</h3>
-                <p>Multicontrol Smooth Controller, Black Color All Buttons
-                    <br>are somooth, Super Shine.</p>
-                <a class="btn-hover flexible-btn" href="product-details.html">Buy Now</a>
-            </div>
+
+    <div class="banner-area wrapper-padding pt-30 pb-50">
+        <div class="container-fluid">
+            <a href="#">
+                <img src="https://i.ibb.co/cXbFqhn/asus-z590-series-1920x400px-1920x400.webp" alt="" width="100%">
+            </a>
         </div>
     </div>
-</div>
-
+    
 
 
 
@@ -918,6 +914,26 @@
 </div>
 @endif
 @endforeach
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="banner-area wrapper-padding pt-30 pb-50">
+    <div class="container-fluid">
+        <a href="http://localhost:8000/product/6">
+            <img src="https://i.ibb.co/9txw7hX/lancool-215.webp" alt="" width="100%">
+        </a>
+    </div>
+</div>
+
 
 
 
