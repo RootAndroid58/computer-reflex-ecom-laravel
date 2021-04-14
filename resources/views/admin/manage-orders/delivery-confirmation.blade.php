@@ -21,12 +21,25 @@
     </div> 
     @endif
 
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            <a href="{{route('admin-ship-orders')}}" class="btn btn-block btn-lg btn-primary">Ship Orders</a>
+        </div>
+        <div class="col-md-4">
+            <a href="{{route('admin-delivery-confirmation')}}" class="btn btn-block btn-lg btn-primary">Delivery Confirmation</a>
+        </div>
+    </div>
+    <br>
+    <br>
+
 <!--Products Table Start-->
 <table id="AdminDeliveryConfirmationTable" class="table table-striped table-bordered table-fluid">
     <thead class="bg-primary text-white">
     <tr>
         <th style="width: 5%">#</th>
         <th style="width: 10%">Order Date</th>
+        <th style="width: 10%">Item</th>
         <th style="width: 10%">Customer Name</th>
         <th style="width: 10%">Payment</th>
         <th style="width: 15%">Total Price</th>
@@ -41,6 +54,7 @@
     <tr>
         <th style="width: 5%">#</th>
         <th style="width: 10%">Order Date</th>
+        <th style="width: 10%">Item</th>
         <th style="width: 10%">Customer Name</th>
         <th style="width: 10%">Payment</th>
         <th style="width: 15%">Total Price</th>
@@ -72,6 +86,10 @@
             {
                 data: 'order_date',
                 name: 'order_date',
+            },
+            {
+                data: 'item_name',
+                name: 'item_name',
             },
             {
                 data: 'customer_name',

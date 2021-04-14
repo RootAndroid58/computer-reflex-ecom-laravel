@@ -115,7 +115,7 @@
                                         <div class="product-wrapper mb-30">
                                             <div class="product-img">
                                                 <a href="{{route('product-index', $product->id)}}" target="_blank">
-                                                    <div class="sm-prod-img-container" style="background-image: url('{{ asset('storage/images/products/'.$product->images[0]->image) }}');"></div>
+                                                    <div class="sm-prod-img-container prod-back-div" style="background-image: url('{{ asset('storage/images/products/'.$product->images[0]->image) }}');"></div>
                                                 </a>
                                                 <div class="product-action">
                                                     <a class="animate-left cursor-pointer" onclick="ToggleWishlist({{$product->id}})" title="Wishlist"><i class="pe-7s-like"></i></a>

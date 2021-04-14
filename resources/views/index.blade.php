@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Electronics - eCommerce HTML5 Template</title>
+    <title>Computer Reflex - Online Shopping</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
@@ -518,39 +518,31 @@
     </div>
     <div class="electronic-banner-area">
         <div class="custom-row-2">
+
             <div class="custom-col-style-2 electronic-banner-col-3 mb-30">
-                <div class="electronic-banner-wrapper">
-                    <img src="ezone/img/banner/1.jpg" alt="">
-                    <div class="electro-banner-style electro-banner-position">
-                        <h1>Live 4K! </h1>
-                        <h2>up to 20% off</h2>
-                        <h4>Amazon exclusives</h4>
-                        <a href="product-details.html">Buy Now→</a>
+                <a href="{{ route('show-catalog', 'antec-cabinets') }}">
+                    <div class="electronic-banner-wrapper">
+                        <img src="https://i.ibb.co/g6Jj344/antec-cabinet-430x275px.jpg" alt="">
                     </div>
-                </div>
+                </a>
             </div>
+
             <div class="custom-col-style-2 electronic-banner-col-3 mb-30">
-                <div class="electronic-banner-wrapper">
-                    <img src="ezone/img/banner/1.jpg" alt="">
-                    <div class="electro-banner-style electro-banner-position2">
-                        <h1>Xoxo ssl </h1>
-                        <h2>up to 15% off</h2>
-                        <h4>Amazon exclusives</h4>
-                        <a href="product-details.html">Buy Now→</a>
+                <a href="{{ route('show-catalog', 'antec-smps-reliability-meets-affordablitiy') }}">
+                    <div class="electronic-banner-wrapper">
+                        <img src="https://i.ibb.co/p0qpfff/antec-smps-430x275px.jpg" alt="">
                     </div>
-                </div>
+                </a>
             </div>
+
             <div class="custom-col-style-2 electronic-banner-col-3 mb-30">
-                <div class="electronic-banner-wrapper">
-                    <img src="ezone/img/banner/1.jpg" alt="">
-                    <div class="electro-banner-style electro-banner-position3">
-                        <h1>BY Laptop</h1>
-                        <h2>Super Discount</h2>
-                        <h4>Amazon exclusives</h4>
-                        <a href="product-details.html">Buy Now→</a>
+                <a href="{{ route('show-catalog', 'antec-case-fans-beat-the-heat-with-style') }}">
+                    <div class="electronic-banner-wrapper">
+                        <img src="https://i.ibb.co/NsZbVXj/antec-case-fans-430x275px.jpg" alt="">
                     </div>
-                </div>
+                </a>
             </div>
+
         </div>
     </div>
 
@@ -560,64 +552,9 @@
 
 
     @foreach ($sections as $key => $section)
-    @if ($sections->count()/2 > $key)
-    <div class="electronic-banner-area">
-        <div class="row">
-            <div class="col-12">
-                <div class="bbb_main_container">
-                    <div class="bbb_viewed_title_container" >
-                        <h3 class="bbb_viewed_title" style="margin-bottom: 5px;">{{$section->title}}
-                            <a style="font-size: 14px;" class="static-blue" target="_blank" href="{{ route('admin-edit-home-carousel-slider', $section->id) }}">Edit</a>
-                        </h3>
-                        <div class="mb-2">
-                            <span >{{$section->caption}}</span>
-                        </div>
-                        <div class="bbb_viewed_nav_container">
-                            <div class="bbb_viewed_nav bbb_viewed_prev"><i class="fas fa-chevron-left"></i></div>
-                            <div class="bbb_viewed_nav bbb_viewed_next"><i class="fas fa-chevron-right"></i></div>
-                        </div>
-                    </div>
-                    <div class="bbb_viewed_slider_container">
-                        <div class="owl-carousel owl-theme bbb_viewed_slider">
-                           
-                            @foreach ($section->SectionProducts as $product)
-                            @php
-                               $product = $product->product;
-                            @endphp
-                            <div class="owl-item">
-                                <div class="product-wrapper mb-30">
-                                    <div class="product-img">
-                                        <a href="{{route('product-index', $product->id)}}" target="_blank">
-                                            <div class="sm-prod-img-container" style="background-image: url('{{ asset('storage/images/products/'.$product->images[0]->image) }}');"></div>
-                                        </a>
-                                        <div class="product-action">
-                                            <a class="animate-left cursor-pointer" onclick="ToggleWishlist({{$product->id}})" title="Wishlist"><i class="pe-7s-like"></i></a>
-                                            <a class="animate-top cursor-pointer" onclick="ToggleCart({{$product->id}})" title="Add To Cart"><i class="pe-7s-cart"></i></a>
-                                            <a class="animate-right cursor-pointer" onclick="ToggleCompare({{$product->id}})" title="Compare"><i class="pe-7s-repeat"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <h4><a class="line-limit-2" href="{{route('product-index', $product->id)}}"> {{$product->product_name}} </a></h4>
-                                        <span><font class="rupees">₹</font> 
-                                            {{ moneyFormatIndia($product->product_price) }}
-                                            <b style="font-size: 17px; color: #388e3c; font-weight: 500;">{{((($product->product_mrp - $product->product_price) / $product->product_mrp)*100)%100}}% off</b>
-                                        </span>
-                                        @if ($product->product_stock <= 0)
-                                            <br>
-                                            <span class="text-danger">Out Of Stock</span>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    @endif
+        @if ($sections->count()/2 > $key)
+            @include('includes.home-page-products-carousel')
+        @endif
     @endforeach
 
 
@@ -857,62 +794,9 @@
 
 
 @foreach ($sections as $key => $section)
-@if ($sections->count()/2 <= $key)
-<div class="electronic-banner-area mb-5">
-    <div class="row">
-        <div class="col-12">
-            <div class="bbb_main_container">
-                <div class="bbb_viewed_title_container" >
-                    <h3 class="bbb_viewed_title" style="margin-bottom: 5px;">{{$section->title}} 
-                        <a style="font-size: 14px;" class="static-blue" target="_blank" href="{{ route('admin-edit-home-carousel-slider', $section->id) }}">Edit</a>
-                    </h3>
-                    <div class="mb-2">
-                        <span >{{$section->caption}}</span>
-                    </div>
-                    <div class="bbb_viewed_nav_container">
-                        <div class="bbb_viewed_nav bbb_viewed_prev"><i class="fas fa-chevron-left"></i></div>
-                        <div class="bbb_viewed_nav bbb_viewed_next"><i class="fas fa-chevron-right"></i></div>
-                    </div>
-                </div>
-                <div class="bbb_viewed_slider_container">
-                    <div class="owl-carousel owl-theme bbb_viewed_slider">
-                        @foreach ($section->SectionProducts as $product)
-                        @php
-                           $product = $product->product;
-                        @endphp
-                        <div class="owl-item">
-                            <div class="product-wrapper mb-30">
-                                <div class="product-img">
-                                    <a href="{{route('product-index', $product->id)}}" target="_blank">
-                                        <div class="sm-prod-img-container" style="background-image: url('{{ asset('storage/images/products/'.$product->images[0]->image) }}');"></div>
-                                    </a>
-                                    <div class="product-action">
-                                        <a class="animate-left cursor-pointer" onclick="ToggleWishlist({{$product->id}})" title="Wishlist"><i class="pe-7s-like"></i></a>
-                                        <a class="animate-top cursor-pointer" onclick="ToggleCart({{$product->id}})" title="Add To Cart"><i class="pe-7s-cart"></i></a>
-                                        <a class="animate-right cursor-pointer" onclick="ToggleCompare({{$product->id}})" title="Compare"><i class="pe-7s-repeat"></i></a>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <h4><a class="line-limit-2" href="{{route('product-index', $product->id)}}"> {{$product->product_name}} </a></h4>
-                                    <span><font class="rupees">₹</font> 
-                                        {{ moneyFormatIndia($product->product_price) }}
-                                        <b style="font-size: 17px; color: #388e3c; font-weight: 500;">{{((($product->product_mrp - $product->product_price) / $product->product_mrp)*100)%100}}% off</b>
-                                    </span>
-                                    @if ($product->product_stock <= 0)
-                                        <br>
-                                        <span class="text-danger">Out Of Stock</span>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endif
+    @if ($sections->count()/2 <= $key)
+        @include('includes.home-page-products-carousel')
+    @endif
 @endforeach
 
 
@@ -1480,54 +1364,8 @@ function ToggleCart(product_id) {
 }
 
 
-$(document).ready(function()
-{
 
-
-if($('.bbb_viewed_slider').length)
-{
-var viewedSlider = $('.bbb_viewed_slider');
-
-viewedSlider.owlCarousel(
-{
-loop:true,
-margin:30,
-autoplay:true,
-autoplayTimeout:8000,
-nav:false,
-dots:false,
-responsive:
-{
-0:{items:1},
-575:{items:2},
-768:{items:3},
-991:{items:4},
-1199:{items:6}
-}
-});
-
-if($('.bbb_viewed_prev').length)
-{
-    var prev = $('.bbb_viewed_prev');
-    prev.on('click', function()
-    {
-    viewedSlider.trigger('prev.owl.carousel');
-    });
-}
-
-if($('.bbb_viewed_next').length)
-{
-    var next = $('.bbb_viewed_next');
-    next.on('click', function()
-    {
-    viewedSlider.trigger('next.owl.carousel');
-    });
-}
-
-}
-});
-
-    </script>
+</script>
 
 </body>
 

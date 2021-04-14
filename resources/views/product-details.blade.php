@@ -40,26 +40,43 @@
 
                 <div class="product_img_slider">
                     <!-- All Images list -->
-                    <ul>
-                        @foreach ($images as $image)
-                        <li><img src="{{ asset('storage/images/products/'.$image->image) }}" class="small_img" alt=""></li>
-                        @endforeach
-                    </ul>
+                    <div class="row">
+                        <div class="col-2">
+                            <ul>
+                                @foreach ($images as $image)
+                                <li>
+                                    <div class="images-menu cursor-pointer prod-back-div small_img" 
+                                        style="background-image: url('{{ asset('storage/images/products/'.$image->image) }}');" >
+                                    </div>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        <div class="col-10">
+                            <div class="" style="height: 475px;">
+                                <img src="{{ asset('storage/images/products/'.$images[0]->image) }}" alt="" 
+                                class="big_img" id="big_img"
+                                data-image="{{ asset('storage/images/products/'.$images[0]->image) }}">
+                            </div>
+                            
+                            <div class="buy-now-btn-container">
+                                @if ($product->product_stock > 0) 
+                                    <form action="{{ route('checkout-post') }}" method="post"> @csrf 
+                                        <input type="hidden" name="product_id[]" value="{{ $product->id }}">
+                                        <input type="hidden" name="product_qty[]" value="1">
+                                        <button href="#">Buy Now</button>
+                                    </form>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                   
                 
                     <!-- Big image area/canvas -->
-                    <span class="vertically-aligned-span"></span><img src="{{ asset('storage/images/products/'.$images[0]->image) }}" class="big_img" alt="">
-                </div>
-
-                <div class="buy-now-btn-container">
-                    @if ($product->product_stock > 0) 
-                        <form action="{{ route('checkout-post') }}" method="post"> @csrf 
-                            <input type="hidden" name="product_id[]" value="{{ $product->id }}">
-                            <input type="hidden" name="product_qty[]" value="1">
-                            <button href="#">Buy Now</button>
-                        </form>
-                    @endif
                     
                 </div>
+
+                
 
             </div> {{-- Images section End --}}
 
@@ -80,8 +97,9 @@
                             <i class="@if ($stars >= 5)fas fa-star green-star @else fas fa-star @endif" aria-hidden="true"></i>
                         </div>
                         <div class="quick-view-number">
-                            <span>{{$reviews->count()}} Rating/Review @if($reviews->count() > 1)(S)@endif 
-</span>
+                            <span>
+                                {{$reviews->count()}} Rating/Review @if($reviews->count() > 1)(S)@endif 
+                            </span>
                         </div>
                     </div>
 
@@ -767,20 +785,21 @@ function ToggleCart(product_id) {
             })
         })
     </script>
-
-    	<!-- Image Change On Hover -->
-	<script>
-        $('.small_img').hover(function(){
-            $('.big_img').attr('src', $(this).attr('src'))
-        })
-	</script>
-
-	<!-- Initilize ImageZoomSL -->
+    
 	<script>
 		$(document).ready(function(){
-			$('.big_img').imagezoomsl({
-				zoomrange: [3, 3]
+			$('#big_img').imagezoomsl({
+                cursorshade:true,
+                magnifycursor:'zoom-in',
+				zoomrange: [1.5, 10],
+                scrollspeedanimate: 5,
+                zoomspeedanimate: 1,
+                loopspeedanimate: 1,  
+                magnifierspeedanimate: 350
+
 			})
 		})
 	</script>
+
+
 @endsection

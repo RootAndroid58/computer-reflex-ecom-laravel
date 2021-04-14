@@ -261,6 +261,12 @@ class AjaxDataTable extends Controller
 
                 return $order_date;
             })
+            ->addColumn('item_name', function($data){
+                
+                $item_name = '<span class="line-limit-2">'.$data->product->product_name.'</span>';
+
+                return $item_name;
+            })
             ->addColumn('customer_name', function($data){
 
                 $customer_name = $data->order->User->name;
@@ -314,7 +320,7 @@ class AjaxDataTable extends Controller
                 return $action;
             })
 
-            ->rawColumns(['order_id', 'status', 'price', 'payment_method', 'registered_email', 'action'])->make(true);
+            ->rawColumns(['order_id', 'item_name', 'status', 'price', 'payment_method', 'registered_email', 'action'])->make(true);
 
         } else 
         { 

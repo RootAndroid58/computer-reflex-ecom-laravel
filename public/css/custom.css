@@ -269,10 +269,10 @@ Product Images Area Start
 
 .product_img_slider{
     max-width: 100%;
-    height: 475px;
+    /* height: 475px; */
     white-space: nowrap;
     text-align: center; margin: 1em 0;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 .product_img_slider ul{
 
@@ -286,16 +286,16 @@ Product Images Area Start
 }
 
 .product_img_slider ul li{
-
     list-style-type: none;
     margin-bottom: 10px;
 }
-.product_img_slider ul li img{
+.images-menu{
+    border: 1px solid grey; 
+    height: 70px; 
     width: 70px;
-    height: 70px;
-    transition: 300ms;
-    border: 1px grey solid;
-    border-radius: 3px;
+}
+.images-menu:hover{
+    transition: all 1s;
 }
 .vertically-aligned-span{
     display: inline-block;
@@ -303,10 +303,9 @@ Product Images Area Start
     vertical-align: middle;
 }
 .product_img_slider .big_img{
-    max-height: 475px;
-    max-width: 80%;
+    width: 100%;
+    max-height: 100%;
     vertical-align: middle;
-    margin-left: 10px;
     transition: 300ms;
 }
 .product_img_slider ul li img:hover{
@@ -317,15 +316,16 @@ Product Images Area Start
 /* --------------------
 Buy now button Custom
 -------------------- */ 
-
+.buy-now-btn-container {
+    margin-top: 10px;
+}
 .buy-now-btn-container button{
-    float: right;
-    margin-right: 4%;
     text-align: center;
     padding: 17px 35px;
     font-weight: 600;
     letter-spacing: 1.2px;
     display: block;
+    margin: auto;
     width: 80%;
     color: white;
     text-transform: uppercase;
@@ -1106,3 +1106,30 @@ Buy now button Custom
 .static-blue{
     color: #2874f0;
 }
+
+
+
+
+#window-zoom {
+    width: 400px;
+    height: 400px;
+    border: 2px solid #36393D;
+    background-color: #FFFFFF;
+    position: absolute;
+    overflow: hidden;
+    }
+    #window-zoom img {
+    position: relative;
+    }
+    #container-zoom {
+    position: relative;
+    left: 404px;
+    top: -229px;
+    }
+    #preview-zoom {
+    position: absolute;
+    border: 1px solid #4C91C0;
+    background-color: rgba(76,145,192,0.5);
+    display: none;
+    z-index: 999;
+    }

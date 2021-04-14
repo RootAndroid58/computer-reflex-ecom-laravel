@@ -369,8 +369,10 @@
         <script src="{{ asset('ezone/js/plugins.js') }}"></script>
         <script src="{{ asset('ezone/js/main.js') }}"></script>
         <script src="{{ asset('js/zoomsl.min.js') }}"></script>
+        <script src="{{ asset('js/jquery.easyzoom-modified.min.js') }}"></script>
         <script src="{{ asset('js/summernote-bs4.js') }}"></script>
         <script src="{{ asset('js/jquery.bootstrap-growl.min.js')}}"></script>
+        <script src="{{ asset('ezone/js/owl.carousel.min.js')}}"></script>
         <script src="{{ asset('js/star-rating.js?ver=4.1.2')}}"></script>
         <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>

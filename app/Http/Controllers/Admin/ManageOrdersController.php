@@ -56,10 +56,12 @@ class ManageOrdersController extends Controller
     {
         $order = Order::with('OrderItems')->where('id', $order_id)->first();
 
-        if ($order->status == 'order_placed') {
+        if (isset($order) && $order->status == 'order_placed') {
             return view('admin.shipping.process-order',[
                 'order' => $order,
             ]);
+        } else {
+            abort(500);
         }
     }
 
@@ -94,10 +96,14 @@ class ManageOrdersController extends Controller
     public function CreateShipmentView($order_item_id)
     {
         $OrderItem = OrderItem::with('product')->where('id', $order_item_id)->first();
-
-        return view('admin.shipping.create-shipment', [
-            'item' => $OrderItem,
-        ]);
+        if (isset($OrderItem) && $OrderItem->status == 'packing_completed') {
+            return view('admin.shipping.create-shipment', [
+                'item' => $OrderItem,
+            ]);
+        } else {
+            abort(500);
+        }
+        
     }
 
     public function CreateShipment(Request $req)

@@ -1,3 +1,47 @@
+  if($('.bbb_viewed_slider').length) {
+      var viewedSlider = $('.bbb_viewed_slider');
+      viewedSlider.owlCarousel(
+          {
+              loop:true,
+              margin:30,
+              autoplay:true,
+              autoplayTimeout:8000,
+              nav:false,
+              dots:false,
+              responsive:
+              {
+                  0:{items:1},
+                  575:{items:2},
+                  768:{items:3},
+                  991:{items:4},
+                  1199:{items:6}
+              }
+          });
+    }
+
+
+
+function PrevCarousel(section_id) {
+  $('.owl-carousel-'+section_id).trigger('prev.owl.carousel')
+}
+function NextCarousel(section_id) {
+  $('.owl-carousel-'+section_id).trigger('next.owl.carousel')
+}
+
+
+
+
+$('.images-menu').on('mouseover', function () {
+  imageUrl = $(this).css('background-image').replace(/^url\(['"]?/,'').replace(/['"]?\)$/,'');
+  $('#big_img').attr('src', imageUrl)
+})
+
+
+
+
+
+
+
 
 $('#help_topic').on('change', function () {
   if ($('#help_topic').val() == 'Order Related') {
@@ -59,17 +103,20 @@ $('.ReviewModalToggleBtn').on('click', function () {
     }
 })
 
-var destroyed = false;
-var starratingPrebuilt = new StarRating('.star-rating-prebuilt', {
-    prebuilt: true,
-    maxStars: 5,
-});
-var starrating = new StarRating('.star-rating', {
-    stars: function (el, item, index) {
-        el.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect class="gl-star-full" width="19" height="19" x="2.5" y="2.5"/><polygon fill="#FFF" points="12 5.375 13.646 10.417 19 10.417 14.665 13.556 16.313 18.625 11.995 15.476 7.688 18.583 9.333 13.542 5 10.417 10.354 10.417"/></svg>';
-    },
-});
-var starratingOld = new StarRating('.star-rating-old');
+if ($('.star-rating').length) {
+  var destroyed = false;
+  var starratingPrebuilt = new StarRating('.star-rating-prebuilt', {
+      prebuilt: true,
+      maxStars: 5,
+  });
+  var starrating = new StarRating('.star-rating', {
+      stars: function (el, item, index) {
+          el.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect class="gl-star-full" width="19" height="19" x="2.5" y="2.5"/><polygon fill="#FFF" points="12 5.375 13.646 10.417 19 10.417 14.665 13.556 16.313 18.625 11.995 15.476 7.688 18.583 9.333 13.542 5 10.417 10.354 10.417"/></svg>';
+      },
+  });
+  var starratingOld = new StarRating('.star-rating-old');
+
+}
 
 
 
