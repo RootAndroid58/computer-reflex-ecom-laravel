@@ -6,7 +6,7 @@ $agent = new Agent();
 if ($agent->isMobile()) {
     $view = 'mobile-views';
 } else {
-    $view = 'desktop-views';
+    $view = 'views';
 }
 
 return [
@@ -23,7 +23,7 @@ return [
     */
 
     'paths' => [
-        resource_path('views'),
+        resource_path($view),
     ],
 
     /*

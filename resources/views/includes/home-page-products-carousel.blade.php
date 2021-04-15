@@ -1,3 +1,4 @@
+
 <div class="electronic-banner-area mb-5">
     <div class="row">
         <div class="col-12">
@@ -32,7 +33,14 @@
                                         <a class="animate-right cursor-pointer" onclick="ToggleCompare({{$product->id}})" title="Compare"><i class="pe-7s-repeat"></i></a>
                                     </div>
                                 </div>
-                                <div class="product-content">
+                                <div class="product-rating-4" style="text-align: center">
+                                    <i class="icofont icofont-star @if (isset($product->stars->stars) && $product->stars->stars >= 1) yellow @endif "></i>
+                                    <i class="icofont icofont-star @if (isset($product->stars->stars) && $product->stars->stars >= 2) yellow @endif "></i>
+                                    <i class="icofont icofont-star @if (isset($product->stars->stars) && $product->stars->stars >= 3) yellow @endif "></i>
+                                    <i class="icofont icofont-star @if (isset($product->stars->stars) && $product->stars->stars >= 4) yellow @endif "></i>
+                                    <i class="icofont icofont-star @if (isset($product->stars->stars) && $product->stars->stars >= 5) yellow @endif "></i>
+                                </div>
+                                <div class="product-content" style="text-align: center">
                                     <h4><a class="line-limit-2" href="{{route('product-index', $product->id)}}"> {{$product->product_name}} </a></h4>
                                     <span><font class="rupees">₹</font> 
                                         {{ moneyFormatIndia($product->product_price) }}

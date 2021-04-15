@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="{{ asset('ezone/css/themify-icons.css')}}">
     <link rel="stylesheet" href="{{ asset('ezone/css/pe-icon-7-stroke.css')}}">
     <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css')}}">
-    <script src="{{ asset('fontawesome/js/all.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('ezone/css/icofont.css')}}">
     <link rel="stylesheet" href="{{ asset('ezone/css/meanmenu.min.css')}}">
     <link rel="stylesheet" href="{{ asset('ezone/css/bundle.css')}}">
@@ -653,17 +652,11 @@
                                 </div>
                                 <div class="product-content-4 text-center">
                                     <div class="product-rating-4">
-                                        
-                                  
                                         <i class="icofont icofont-star @if (isset($product->stars->stars) && $product->stars->stars >= 1) yellow @endif "></i>
                                         <i class="icofont icofont-star @if (isset($product->stars->stars) && $product->stars->stars >= 2) yellow @endif "></i>
                                         <i class="icofont icofont-star @if (isset($product->stars->stars) && $product->stars->stars >= 3) yellow @endif "></i>
                                         <i class="icofont icofont-star @if (isset($product->stars->stars) && $product->stars->stars >= 4) yellow @endif "></i>
                                         <i class="icofont icofont-star @if (isset($product->stars->stars) && $product->stars->stars >= 5) yellow @endif "></i>
-                                        
-
-                                        
-
                                     </div>
                                     <h4><a href="{{ route('product-index', $product->id) }}" class="line-limit-2">{{$product->product_name}}</a></h4>
                                     <span>

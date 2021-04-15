@@ -139,7 +139,7 @@
         item: 7,
         responsive: {
             0: {
-                items: 1
+                items: 3
             },
             768: {
                 items: 3

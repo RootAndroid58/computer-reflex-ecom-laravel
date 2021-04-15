@@ -9,8 +9,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico')}}">
-        <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css')}}">
-        <script src="{{ asset('fontawesome/js/all.js') }}"></script>
+
+
+
 		<!-- all css here -->
         <link rel="stylesheet" href="{{ asset('ezone/css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
@@ -19,7 +20,9 @@
         <link rel="stylesheet" href="{{ asset('ezone/css/owl.carousel.min.css')}}">
         <link rel="stylesheet" href="{{ asset('ezone/css/themify-icons.css')}}">
         <link rel="stylesheet" href="{{ asset('ezone/css/pe-icon-7-stroke.css')}}">
-        <link rel="stylesheet" href="{{ asset('css/fa.min.css')}}">
+        
+        <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css')}}">
+        
         <link rel="stylesheet" href="{{ asset('css/star-rating.css')}}">
         <link rel="stylesheet" href="{{ asset('ezone/css/icofont.css')}}">
         <link rel="stylesheet" href="{{ asset('ezone/css/meanmenu.min.css')}}">

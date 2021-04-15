@@ -227,8 +227,8 @@
                 {{-- Specifications --}}
                 <div class="tab-pane @if (!isset($product->product_long_description)) show active @endif fade" id="pro-specifications" role="tabpanel">
                     
-                    <div class="row">
-                        <div class="col-6">
+                    <div class="container">
+                        <div style="text-align: center">
                             <table class="specification-table">
                                 @foreach ($specifications as $specification)
                                 <tr>
@@ -236,15 +236,10 @@
                                     <td style="width: 70%;">{{$specification->specification_value}}</td>
                                 </tr>
                                 @endforeach
-
                             </table>
                         </div>
-
-                        <div class="col-6">
-                            
-                        </div>
-
                     </div>
+                    
 
                 </div>
             </div>

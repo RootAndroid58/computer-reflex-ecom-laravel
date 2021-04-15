@@ -618,13 +618,13 @@
         <div class="top-product-style">
             <div class="product-tab-list3 text-center mb-80 nav product-menu-mrg" role="tablist">
                 <a class="" href="#topProducts1" data-toggle="tab" role="tab" aria-selected="false">
-                    <h4>Graphics Cards </h4>
+                    <h4 style="font-size: 12px;">Graphics Cards </h4>
                 </a>
                 <a href="#topProducts2" data-toggle="tab" role="tab" class="active" aria-selected="true">
-                    <h4>Processors </h4>
+                    <h4 style="font-size: 12px;">Processors </h4>
                 </a>
                 <a href="#topProducts3" data-toggle="tab" role="tab" class="" aria-selected="false">
-                    <h4>Motherboards</h4>
+                    <h4 style="font-size: 12px;">Motherboards</h4>
                 </a>
             </div>
             <div class="tab-content">
@@ -837,14 +837,14 @@
             <div class="row">
                 @foreach ($BestSellingProducts as $BestSellingProduct)
                 <div class="col-lg-6 col-xl-4">
-                    <div class="product-wrapper product-wrapper-border mb-30">
+                    <div class="product-wrapper product-wrapper-border mb-3" style="padding: 15px 20px 18px;">
                         <div class="product-img-5">
                             <a href="{{route('product-index', $BestSellingProduct->id)}}">
-                                <div class="prod-back-div" style="width: 100%; height: 100%; background-image: url('{{ asset('storage/images/products/'.$BestSellingProduct->images[0]->image) }}')"></div>
+                                <div class="prod-back-div" style="width: 100%; height: 175px; background-image: url('{{ asset('storage/images/products/'.$BestSellingProduct->images[0]->image) }}')"></div>
                             </a>
                         </div>
 
-                        <div class="product-content-7">
+                        <div class="product-content-7" style="    text-align: center;">
                             <h4><a href="{{route('product-index', $BestSellingProduct->id)}}" class="line-limit-2">{{$BestSellingProduct->product_name}}</a></h4>
                             <div class="product-rating-4">
                                 <i class="icofont icofont-star @if (isset($BestSellingProduct->stars->stars) && $BestSellingProduct->stars->stars >= 1) yellow @endif "></i>
@@ -876,31 +876,31 @@
         <div class="container-fluid">
             <div class="brand-logo-active2 owl-carousel">
                 <div class="single-brand">
-                    <img src="ezone/img/brand-logo/7.png" alt="">
+                    <img style="width: 50%;" src="ezone/img/brand-logo/7.png" alt="">
                 </div>
                 <div class="single-brand">
-                    <img src="ezone/img/brand-logo/8.png" alt="">
+                    <img style="width: 50%;" src="ezone/img/brand-logo/8.png" alt="">
                 </div>
                 <div class="single-brand">
-                    <img src="ezone/img/brand-logo/9.png" alt="">
+                    <img style="width: 50%;" src="ezone/img/brand-logo/9.png" alt="">
                 </div>
                 <div class="single-brand">
-                    <img src="ezone/img/brand-logo/10.png" alt="">
+                    <img style="width: 50%;" src="ezone/img/brand-logo/10.png" alt="">
                 </div>
                 <div class="single-brand">
-                    <img src="ezone/img/brand-logo/11.png" alt="">
+                    <img style="width: 50%;" src="ezone/img/brand-logo/11.png" alt="">
                 </div>
                 <div class="single-brand">
-                    <img src="ezone/img/brand-logo/12.png" alt="">
+                    <img style="width: 50%;" src="ezone/img/brand-logo/12.png" alt="">
                 </div>
                 <div class="single-brand">
-                    <img src="ezone/img/brand-logo/13.png" alt="">
+                    <img style="width: 50%;" src="ezone/img/brand-logo/13.png" alt="">
                 </div>
                 <div class="single-brand">
-                    <img src="ezone/img/brand-logo/7.png" alt="">
+                    <img style="width: 50%;" src="ezone/img/brand-logo/7.png" alt="">
                 </div>
                 <div class="single-brand">
-                    <img src="ezone/img/brand-logo/8.png" alt="">
+                    <img style="width: 50%;" src="ezone/img/brand-logo/8.png" alt="">
                 </div>
             </div>
         </div>
