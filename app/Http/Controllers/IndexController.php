@@ -9,6 +9,8 @@ use App\Models\Category;
 use App\Models\HomeSection;
 use App\Models\AffiliateLink;
 use App\Models\Catalog;
+use App\Models\Specification;
+use Distinct;
 
 
 class IndexController extends Controller
@@ -73,7 +75,7 @@ class IndexController extends Controller
 
         $categories = Category::get();
          
-        $products = Product::search($req->search)
+        $products = Product::with('specifications')->search($req->search)
         ->where('product_status', 1)
         ->where('product_stock', '>=', $stock)
         ->whereBetween('product_price', [$min_price, $max_price]);
@@ -84,15 +86,33 @@ class IndexController extends Controller
                 $query->where('category', $cat);
            });
         }
+        if ($req->sort_by == 'A to Z') {
+            $products->orderBy('product_name', 'asc');
+        }
+        if ($req->sort_by == 'Z to A') {
+            $products->orderBy('product_name', 'desc');
+        }
+        if ($req->sort_by == 'Price Low to High') {
+            $products->orderBy('product_price', 'asc');
+        }
+        if ($req->sort_by == 'Price High to Low') {
+            $products->orderBy('product_price', 'desc');
+        }   
+
+        $specifications = Specification::whereIn('product_id', $products->pluck('id'))
+        ->groupBy(['specification_key', 'specification_value']) // group by query
+        ->get()
+        ->groupBy('specification_key'); // group by collection
+        
 
         $ProductsCount = $products->count(); 
-
         $products = $products->paginate(12)->appends(request()->query());
 
         return view('searched-products', [
             'products'          => $products,
             'categories'        => $categories,
             'ProductsCount'     => $ProductsCount,
+            'SpecsFilter'       => $specifications,
         ]);
     }
 
@@ -127,21 +147,8 @@ class IndexController extends Controller
 
         $catalog = Catalog::with('CatalogProducts.product')->where('slug', $slug)->first();
 
-        // dd($catalog->CatalogProducts);
-
-        foreach ($catalog->CatalogProducts as $key => $CatalogProduct) {
-            if ($key == 0) {
-                $product_ids = $CatalogProduct->product->id.' ';
-            } else {
-                $product_ids .= $CatalogProduct->product->id.' ';
-            }
-        }
-
-        $product_ids = preg_split('/\s+/', $product_ids, -1, PREG_SPLIT_NO_EMPTY); 
-
-        // dd($product_ids);
          
-        $products = Product::whereIn('id', $product_ids)
+        $products = Product::whereIn('id', $catalog->CatalogProducts->pluck('product_id'))
         ->where('product_status', 1)
         ->where('product_stock', '>=', $stock)
         ->whereBetween('product_price', [$min_price, $max_price]);
@@ -166,3 +173,15 @@ class IndexController extends Controller
     }
     
 }
+
+
+
+
+
+
+
+
+
+
+
+

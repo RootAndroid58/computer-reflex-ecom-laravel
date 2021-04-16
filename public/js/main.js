@@ -1,3 +1,21 @@
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   if($('.bbb_viewed_slider').length) {
       var viewedSlider = $('.bbb_viewed_slider');
       viewedSlider.owlCarousel(
@@ -87,9 +105,25 @@ $('#CategorySelect').on('change', function () {
 
 
 
+$('#sort_by_select').on('change', function () {
+  $('#filter_form').find('input[name="sort_by"]').val($(this).val());
+  $('#filter_form').submit();
+})
 
 
 
+
+$('.PaginationBtn').on('click', function (e) {
+  e.preventDefault();
+
+  var formGetURL = $(this).attr('href');
+
+  $('#RowDiv').load(formGetURL+' #RowDiv')
+
+  history.pushState({page: null}, null, formGetURL);
+
+  $.getScript('/js/main.js'); 
+})
 
 
 

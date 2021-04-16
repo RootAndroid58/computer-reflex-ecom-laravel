@@ -227,7 +227,6 @@
 .btn-wishlisted{
     background-color: white !important;
     color: #ff4343;
-    vertical-align: middle;
     text-align: center;
     padding: 8px 18px 5px;
 }
@@ -241,13 +240,37 @@
 .btn-not-wishlisted{
     background-color: white;
     color: #686868 !important;
-    vertical-align: middle;
     text-align: center;
     padding: 8px 18px 5px;
 }
 .btn-not-wishlisted:hover{
     color: white !important;
 }
+
+/* Compare btn */
+.btn-added-compare{
+    background-color: white !important;
+    color: #ff4343;
+    text-align: center;
+    padding: 8px 18px 5px;
+}
+.btn-added-compare:hover{
+    color: #ff4343 !important;
+}
+.btn-added-compare i{
+    color: #ff4343 !important;
+}
+
+.btn-not-compare{
+    background-color: white;
+    color: #686868 !important;
+    text-align: center;
+    padding: 8px 18px 5px;
+}
+.btn-not-compare:hover{
+    color: white !important;
+}
+
 
 
 .wishlist-btn:focus{
@@ -303,7 +326,7 @@ Product Images Area Start
     vertical-align: middle;
 }
 .product_img_slider .big_img{
-    width: 100%;
+    max-width: 100%;
     max-height: 100%;
     vertical-align: middle;
     transition: 300ms;

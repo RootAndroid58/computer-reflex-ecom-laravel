@@ -72,10 +72,10 @@ $UserName=str_word_count(Auth()->user()->name, 1);
                                         </b>  
                                     </span>
                                     <div>
-                                        
-                                            <span onclick="ToogleCart({{$Product->id}})" class="@if(isset($wishlist->Cart)) static-red @else hover-blue  @endif">
-                                                <i class="fa fa-cart-plus" aria-hidden="true"></i>@if(isset($wishlist->Cart)) Remove From Cart  @else Add To Cart   @endif
-                                            </span>
+                                        <span onclick="ToogleCart({{$Product->id}})" class="@if(isset($wishlist->Cart)) static-red @else hover-blue  @endif">
+                                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                            @if(isset($wishlist->Cart)) Remove From Cart @else Add To Cart @endif
+                                        </span>
                                     </div>
 
                                 </div>

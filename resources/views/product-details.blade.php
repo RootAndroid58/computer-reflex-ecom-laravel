@@ -53,10 +53,12 @@
                             </ul>
                         </div>
                         <div class="col-10">
-                            <div class="" style="height: 475px;">
+                            <div class="" style="height: 475px; display: table-cell; vertical-align: middle; text-align: center;">
+                               
                                 <img src="{{ asset('storage/images/products/'.$images[0]->image) }}" alt="" 
                                 class="big_img" id="big_img"
                                 data-image="{{ asset('storage/images/products/'.$images[0]->image) }}">
+                             
                             </div>
                             
                             <div class="buy-now-btn-container">
@@ -127,6 +129,23 @@
                         <p class="top-description">{!! $product->product_description !!}</p>
                     </section>
 
+                    @can('Admin') 
+                    <div class="row">
+                        <div class="col-12 mb-1">
+                            <span style="font-weight: 600; font-size: 16px;">Admin Tools</span>
+                        </div>
+                        <div class="col-12 mb-3">
+
+                            <a type="button" class="btn btn-info btn-sm" data-toggle="tooltip" href="{{ route('edit-product', $product->id) }}"
+                                title="Edit Product">
+                                Edit Product
+                                <i class="fa fa-cog" aria-hidden="true"></i>
+                            </a>
+
+
+                        </div>  
+                    </div>
+                    @endcan
 
                     @if (isset($affiliateLink))
                     @can('Affiliate') 
@@ -168,12 +187,14 @@
 
                     {{-- Quick actions --}}           
                     <div class="quickview-plus-minus">
-                        <div class="quickview-btn-cart" style="margin-left: 0;">
-                            <a class="btn-hover-black" id="ToggleCartBtn" href="#">@if($carted == 1) Remove from cart @else Add to cart @endif</a>
+                        <div class="quickview-btn-cart" style="margin-left: 0; margin-right: 5px;">
+                            <a title="Cart" class="btn-hover-black" id="ToggleCartBtn" href="#">@if($carted == 1) Remove from cart @else Add to cart @endif</a>
                         </div>
                         @if (Auth::check())
                         <div class="quickview-btn-wishlist">
-                            <a id="ToggleWishlistBtn" class="btn-hover @if($wishlisted == 1) btn-wishlisted @else btn-not-wishlisted @endif " href="#">&nbsp;<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;</a>
+                            <a title="Wishlist" id="ToggleWishlistBtn" class="btn-hover cursor-pointer @if($wishlisted == 1) btn-wishlisted @else btn-not-wishlisted @endif ">&nbsp;<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;</a>
+                            <a title="Compare" style="vertical-align: unset" id="ToggleCompareBtn" class="btn cursor-pointer @if($compared == 1) btn-danger @else btn-info @endif ">&nbsp;<i class="fas fa-repeat"></i>&nbsp;</a>
+                            
                         </div>
                         @endif
                     </div>
@@ -630,6 +651,34 @@ $(document).ready(function() {
 
 
 <script>
+
+
+function ToggleCompare(product_id) {
+
+$.ajax({
+    url: "{{route('toggle-compare-btn')}}",
+    method: 'POST',
+    data: {
+        'product_id' : product_id,
+    },
+    success: function (data) {
+        if (data.status == 500 || data.status == 200) {
+            $(".bootstrap-growl").remove();
+            $.bootstrapGrowl(data.msg, {
+                type: data.type,
+                offset: {from:"bottom", amount: 100},
+                align: 'center',
+                allow_dismis: true,
+                stack_spacing: 10,
+            })
+        }
+    }
+})
+
+}
+
+
+
     function ToggleWishlist(product_id) {
 
 $.ajax({
@@ -742,6 +791,47 @@ function ToggleCart(product_id) {
                         } else if(data == 500) {
                             $('#ToggleCartBtn').html('add to cart')
                             $('#CartCount').load("{{ route('cart') }} #CartCount")
+                        }
+                    }
+                })
+            })
+
+
+
+            $('#ToggleCompareBtn').click(function (e) {
+
+                e.preventDefault()
+
+                var product_id  = $('input[name="product_id"]').val()
+
+                console.log(product_id)
+
+                $.ajax({
+                    url: "{{route('toggle-compare-btn')}}",
+                    method: 'POST',
+                    data: {
+                        'product_id' : product_id,
+                    },
+                    success: function (data) {
+                        if (data.status == 500 || data.status == 200) {
+                            $(".bootstrap-growl").remove();
+                            $.bootstrapGrowl(data.msg, {
+                                type: data.type,
+                                offset: {from:"bottom", amount: 100},
+                                align: 'center',
+                                allow_dismis: true,
+                                stack_spacing: 10,
+                            })
+                        }
+
+                        if (data.status == 200) {
+                            console.log(200);
+                            $('#ToggleCompareBtn').addClass('btn-danger').removeClass('btn-info')
+                            // $('#CartCount').load("{{ route('cart') }} #CartCount")
+                        } else if(data.status == 500) {
+                            console.log(500);
+                            $('#ToggleCompareBtn').addClass('btn-info').removeClass('btn-danger')
+                            // $('#CartCount').load("{{ route('cart') }} #CartCount")
                         }
                     }
                 })

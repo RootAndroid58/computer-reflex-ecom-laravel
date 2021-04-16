@@ -16,7 +16,7 @@
             <div class="col-lg-2">
                 <div class="shop-sidebar mr-50">
                  <form method="GET" action="{{ route('search') }}" id="filter_form">
-                   
+                    <input type="hidden" name="sort_by" value="">
                     <input type="hidden" name="search" value="{{ request()->search }}">
                     <div class="sidebar-widget mb-45">
                         <h3 class="sidebar-title">Filter By Category</h3>
@@ -86,11 +86,14 @@
                                 </div>
                                 <div class="shop-selector">
                                     <label>Sort By : </label>
-                                    <select name="select">
-                                        <option value="">Default</option>
-                                        <option value="">A to Z</option>
-                                        <option value=""> Z to A</option>
-                                        <option value="">In stock</option>
+                                    <select id="sort_by_select">
+                                        <option value="Default">Default</option>
+                                        <option @if (Request()->sort_by == 'A to Z') selected @endif value="A to Z">A to Z</option>
+                                        <option @if (Request()->sort_by == 'Z to A') selected @endif value="Z to A">Z to A</option>
+                                        <option @if (Request()->sort_by == 'Price Low to High') selected @endif value="Price Low to High">Price Low to High</option>
+                                        <option @if (Request()->sort_by == 'Price High to Low') selected @endif value="Price High to Low">Price High to Low</option>
+                                        {{-- <option @if (Request()->sort_by == 'Highest Rating First') selected @endif value="Highest Rating First">Highest Rating First</option>
+                                        <option @if (Request()->sort_by == 'Lowest Rating First') selected @endif value="Lowest Rating First">Lowest Rating First</option> --}}
                                     </select>
                                 </div>
                             </div>

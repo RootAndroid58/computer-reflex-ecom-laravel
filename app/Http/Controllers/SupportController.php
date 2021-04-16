@@ -63,7 +63,7 @@ class SupportController extends Controller
             }
         } 
         else {
-            $subject = $req->help_topic;
+            $subject = $req->ticket_topic;
         }
 
         $SupportTicket = new SupportTicket;

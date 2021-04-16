@@ -14,6 +14,7 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         '/wishlist/toggle',
         '/cart/toggle',
+        '/compare/toggle',
         '/cart/change-qty',
         '/account/update-name',
         '/account/update-email',

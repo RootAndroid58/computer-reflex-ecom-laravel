@@ -13,6 +13,7 @@ use App\Models\SessionCart;
 use App\Models\Wishlist;
 use App\Models\ProductReview;
 use App\Models\AffiliateLink;
+use App\Models\Compare;
 use Auth;
 use Str;
 use Session;
@@ -64,6 +65,8 @@ class ShowProductsController extends Controller
                 
                 $wishlistCheck = Wishlist::where('user_id', Auth()->user()->id ?? 'Fake')->where('product_id', $pid)->first();
                 
+                $compareCheck = Compare::where('user_id', Auth()->user()->id ?? 'Fake')->where('product_id', $pid)->first();
+                
                 $OrderCheck = Order::where('user_id', Auth()->user()->id)
                 ->whereHas('OrderItems', function ($query) use ($pid) {
                     $query->where('product_id', $pid);
@@ -74,6 +77,12 @@ class ShowProductsController extends Controller
             else 
             {
                 $cartCheck = SessionCart::where('session_id', Session::getId())->where('product_id', $pid)->first();
+            }
+
+            if (isset($compareCheck)) {
+                $compared = 1;
+            } else {
+                $compared = 0;
             }
 
             if (isset($wishlistCheck)) {
@@ -151,6 +160,7 @@ class ShowProductsController extends Controller
                 'ordered'           => $ordered,
                 'ReviewCheck'       => $ReviewCheck ?? null,
                 'reviewed'          => $reviewed,
+                'compared'          => $compared,
                 'reviews'           => $reviews->get(),
                 'RelatedProducts'   => $RelatedProducts,
                 'images'            => $images,

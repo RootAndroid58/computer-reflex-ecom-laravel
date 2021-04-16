@@ -14,7 +14,7 @@ class Wishlist extends Model
 
     public function Cart()
     {
-        return $this->hasOne(Cart::class, 'product_id', 'product_id');
+        return $this->hasOne(Cart::class, 'product_id', 'product_id')->where('user_id', Auth()->user()->id);
     }
 
     public function Products()

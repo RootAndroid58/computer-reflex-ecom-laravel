@@ -93,6 +93,7 @@
                         
                         <li><a href="{{route('support')}}"><i class="pe-7s-headphones"></i>Support</a></li>
                         <li><a href="{{ route('wishlist') }}"><i class="pe-7s-like"></i>Wishlist</a></li>
+                        <li><a href="{{ route('compare') }}"><i class="pe-7s-repeat"></i>Compare</a></li>
                         <li><a href="#"><i class="pe-7s-flag"></i>IN</a></li>
                         <li><a class="border-none" href="#"><span><font class="rupees">₹</font> </span>INR</a></li>
                     </ul>
@@ -109,7 +110,7 @@
 
 
 
-                <div class="categories-search-wrapper">
+                <div class="categories-search-wrapper ">
                     <div class="all-categories">
                         <div class="select-wrapper">
                             <select class="select" id="CategorySelect">
@@ -639,7 +640,7 @@
                                         <div class="prod-back-div" style="width: 100%; height: 175px; background-image: url('{{asset('storage/images/products/'.$product->images[0]->image)}}');"></div>
                                     </a>
                                     <div class="product-action-right">
-                                        <a class="animate-right" title="Quick View" href="#" >
+                                        <a class="animate-right cursor-pointer" title="Quick View" onclick="ToggleCompare({{ $product->id }})">
                                             <i class="pe-7s-repeat"></i>
                                         </a>
                                         <a class="animate-top cursor-pointer" title="Add To Cart" onclick="ToggleCart({{ $product->id }})">
@@ -681,7 +682,7 @@
                                         <div class="prod-back-div" style="width: 100%; height: 175px; background-image: url('{{asset('storage/images/products/'.$product->images[0]->image)}}');"></div>
                                     </a>
                                     <div class="product-action-right">
-                                        <a class="animate-right" title="Quick View" href="#" >
+                                        <a class="animate-right cursor-pointer" title="Quick View" onclick="ToggleCompare({{ $product->id }})">
                                             <i class="pe-7s-repeat"></i>
                                         </a>
                                         <a class="animate-top cursor-pointer" title="Add To Cart" onclick="ToggleCart({{ $product->id }})">
@@ -733,7 +734,7 @@
                                         <div class="prod-back-div" style="width: 100%; height: 175px; background-image: url('{{asset('storage/images/products/'.$product->images[0]->image)}}');"></div>
                                     </a>
                                     <div class="product-action-right">
-                                        <a class="animate-right" title="Quick View" href="#" >
+                                        <a class="animate-right cursor-pointer" title="Quick View" onclick="ToggleCompare({{ $product->id }})">
                                             <i class="pe-7s-repeat"></i>
                                         </a>
                                         <a class="animate-top" title="Add To Cart" href="#">
@@ -854,7 +855,7 @@
                                 <a class="animate-left cursor-pointer" title="Wishlist" onclick="ToggleWishlist({{ $BestSellingProduct->id }})">
                                     <i class="pe-7s-like"></i>
                                 </a>
-                                <a class="animate-right" title="Compare" data-toggle="modal" data-target="#exampleCompare" href="#">
+                                <a class="animate-right cursor-pointer" title="Compare" data-toggle="modal" data-target="#exampleCompare" onclick="ToggleCompare({{ $BestSellingProduct->id }})">
                                     <i class="pe-7s-repeat"></i>
                                 </a>
                             </div>
@@ -1286,6 +1287,31 @@
     <script src="{{ asset('js/main.js')}}"></script>
 
 <script>
+function ToggleCompare(product_id) {
+
+$.ajax({
+    url: "{{route('toggle-compare-btn')}}",
+    method: 'POST',
+    data: {
+        'product_id' : product_id,
+    },
+    success: function (data) {
+        if (data.status == 500 || data.status == 200) {
+            $(".bootstrap-growl").remove();
+            $.bootstrapGrowl(data.msg, {
+                type: data.type,
+                offset: {from:"bottom", amount: 100},
+                align: 'center',
+                allow_dismis: true,
+                stack_spacing: 10,
+            })
+        }
+    }
+})
+
+}
+
+
 function ToggleWishlist(product_id) {
 
 $.ajax({

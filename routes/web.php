@@ -54,6 +54,10 @@ Route::get('CartTest', 'App\Http\Controllers\CartController@Test');
     
     Route::get('/product/{product_id}/{product_name?}', 'App\Http\Controllers\ShowProductsController@ProductIndex')->name('product-index')->middleware(['VerifiedNoAuth']);
       
+    Route::get('/compare', [App\Http\Controllers\CompareController::class, 'ShowCompare'])->name('compare')->middleware(['VerifiedNoAuth']);
+    
+    Route::post('/compare/toggle', [App\Http\Controllers\CompareController::class, 'ToggleCompare'])->name('toggle-compare-btn')->middleware(['VerifiedNoAuth']);
+
     Route::get('/cart', [App\Http\Controllers\CartController::class, 'ShowCart'])->name('cart')->middleware(['VerifiedNoAuth']);
 
     Route::post('/cart/toggle', [App\Http\Controllers\CartController::class, 'ToggleCart'])->name('toggle-cart-btn')->middleware(['VerifiedNoAuth']);

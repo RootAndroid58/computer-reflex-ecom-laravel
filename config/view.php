@@ -23,7 +23,7 @@ return [
     */
 
     'paths' => [
-        resource_path($view),
+        resource_path('views'),
     ],
 
     /*

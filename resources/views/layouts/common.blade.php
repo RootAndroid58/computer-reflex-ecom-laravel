@@ -253,7 +253,7 @@
                         {{-- Right side buttons container --}}
                         <div class="furniture-wishlist">
                             <ul>
-                                <li><a data-toggle="modal" data-target="#exampleCompare" href="#"><i class="pe-7s-repeat"></i> Compare</a></li>
+                                <li><a href="{{ route('compare')}}"><i class="pe-7s-repeat"></i> Compare</a></li>
                                 <li><a href="{{ route('wishlist')}}"><i class="ti-heart"></i> Wishlist</a></li>
                             </ul>
                         </div>

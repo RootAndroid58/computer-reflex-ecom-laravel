@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\ProductImage;
 use App\Models\ProductTag;
 use App\Models\Category;
+use App\Models\specification;
 
 use Nicolaslopezj\Searchable\SearchableTrait;
 
@@ -66,5 +67,9 @@ class Product extends Model
     public function comission()
     {
         return $this->hasOne(ProductComission::class, 'product_id', 'id')->orderBy('id', 'desc');
+    }
+    public function specifications()
+    {
+        return $this->hasMany(specification::class, 'product_id', 'id');
     }
 }

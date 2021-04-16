@@ -7,9 +7,6 @@ $UserName=str_word_count(Auth()->user()->name, 1);
     
 @section('content')
 <div class="body-container" id="CartContainer">
-
-    
-    
     <div class="container">
         <div class="row">
         <div class="col-md-12">
