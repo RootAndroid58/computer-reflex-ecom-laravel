@@ -56,16 +56,25 @@
                 
                 <li class="nav-item"><a class="nav-link @yield('nav-profile')" href="{{ route('admin-profile')}}"><i class="fas fa-user"></i><span>Profile</span></a></li>
 
-                <li class="nav-item"><a class="nav-link @yield('nav-admin-user-management')" href="{{ route('admin-user-management')}}"><i class="fas fa-users"></i><span>Admin User Management</span></a></li>
+                @canany(['User Management', 'Master Admin'])
+                    <li class="nav-item"><a class="nav-link @yield('nav-admin-user-management')" href="{{ route('admin-user-management')}}"><i class="fas fa-users"></i><span>Admin User Management</span></a></li>
+                @endcanany
                 
-                <li class="nav-item"><a class="nav-link @yield('nav-manage-orders')" href="{{ route('admin-manage-orders')}}"><i class="fas fa-archive"></i><span>Manage Orders</span></a></li>
+                @canany(['Manage Orders', 'Master Admin'])
+                    <li class="nav-item"><a class="nav-link @yield('nav-manage-orders')" href="{{ route('admin-manage-orders')}}"><i class="fas fa-archive"></i><span>Manage Orders</span></a></li>
+                @endcanany
 
+                @canany(['Manage Products', 'Master Admin'])
                 <li class="nav-item"><a class="nav-link @yield('nav-manage-products')" href="{{ route('admin-manage-products')}}"><i class="fas fa-tags"></i><span>Manage Products</span></a></li>
-                
-                <li class="nav-item"><a class="nav-link @yield('nav-manage-ui')" href="{{ route('admin-manage-ui')}}"><i class="fas fa-window-maximize"></i><span>Manage UI</span></a></li>
-                
-                <li class="nav-item"><a class="nav-link @yield('nav-support-tickets')" href="{{ route('admin-support-tickets')}}"><i class="fas fa-ticket-alt"></i><span>Support Tickets</span></a></li>
+                @endcanany
 
+                @canany(['Manage UI', 'Master Admin'])
+                <li class="nav-item"><a class="nav-link @yield('nav-manage-ui')" href="{{ route('admin-manage-ui')}}"><i class="fas fa-window-maximize"></i><span>Manage UI</span></a></li>
+                @endcanany
+                
+                @canany(['Support Staff', 'Master Admin'])
+                <li class="nav-item"><a class="nav-link @yield('nav-support-tickets')" href="{{ route('admin-support-tickets')}}"><i class="fas fa-ticket-alt"></i><span>Support Tickets</span></a></li>
+                @endcanany
             </ul>
             <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
         </div>

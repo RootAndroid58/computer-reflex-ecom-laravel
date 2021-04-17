@@ -146,105 +146,105 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:Admin', 'verifie
 
     Route::get('/profile','App\Http\Controllers\Admin\AdminController@IndexProfile')->name('admin-profile');
 
-    Route::get('/user-management','App\Http\Controllers\Admin\AdminController@AdminUserManagement')->name('admin-user-management');
+    Route::get('/user-management','App\Http\Controllers\Admin\AdminController@AdminUserManagement')->middleware('permission:User Management|Master Admin')->name('admin-user-management');
 
-    Route::post('/user-management/user/search/submit','App\Http\Controllers\Admin\AdminController@UserSearchSubmit')->name('admin-user-search-submit');
+    Route::post('/user-management/user/search/submit','App\Http\Controllers\Admin\AdminController@UserSearchSubmit')->middleware('permission:User Management|Master Admin')->name('admin-user-search-submit');
 
-    Route::post('/user-management/user/create/submit','App\Http\Controllers\Admin\AdminController@AdminUserCreateSubmit')->name('admin-user-create-submit');
+    Route::post('/user-management/user/create/submit','App\Http\Controllers\Admin\AdminController@AdminUserCreateSubmit')->middleware('permission:User Management|Master Admin')->name('admin-user-create-submit');
 
-    Route::get('/user-management/id/{id}/delete','App\Http\Controllers\Admin\AdminController@AdminUserRemove');
+    Route::get('/user-management/id/{id}/delete','App\Http\Controllers\Admin\AdminController@AdminUserRemove')->middleware('permission:User Management|Master Admin');
 
-    Route::get('/user-management/id/{id}/edit','App\Http\Controllers\Admin\AdminController@AdminUserEdit');
+    Route::get('/user-management/id/{id}/edit','App\Http\Controllers\Admin\AdminController@AdminUserEdit')->middleware('permission:User Management|Master Admin');
 
-    Route::post('/user-management/edit/submit','App\Http\Controllers\Admin\AdminController@AdminUserEditSubmit')->name('admin-user-edit-submit');
+    Route::post('/user-management/edit/submit','App\Http\Controllers\Admin\AdminController@AdminUserEditSubmit')->middleware('permission:User Management|Master Admin')->name('admin-user-edit-submit');
 
-    Route::get('/manage-products','App\Http\Controllers\Admin\AdminController@ManageProducts')->name('admin-manage-products');
+    Route::get('/manage-products','App\Http\Controllers\Admin\AdminController@ManageProducts')->middleware('permission:Manage Products|Master Admin')->name('admin-manage-products');
 
-    Route::get('/manage-ui','App\Http\Controllers\Admin\AdminController@ManageUI')->name('admin-manage-ui');
+    Route::get('/manage-ui','App\Http\Controllers\Admin\AdminController@ManageUI')->middleware('permission:Manage UI|Master Admin')->name('admin-manage-ui');
     
-    Route::get('/support/tickets','App\Http\Controllers\SupportController@AdminShowTicketsPage')->name('admin-support-tickets');
+    Route::get('/support/tickets','App\Http\Controllers\SupportController@AdminShowTicketsPage')->middleware('permission:Support Staff|Master Admin')->name('admin-support-tickets');
     
-    Route::get('/support/ticket/{ticket_id}/manage','App\Http\Controllers\SupportController@AdminManageTicketPage')->name('admin-manage-support-ticket');
+    Route::get('/support/ticket/{ticket_id}/manage','App\Http\Controllers\SupportController@AdminManageTicketPage')->middleware('permission:Support Staff|Master Admin')->name('admin-manage-support-ticket');
     
-    Route::post('/support/add-reply/submit', [App\Http\Controllers\SupportController::class, 'AdminAddReply'])->name('admin.support-add-reply');
+    Route::post('/support/add-reply/submit', [App\Http\Controllers\SupportController::class, 'AdminAddReply'])->middleware('permission:Support Staff|Master Admin')->name('admin.support-add-reply');
 
-    Route::get('/manage-ui/featured-catalogs','App\Http\Controllers\Admin\AdminController@ManageFeaturedCatalogs')->name('admin-manage-featured-catalogs');
+    Route::get('/manage-ui/featured-catalogs','App\Http\Controllers\Admin\AdminController@ManageFeaturedCatalogs')->middleware('permission:Manage UI|Master Admin')->name('admin-manage-featured-catalogs');
    
-    Route::get('/manage-ui/create-new-catalog','App\Http\Controllers\Admin\AdminController@CreateNewCatalog')->name('admin-create-new-catalog');
+    Route::get('/manage-ui/create-new-catalog','App\Http\Controllers\Admin\AdminController@CreateNewCatalog')->middleware('permission:Manage UI|Master Admin')->name('admin-create-new-catalog');
 
-    Route::post('/manage-ui/create-new-catalog/submit','App\Http\Controllers\Admin\AdminController@CreateNewCatalogSubmit')->name('admin-create-new-catalog-submit');
+    Route::post('/manage-ui/create-new-catalog/submit','App\Http\Controllers\Admin\AdminController@CreateNewCatalogSubmit')->middleware('permission:Manage UI|Master Admin')->name('admin-create-new-catalog-submit');
 
-    Route::get('/manage-ui/home-carousel-sliders','App\Http\Controllers\Admin\AdminController@ManageHomeCarouselSlider')->name('admin-manage-home-carousel-sliders');
+    Route::get('/manage-ui/home-carousel-sliders','App\Http\Controllers\Admin\AdminController@ManageHomeCarouselSlider')->middleware('permission:Manage UI|Master Admin')->name('admin-manage-home-carousel-sliders');
     
-    Route::post('/manage-ui/home-carousel-sliders/create','App\Http\Controllers\Admin\AdminController@CreateHomeCarouselSlider')->name('admin-create-home-carousel-sliders');
+    Route::post('/manage-ui/home-carousel-sliders/create','App\Http\Controllers\Admin\AdminController@CreateHomeCarouselSlider')->middleware('permission:Manage UI|Master Admin')->name('admin-create-home-carousel-sliders');
     
-    Route::post('/manage-ui/home-carousel-sliders/edit','App\Http\Controllers\Admin\AdminController@EditHomeCarouselSliderSubmit')->name('admin-edit-home-carousel-sliders-submit');
+    Route::post('/manage-ui/home-carousel-sliders/edit','App\Http\Controllers\Admin\AdminController@EditHomeCarouselSliderSubmit')->middleware('permission:Manage UI|Master Admin')->name('admin-edit-home-carousel-sliders-submit');
     
-    Route::get('/manage-ui/home-carousel-slider/{slider_id}/edit','App\Http\Controllers\Admin\AdminController@EditHomeCarouselSlider')->name('admin-edit-home-carousel-slider');
+    Route::get('/manage-ui/home-carousel-slider/{slider_id}/edit','App\Http\Controllers\Admin\AdminController@EditHomeCarouselSlider')->middleware('permission:Manage UI|Master Admin')->name('admin-edit-home-carousel-slider');
 
-    Route::get('/manage-banners','App\Http\Controllers\Admin\AdminController@ManageBanners')->name('admin-manage-banners');
+    Route::get('/manage-banners','App\Http\Controllers\Admin\AdminController@ManageBanners')->middleware('permission:Manage UI|Master Admin')->name('admin-manage-banners');
     
-    Route::get('/edit-banners','App\Http\Controllers\Admin\AdminController@EditBanners')->name('admin-edit-banners');
+    Route::get('/edit-banners','App\Http\Controllers\Admin\AdminController@EditBanners')->middleware('permission:Manage UI|Master Admin')->name('admin-edit-banners');
     
-    Route::get('/banner/{banner_id}/edit','App\Http\Controllers\Admin\AdminController@EditBannerPage')->name('admin-edit-banner-page');
+    Route::get('/banner/{banner_id}/edit','App\Http\Controllers\Admin\AdminController@EditBannerPage')->middleware('permission:Manage UI|Master Admin')->name('admin-edit-banner-page');
 
-    Route::post('/banner/edit/submit','App\Http\Controllers\Admin\AdminController@EditBannerSubmit')->name('admin-edit-banner-submit');
+    Route::post('/banner/edit/submit','App\Http\Controllers\Admin\AdminController@EditBannerSubmit')->middleware('permission:Manage UI|Master Admin')->name('admin-edit-banner-submit');
     
-    Route::get('/manage-orders','App\Http\Controllers\Admin\ManageOrdersController@ViewManageOrders')->name('admin-manage-orders');
+    Route::get('/manage-orders','App\Http\Controllers\Admin\ManageOrdersController@ViewManageOrders')->middleware('permission:Manage Orders|Master Admin')->name('admin-manage-orders');
 
-    Route::get('/ship-orders','App\Http\Controllers\Admin\ManageOrdersController@ShipOrdersPage')->name('admin-ship-orders');
+    Route::get('/ship-orders','App\Http\Controllers\Admin\ManageOrdersController@ShipOrdersPage')->middleware('permission:Manage Orders|Master Admin')->name('admin-ship-orders');
     
-    Route::get('/delivery-confirmation','App\Http\Controllers\Admin\ManageOrdersController@DeliveryConfirmationPage')->name('admin-delivery-confirmation');
+    Route::get('/delivery-confirmation','App\Http\Controllers\Admin\ManageOrdersController@DeliveryConfirmationPage')->middleware('permission:Manage Orders|Master Admin')->name('admin-delivery-confirmation');
     
-    Route::get('/manage-order/{order_id}/ship','App\Http\Controllers\Admin\ManageOrdersController@ShipOrder')->name('admin-ship-order');
+    Route::get('/manage-order/{order_id}/ship','App\Http\Controllers\Admin\ManageOrdersController@ShipOrder')->middleware('permission:Manage Orders|Master Admin')->name('admin-ship-order');
     
-    Route::get('/manage-order/{order_item_id}/delivered','App\Http\Controllers\Admin\ManageOrdersController@ItemDeliveredConfirmation')->name('admin-item-delivered-confirmation');
+    Route::get('/manage-order/{order_item_id}/delivered','App\Http\Controllers\Admin\ManageOrdersController@ItemDeliveredConfirmation')->middleware('permission:Manage Orders|Master Admin')->name('admin-item-delivered-confirmation');
 
-    Route::get('/manage-order/{order_item_id}/start-packing','App\Http\Controllers\Admin\ManageOrdersController@StartPacking')->name('admin-start-packing-order');
+    Route::get('/manage-order/{order_item_id}/start-packing','App\Http\Controllers\Admin\ManageOrdersController@StartPacking')->middleware('permission:Manage Orders|Master Admin')->name('admin-start-packing-order');
     
-    Route::get('/manage-order/{order_item_id}/packing-completed','App\Http\Controllers\Admin\ManageOrdersController@CompletePacking')->name('admin-complete-packing-order');
+    Route::get('/manage-order/{order_item_id}/packing-completed','App\Http\Controllers\Admin\ManageOrdersController@CompletePacking')->middleware('permission:Manage Orders|Master Admin')->name('admin-complete-packing-order');
     
-    Route::get('/manage-order/{order_item_id}/create-shipment','App\Http\Controllers\Admin\ManageOrdersController@CreateShipmentView')->name('admin-create-shipment-view');
+    Route::get('/manage-order/{order_item_id}/create-shipment','App\Http\Controllers\Admin\ManageOrdersController@CreateShipmentView')->middleware('permission:Manage Orders|Master Admin')->name('admin-create-shipment-view');
     
-    Route::post('/manage-order/create-shipment/submit','App\Http\Controllers\Admin\ManageOrdersController@CreateShipment')->name('admin-create-shipment-submit');
+    Route::post('/manage-order/create-shipment/submit','App\Http\Controllers\Admin\ManageOrdersController@CreateShipment')->middleware('permission:Manage Orders|Master Admin')->name('admin-create-shipment-submit');
     
-    Route::get('/manage-order/{order_item_id}/pickup-done','App\Http\Controllers\Admin\ManageOrdersController@PickupDone')->name('admin-order-pickup-done');
+    Route::get('/manage-order/{order_item_id}/pickup-done','App\Http\Controllers\Admin\ManageOrdersController@PickupDone')->middleware('permission:Manage Orders|Master Admin')->name('admin-order-pickup-done');
 
-    Route::get('/new-banner','App\Http\Controllers\Admin\AdminController@NewBanner')->name('admin-new-banner');
+    Route::get('/new-banner','App\Http\Controllers\Admin\AdminController@NewBanner')->middleware('permission:Manage UI|Master Admin')->name('admin-new-banner');
     
-    Route::post('/new-banner/submit','App\Http\Controllers\Admin\AdminController@NewBannerSubmit')->name('admin-new-banner-submit');
+    Route::post('/new-banner/submit','App\Http\Controllers\Admin\AdminController@NewBannerSubmit')->middleware('permission:Manage UI|Master Admin')->name('admin-new-banner-submit');
 
-    Route::get('/publish-banner','App\Http\Controllers\Admin\AdminController@PublishBanners')->name('admin-publish-banners');
+    Route::get('/publish-banner','App\Http\Controllers\Admin\AdminController@PublishBanners')->middleware('permission:Manage UI|Master Admin')->name('admin-publish-banners');
 
-    Route::post('/publish-banner/submit','App\Http\Controllers\Admin\AdminController@PublishBannersSubmit')->name('admin-publish-banners-submit');
+    Route::post('/publish-banner/submit','App\Http\Controllers\Admin\AdminController@PublishBannersSubmit')->middleware('permission:Manage UI|Master Admin')->name('admin-publish-banners-submit');
 
-    Route::get('/manage-products/new-product-listing', 'App\Http\Controllers\Admin\ManageProductsController@NewProductListing')->name('admin-new-product-listing');
+    Route::get('/manage-products/new-product-listing', 'App\Http\Controllers\Admin\ManageProductsController@NewProductListing')->middleware('permission:Manage Products|Master Admin')->name('admin-new-product-listing');
 
-    Route::post('/manage-products/new-product-listing/submit', 'App\Http\Controllers\Admin\ManageProductsController@NewProductListingSubmit')->name('admin-new-product-listing-submit');
+    Route::post('/manage-products/new-product-listing/submit', 'App\Http\Controllers\Admin\ManageProductsController@NewProductListingSubmit')->middleware('permission:Manage Products|Master Admin')->name('admin-new-product-listing-submit');
 
-    Route::get('/manage-products/publish-products','App\Http\Controllers\Admin\ManageProductsController@ProductPublish')->name('admin-product-publish');
+    Route::get('/manage-products/publish-products','App\Http\Controllers\Admin\ManageProductsController@ProductPublish')->middleware('permission:Manage Products|Master Admin')->name('admin-product-publish');
 
-    Route::get('/manage-products/publish-product/id/{product_id}','App\Http\Controllers\Admin\ManageProductsController@ProductPublishFormHandler')->name('ProductPublishFormHandler');
+    Route::get('/manage-products/publish-product/id/{product_id}','App\Http\Controllers\Admin\ManageProductsController@ProductPublishFormHandler')->middleware('permission:Manage Products|Master Admin')->name('ProductPublishFormHandler');
 
-    Route::post('/manage-products/publish-product/specification/submit', 'App\Http\Controllers\Admin\ManageProductsController@ProductPublishFormSpecification')->name('admin-publish-product-specification-submit');
+    Route::post('/manage-products/publish-product/specification/submit', 'App\Http\Controllers\Admin\ManageProductsController@ProductPublishFormSpecification')->middleware('permission:Manage Products|Master Admin')->name('admin-publish-product-specification-submit');
 
-    Route::get('/manage-products/publish-product/tag', 'App\Http\Controllers\Admin\ManageProductsController@TagForm');
+    Route::get('/manage-products/publish-product/tag', 'App\Http\Controllers\Admin\ManageProductsController@TagForm')->middleware('permission:Manage Products|Master Admin');
 
-    Route::post('/manage-products/publish-product/tag/submit', 'App\Http\Controllers\Admin\ManageProductsController@ProductPublishFormTag')->name('admin-publish-product-tag-submit');
+    Route::post('/manage-products/publish-product/tag/submit', 'App\Http\Controllers\Admin\ManageProductsController@ProductPublishFormTag')->middleware('permission:Manage Products|Master Admin')->name('admin-publish-product-tag-submit');
 
-    Route::get('/manage-product/pid/{product_id}/edit','App\Http\Controllers\Admin\ManageProductsController@EditProduct')->name('edit-product');
+    Route::get('/manage-product/pid/{product_id}/edit','App\Http\Controllers\Admin\ManageProductsController@EditProduct')->middleware('permission:Manage Products|Master Admin')->name('edit-product');
 
-    Route::post('/manage-products/pid/edit/submit', 'App\Http\Controllers\Admin\ManageProductsController@EditProductSubmit')->name('edit-product-submit');
+    Route::post('/manage-products/pid/edit/submit', 'App\Http\Controllers\Admin\ManageProductsController@EditProductSubmit')->middleware('permission:Manage Products|Master Admin')->name('edit-product-submit');
 
-    Route::get('/manage-product/pid/{product_id}/images/edit','App\Http\Controllers\Admin\ManageProductsController@EditProductImages')->name('edit-product-images');
+    Route::get('/manage-product/pid/{product_id}/images/edit','App\Http\Controllers\Admin\ManageProductsController@EditProductImages')->middleware('permission:Manage Products|Master Admin')->name('edit-product-images');
 
-    Route::post('/manage-products/pid/edit/images/submit', 'App\Http\Controllers\Admin\ManageProductsController@EditProductImagesSubmit')->name('edit-product-images-submit');
+    Route::post('/manage-products/pid/edit/images/submit', 'App\Http\Controllers\Admin\ManageProductsController@EditProductImagesSubmit')->middleware('permission:Manage Products|Master Admin')->name('edit-product-images-submit');
 
-    Route::post('/manage-products/pid/edit/add-images/submit', 'App\Http\Controllers\Admin\ManageProductsController@AddMoreImages')->name('edit-add-images-submit');
+    Route::post('/manage-products/pid/edit/add-images/submit', 'App\Http\Controllers\Admin\ManageProductsController@AddMoreImages')->middleware('permission:Manage Products|Master Admin')->name('edit-add-images-submit');
 
-    Route::get('/manage-products/remove-image/id/{image_id}', 'App\Http\Controllers\Admin\ManageProductsController@RemoveImage')->name('remove-image-submit');
+    Route::get('/manage-products/remove-image/id/{image_id}', 'App\Http\Controllers\Admin\ManageProductsController@RemoveImage')->middleware('permission:Manage Products|Master Admin')->name('remove-image-submit');
 
-    Route::get('/manage-products/pid/{product_id}/remove', 'App\Http\Controllers\Admin\ManageProductsController@RemoveProduct')->name('remove-product');
+    Route::get('/manage-products/pid/{product_id}/remove', 'App\Http\Controllers\Admin\ManageProductsController@RemoveProduct')->middleware('permission:Manage Products|Master Admin')->name('remove-product');
 
 });
 
@@ -253,16 +253,22 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:Admin', 'verifie
     // Affiliate Links Prefix Routes
     Route::group(['prefix' => 'affiliate',], function() {
         Route::get('/', [App\Http\Controllers\AffiliateController::class, 'Index'])->name('affiliate');
+
         Route::get('/join', [App\Http\Controllers\AffiliateController::class, 'ShowJoinPage'])->name('affiliate.join');
+
         Route::post('/join/submit', [App\Http\Controllers\AffiliateController::class, 'JoinSubmit'])->name('affiliate.join-submit');
-        Route::get('/referred-purchases', [App\Http\Controllers\AffiliateController::class, 'ReferredPurchasesPage'])->name('affiliate.referred-purchases');
-        Route::get('/reports', [App\Http\Controllers\AffiliateController::class, 'ReportsPage'])->name('affiliate.reports');
-        Route::get('/wallet', [App\Http\Controllers\AffiliateController::class, 'WalletPage'])->name('affiliate.wallet');
-        Route::get('/payment-modes', [App\Http\Controllers\AffiliateController::class, 'PaymentModesPage'])->name('affiliate.payment-modes');
-        Route::get('/payout', [App\Http\Controllers\AffiliateController::class, 'PayoutPage'])->name('affiliate.payout');
         
+        Route::get('/referred-purchases', [App\Http\Controllers\AffiliateController::class, 'ReferredPurchasesPage'])->middleware('permission:Affiliate')->name('affiliate.referred-purchases');
         
-        Route::get('/settings', [App\Http\Controllers\AffiliateController::class, 'SettingsPage'])->name('affiliate.settings');
+        Route::get('/reports', [App\Http\Controllers\AffiliateController::class, 'ReportsPage'])->middleware('permission:Affiliate')->name('affiliate.reports');
+        
+        Route::get('/wallet', [App\Http\Controllers\AffiliateController::class, 'WalletPage'])->middleware('permission:Affiliate')->name('affiliate.wallet');
+        
+        Route::get('/payment-modes', [App\Http\Controllers\AffiliateController::class, 'PaymentModesPage'])->middleware('permission:Affiliate')->name('affiliate.payment-modes');
+        
+        Route::get('/payout', [App\Http\Controllers\AffiliateController::class, 'PayoutPage'])->middleware('permission:Affiliate')->name('affiliate.payout');
+        
+        Route::get('/settings', [App\Http\Controllers\AffiliateController::class, 'SettingsPage'])->middleware('permission:Affiliate')->name('affiliate.settings');
     });
 
 

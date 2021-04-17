@@ -3,11 +3,13 @@
 @section('title', $product->product_name)
 
 @section('css-js')
-    {{-- <style>
+    <style>
         .magnifier{
-            height: 80vh !important;
+            display: block !important; 
+            margin-top: auto !important;
+            margin-bottom: auto !important;
         }
-    </style> --}}
+    </style>
 @endsection
 
 @php
