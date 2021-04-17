@@ -29,99 +29,130 @@
 @section('content')
 
 <div class="body-container">
-    <div class="container-fluid">
-        <div class="account-details-container">
-            <div class="wishlist-basic-padding" style="padding: 10px 32px;">
-                <div class="account-details-title" style="padding-bottom: 0px;">
-                    <img src="{{ asset('/img/svg/gift-box.svg') }}" width="50" alt="" srcset="">
-                    <span style="padding-right: 0;">Compare Products</span>
+    <div id="DynamicDiv">
+        <div class="@if ($compare->count() < 1) container @else container-fluid @endif">
+            <div class="account-details-container">
+                <div class="wishlist-basic-padding" style="padding: 10px 32px;">
+                    <div class="account-details-title" style="padding-bottom: 0px;">
+                        <img loading=lazy src="{{ asset('/img/svg/gift-box.svg') }}" width="50" alt="" srcset="">
+                        <span style="padding-right: 0;">Compare Products</span>
+                    </div>
                 </div>
-            </div>
+                
+                <div class="account-menu-break"></div>
 
-            <div class="account-menu-break"></div>
-
-            
-            <div class="wishlist-basic-padding" style="padding: 0px 0px;">
-                <div class="tscroll">
-                    <table class="table table-striped table-bordered">
-                        <tbody>
-                            <tr >
-                                <td style="width: 5px;">Images</td>
-                                @for ($i = 0; $i < $product_ids->count(); $i++)
-                                <td class="item-cell-{{ $compare[$i]->product->id }}" style="text-align: center; width: 600px !important; "> 
-                                    <img width="150" src="{{ asset('storage/images/products/'.$compare[$i]->product->images[0]->image) }}" alt="">
-                                </td>
-                                @endfor
-                            </tr>
-
-                            <tr>
-                                <td>Name</td>
-                                @for ($i = 0; $i < $product_ids->count(); $i++)
-                                <td class="item-cell-{{ $compare[$i]->product->id }}">{{$compare[$i]->product->product_name}}</td>
-                                @endfor
-                            </tr>
-
-                            <tr>
-                                <td>Price</td>
-                                @for ($i = 0; $i < $product_ids->count(); $i++)
-                                <td class="item-cell-{{ $compare[$i]->product->id }}">{{$compare[$i]->product->product_price}}</td>
-                                @endfor
-                            </tr>
-                            
-
-                            <tr>
-                                <td>Brand</td>
-                                @for ($i = 0; $i < $product_ids->count(); $i++)
-                                <td class="item-cell-{{ $compare[$i]->product->id }}">{{$compare[$i]->product->product_brand}}</td>
-                                @endfor
-                            </tr>
-                            
-                            @foreach ($specifications as $key => $item)
-                            <tr>
-                                <td>{{$item->specification_key}}</td>
-                                @for ($i = 0; $i < $product_ids->count(); $i++)
-                                    <td class="item-cell-{{ $compare[$i]->product->id }}">
-                                        @foreach ($compare[$i]->product->specifications as $specs)
-                                        {{-- {{dd($specs)}} --}}
-                                            @if ($specs->specification_key == $item->specification_key)
-                                                {{ $specs->specification_value }}
-                                            @endif
-                                        @endforeach
-                                    </td>
-                                @endfor
-                            </tr>
-                            @endforeach
-
-                        
-                            <tr>
-                                <td></td>
-                                @for ($i = 0; $i < $product_ids->count(); $i++)
-                                <td class="item-cell-{{ $compare[$i]->product->id }}">
-                                    <a href="{{ route('product-index',$compare[$i]->product->id) }}" class="btn btn-block btn-info">Buy Now</a>
-                                    @php
-                                       $cart = App\Models\Cart::where('user_id', Auth()->user()->id)->where('product_id', $compare[$i]->product->id)->first();
-                                    @endphp
-                                    <a onclick="ToggleCart({{$compare[$i]->product->id}})" class="cursor-pointer btn btn-block @if(isset($cart)) btn-warning @else btn-success @endif cart-btn-{{ $compare[$i]->product->id }}">@if(isset($cart)) Remove From Cart @else Add To Cart @endif</a>
-                                    
-                                    <a onclick="ToggleCompare({{$compare[$i]->product->id}})" class="cursor-pointer btn btn-block btn-danger">Remove</a>
-                                </td>
-                                @endfor
-                            </tr>
-
-                        </tbody>
-                    </table>            
-                </div>
-            </div>
-          
-            <div class="account-menu-break"></div>
-
-        </div>
-            
-       
         
+            
+                @if ($compare->count() < 1)
+                <div class="wishlist-container">
+                    <div class="wishlist-basic-padding">
+                        <div class="w-100"  >
+                            <div class="blank-wishlist-container text-center">
+                                <div class="blank-wishlist-img-container" style="margin-top: 50px;">
+                                    <img loading=lazy class="img-nodrag" style="max-width: 35%" src="{{ asset('img/svg/split_testing.svg') }}">
+                                </div>
+                                <div class="blank-wishlist-txt-container text-center" style="margin-top: 30px;">
+                                    <span style="font-weight: 500; font-size: 20px;">No Products To Compare!</span>
+                                    <br>
+                                    <span>Please add some!</span>
+                                    <div>
+                                        <a href="{{ url('/') }}" class="btn btn-sm btn-dark mt-3 mb-3">Back To Homepage</a>
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            @else 
+                <div class="wishlist-basic-padding" style="padding: 0px 0px;">
+                    <div class="tscroll">
+                        <table class="table table-striped table-bordered">
+                            <tbody>
+                                <tr >
+                                    <td style="width: 5px;">Images</td>
+                                    @for ($i = 0; $i < $product_ids->count(); $i++)
+                                    <td class="item-cell-{{ $compare[$i]->product->id }}" style="text-align: center; width: 600px !important; "> 
+                                        <img loading=lazy width="150" src="{{ asset('storage/images/products/'.$compare[$i]->product->images[0]->image) }}" alt="">
+                                    </td>
+                                    @endfor
+                                </tr>
+
+                                <tr>
+                                    <td>Name</td>
+                                    @for ($i = 0; $i < $product_ids->count(); $i++)
+                                    <td class="item-cell-{{ $compare[$i]->product->id }}">{{$compare[$i]->product->product_name}}</td>
+                                    @endfor
+                                </tr>
+
+                                <tr>
+                                    <td>Price</td>
+                                    @for ($i = 0; $i < $product_ids->count(); $i++)
+                                    <td class="item-cell-{{ $compare[$i]->product->id }}">{{$compare[$i]->product->product_price}}</td>
+                                    @endfor
+                                </tr>
+                                
+
+                                <tr>
+                                    <td>Brand</td>
+                                    @for ($i = 0; $i < $product_ids->count(); $i++)
+                                    <td class="item-cell-{{ $compare[$i]->product->id }}">{{$compare[$i]->product->product_brand}}</td>
+                                    @endfor
+                                </tr>
+                                
+                                @foreach ($specifications as $key => $item)
+                                <tr>
+                                    <td>{{$item->specification_key}}</td>
+                                    @for ($i = 0; $i < $product_ids->count(); $i++)
+                                        <td class="item-cell-{{ $compare[$i]->product->id }}">
+                                            @foreach ($compare[$i]->product->specifications as $specs)
+                                            {{-- {{dd($specs)}} --}}
+                                                @if ($specs->specification_key == $item->specification_key)
+                                                    {{ $specs->specification_value }}
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                    @endfor
+                                </tr>
+                                @endforeach
+
+                            
+                                <tr>
+                                    <td></td>
+                                    @for ($i = 0; $i < $product_ids->count(); $i++)
+                                    <td class="item-cell-{{ $compare[$i]->product->id }}">
+                                        <a href="{{ route('product-index',$compare[$i]->product->id) }}" class="btn btn-block btn-info">Buy Now</a>
+                                        @php
+                                        if (Auth::check()) {
+                                            $cart = App\Models\Cart::where('user_id', Auth()->user()->id)->where('product_id', $compare[$i]->product->id)->first();
+                                        } else {
+                                            $cart = App\Models\SessionCart::where('session_id', Session::getId())->where('product_id', $compare[$i]->product->id)->first();
+                                        }
+                                        
+                                        @endphp
+                                        <a onclick="ToggleCart({{$compare[$i]->product->id}})" class="cursor-pointer btn btn-block @if(isset($cart)) btn-warning @else btn-success @endif cart-btn-{{ $compare[$i]->product->id }}">@if(isset($cart)) Remove From Cart @else Add To Cart @endif</a>
+                                        
+                                        <a onclick="ToggleCompare({{$compare[$i]->product->id}})" class="cursor-pointer btn btn-block btn-danger">Remove</a>
+                                    </td>
+                                    @endfor
+                                </tr>
+
+                            </tbody>
+                        </table>            
+                    </div>
+                </div>
+            @endif
+            
+
+
+          
+                <div class="account-menu-break"></div>
+
+            </div>
+        </div>
     </div>
 </div>
-
 @endsection
 
 @section('bottom-js')
@@ -136,21 +167,26 @@ function ToggleCompare(product_id) {
         data: {
             'product_id' : product_id,
         },
-        success: function (data) {
-            if (data.status == 500) {
-                $('.item-cell-'+product_id).fadeOut();
+            success: function (data) {
+
+                if (data.compareCount < 1) {
+                    $('#DynamicDiv').load("{{route('compare')}} #DynamicDiv");
+                }
+
+                if (data.status == 500) {
+                    $('.item-cell-'+product_id).fadeOut();
+                }
+                if (data.status == 500 || data.status == 200) {
+                    $(".bootstrap-growl").remove();
+                    $.bootstrapGrowl(data.msg, {
+                        type: data.type,
+                        offset: {from:"bottom", amount: 100},
+                        align: 'center',
+                        allow_dismis: true,
+                        stack_spacing: 10,
+                    })
+                }
             }
-            if (data.status == 500 || data.status == 200) {
-                $(".bootstrap-growl").remove();
-                $.bootstrapGrowl(data.msg, {
-                    type: data.type,
-                    offset: {from:"bottom", amount: 100},
-                    align: 'center',
-                    allow_dismis: true,
-                    stack_spacing: 10,
-                })
-            }
-        }
     })
 
 }

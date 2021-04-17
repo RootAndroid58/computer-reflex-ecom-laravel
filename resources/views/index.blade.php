@@ -104,7 +104,7 @@
             <div class="header-bottom-wrapper pr-200 pl-200">
                 <div class="logo-3">
                     <a href="{{ url('/') }}">
-                        <img src="{{ asset('ezone/img/logo/logo.png')}}" alt="">
+                        <img loading=lazy src="{{ asset('ezone/img/logo/logo.png')}}" alt="">
                     </a>
                 </div>
 
@@ -233,7 +233,7 @@
                 <div class="category-menu-list">
                     <ul>
                         <li>
-                            <a href="#"><img alt="" src="ezone/img/icon-img/5.png">Computer & Laptops <i class="pe-7s-angle-right"></i></a>
+                            <a href="#"><img loading=lazy alt="" src="ezone/img/icon-img/5.png">Computer & Laptops <i class="pe-7s-angle-right"></i></a>
                             <div class="category-menu-dropdown">
                                 <div class="category-dropdown-style category-common4 mb-40">
                                     <h4 class="categories-subtitle"> Desktop</h4>
@@ -285,13 +285,13 @@
                                 </div>
                                 <div class="mega-banner-img">
                                     <a href="single-product.html">
-                                        <img src="{{ asset('ezone/img/banner/1.jpg')}}" alt="">
+                                        <img loading=lazy src="{{ asset('ezone/img/banner/1.jpg')}}" alt="">
                                     </a>
                                 </div>
                             </div>
                         </li>
                         <li>
-                            <a href="#"><img alt="" src="ezone/img/icon-img/6.png">Phone & Tablets <i class="pe-7s-angle-right"></i></a>
+                            <a href="#"><img loading=lazy alt="" src="ezone/img/icon-img/6.png">Phone & Tablets <i class="pe-7s-angle-right"></i></a>
                             <div class="category-menu-dropdown">
                                 <div class="category-dropdown-style category-common4">
                                     <h4 class="categories-subtitle"> Desktop</h4>
@@ -344,7 +344,7 @@
                             </div>
                         </li>
                         <li>
-                            <a href="#"><img alt="" src="ezone/img/icon-img/7.png"> Camera & Photos<i class="pe-7s-angle-right"></i></a>
+                            <a href="#"><img loading=lazy alt="" src="ezone/img/icon-img/7.png"> Camera & Photos<i class="pe-7s-angle-right"></i></a>
                             <div class="category-menu-dropdown">
                                 <div class="category-dropdown-style category-common3">
                                     <h4 class="categories-subtitle"> Desktop</h4>
@@ -385,22 +385,22 @@
                             </div>
                         </li>
                         <li>
-                            <a href="#"><img alt="" src="ezone/img/icon-img/8.png">TV & Audio </a>
+                            <a href="#"><img loading=lazy alt="" src="ezone/img/icon-img/8.png">TV & Audio </a>
                         </li>
                         <li>
-                            <a href="#"><img alt="" src="ezone/img/icon-img/9.png"> Game & Play Station</a>
+                            <a href="#"><img loading=lazy alt="" src="ezone/img/icon-img/9.png"> Game & Play Station</a>
                         </li>
                         <li>
-                            <a href="#"><img alt="" src="ezone/img/icon-img/10.png"> Car Electronics </a>
+                            <a href="#"><img loading=lazy alt="" src="ezone/img/icon-img/10.png"> Car Electronics </a>
                         </li>
                         <li>
-                            <a href="#"><img alt="" src="ezone/img/icon-img/11.png"> Accessories </a>
+                            <a href="#"><img loading=lazy alt="" src="ezone/img/icon-img/11.png"> Accessories </a>
                         </li>
                         <li>
-                            <a href="#"><img alt="" src="ezone/img/icon-img/12.png"> Gadgets</a>
+                            <a href="#"><img loading=lazy alt="" src="ezone/img/icon-img/12.png"> Gadgets</a>
                         </li>
                         <li>
-                            <a href="#"><img alt="" src="ezone/img/icon-img/13.png">Others Equipment</a>
+                            <a href="#"><img loading=lazy alt="" src="ezone/img/icon-img/13.png">Others Equipment</a>
                         </li>
                     </ul>
                 </div>
@@ -468,7 +468,7 @@
                                     </div>
                                     <div class="mega-banner-img">
                                         <a href="single-product.html">
-                                            <img src="ezone/img/banner/1.jpg" alt="">
+                                            <img loading=lazy src="ezone/img/banner/1.jpg" alt="">
                                         </a>
                                     </div>
                                 </div>
@@ -522,7 +522,7 @@
             <div class="custom-col-style-2 electronic-banner-col-3 mb-30">
                 <a href="{{ route('show-catalog', 'antec-cabinets') }}">
                     <div class="electronic-banner-wrapper">
-                        <img src="https://i.ibb.co/g6Jj344/antec-cabinet-430x275px.jpg" alt="">
+                        <img loading=lazy src="https://i.ibb.co/g6Jj344/antec-cabinet-430x275px.jpg" alt="">
                     </div>
                 </a>
             </div>
@@ -530,7 +530,7 @@
             <div class="custom-col-style-2 electronic-banner-col-3 mb-30">
                 <a href="{{ route('show-catalog', 'antec-smps-reliability-meets-affordablitiy') }}">
                     <div class="electronic-banner-wrapper">
-                        <img src="https://i.ibb.co/p0qpfff/antec-smps-430x275px.jpg" alt="">
+                        <img loading=lazy src="https://i.ibb.co/p0qpfff/antec-smps-430x275px.jpg" alt="">
                     </div>
                 </a>
             </div>
@@ -538,7 +538,7 @@
             <div class="custom-col-style-2 electronic-banner-col-3 mb-30">
                 <a href="{{ route('show-catalog', 'antec-case-fans-beat-the-heat-with-style') }}">
                     <div class="electronic-banner-wrapper">
-                        <img src="https://i.ibb.co/NsZbVXj/antec-case-fans-430x275px.jpg" alt="">
+                        <img loading=lazy src="https://i.ibb.co/NsZbVXj/antec-case-fans-430x275px.jpg" alt="">
                     </div>
                 </a>
             </div>
@@ -589,7 +589,7 @@
     <div class="banner-area wrapper-padding pt-30 pb-50">
         <div class="container-fluid">
             <a href="#">
-                <img src="https://i.ibb.co/cXbFqhn/asus-z590-series-1920x400px-1920x400.webp" alt="" width="100%">
+                <img loading=lazy src="https://i.ibb.co/cXbFqhn/asus-z590-series-1920x400px-1920x400.webp" alt="" width="100%">
             </a>
         </div>
     </div>
@@ -807,7 +807,7 @@
 <div class="banner-area wrapper-padding pt-30 pb-50">
     <div class="container-fluid">
         <a href="http://localhost:8000/product/6">
-            <img src="https://i.ibb.co/9txw7hX/lancool-215.webp" alt="" width="100%">
+            <img loading=lazy src="https://i.ibb.co/9txw7hX/lancool-215.webp" alt="" width="100%">
         </a>
     </div>
 </div>
@@ -870,31 +870,31 @@
         <div class="container-fluid">
             <div class="brand-logo-active2 owl-carousel">
                 <div class="single-brand">
-                    <img src="ezone/img/brand-logo/7.png" alt="">
+                    <img loading=lazy src="ezone/img/brand-logo/7.png" alt="">
                 </div>
                 <div class="single-brand">
-                    <img src="ezone/img/brand-logo/8.png" alt="">
+                    <img loading=lazy src="ezone/img/brand-logo/8.png" alt="">
                 </div>
                 <div class="single-brand">
-                    <img src="ezone/img/brand-logo/9.png" alt="">
+                    <img loading=lazy src="ezone/img/brand-logo/9.png" alt="">
                 </div>
                 <div class="single-brand">
-                    <img src="ezone/img/brand-logo/10.png" alt="">
+                    <img loading=lazy src="ezone/img/brand-logo/10.png" alt="">
                 </div>
                 <div class="single-brand">
-                    <img src="ezone/img/brand-logo/11.png" alt="">
+                    <img loading=lazy src="ezone/img/brand-logo/11.png" alt="">
                 </div>
                 <div class="single-brand">
-                    <img src="ezone/img/brand-logo/12.png" alt="">
+                    <img loading=lazy src="ezone/img/brand-logo/12.png" alt="">
                 </div>
                 <div class="single-brand">
-                    <img src="ezone/img/brand-logo/13.png" alt="">
+                    <img loading=lazy src="ezone/img/brand-logo/13.png" alt="">
                 </div>
                 <div class="single-brand">
-                    <img src="ezone/img/brand-logo/7.png" alt="">
+                    <img loading=lazy src="ezone/img/brand-logo/7.png" alt="">
                 </div>
                 <div class="single-brand">
-                    <img src="ezone/img/brand-logo/8.png" alt="">
+                    <img loading=lazy src="ezone/img/brand-logo/8.png" alt="">
                 </div>
             </div>
         </div>
@@ -1100,7 +1100,7 @@
                                         <th></th>
                                         <th>
                                             <a href="#">Remove <span>x</span></a>
-                                            <img src="ezone/img/cart/4.jpg" alt="">
+                                            <img loading=lazy src="ezone/img/cart/4.jpg" alt="">
                                             <p>Blush Sequin Top </p>
                                             <span>$75.99</span>
                                             <a class="compare-btn" href="#">Add to cart</a>
@@ -1189,25 +1189,25 @@
                         <div class="quick-view-learg-img">
                             <div class="quick-view-tab-content tab-content">
                                 <div class="tab-pane active show fade" id="modal1" role="tabpanel">
-                                    <img src="ezone/img/quick-view/l1.jpg" alt="">
+                                    <img loading=lazy src="ezone/img/quick-view/l1.jpg" alt="">
                                 </div>
                                 <div class="tab-pane fade" id="modal2" role="tabpanel">
-                                    <img src="ezone/img/quick-view/l2.jpg" alt="">
+                                    <img loading=lazy src="ezone/img/quick-view/l2.jpg" alt="">
                                 </div>
                                 <div class="tab-pane fade" id="modal3" role="tabpanel">
-                                    <img src="ezone/img/quick-view/l3.jpg" alt="">
+                                    <img loading=lazy src="ezone/img/quick-view/l3.jpg" alt="">
                                 </div>
                             </div>
                         </div>
                         <div class="quick-view-list nav" role="tablist">
                             <a class="active" href="#modal1" data-toggle="tab" role="tab">
-                                <img src="ezone/img/quick-view/s1.jpg" alt="">
+                                <img loading=lazy src="ezone/img/quick-view/s1.jpg" alt="">
                             </a>
                             <a href="#modal2" data-toggle="tab" role="tab">
-                                <img src="ezone/img/quick-view/s2.jpg" alt="">
+                                <img loading=lazy src="ezone/img/quick-view/s2.jpg" alt="">
                             </a>
                             <a href="#modal3" data-toggle="tab" role="tab">
-                                <img src="ezone/img/quick-view/s3.jpg" alt="">
+                                <img loading=lazy src="ezone/img/quick-view/s3.jpg" alt="">
                             </a>
                         </div>
                     </div>

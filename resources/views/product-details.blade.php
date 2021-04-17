@@ -3,7 +3,11 @@
 @section('title', $product->product_name)
 
 @section('css-js')
-    
+    {{-- <style>
+        .magnifier{
+            height: 80vh !important;
+        }
+    </style> --}}
 @endsection
 
 @php
@@ -135,14 +139,11 @@
                             <span style="font-weight: 600; font-size: 16px;">Admin Tools</span>
                         </div>
                         <div class="col-12 mb-3">
-
                             <a type="button" class="btn btn-info btn-sm" data-toggle="tooltip" href="{{ route('edit-product', $product->id) }}"
                                 title="Edit Product">
                                 Edit Product
                                 <i class="fa fa-cog" aria-hidden="true"></i>
                             </a>
-
-
                         </div>  
                     </div>
                     @endcan
@@ -190,13 +191,13 @@
                         <div class="quickview-btn-cart" style="margin-left: 0; margin-right: 5px;">
                             <a title="Cart" class="btn-hover-black" id="ToggleCartBtn" href="#">@if($carted == 1) Remove from cart @else Add to cart @endif</a>
                         </div>
-                        @if (Auth::check())
+                        
                         <div class="quickview-btn-wishlist">
+                            @if (Auth::check())
                             <a title="Wishlist" id="ToggleWishlistBtn" class="btn-hover cursor-pointer @if($wishlisted == 1) btn-wishlisted @else btn-not-wishlisted @endif ">&nbsp;<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;</a>
+                            @endif
                             <a title="Compare" style="vertical-align: unset" id="ToggleCompareBtn" class="btn cursor-pointer @if($compared == 1) btn-danger @else btn-info @endif ">&nbsp;<i class="fas fa-repeat"></i>&nbsp;</a>
-                            
                         </div>
-                        @endif
                     </div>
 
                     {{--  Category --}}
@@ -880,8 +881,10 @@ function ToggleCart(product_id) {
                 scrollspeedanimate: 5,
                 zoomspeedanimate: 1,
                 loopspeedanimate: 1,  
-                magnifierspeedanimate: 350
-
+                magnifierspeedanimate: 350,
+                magnifiersize: [700, '60vh'],
+                leftoffset:  15, 						// îòñòóï ñëåâà îò tmb êàðòèíêè
+				rightoffset: 15, 	    
 			})
 		})
 	</script>
