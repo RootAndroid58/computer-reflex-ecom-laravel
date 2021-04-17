@@ -19,10 +19,10 @@ class CreateBannersTable extends Migration
             $table->string('banner_position')->nullable()->unique();
             $table->boolean('banner_status')->default(0);
             $table->string('banner_img');
-            $table->string('banner_header');
-            $table->string('banner_header_2');
-            $table->string('banner_caption');
-            $table->string('banner_btn_txt');
+            $table->string('banner_header')->nullable();
+            $table->string('banner_header_2')->nullable();
+            $table->string('banner_caption')->nullable();
+            $table->string('banner_btn_txt')->nullable();
             $table->string('banner_btn_link');
             $table->string('banner_btn_color');
             $table->timestamps();

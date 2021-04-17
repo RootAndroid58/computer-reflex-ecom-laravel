@@ -68,10 +68,10 @@ class AdminController extends Controller
     {
         $req->validate([
             "banner_name"       => 'required|max:255|unique:banners,banner_name',
-            "banner_header"     => 'required|max:50',
-            "banner_header_2"   => 'required|max:50',
-            "banner_caption"    => 'required|max:255',
-            "banner_btn_txt"    => 'required|max:255',
+            "banner_header"     => 'nullable|max:50',
+            "banner_header_2"   => 'nullable|max:50',
+            "banner_caption"    => 'nullable|max:255',
+            "banner_btn_txt"    => 'nullable|max:255',
             "banner_btn_link"   => 'required',
             "banner_img"        => 'required|mimes:jpeg,jpg,png',
         ]);
