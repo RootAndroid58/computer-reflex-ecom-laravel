@@ -62,8 +62,17 @@ class IndexController extends Controller
     
     public function Search(Request $req)
     {
-        if (isset($req->min_price)) { $min_price = $req->min_price; } else { $min_price = 0; }
-        if (isset($req->max_price) && $req->max_price != 0) { $max_price = $req->max_price; } else { $max_price = 9999999999999999999999999999999999; }
+      
+        if (isset($req->min_price)) { 
+            $min_price = $req->min_price; 
+        } else {
+            $min_price = 0; 
+        }
+        if (isset($req->max_price) && $req->max_price != 0) { 
+            $max_price = $req->max_price; 
+        } else { 
+            $max_price = 9999999999999999999999999999999999; 
+        }
     
         if ($req->stock == 'checked') {
             $stock = 0;
@@ -83,6 +92,14 @@ class IndexController extends Controller
         ->where('product_stock', '>=', $stock)
         ->whereBetween('product_price', [$min_price, $max_price]);
 
+        if (isset($req->specs) && $req->specs > 0) {
+            $products->whereHas('specifications', function ($query) use ($req) {
+                foreach ($req->specs as $key => $value) {
+                    $query->where('specification_key', $key)
+                            ->where('specification_value', $value);
+                }
+            });
+        }
         
         if ($cat != 'ALL' && $cat != '') {
             $products->whereHas('category', function ($query) use ($cat) { 

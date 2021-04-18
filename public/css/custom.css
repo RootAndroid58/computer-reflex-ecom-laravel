@@ -5,6 +5,86 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box
 }
+
+/* 
+Collapse Bootstrap Studio Start
+*/
+.collapse-btn {
+    background-color: #e4e4e4;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+  }
+  
+  .on, .collapse-btn:hover {
+    background-color: #e4e4e4;
+  }
+  
+  .collapse-btn:after {
+    font-family: "Font Awesome 5 Pro";
+    font-weight: 900;
+
+    content: "\f054";
+    /* content: "\f078"; */
+    color: #777;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+  }
+  
+  .on:after {
+    content: '\f078';
+  }
+  
+  .collapse-content {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+  }
+  
+  .collapse-item {
+    margin: auto;
+    float: initial;
+  }
+  
+  .btn-primary {
+    background-color: #e4e4e4;
+    border-color: #e4e4e4;
+  }
+  
+  .btn-primary:hover {
+    color: rgb(99,133,205);
+    background-color: #e4e4e4;
+    border-color: #e4e4e4;
+  }
+  
+  .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #e4e4e4;
+    border-color: #e4e4e4;
+  }
+  
+  .btn-primary:active, .btn-primary:focus, .btn-primary:hover {
+    background-color: #e4e4e4;
+    border-color: #e4e4e4;
+  }
+  
+  
+  
+/* 
+Collapse Bootstrap Studio End
+*/
+
+
+
  .bbb_viewed {
     padding-top: 51px;
     padding-bottom: 60px;
