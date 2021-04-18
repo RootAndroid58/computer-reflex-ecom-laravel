@@ -5,9 +5,10 @@
 @section('css-js')
     <style>
         .magnifier{
-            display: block !important; 
-            margin-top: auto !important;
-            margin-bottom: auto !important;
+            position: fixed !important;
+            margin: auto !important;
+            top: 0 !important;
+            bottom: 0 !important;
         }
     </style>
 @endsection
@@ -879,12 +880,12 @@ function ToggleCart(product_id) {
 			$('#big_img').imagezoomsl({
                 cursorshade:true,
                 magnifycursor:'zoom-in',
-				zoomrange: [1.5, 10],
+				zoomrange: [2, 10],
                 scrollspeedanimate: 5,
                 zoomspeedanimate: 1,
                 loopspeedanimate: 1,  
                 magnifierspeedanimate: 350,
-                magnifiersize: [700, '60vh'],
+                magnifiersize: ['43%', '75vh'],
                 leftoffset:  15, 						// îòñòóï ñëåâà îò tmb êàðòèíêè
 				rightoffset: 15, 	    
 			})

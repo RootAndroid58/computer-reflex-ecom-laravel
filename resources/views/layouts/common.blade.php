@@ -88,18 +88,23 @@
 
                         <div class="menu-style-2 furniture-menu menu-hover">
                             <nav>
-                                <ul>
+                                <ul>    
                                     <li><a href="#">home</a>
                                         <ul class="single-dropdown">
                                             <li><a href="{{ route('home') }}">Fashion</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="#">pages</a>
+                                    <li><a href="#">Categories</a>
                                         <ul class="single-dropdown">
-                                            <li><a href="about-us.html">about us</a></li>                        
+                                            @php
+                                                $AllCategories = App\Models\Category::get();
+                                            @endphp
+                                            @foreach ($AllCategories as $AllCategories)
+                                                <li><a href="about-us.html">{{$AllCategories->category}}</a></li>  
+                                            @endforeach
                                         </ul>
                                     </li>
-                                    <li><a href="#">shop</a>
+                                    <li><a href="#">New Releases</a>
                                         <ul class="single-dropdown">
                                             <li><a href="about-us.html">about us</a></li>                        
                                         </ul>
@@ -219,9 +224,10 @@
                                         <li>Hello,  <a href="{{ route('my-account')}}">{{ FirstWord(Auth()->user()->name) }}</a></li>
                                         <li>        <a href="{{ route('my-account')}}">Account</a>
                                             <ul class="single-dropdown" style="margin-top: 15px;">
-                                                <li><a href="{{ route('orders')}}">My Orders</a></li>
-                                                <li><a href="{{ route('wishlist')}}">My Wishlist</a></li>
-                                                <li><a href="{{ route('support')}}">Support</a></li>
+                                                <li class="no-before"><a href="{{ route('my-account')}}">My Account</a></li>
+                                                <li class="no-before"><a href="{{ route('orders')}}">My Orders</a></li>
+                                                <li class="no-before"><a href="{{ route('wishlist')}}">My Wishlist</a></li>
+                                                <li class="no-before"><a href="{{ route('support')}}">Support</a></li>
                                             </ul>
                                         </li>
                                     </ul>

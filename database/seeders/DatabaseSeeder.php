@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             ModelHasPermissionsSeeder::class,
             CategoriesSeeder::class,
             ProductsSeeder::class,
+            SmallBannerSeeder::class,
         ]);
     }
 }

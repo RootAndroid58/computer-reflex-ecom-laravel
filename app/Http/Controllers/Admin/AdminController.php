@@ -14,6 +14,7 @@ use App\Models\Tag;
 use Image;
 use App\Models\User;
 use App\Models\Banner;
+use App\Models\SmallBanner;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\ProductTag;
@@ -31,6 +32,7 @@ class AdminController extends Controller
 {
     public function IndexDashboard()
     {
+
         return view('admin.dashboard');
     }
     public function IndexProfile()
@@ -95,7 +97,27 @@ class AdminController extends Controller
         return back()->with(['BannerCreatedSuccess' => $banner->banner_name]);
     }
 
-    
+    public function EditSmallBannerSubmit(Request $req)
+    {
+        $req->validate([
+            'id'    => 'required',
+            'image' => 'required|url',
+            'link'  => 'required|url',
+        ]);
+
+        $SmallBanner = SmallBanner::where('id', $req->id)->first();
+
+        if (isset($SmallBanner)) {
+            $SmallBanner->update([
+                'image' => $req->image,
+                'link'  => $req->link,
+            ]);
+        }
+        
+        return redirect()->back();
+        
+    }
+
     public function EditBannerSubmit(Request $req)
     {
         $banner = Banner::where('id', $req->banner_id)->first();

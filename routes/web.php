@@ -74,6 +74,11 @@ Route::get('CartTest', 'App\Http\Controllers\CartController@Test');
     
     Route::get('/product/pid/{product_id}/reviews/', [App\Http\Controllers\ReviewController::class, 'AllProductReviews'])->name('all-product-reviews');
 
+    Route::post('/ajax/get-small-banner-data', [App\Http\Controllers\AjaxController::class, 'GetSmallBannerData'])->name('get-small-banner-data');
+
+
+
+
 
 // Verified Middleware Start
 
@@ -181,6 +186,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:Admin', 'verifie
     Route::post('/manage-ui/home-carousel-sliders/edit','App\Http\Controllers\Admin\AdminController@EditHomeCarouselSliderSubmit')->middleware('permission:Manage UI|Master Admin')->name('admin-edit-home-carousel-sliders-submit');
     
     Route::get('/manage-ui/home-carousel-slider/{slider_id}/edit','App\Http\Controllers\Admin\AdminController@EditHomeCarouselSlider')->middleware('permission:Manage UI|Master Admin')->name('admin-edit-home-carousel-slider');
+    
+    Route::post('/manage-ui/edit-small-banner/submit','App\Http\Controllers\Admin\AdminController@EditSmallBannerSubmit')->middleware('permission:Manage UI|Master Admin')->name('admin-edit-small-banner-submit');
 
     Route::get('/manage-banners','App\Http\Controllers\Admin\AdminController@ManageBanners')->middleware('permission:Manage UI|Master Admin')->name('admin-manage-banners');
     

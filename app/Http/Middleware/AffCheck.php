@@ -20,11 +20,8 @@ class AffCheck
     
     public function handle(Request $request, Closure $next)
     {
-
-        
-
         Affiliate::where('exp_date', '<', date_create(date('y-m-d h:m:s')))->delete();
-
+        
         if (isset($request->aff)) {
             $associate  = User::where('id', $request->aff)->first();
 

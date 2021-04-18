@@ -59,7 +59,48 @@
     </div>
     @endif
 
+    
+    <!-- Modal -->
+    <div class="modal fade" id="SmallBannerEditModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Small Banner</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <form class="w-100" action="{{ route('admin-edit-small-banner-submit') }}" method="post"> @csrf
+                    <div class="modal-body">
+                        <div class="w-100">
+                            <input required type="hidden" name="id" id="small_banner_id">
+                            
 
+                            <div class="form-group">
+                            <label for="small_banner_url">Banner Link</label>
+                            <input required type="url" class="form-control" name="link" id="small_banner_link" aria-describedby="helpId" placeholder="">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="small_banner_image">Image URL</label>
+                                <input required type="url" class="form-control" name="image" id="small_banner_img" aria-describedby="helpId" placeholder="">
+                                    <small class="text-muted">Get URL from <a href="https://imgbb.com" target="_blank">(https://imgbb.com)</a></small>
+                                </div>
+
+                            <div class="mt-3">
+                                <p>Suggested Image Size: <span style="font-weight: 600" id="small_banner_suggested_size"></span></p>
+                            </div>
+                           
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     
 
 
@@ -83,8 +124,9 @@
                         @endcan
                             <li><a href="{{route('my-account')}}"><i class="pe-7s-users"></i>My Account</a>
                             <ul>
+                                <li><a href="{{route('my-account')}}">My Account</a></li>
                                 <li><a href="{{route('orders')}}">My Orders</a></li>
-                                <li><a href="{{route('wishlist')}}">My Wishlists</a></li>
+                                <li><a href="{{route('wishlist')}}">My Wishlist</a></li>
                                 <li><a href="{{ route('logout')}}">Logout</a></li>
                             </ul>
                             </li>
@@ -531,29 +573,23 @@
     <div class="electronic-banner-area">
         <div class="custom-row-2">
 
-            <div class="custom-col-style-2 electronic-banner-col-3 mb-30">
-                <a href="{{ route('show-catalog', 'antec-cabinets') }}">
-                    <div class="electronic-banner-wrapper">
-                        <img loading=lazy src="https://i.ibb.co/g6Jj344/antec-cabinet-430x275px.jpg" alt="">
-                    </div>
-                </a>
-            </div>
 
-            <div class="custom-col-style-2 electronic-banner-col-3 mb-30">
-                <a href="{{ route('show-catalog', 'antec-smps-reliability-meets-affordablitiy') }}">
-                    <div class="electronic-banner-wrapper">
-                        <img loading=lazy src="https://i.ibb.co/p0qpfff/antec-smps-430x275px.jpg" alt="">
+            @foreach ($SmallBanners as $key => $SmallBanner)
+                @if ($key < 3)
+                <div class="custom-col-style-2 electronic-banner-col-3 mb-30">
+                    <a href="{{ $SmallBanner->link }}">
+                        <div class="electronic-banner-wrapper">
+                            <img style="height: 100%; width: 100%;" loading=lazy src="{{ $SmallBanner->image }}" alt="Small Banner Image">
+                        </div>
+                    </a>
+                    <div>
+                        <span class="cursor-pointer static-blue float-right "  onclick="EditSmallBanner({{ $SmallBanner->id }})">Edit</span>
                     </div>
-                </a>
-            </div>
+                </div>
+                @endif
+            @endforeach
 
-            <div class="custom-col-style-2 electronic-banner-col-3 mb-30">
-                <a href="{{ route('show-catalog', 'antec-case-fans-beat-the-heat-with-style') }}">
-                    <div class="electronic-banner-wrapper">
-                        <img loading=lazy src="https://i.ibb.co/NsZbVXj/antec-case-fans-430x275px.jpg" alt="">
-                    </div>
-                </a>
-            </div>
+        
 
         </div>
     </div>
@@ -597,12 +633,16 @@
 
 
 
-
+    
     <div class="banner-area wrapper-padding pt-30 pb-50">
         <div class="container-fluid">
-            <a href="#">
-                <img loading=lazy src="https://i.ibb.co/cXbFqhn/asus-z590-series-1920x400px-1920x400.webp" alt="" width="100%">
+            <a href="{{  $SmallBanners[4]->link  }}">
+                <img loading=lazy src="{{  $SmallBanners[4]->image  }}" alt="Oops... Banner Image Not Loaded" width="100%">
             </a>
+
+            <div>
+                <span class="cursor-pointer static-blue float-right"  onclick="EditSmallBanner({{  $SmallBanners[4]->id  }})">Edit</span>
+            </div>
         </div>
     </div>
     
@@ -799,30 +839,29 @@
 
 
 
-@foreach ($sections as $key => $section)
-    @if ($sections->count()/2 <= $key)
-        @include('includes.home-page-products-carousel')
-    @endif
-@endforeach
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="banner-area wrapper-padding pt-30 pb-50">
     <div class="container-fluid">
-        <a href="http://localhost:8000/product/6">
-            <img loading=lazy src="https://i.ibb.co/9txw7hX/lancool-215.webp" alt="" width="100%">
+        <a href="{{  $SmallBanners[3]->link  }}">
+            <img loading=lazy src="{{  $SmallBanners[3]->image  }}" alt="Oops... Banner Image Not Loaded" width="100%">
         </a>
+
+        <div>
+            <span class="cursor-pointer static-blue  float-right"  onclick="EditSmallBanner({{  $SmallBanners[3]->id  }})">Edit</span>
+        </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -867,7 +906,7 @@
                                 <a class="animate-left cursor-pointer" title="Wishlist" onclick="ToggleWishlist({{ $BestSellingProduct->id }})">
                                     <i class="pe-7s-like"></i>
                                 </a>
-                                <a class="animate-right cursor-pointer" title="Compare" data-toggle="modal" data-target="#exampleCompare" onclick="ToggleCompare({{ $BestSellingProduct->id }})">
+                                <a class="animate-right cursor-pointer" title="Compare" onclick="ToggleCompare({{ $BestSellingProduct->id }})">
                                     <i class="pe-7s-repeat"></i>
                                 </a>
                             </div>
@@ -1299,6 +1338,28 @@
     <script src="{{ asset('js/main.js')}}"></script>
 
 <script>
+
+function EditSmallBanner(banner_id) {
+
+$.ajax({
+  url: "{{ route('get-small-banner-data') }}",
+  method: 'POST',
+  data: {
+      'banner_id' : banner_id,
+  },
+  success: function (data) {
+    if (data.status != 500) {
+        $('#small_banner_id').val(banner_id);
+        $('#small_banner_img').val(data.SmallBanner.image);
+        $('#small_banner_link').val(data.SmallBanner.link);
+        $('#small_banner_suggested_size').html(data.size);
+        $('#SmallBannerEditModal').modal('toggle');
+    }
+  }
+})
+}
+
+
 function ToggleCompare(product_id) {
 
 $.ajax({

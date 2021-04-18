@@ -5,12 +5,36 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductReview;
+use App\Models\SmallBanner;
 
 class AjaxController extends Controller
 {
     public function GetAuthName(Request $req)
     {
         return Auth()->user()->name;
+    }
+    public function GetSmallBannerData(Request $req)
+    {
+        $SmallBanner = SmallBanner::where('id', $req->banner_id)->first();
+       
+        if (!isset($SmallBanner)) {
+            $status = 500;
+        } else {
+            $status = 200;
+            $size = "Any";
+            if ($SmallBanner->id <= 3) {
+                $size = '430x275 Px';
+            }
+            if ($SmallBanner->id > 3 && $SmallBanner->id <= 5) {
+                $size = '1920x400 Px';
+            }
+        }
+    
+        return [
+            'SmallBanner'   => $SmallBanner,
+            'status'        => $status,
+            'size'          => $size,
+        ];
     }
 
     public function GetAuthEmail(Request $req)

@@ -62,6 +62,34 @@
                                 </label>
                             </div>
                     </div>
+
+                  
+                    <div class="sidebar-widget mb-40">
+                        <h3 class="sidebar-title">Specifications</h3>
+                        
+                            @foreach ($SpecsFilter as $Group => $SpecsGroup)
+                            <div>
+                                <div style="padding: 7px 10px; background-color: rgba(212, 212, 212, 0.781);">
+                                    <span style="font-weight: 600">{{ $Group }}</span>
+                                </div>
+                                @foreach ($SpecsGroup as $Specs)
+                                    <div style="padding-top: 6px; padding-bottom: 6px;">
+                                        <div class="form-check">
+                                            <input class="form-check-input cursor-pointer" type="checkbox" id="{{$Specs->specification_value}}" value="option1">
+                                            <label class="form-check-label cursor-pointer line-limit-2" for="{{$Specs->specification_value}}">{{$Specs->specification_value}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="account-menu-break"></div>  
+                                    
+                                    
+                                   
+                                @endforeach
+                            </div>
+                                
+                            @endforeach
+                    </div>
+
+
                     <button type="submit" class="btn btn-dark">Apply Filter</button>
                     </form>
                 </div>

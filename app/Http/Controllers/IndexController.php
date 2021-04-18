@@ -10,6 +10,7 @@ use App\Models\HomeSection;
 use App\Models\AffiliateLink;
 use App\Models\Catalog;
 use App\Models\Specification;
+use App\Models\SmallBanner;
 use Distinct;
 
 
@@ -19,6 +20,7 @@ class IndexController extends Controller
 
     public function Index()
     {
+        $SmallBanners = SmallBanner::get();
         $banners = Banner::where('banner_status', 1)->orderBy('banner_position', 'ASC')->get();
         $categories = Category::get();
         $sections = HomeSection::with(['SectionProducts.product.images', 'SectionProducts.product.category'])->get();    
@@ -44,6 +46,7 @@ class IndexController extends Controller
 
         return view('index', [
             'banners'               => $banners,
+            'SmallBanners'          => $SmallBanners,
             'sections'              => $sections,
             'categories'            => $categories,
             'BestSellingProducts'   => $BestSellingProducts,

@@ -4415,6 +4415,16 @@ a.icon-cart-furniture span.green {
     top: 3px;
     width: 1px;
 }
+.no-before::before {
+    background-color: #999999;
+    content: unset !important;
+    height: 14px;
+    margin: 0 auto;
+    position: absolute;
+    right: -10px;
+    top: 3px;
+    width: 1px;
+}
 .furniture-login ul li:last-child::before {
     content: none;
 }

@@ -25,6 +25,7 @@ class VerifyCsrfToken extends Middleware
         '/ajax/calcPrice',
         '/ajax/calcMRP',
         '/ajax/sync-price',
+        '/ajax/get-small-banner-data',
         '/checkout/payment/response/*'  
     ];
 }
