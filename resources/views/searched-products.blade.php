@@ -15,14 +15,14 @@
             <div class="col-lg-2">
                 <div id="SideBar">
                     <div class="shop-sidebar mr-50">
-                    <form method="GET" action="{{ route('search') }}" id="filter_form">
+                    <form method="GET" action="@if(isset($slug)){{route('show-catalog', $slug)}}@else{{ route('search')}}@endif" id="filter_form">
                         <input type="hidden" name="sort_by" value="">
                         <input type="hidden" name="search" value="{{ request()->search }}">
                         <div class="sidebar-widget mb-45">
                             <h3 class="sidebar-title">Filter By Category</h3>
                             <div class="sidebar-categories">
                             <div class="form-group">
-                                <select class="" name="category" id="" style="height: 30px; cursor: pointer;" >
+                                <select onchange="submitFilterForm()" class="" name="category" id="" style="height: 30px; cursor: pointer;" >
                                 <option value="all">All</option>
                                 @foreach ($categories as $category)
                                 <option value="{{$category->category}}" @if($category->category == request()->category) selected @endif>{{$category->category}}</option>
@@ -38,14 +38,14 @@
                                 <div class="price_slider_amount">
                                     <div class="_2b0bUo">
                                         <div class="_1YAKP4">
-                                            <input type="number" name="min_price" class="_2YxCDZ" value="{{ request()->min_price ?? '0' }}">
+                                            <input  onkeyup="submitFilterForm()" type="number" name="min_price" class="_2YxCDZ" value="{{ request()->min_price ?? '' }}">
                                             <small id="helpId" class="form-text text-muted">Min Price</small>
                                         </div>
 
                                             <div class="_3zohzR">To</div>
                                         
                                             <div class="_3uDYxP">
-                                                <input type="number" name="max_price" class="_2YxCDZ" value="{{ request()->max_price ?? '' }}">
+                                                <input onkeyup="submitFilterForm()" type="number" name="max_price" class="_2YxCDZ" value="{{ request()->max_price ?? '' }}">
                                                 <small id="helpId" class="form-text text-muted">Max Price</small>
                                             </div>
                                     </div>
@@ -56,7 +56,7 @@
                         <div class="sidebar-widget mb-40">
                             <h3 class="sidebar-title">Availability</h3>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="stock" value="checked" id="flexCheckDefault" @if(request()->stock == 'checked') checked @endif>
+                                    <input onchange="submitFilterForm()" class="form-check-input" type="checkbox" name="stock" value="checked" id="flexCheckDefault" @if(request()->stock == 'checked') checked @endif>
                                     <label class="form-check-label" for="flexCheckDefault">
                                         Show Out Of Stock Items
                                     </label>
@@ -84,7 +84,7 @@
                                         @foreach ($SpecsGroup as $Specs)
                                             <div style="padding-top: 6px; padding-bottom: 6px;">
                                                 <div class="form-check">
-                                                    <input class="form-check-input cursor-pointer" name="specs[{{$Group}}]" value="{{$Specs->specification_value}}" type="checkbox" id="{{$Specs->specification_value.$Specs->id}}" @if ($checked == $Specs->specification_value) checked @endif>
+                                                    <input onchange="submitFilterForm()" class="form-check-input cursor-pointer" name="specs[{{$Group}}]" value="{{$Specs->specification_value}}" type="checkbox" id="{{$Specs->specification_value.$Specs->id}}" @if ($checked == $Specs->specification_value) checked @endif>
                                                     <label class="form-check-label cursor-pointer line-limit-2" for="{{$Specs->specification_value.$Specs->id}}">{{$Specs->specification_value}}</label>
                                                 </div>
                                             </div>
@@ -307,7 +307,27 @@ $.ajax({
 </script>
 
 
+<script>
+    
+  var acc = document.getElementsByClassName("collapse-btn");
+  for (let i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+      this.classList.toggle("on");
+      var panel = this.nextElementSibling;
+      if (panel.style.maxHeight){
+        panel.style.maxHeight = null;
+      } else {
+        panel.style.maxHeight = panel.scrollHeight + "px";
+      }
+    });
+  }
 
+</script>
 
+<script>
+    function submitFilterForm() {
+        $('#filter_form').submit();
+    }
+</script>
 
 @endsection

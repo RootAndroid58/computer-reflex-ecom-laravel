@@ -1,22 +1,5 @@
 
-  var acc = document.getElementsByClassName("collapse-btn");
-  for (let i = 0; i < acc.length; i++) {
-    acc[i].addEventListener("click", function() {
-      this.classList.toggle("on");
-      var panel = this.nextElementSibling;
-      if (panel.style.maxHeight){
-        panel.style.maxHeight = null;
-      } else {
-        panel.style.maxHeight = panel.scrollHeight + "px";
-      }
-    });
-  }
 
-
-  
-  
-  
-  
   
   
   
@@ -98,31 +81,26 @@ $('#help_topic').on('change', function () {
 
 
 
-$('#filter_form').on('submit', function (e) {
+$('#filter_form').off('submit').on('submit', function (e) {
     e.preventDefault()
-
-    var form = $('#filter_form');
-    var formGetURL = form.attr('action') + "?" + form.serialize();
-
-    $('#RowDiv').load(formGetURL+' #RowDiv')
-
-    history.pushState({page: null}, null, formGetURL);
-
-    $.getScript('/js/main.js'); 
-})
-
-
-$('#CategorySelect').on('change', function () {
-  $('#CategoryInput').val($(this).val())
+    var formGetURL = $('#filter_form').attr('action') + "?" + $('#filter_form').serialize();
+    $.get(formGetURL, function(data) {
+      var newContent = $(data).find('#RowDiv').children();
+      $('#RowDiv').empty().append(newContent);
+      $.getScript('/js/main.js'); 
+      history.pushState({page: null}, null, formGetURL);
+    });
 })
 
 
 
-$('#sort_by_select').on('change', function () {
+
+
+
+$('#sort_by_select').one('change', function () {
   $('#filter_form').find('input[name="sort_by"]').val($(this).val());
   $('#filter_form').submit();
 })
-
 
 
 
@@ -139,6 +117,11 @@ $('.PaginationBtn').on('click', function (e) {
 })
 
 
+
+
+$('#CategorySelect').on('change', function () {
+  $('#CategoryInput').val($(this).val())
+})
 
 
 
