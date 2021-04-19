@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{ asset('ezone/css/bundle.css')}}">
     <link rel="stylesheet" href="{{ asset('ezone/css/style.css')}}">
     <link rel="stylesheet" href="{{ asset('ezone/css/responsive.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/collapse-bs4.css')}}">
     <link rel="stylesheet" href="{{ asset('css/custom.css')}}">
     <script src="{{ asset('ezone/js/vendor/modernizr-2.8.3.min.js')}}"></script>
 
