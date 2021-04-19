@@ -22,7 +22,6 @@ class CreateOrderItemsTable extends Migration
             $table->string('unit_mrp');
             $table->string('total_price');
             $table->string('status');
-            $table->timestamp('delivery_date')->nullable();
             $table->timestamps();
         });
     }

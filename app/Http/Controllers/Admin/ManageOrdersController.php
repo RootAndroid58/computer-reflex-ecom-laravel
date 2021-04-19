@@ -120,7 +120,6 @@ class ManageOrdersController extends Controller
         if ($item->status == 'packing_completed') {
             
             OrderItem::where('id', $req->order_item_id)->update([
-                'delivery_date' => $req->delivery_date,
                 'status' => 'shipment_created',
             ]);
     
@@ -128,6 +127,7 @@ class ManageOrdersController extends Controller
             $Shimpent->order_item_id = $req->order_item_id;
             $Shimpent->courier_name = $req->courier_name;
             $Shimpent->tracking_id = $req->tracking_id;
+            $Shimpent->delivery_date = $req->delivery_date;
             $Shimpent->save();
 
             return redirect()->route('admin-ship-order', $item->order_id);

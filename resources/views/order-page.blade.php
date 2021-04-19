@@ -185,7 +185,7 @@
                                     </span>
                                     Product Shipped Via <b>{{ $item->shipment->courier_name }}</b>.<br>
                                   
-                                        Delivery By: <b>{{date_format(new DateTime($item->delivery_date), "dS M,(D)")}}</b>
+                                        Delivery By: <b>{{date_format(new DateTime($item->shipment->delivery_date), "dS M,(D)")}}</b>
                                 
                                 </span>
                                 @elseif($item->status == 'item_delivered')
@@ -193,7 +193,7 @@
                                     <span style="">
                                         <i class="fa fa-circle" aria-hidden="true"></i>
                                     </span>
-                                    Delivered On: <b>{{date_format(new DateTime($item->delivery_date), "dS M,(D)")}}</b>
+                                    Delivered On: <b>{{date_format(new DateTime($item->shipment->delivery_date), "dS M,(D)")}}</b>
                                 </span>
                                 @endif
                             </div>

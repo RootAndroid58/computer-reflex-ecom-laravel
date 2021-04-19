@@ -96,8 +96,8 @@ Route::group(['middleware' => ['verified', 'auth']], function() {
     
     Route::get('/support/ticket/id/{ticket_id}', [App\Http\Controllers\SupportController::class, 'ShowTicket'])->name('support.show-ticket');
 
-    Route::get('/checkout/order/{order_id}/confirmation', [App\Http\Controllers\CheckoutController::class, 'AfterPayment'])->name('checkout-order-confirmation');
-      
+    Route::get('/checkout/order/{order_id}/confirmation', [App\Http\Controllers\CheckoutController::class, 'CheckoutOrderConfirmation'])->name('checkout-order-confirmation');
+    
     Route::post('/dp/update', [App\Http\Controllers\DpUpdateController::class, 'DpUpdate'])->name('dp-update');
 
     Route::get('/account', [App\Http\Controllers\AccountController::class, 'ShowAccount'])->name('my-account');

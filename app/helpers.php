@@ -71,6 +71,13 @@
         $output = (($perc/100)*$total);
         return $output;
     }
+
+    function TenDaysFuture($oldDate)
+    {
+        $dt = new DateTime($oldDate);
+        $dt = $dt->modify( '+10 days' );
+        return $dt;
+    }
     
 
 ?>

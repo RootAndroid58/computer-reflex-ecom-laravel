@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\OrderItem;
 use App\Models\User;
+use App\Models\OrderAddress;
 
 class Order extends Model
 {
@@ -22,7 +23,7 @@ class Order extends Model
     }
     public function Address()
     {
-        return $this->hasOne(Address::class, 'id', 'address_id');
+        return $this->hasOne(OrderAddress::class, 'id', 'address_id');
     }
     public function User()
     {

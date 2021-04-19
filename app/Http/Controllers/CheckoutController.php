@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Address;
+use App\Models\OrderAddress;
 use App\Models\AffiliateOrderItem;
 use App\Mail\OrderPlacedMail;
 use Softon\Indipay\Facades\Indipay;
@@ -44,7 +45,6 @@ class CheckoutController extends Controller
         $mrp        = 0; // Default MRP
         $price      = 0; // Default Price
         $itemCount  = 0; // Default Item Count
-
         foreach ($req->product_id as $i => $pid) {
             $product = Product::where('id', $pid)->first();
             if ($product->product_stock >= $req->product_qty[$i]) {
@@ -61,7 +61,7 @@ class CheckoutController extends Controller
             abort(500);
         }
 
-        // Create new order 
+        // Create new order entry
         $order = new Order;
         $order->user_id         = Auth()->user()->id;
         $order->address_id      = $req->address_id;
@@ -71,9 +71,23 @@ class CheckoutController extends Controller
         $order->status          = 'checkout_pending';
         $order->save();
 
+        // Save User Address For Order Address
+        $OrderAddress = new OrderAddress;
+        $OrderAddress->order_id     = $order->id;
+        $OrderAddress->name         = $address->name;
+        $OrderAddress->house_no     = $address->house_no;
+        $OrderAddress->locality     = $address->locality;
+        $OrderAddress->city         = $address->city;
+        $OrderAddress->district     = $address->district;
+        $OrderAddress->state        = $address->state;
+        $OrderAddress->pin_code     = $address->pin_code;
+        $OrderAddress->mobile       = $address->mobile;
+        $OrderAddress->alt_mobile   = $address->alt_mobile;
+        $OrderAddress->save();
+
         // Add items for order
         foreach ($req->product_id as $key => $pid) {
-            $prod = Product::with('comission')->where('id', $pid)->first();
+            $prod = Product::where('id', $pid)->first();
             $orderItem = new OrderItem;
             $orderItem->order_id = $order->id;
             $orderItem->product_id = $pid;
@@ -81,25 +95,12 @@ class CheckoutController extends Controller
             $orderItem->unit_price = $prod->product_price;
             $orderItem->unit_mrp = $prod->product_mrp;
             $orderItem->total_price = $prod->product_price * $req->product_qty[$key];
-            $orderItem->delivery_date   = date_create(date('y-m-d h:m:s', strtotime ('+10 day')));
             $orderItem->status = 'checkout_pending';
             $orderItem->save();
-
-            if (isset($prod->comission->comission) && isset(Auth()->user()->affiliate->associate_id)) {
-                if ($prod->comission->comission > 0) {
-                    $affiliateOrderItem = new AffiliateOrderItem;
-                    $affiliateOrderItem->associate_id = Auth()->user()->affiliate->associate_id;
-                    $affiliateOrderItem->order_item_id = $orderItem->id;
-                    $affiliateOrderItem->comission = CalcPerc($prod->comission->comission, $prod->product_price) * $req->product_qty[$key];
-                    $affiliateOrderItem->status = 'pending';
-                    $affiliateOrderItem->save();
-                }
-            }
         }
 
         // Send user to paytm for payment
-        if ($req->payment_method == 'paytm') 
-        {
+        if ($req->payment_method == 'paytm') {
             $paytmParam = [ 
                 'ORDER_ID' => $order->id,
                 'CUST_ID' => Auth()->user()->id,
@@ -111,7 +112,7 @@ class CheckoutController extends Controller
     
             $payment = Indipay::gateway('Paytm')->prepare($paytmParam);
             return Indipay::process($payment);
-        } 
+        }
 
         // Send user to PayU for payment
         else if ($req->payment_method == 'payu') 
@@ -141,36 +142,72 @@ class CheckoutController extends Controller
                 'status' => 'order_placed',
             ]);
 
-            return redirect()->route('checkout-order-confirmation', $order->id);
-            // return $this->AfterPayment($order->id);
+            return $this->AfterPayment($order->id);
         }
 
     }
 
-    // Process after payment
+
     public function AfterPayment($order_id)
     {
-        
-        $order = Order::where('id', $order_id)->where('user_id', Auth()->user()->id)->first();
+        $order = Order::where('id', $order_id)->where('user_id', Auth()->user()->id)->with('OrderItems')->with('Address')->with('Address')->first();
 
-        // Redirect back if order is invalid or not right user.
         if (!isset($order)) {
-            return redirect()->back();
+            abort(500);
         }
 
-        $address = Address::where('id', $order->address_id)->first();
-        $items = OrderItem::where('order_id', $order->id)->with('product')->with('image')->get();
         $data = [
             'order'         => $order,
-            'items'         => $items,
-            'address'       => $address,
+            'items'         => $order->OrderItems,
+            'address'       => $order->Address,
+        ];
+    
+        if ($order->status == 'order_placed') {
+           
+            if ($order->OrderItems->count() < 1) {
+                foreach ($order->OrderItems as $key => $OrderItem) {
+                    $prod = $OrderItem->product;
+                    if (isset($prod->comission->comission) && isset(Auth()->user()->affiliate->associate_id)) {
+                        if ($prod->comission->comission > 0) {
+                            $affiliateOrderItem = new AffiliateOrderItem;
+                            $affiliateOrderItem->associate_id = Auth()->user()->affiliate->associate_id;
+                            $affiliateOrderItem->order_item_id = $orderItem->id;
+                            $affiliateOrderItem->comission = CalcPerc($prod->comission->comission, $prod->product_price) * $req->product_qty[$key];
+                            $affiliateOrderItem->status = 'pending';
+                            $affiliateOrderItem->save();
+                        }
+                    }
+                }
+            }
+            
+            mail::to(Auth()->user()->email)->send(new OrderPlacedMail($data)); 
+        }
+    
+        return redirect()->route('checkout-order-confirmation', $order->id);
+    }
+
+
+
+
+    // Process after payment
+    public function CheckoutOrderConfirmation($order_id)
+    {
+        $order = Order::where('id', $order_id)->where('user_id', Auth()->user()->id)->with('OrderItems')->with('Address')->first();
+
+        // Abort if order is invalid or not right user.
+        if (!isset($order)) {
+            abort(500);
+        }
+
+        $data = [
+            'order'         => $order,
+            'items'         => $order->OrderItems,
+            'address'       => $order->Address,
         ];
 
         // Process the order as Placed
         if ($order->status == 'order_placed') 
         {
-            mail::to(Auth()->user()->email)->send(new OrderPlacedMail($data));  
-
             return view('checkout.success', [
                 'data' => $data,
             ]);
@@ -188,13 +225,21 @@ class CheckoutController extends Controller
             return view('checkout.pending', [
                 'data' => $data,
             ]);
-        } else {
-            return redirect()->back();
+        } 
+        else {
+            abort(500);
         }
         
-
-        
     }
+
+
+
+
+
+
+
+
+
 
 
     public function PaytmResponse(Request $req)
@@ -232,7 +277,7 @@ class CheckoutController extends Controller
 
         }
         
-        return redirect()->route('checkout-order-confirmation', $req->ORDERID);
+        return $this->AfterPayment($req->ORDERID);
 
     }
     
@@ -269,7 +314,7 @@ class CheckoutController extends Controller
             ]);
         }
 
-        return redirect()->route('checkout-order-confirmation', $req->txnid);
+        return $this->AfterPayment($req->txnid);
     }
 
 
