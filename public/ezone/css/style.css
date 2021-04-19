@@ -4405,16 +4405,6 @@ a.icon-cart-furniture span.green {
     font-weight: bold;
     color: #999999;
 }
-.furniture-login ul li::before {
-    background-color: #999999;
-    content: "";
-    height: 14px;
-    margin: 0 auto;
-    position: absolute;
-    right: -10px;
-    top: 3px;
-    width: 1px;
-}
 .no-before::before {
     background-color: #999999;
     content: unset !important;
@@ -4425,6 +4415,17 @@ a.icon-cart-furniture span.green {
     top: 3px;
     width: 1px;
 }
+.furniture-login ul li::before {
+    background-color: #999999;
+    content: "";
+    height: 14px;
+    margin: 0 auto;
+    position: absolute;
+    right: -10px;
+    top: 3px;
+    width: 1px;
+}
+
 .furniture-login ul li:last-child::before {
     content: none;
 }
