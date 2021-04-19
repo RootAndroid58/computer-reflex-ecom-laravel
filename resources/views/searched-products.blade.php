@@ -1,6 +1,6 @@
 @extends('layouts.common')
 
-@section('title', 'Products Search')
+@section('title', 'Search: '.Request()->search)
     
 
 
@@ -96,9 +96,6 @@
                                 @endforeach
                              
                         </div>
-
-
-                        <button type="submit" class="btn btn-dark">Apply Filter</button>
                         </form>
                     </div>
                 </div>

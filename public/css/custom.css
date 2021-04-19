@@ -55,27 +55,9 @@ Collapse Bootstrap Studio Start
     float: initial;
   }
   
-  .btn-primary {
-    background-color: #e4e4e4;
-    border-color: #e4e4e4;
-  }
   
-  .btn-primary:hover {
-    color: rgb(99,133,205);
-    background-color: #e4e4e4;
-    border-color: #e4e4e4;
-  }
-  
-  .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
-    color: #fff;
-    background-color: #e4e4e4;
-    border-color: #e4e4e4;
-  }
-  
-  .btn-primary:active, .btn-primary:focus, .btn-primary:hover {
-    background-color: #e4e4e4;
-    border-color: #e4e4e4;
-  }
+
+
   
   
   

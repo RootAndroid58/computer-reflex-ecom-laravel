@@ -105,6 +105,26 @@
                     <td> <a href="javascript:void(0);" class="btn btn-primary btn-sm float-right" id="addMore2" title="Add More Person">Add More &nbsp;<i class="fa fa-plus-square"></i></a></td>     
                 </tr>
 
+                @if ($specifications->count() < 1)
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <input name="key[]" class="form-control @error('key[]') is-invalid @enderror" placeholder="Specification Name" value="" required>
+                            @error('key[]')<span class="invalid-feedback">{{$message}}</span>@enderror
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <input name="value[]" class="form-control @error('value[]') is-invalid @enderror" placeholder="Specification Value"  value="" required>
+                            @error('value[]')<span class="invalid-feedback">{{$message}}</span>@enderror
+                        </div>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger btn-sm remove">&nbsp;<i class="fa fa-times"></i>&nbsp;</a>
+                    </td>
+                    <hr>
+                </tr>
+                @endif
 
                 @foreach ($specifications as $specification)
                 <tr>

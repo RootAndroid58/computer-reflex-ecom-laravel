@@ -89,10 +89,7 @@
                         <div class="menu-style-2 furniture-menu menu-hover">
                             <nav>
                                 <ul>    
-                                    <li><a href="#">home</a>
-                                        <ul class="single-dropdown">
-                                            <li><a href="{{ route('home') }}">Fashion</a></li>
-                                        </ul>
+                                    <li><a href="{{url('/')}}">home</a>
                                     </li>
                                     <li><a href="#">Categories</a>
                                         <ul class="single-dropdown">
@@ -105,9 +102,6 @@
                                         </ul>
                                     </li>
                                     <li><a href="#">New Releases</a>
-                                        <ul class="single-dropdown">
-                                            <li><a href="about-us.html">about us</a></li>                        
-                                        </ul>
                                     </li>
                                     <li><a href="#">blog</a>
                                         <ul class="single-dropdown">

@@ -32,7 +32,7 @@ class AdminController extends Controller
 {
     public function IndexDashboard()
     {
-
+        
         return view('admin.dashboard');
     }
     public function IndexProfile()

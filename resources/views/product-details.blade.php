@@ -60,11 +60,18 @@
                             </ul>
                         </div>
                         <div class="col-10">
-                            <div class="" style="height: 475px; display: table-cell; vertical-align: middle; text-align: center;">
-                               
-                                <img src="{{ asset('storage/images/products/'.$images[0]->image) }}" alt="" 
-                                class="big_img" id="big_img"
-                                data-image="{{ asset('storage/images/products/'.$images[0]->image) }}">
+                            <div class="" style="height: 475px; text-align: center;">
+                               <div style="
+                                width: 100%;
+                                height: 475px;
+                                text-align: center;
+                                line-height: 475px;
+                               ">
+                                   <img src="{{ asset('storage/images/products/'.$images[0]->image) }}" alt="" 
+                                   class="big_img" id="big_img" style="vertical-align: middle;"
+                                   data-image="{{ asset('storage/images/products/'.$images[0]->image) }}">
+                               </div>
+                                
                              
                             </div>
                             
