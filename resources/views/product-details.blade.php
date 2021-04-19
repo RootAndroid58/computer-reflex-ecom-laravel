@@ -164,7 +164,13 @@
                         <div class="col-12 mb-1">
                             <span style="font-weight: 600; font-size: 16px;">Affiliate Tools</span>
                             <p>
-                                <span>Commision: <span style="font-weight: 700;">2% (<font class="rupees">₹<font>125)</span></span>
+                                <span>Commision: 
+                                    @if (isset($product->comission->comission))
+                                        <span style="font-weight: 700;">{{ $product->comission->comission }}% (<font class="rupees">₹<font>{{ moneyFormatIndia(round(CalcPerc($product->comission->comission, $product->product_price))) }})</span>
+                                    @else
+                                        <span style="font-weight: 700;">Not Eligible</span>
+                                    @endif
+                                </span>
                             </p>
                         </div>
                         <div class="col-12 mb-3">

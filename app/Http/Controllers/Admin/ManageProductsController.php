@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\ProductTag;
 use App\Models\ProductImage;
 use App\Models\Specification;
+use App\Models\ProductComission;
 use Storage;
 
 class ManageProductsController extends Controller
@@ -47,9 +48,6 @@ class ManageProductsController extends Controller
 
         return redirect()->route('admin-manage-products')->with(['listing_created' => $req->product_name]);
     }
-
-
-
 
 
 
@@ -183,7 +181,6 @@ class ManageProductsController extends Controller
 
     public function EditProductSubmit(Request $req)
     {
- 
         $req->validate([
             'product_name'                  => 'required',
             'product_status'                => 'required|numeric|in:0,1',
@@ -192,8 +189,22 @@ class ManageProductsController extends Controller
             'product_price'                 => 'required|numeric',
             'product_description'           => 'required',
             'product_long_description'      => 'nullable',
+            'comission'                     => 'nullable|max:100|min:1',
             'tags'                          => 'required',
         ]);
+
+        $comission = ProductComission::where('product_id', $req->product_id)->first();
+
+        if (!isset($comission)) {
+            $ProductComission = new ProductComission;
+            $ProductComission->product_id   = $req->product_id;
+            $ProductComission->comission    = $req->comission;
+            $ProductComission->save();
+        } else {
+            $comission->update([
+                'comission' => $req->comission,
+            ]);
+        }
 
         
         Product::where('id', $req->product_id)->update([

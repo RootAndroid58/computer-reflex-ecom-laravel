@@ -124,12 +124,12 @@ class IndexController extends Controller
     
         // max($products->pluck('product_price')->toArray())
 
-        if (isset($MinPriceUnset)) {
+        if (isset($MinPriceUnset) && $products->pluck('product_price')->count() > 0) {
             $req->merge([
                 'min_price' => min($products->pluck('product_price')->toArray()),
             ]);
         }
-        if (isset($MaxPriceUnset)) {
+        if (isset($MaxPriceUnset) && $products->pluck('product_price')->count() > 0) {
             $req->merge([
                 'max_price' => max($products->pluck('product_price')->toArray()),
             ]);
@@ -226,12 +226,12 @@ class IndexController extends Controller
     
         // max($products->pluck('product_price')->toArray())
 
-        if (isset($MinPriceUnset)) {
+        if (isset($MinPriceUnset) && $products->pluck('product_price')->count() > 0) {
             $req->merge([
                 'min_price' => min($products->pluck('product_price')->toArray()),
             ]);
         }
-        if (isset($MaxPriceUnset)) {
+        if (isset($MaxPriceUnset) && $products->pluck('product_price')->count() > 0) {
             $req->merge([
                 'max_price' => max($products->pluck('product_price')->toArray()),
             ]);

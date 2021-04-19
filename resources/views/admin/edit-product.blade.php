@@ -93,6 +93,13 @@
                       <small id="helpId" class="form-text text-muted">Enter <b>0</b> for No Stock</small>
                     </div>
                 </div>           
+                <div class="col-3">
+                    <div class="form-group">
+                      <label for="product_stock">Affiliate Comission</label>
+                      <input type="number" class="form-control" name="comission" id="comission" value="{{ $product->comission->comission ?? '' }}" placeholder="% Comission" required>
+                      <small id="helpId" class="form-text text-muted">In Percentage (%)</small>
+                    </div>
+                </div>           
             </div>
 
 

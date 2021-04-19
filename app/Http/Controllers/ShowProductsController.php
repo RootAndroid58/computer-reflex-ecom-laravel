@@ -22,8 +22,8 @@ class ShowProductsController extends Controller
 {
     public function ProductIndex($pid)
     {
-        $product = Product::with('tags')->where('id', $pid)->first();
-
+        $product = Product::with('comission')->with('tags')->where('id', $pid)->first();
+        
         if ($product->product_status == 1) {
             
             $images = ProductImage::Where('product_id' , $pid)->orderBy('id', 'desc')->get();
