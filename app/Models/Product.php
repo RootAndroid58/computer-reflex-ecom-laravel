@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\ProductImage;
 use App\Models\ProductTag;
 use App\Models\Category;
-use App\Models\specification;
+use App\Models\Specification;
 
 use Nicolaslopezj\Searchable\SearchableTrait;
 
@@ -70,6 +70,6 @@ class Product extends Model
     }
     public function specifications()
     {
-        return $this->hasMany(specification::class, 'product_id', 'id');
+        return $this->hasMany(Specification::class, 'product_id', 'id');
     }
 }
