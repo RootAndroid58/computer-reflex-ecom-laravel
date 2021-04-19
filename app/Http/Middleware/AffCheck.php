@@ -6,7 +6,6 @@ use Closure;
 use Illuminate\Http\Request;
 use App\Models\Affiliate;
 use App\Models\User;
-use App\Models\Product;
 use Auth;
 
 class AffCheck
