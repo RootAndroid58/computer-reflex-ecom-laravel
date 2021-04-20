@@ -68,6 +68,10 @@ class Product extends Model
     {
         return $this->hasOne(ProductComission::class, 'product_id', 'id')->orderBy('id', 'desc');
     }
+    public function questions()
+    {
+        return $this->hasMany(ProductQuestion::class, 'product_id', 'id')->orderBy('id', 'desc');
+    }
     public function specifications()
     {
         return $this->hasMany(Specification::class, 'product_id', 'id');

@@ -212,19 +212,12 @@ $('#ProductReviewForm').on('submit', function (e) {
 
 
 
-
-
-// Show Reviews on dedicated reviews page
-
+// Show Reviews on dedicated reviews page Start
 function fetchReviews(type) {
-
   if (type == 'new') {
     $('#reviewsDivLoader').removeClass('d-none')
     $('.reviewItem').remove()
   }
-
-
-
   var _token              = $('input[name="_token"]').val()
   var reviews_form_action = $('#reviews_form_action').val()
   var product_id          = $('#product_id').val()
@@ -232,7 +225,6 @@ function fetchReviews(type) {
   var sort_by             = $('#sort_by').val()
   var skip_count          = $('.reviewCount').length
   var domain              = $('#domain').val()
-
   $.ajax({
     url: reviews_form_action,
     method: 'POST',
@@ -248,8 +240,7 @@ function fetchReviews(type) {
       if (data.status == 200) {
         $('#reviewsDivLoader').addClass('d-none')
         if (data.reviewsCount == 0) {
-          if (type == 'new') {
-            $('#ShowReviewsArea').append(
+            $('#ShowReviewsArea').html(
               `
               <div class="reviewItem">
                 <div class="w-100 prod-back-div mt-4" style="height: 146px; background-image: url('${domain}/img/svg/notify.svg');"></div>
@@ -258,13 +249,10 @@ function fetchReviews(type) {
                 </div>
               </div>
               `)
-          }
-  
         } 
         else {
           data.reviews.forEach(review => {
-            $('#ShowReviewsArea').append(
-              `
+            $('#ShowReviewsArea').append(`
             <div class="reviewItem reviewCount" style="border: 1px solid #dddddd; border-radius: 2px; border-left: 0; border-right: 0;">
               <div class="wishlist-basic-padding" >
                   <div class="row">
@@ -288,28 +276,182 @@ function fetchReviews(type) {
 
               </div>
             </div>
-              `
-            )
+              `)
         });
-        if (data.reviewsCount != $('.reviewCount').length) {
-          $('#ShowReviewsArea').append(
-            `
-              <div class="row">
-                <div class="w-100">
-                    <div class="mt-3" style="text-align: center;">
-                      <span style="color: #0066c0;" id="loadMoreBtn">Load More...</span>
-                    </div>
-                </div>
-              </div>
-          `);
-        }
-
+          if (data.reviewsCount != $('.reviewCount').length && data.reviewsCount != 0) {
+            $('.loadMoreBtnContainer').removeClass('d-none')
+          } else {
+            $('.loadMoreBtnContainer').addClass('d-none')
+          }
         }
       }
     }
+  })
+}
+
+$('#loadMoreReviews').on('click', function () {
+  fetchReviews()
+})
+// Show Reviews on dedicated reviews page End
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Fetch QNA Start
+function fetchQnas(type) {
+ 
+  if (type == 'new') {
+    $('#reviewsDivLoader').removeClass('d-none')
+    $('.reviewItem').remove()
+  }
+  var _token              = $('input[name="_token"]').val()
+  var reviews_form_action = $('#reviews_form_action').val()
+  var product_id          = $('#product_id').val()
+  var review_search       = $('#review_search').val()
+  var sort_by             = $('#sort_by').val()
+  var skip_count          = $('.reviewCount').length
+  var domain              = $('#domain').val()
+
+  $.ajax({
+    url: reviews_form_action,
+    method: 'POST',
+    data: {
+        '_token'        : _token,
+        'product_id'    : product_id,
+        'review_search' : review_search,
+        'sort_by'       : sort_by,
+        'skip_count'    : skip_count,
+    },
+    async: false,
+    success: function (data) {
+      
+      if (data.status == 200) {
+        $('#reviewsDivLoader').addClass('d-none')
+        if (data.qnasCount == 0) {
+            $('#ShowReviewsArea').html(
+              `
+              <div class="reviewItem">
+                <div class="w-100 prod-back-div mt-4" style="height: 146px; background-image: url('${domain}/img/svg/notify.svg');"></div>
+                <div class="mt-3" style="text-align: center;">
+                    <span style="font-size: 18px;">No QnA Found</span>
+                </div>
+              </div>
+              `)
+        } 
+        else {
+          data.qnas.forEach(qna => {
+            console.log();
+            $('#ShowReviewsArea').append(`
+            <div class="reviewItem reviewCount" style="border: 1px solid #dddddd; border-radius: 2px; border-left: 0; border-right: 0; border-bottom: 0;">
+              <div class="wishlist-basic-padding" >
+                
+              <div style="text-align: left;">
+                  <div class="mb-2">
+                      <span style="color: black; font-weight: 600;">
+                        Q: ${qna.question}
+                      </span>
+                  </div>
+
+                  <div class="mb-3">
+                    <span style="color: grey; font-weight: 500;">
+                      A: ${qna.message}
+                    </span>
+                  </div>
+              </div>
+
+                 
+            
+              <div style="text-align: left;">
+                <span style="margin: 12px 0;">
+                    ${qna.user.name} <img width="14" src="http://localhost:8000/img/svg/verified-tick.svg" alt=""> (Buyer), 
+                  
+                </span>
+              </div>
+
+              </div>
+            </div>
+              `)
+        });
+          if (data.qnasCount != $('.reviewCount').length && data.qnasCount != 0) {
+            $('.loadMoreBtnContainer').removeClass('d-none')
+          } else {
+            $('.loadMoreBtnContainer').addClass('d-none')
+          }
+        }
+      }
+    }
+  })
+}
+
+$('#loadMoreQnas').on('click', function () {
+  fetchQnas()
+})
+// Fetch QNA End
+
+
+
+
+
+
+
+
+
+
+$('#PostQuestionBtn').on('click', function () {
+  $('#ask_question').val($('#review_search').val())
+  $('#PostQuestionModal').modal('toggle');
 })
 
-}
+
+$('#QuestionSubmitForm').on('submit', function (e) {
+  e.preventDefault()
+
+  var action = $('#QuestionSubmitForm').attr('action')
+  var _token = $('#QuestionSubmitForm').find('input[name="_token"]').val()
+  var question = $('#QuestionSubmitForm').find('input[name="question"]').val()
+  var product_id = $('#QuestionSubmitForm').find('input[name="product_id"]').val()
+
+  $.ajax({
+    url: action,
+    method: 'POST',
+    data: {
+        '_token'        : _token,
+        'product_id'    : product_id,
+        'question'      : question,
+    },
+    async: false,
+    success: function (data) {
+      if (data.status == 200) {
+        $('#PostQuestionModal').modal('toggle');
+        $(".bootstrap-growl").remove();
+        $.bootstrapGrowl("Question Added.", {
+            type: "success",
+            offset: {from:"bottom", amount: 50},
+            align: 'center',
+            allow_dismis: true,
+            stack_spacing: 10,
+        })
+      }
+    }
+  })
+
+})
+
+
+
+
 
 
 

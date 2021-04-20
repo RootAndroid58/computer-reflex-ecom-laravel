@@ -571,29 +571,28 @@
             </div>
         </div>
     </div>
-    <div class="electronic-banner-area">
-        <div class="custom-row-2">
 
 
-            @foreach ($SmallBanners as $key => $SmallBanner)
-                @if ($key < 3)
-                <div class="custom-col-style-2 electronic-banner-col-3 mb-30">
-                    <a href="{{ $SmallBanner->link }}">
-                        <div class="electronic-banner-wrapper">
-                            <img style="height: 100%; width: 100%;" loading=lazy src="{{ $SmallBanner->image }}" alt="Small Banner Image">
+        <div class="electronic-banner-area">
+            <div class="custom-row-2">
+                @foreach ($SmallBanners as $key => $SmallBanner)
+                    @if ($key < 3)
+                    <div class="custom-col-style-2 electronic-banner-col-3 mb-30">
+                        <div class="div-shadow">
+                            <a href="{{ $SmallBanner->link }}">
+                                <div class="electronic-banner-wrapper">
+                                    <img style="height: 100%; width: 100%;" loading=lazy src="{{ $SmallBanner->image }}" alt="Small Banner Image">
+                                </div>
+                            </a>
+                            <div>
+                                <span class="cursor-pointer static-blue float-right "  onclick="EditSmallBanner({{ $SmallBanner->id }})">Edit</span>
+                            </div>
                         </div>
-                    </a>
-                    <div>
-                        <span class="cursor-pointer static-blue float-right "  onclick="EditSmallBanner({{ $SmallBanner->id }})">Edit</span>
                     </div>
-                </div>
-                @endif
-            @endforeach
-
-        
-
+                    @endif
+                @endforeach
+            </div>
         </div>
-    </div>
 
 
 
@@ -605,28 +604,6 @@
             @include('includes.home-page-products-carousel')
         @endif
     @endforeach
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -647,16 +624,6 @@
         </div>
     </div>
     
-
-
-
-
-
-
-
-
-
-
 
 
 

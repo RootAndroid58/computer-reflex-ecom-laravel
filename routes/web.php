@@ -36,6 +36,7 @@ Route::get('CartTest', 'App\Http\Controllers\CartController@Test');
     Route::get('/register', 'App\Http\Controllers\Auth\RegisterController@showRegistrationForm')->name('register');
     Route::post('/register', 'App\Http\Controllers\Auth\RegisterController@register')->name('register');
     Route::post('/ajax/get-product-reviews', [App\Http\Controllers\AjaxController::class, 'GetProductReviews'])->name('get-product-reviews');
+    Route::post('/ajax/get-product-qnas', [App\Http\Controllers\AjaxController::class, 'GetProductQnas'])->name('get-product-qnas');
     Route::post('/ajax/sync-price', [App\Http\Controllers\AjaxController::class, 'SyncPrice'])->name('sync-price');
 // Authentication Routes End...
 
@@ -72,8 +73,8 @@ Route::get('CartTest', 'App\Http\Controllers\CartController@Test');
     
     Route::get('/support/contact-us', [App\Http\Controllers\SupportController::class, 'ContactUs'])->name('support.contact-us')->middleware(['VerifiedNoAuth']);
     
-    Route::get('/product/pid/{product_id}/reviews/', [App\Http\Controllers\ReviewController::class, 'AllProductReviews'])->name('all-product-reviews');
-
+    Route::get('/product/pid/{product_id}/reviews', [App\Http\Controllers\ReviewController::class, 'AllProductReviews'])->name('all-product-reviews');
+    
     Route::post('/ajax/get-small-banner-data', [App\Http\Controllers\AjaxController::class, 'GetSmallBannerData'])->name('get-small-banner-data');
 
 
@@ -87,6 +88,8 @@ Route::group(['middleware' => ['verified', 'auth']], function() {
     Route::get('/support/raise-support-ticket', [App\Http\Controllers\SupportController::class, 'RaiseSupportTicket'])->name('support.raise-support-ticket');
     
     Route::post('/support/raise-support-ticket/submit', [App\Http\Controllers\SupportController::class, 'RaiseSupportTicketSubmit'])->name('support.raise-support-ticket-submit');
+    
+    Route::post('/qna/new-question/submit', [App\Http\Controllers\ProductQNAController::class, 'QuestionSubmit'])->name('qna.new-question-submit');
     
     Route::post('/support/add-reply/submit', [App\Http\Controllers\SupportController::class, 'AddReply'])->name('support.support-add-reply');
     

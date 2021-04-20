@@ -1032,6 +1032,10 @@ Buy now button Custom
     position: relative;
 }
 
+.div-shadow{ 
+    box-shadow: 0 0 10px #888888;
+}
+
 .prod-back-div{
     background-repeat: no-repeat;
     background-position: center;

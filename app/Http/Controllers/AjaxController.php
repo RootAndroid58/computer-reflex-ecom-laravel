@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductReview;
 use App\Models\SmallBanner;
+use App\Models\ProductQuestion;
 
 class AjaxController extends Controller
 {
@@ -110,8 +111,8 @@ class AjaxController extends Controller
             $reviews = $reviews->orderBy('stars', 'asc');
         }
 
-        $TotalReviews = $reviews;
-        $reviews = $reviews->skip($req->skip_count)->take(5)->get();
+        $TotalReviews = $reviews->count();
+        $reviews = $reviews->skip($req->skip_count)->take(1)->get();
 
         foreach ($reviews as $review) {
             $review->days_ago = HowMuchOldDate($review->created_at, 'days');
@@ -120,8 +121,44 @@ class AjaxController extends Controller
         return [
             'status'        => 200,
             'reviews'       => $reviews,
-            'reviewsCount'  => $TotalReviews->count(),
+            'reviewsCount'  => $TotalReviews,
         ];
     }
+
+
+
+
+
+
+    
+    public function GetProductQnas(Request $req)
+    {
+        $qnas = ProductQuestion::with('answers')->with('user')
+        ->search($req->review_search)
+        ->where('product_id', $req->product_id);
+        
+
+        if ($req->sort_by == 'Newest First') {
+            $qnas = $qnas->orderBy('id', 'desc');
+        }
+        if ($req->sort_by == 'Oldest First') {
+            $qnas = $qnas->orderBy('id', 'asc');
+        }
+
+
+        $TotalQnas = $qnas->count();
+        $qnas = $qnas->skip($req->skip_count)->take(1)->get();
+
+        foreach ($qnas as $qna) {
+            $qna->days_ago = HowMuchOldDate($qna->created_at, 'days');
+        }
+        
+        return [
+            'status'     => 200,
+            'qnas'       => $qnas,
+            'qnasCount'  => $TotalQnas,
+        ];
+    }
+
 
 }

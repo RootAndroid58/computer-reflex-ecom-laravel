@@ -22,7 +22,7 @@ class ShowProductsController extends Controller
 {
     public function ProductIndex($pid)
     {
-        $product = Product::with('comission')->with('tags')->where('id', $pid)->first();
+        $product = Product::with('comission')->with('tags')->with('questions.answers')->where('id', $pid)->first();
         
         if ($product->product_status == 1) {
             

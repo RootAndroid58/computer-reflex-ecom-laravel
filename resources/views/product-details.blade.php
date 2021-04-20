@@ -25,21 +25,43 @@
 @endphp
 
 @section('modals')
-
-<div id="ReviewModalsDiv">
-
-
-
-
-</div>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="PostQuestionModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="{{ route('qna.new-question-submit') }}" id="QuestionSubmitForm"> @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title">Post Your Question</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>
+                    <div class="modal-body">
+                    
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <div class="form-group w-100">
+                            <label for="">Question</label>
+                            <input type="text"
+                                class="form-control" name="question" id="ask_question" aria-describedby="helpId" placeholder="">
+                                <small class="text-muted">Type Your Question</small>
+                            </div>
+                       
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 @endsection
 
 
+
 @section('content')
-
-
-
 <div class="product-details ptb-100 pb-90">
     <div class="container" >
         <div class="row">
@@ -309,8 +331,8 @@
 
              {{-- Description & Specifications Toggle Buttons --}}
             <div class="description-review-title nav" role=tablist>
-                <a class="active" href="#rating_Rev" data-toggle="tab" role="tab" aria-selected="false">Ratings & Reviews
-                <a href="#qna" data-toggle="tab" role="tab" aria-selected="true">Questions & Answers</a>
+                <a  href="#rating_Rev" data-toggle="tab" role="tab" aria-selected="false">Ratings & Reviews
+                <a class="active" href="#qna" data-toggle="tab" role="tab" aria-selected="true">Questions & Answers</a>
                 </a>
             </div>
 
@@ -319,7 +341,7 @@
 
                 {{-- Rating Reviews Section --}}
                 
-                <div class="tab-pane active show fade" id="rating_Rev" role="tabpanel">
+                <div class="tab-pane  fade" id="rating_Rev" role="tabpanel">
                     <div id="RatingAreaDIV">
 
                     <div class="wishlist-basic-padding" style="border: 1px solid #dddddd; border-radius: 2px;"> 
@@ -529,16 +551,85 @@
 
 
 
-                {{-- Qna Section --}}
-                <div class="tab-pane fade" id="qna" role="tabpanel">
-                    
-                    QnA Section
+                    {{-- Qna Section --}}
+                    <div class="tab-pane active show fade" id="qna" role="tabpanel">
 
-                </div>
+                        <div class="" style="border: 1px solid #dddddd; border-radius: 2px;">
+                            
+                                    <div class="row">
+                                        <div class="w-100" style="padding: 24px 15px 0px 15px;">
+                                            <div class="col-9">
+                                            
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                        <span class="input-group-text" id="searchPre">
+                                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input type="text" id="review_search" class="form-control" placeholder="Search for reviews..." aria-label="Username" aria-describedby="basic-addon1">
+                                                    </div>
+                                            </div>
+                                            <div class="col-3">
+                                            
+                                                    <div class="form-group">
+                                                        <select onchange="fetchQnas('new')" class="form-control" name="" id="sort_by" style="font-size: 14px;">
+                                                        <option value="Not Selected" selected disabled>Sort By</option>
+                                                        <option value="Random">Default</option>
+                                                        <option value="Newest First">Newest First</option>
+                                                        <option value="Oldest First">Oldest First</option>
+                                                        </select>
+                                                    </div>
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                            
+                                  
+                                    <div class="">
+                                        <div class="w-100" style="padding-bottom: 22px;" >
+                                            @csrf
+                                            <input type="hidden" id="product_id" value="{{ $product->id }}">
+                                            <input type="hidden" id="domain" value="{{ url('/') }}">
+                                            <input type="hidden" id="reviews_form_action" value="{{ route('get-product-qnas') }}">
+                                            <div id="ShowReviewsArea" class="mt-3 w-100" style="padding-bottom: 30px;
+                                            border-bottom: 1px solid #dddddd;">
+
+                                                <div class="div-loader" id="reviewsDivLoader">
+                                                    <div style="text-align: center;">
+                                                        <div class="spinner-border text-dark" role="status" style="width: 90px; height: 90px; ">
+                                                            <span class="sr-only">Loading...</span>
+                                                        </div>
+                                                        <br>
+                                                        <div class="mt-3">
+                                                            <span>Loading...</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                                <div class="w-100 loadMoreBtnContainer text-center d-none">
+                                                    <div class="mt-3" style="text-align: center;">
+                                                    <a class="cursor-pointer" style="color: #0066c0;"  id="loadMoreReviews">Load More...</a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="w-100 text-center mt-3 mb-3" >
+                                                    <div class="mb-3 mt-3">Don't see the answer you're looking for? </div>
+                                                    <button class="btn btn-dark btn-sm" id="PostQuestionBtn">Post Question</button>
+                                                </div>
+                                        </div>
+                                    </div>
+
+
+
+                        </div> 
+                
+
+                    </div>
+
+
 
             </div>
-
-
         </div>
     </div>
 </div> {{-- Description & Specification Area container end --}}
@@ -617,6 +708,38 @@
 
 
 <script>
+
+$('document').ready( function (){
+    fetchQnas('new')
+})
+
+
+//setup before functions
+var typingTimer;                //timer identifier
+var doneTypingInterval = 1500;  //time in ms, 5 second for example
+var $input = $('#review_search');
+
+//on keyup, start the countdown
+$input.on('keyup', function () {
+    $('#searchPre').html(`<i class="fa fa-spinner fa-spin"></i>`)
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(doneTyping, doneTypingInterval);
+});
+
+//on keydown, clear the countdown 
+$input.on('keydown', function () {
+  clearTimeout(typingTimer);
+});
+
+//user is "finished typing," do something
+function doneTyping () {
+    $('#searchPre').html(`<i class="fa fa-search" aria-hidden="true"></i>`)
+    $('#searchPre').removeClass('searchLoading')
+    fetchQnas('new')
+}
+
+
+
 
 // COPY TO CLIPBOARD
 // Attempts to use .execCommand('copy') on a created text field
