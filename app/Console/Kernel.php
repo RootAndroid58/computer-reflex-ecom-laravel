@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('command:CreditAffiliateComission')->hourly();
+        $schedule->command('command:CreditAffiliateComission')->everyMinute();
     }
 
     /**

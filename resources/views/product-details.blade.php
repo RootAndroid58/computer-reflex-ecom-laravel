@@ -4,6 +4,9 @@
 
 @section('css-js')
     <style>
+        .cursorshade{
+            border: none !important;
+        }
         .magnifier{
             position: fixed !important;
             margin: auto !important;
@@ -166,7 +169,7 @@
                             <p>
                                 <span>Commision: 
                                     @if (isset($product->comission->comission))
-                                        <span style="font-weight: 700;">{{ $product->comission->comission }}% (<font class="rupees">₹<font>{{ moneyFormatIndia(round(CalcPerc($product->comission->comission, $product->product_price))) }})</span>
+                                        <span style="font-weight: 700;">{{ $product->comission->comission }}% </span>
                                     @else
                                         <span style="font-weight: 700;">Not Eligible</span>
                                     @endif
@@ -900,7 +903,8 @@ function ToggleCart(product_id) {
                 magnifierspeedanimate: 350,
                 magnifiersize: ['43%', '75vh'],
                 leftoffset:  15, 						// îòñòóï ñëåâà îò tmb êàðòèíêè
-				rightoffset: 15, 	    
+				rightoffset: 15, 	
+                magnifierborder: 'no-border',     
 			})
 		})
 	</script>

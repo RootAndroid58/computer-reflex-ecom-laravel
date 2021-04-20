@@ -19,7 +19,7 @@ class OrderItem extends Model
     }
     public function shipment()
     {
-        return $this->hasOne(Shipment::class, 'order_item_id', 'id');
+        return $this->hasOne(Shipment::class, 'order_item_id', 'id')->orderBy('id', 'desc');
     }
     public function order()
     {

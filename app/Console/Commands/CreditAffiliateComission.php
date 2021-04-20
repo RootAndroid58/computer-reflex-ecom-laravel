@@ -43,7 +43,7 @@ class CreditAffiliateComission extends Command
      */
     public function handle()
     {    
-        $orderItems = OrderItem::whereHas('AffiliateOrderItem', function($q){
+        $orderItems = OrderItem::with('shipment')->whereHas('AffiliateOrderItem', function($q){
             $q->where('status', 'pending');
         })
         ->where('status', 'item_delivered')
@@ -57,8 +57,8 @@ class CreditAffiliateComission extends Command
 
                     if ($orderItem->AffiliateOrderItem->status == 'pending') {
 
-                        $deliveryDate = new \DateTime($orderItem->delivery_date);
-                        $returnDate = $deliveryDate->modify('+15 days');
+                        $deliveryDate = new \DateTime($orderItem->shipment->delivery_date);
+                        $returnDate = $deliveryDate->modify('+20 days');
                         $today = new \DateTime();
 
                         // Process if return date is over for the Affiliate Purchase
@@ -78,8 +78,15 @@ class CreditAffiliateComission extends Command
                             $walletTxn->type        = 'credit';
                             $walletTxn->txn_amount  = $orderItem->AffiliateOrderItem->comission;
                             $walletTxn->description = 'Comission for Affiliate Purchase #'.$orderItem->AffiliateOrderItem->id;
-                            $walletTxn->ob          = $wallet->cb ?? '0';
-                            $walletTxn->cb          = $wallet->cb ?? '0' + $orderItem->AffiliateOrderItem->comission;
+                            
+                            if (isset($wallet)) {
+                                $walletTxn->ob      = $wallet->cb;
+                                $walletTxn->cb      = $wallet->cb + $orderItem->AffiliateOrderItem->comission;
+                            } else {
+                                $walletTxn->ob      = 0;
+                                $walletTxn->cb      = 0 + $orderItem->AffiliateOrderItem->comission;
+                            }
+                            
                             $walletTxn->save();
 
                             $user = User::where('id', $walletTxn->user_id)->first();

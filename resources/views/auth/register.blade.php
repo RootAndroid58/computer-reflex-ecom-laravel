@@ -18,7 +18,11 @@
             <div class="card-body p-0">
                 <div class="row">
                     <div class="col-lg-5 d-none d-lg-flex">
-                        <div class="flex-grow-1 bg-register-image" style="background-image: url(&quot;SB-Admin//img/dogs/image2.jpeg&quot;);"></div>
+                        <div class="flex-grow-1 bg-register-image" style="
+                                background-repeat: no-repeat;
+                                background-position: center;
+                                background-size: contain;
+                                background-image: url('{{asset('img/svg/profile.svg')}}');"></div>
                     </div>
                     <div class="col-lg-7">
                         <div class="p-5">
