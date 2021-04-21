@@ -358,7 +358,7 @@ function fetchQnas(type) {
                     Q: ${qnas.question}
                   </span>
                 `
-                if (data.answerable) {
+                if (qnas.answerable != false) {
                   content += `
                     <span style="color: black; font-weight: 600;" class="float-right">
                       <button class="btn btn-sm btn-dark" id="AddAnswerButton" question_id="${qnas.id}">Add Answer</button>

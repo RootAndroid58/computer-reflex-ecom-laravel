@@ -154,7 +154,6 @@ class AjaxController extends Controller
 
         foreach ($qnas as $qna) {
             $qna->days_ago = HowMuchOldDate($qna->created_at, 'days');
-            $qna->answerable = false;
             $pid = $qna->product_id;
             $answerable = Order::where('user_id', Auth()->user()->id)
                 ->whereHas('OrderItems', function ($query) use ($pid) {
@@ -163,6 +162,8 @@ class AjaxController extends Controller
 
             if (isset($answerable)) {
                 $qna->answerable = true;
+            } else {
+                $qna->answerable = false;
             }
         }
         
@@ -170,7 +171,6 @@ class AjaxController extends Controller
             'status'     => 200,
             'qnas'       => $qnas,
             'qnasCount'  => $TotalQnas,
-            'answerable' => $answerable,
         ];
     }
 
