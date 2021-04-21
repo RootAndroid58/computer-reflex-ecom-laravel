@@ -20,10 +20,15 @@ use Session;
 
 class ShowProductsController extends Controller
 {
-    public function ProductIndex(Request $req, $pid)
+    public function ProductIndex($pid)
     {
         $product = Product::with('comission')->with('tags')->with('questions.answers')->where('id', $pid)->first();
         
+        if (!isset(request()->prod_name)) {
+            $prod_name = str_replace(' ', '-', $product->product_name);
+            return redirect(request()->fullUrlWithQuery(['prod_name' => $prod_name]));
+        }
+
         if ($product->product_status == 1) {
             
             $images = ProductImage::Where('product_id' , $pid)->orderBy('id', 'desc')->get();
@@ -151,8 +156,7 @@ class ShowProductsController extends Controller
                     }
                 } else { $affiliateLink = null; }
              }
-             
-            Request()->request->add(['variable' => 'value']);
+
             
 
             return view('product-details', [

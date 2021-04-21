@@ -366,8 +366,8 @@
 
              {{-- Description & Specifications Toggle Buttons --}}
             <div class="description-review-title nav" role=tablist>
-                <a  href="#rating_Rev" data-toggle="tab" role="tab" aria-selected="false">Ratings & Reviews
-                <a class="active" href="#qna" data-toggle="tab" role="tab" aria-selected="true">Questions & Answers</a>
+                <a class="active" href="#rating_Rev" data-toggle="tab" role="tab" aria-selected="false">Ratings & Reviews
+                <a href="#qna" data-toggle="tab" role="tab" aria-selected="true">Questions & Answers</a>
                 </a>
             </div>
 
@@ -376,7 +376,7 @@
 
                 {{-- Rating Reviews Section --}}
                 
-                <div class="tab-pane  fade" id="rating_Rev" role="tabpanel">
+                <div class="tab-pane active show fade" id="rating_Rev" role="tabpanel">
                     <div id="RatingAreaDIV">
 
                     <div class="wishlist-basic-padding" style="border: 1px solid #dddddd; border-radius: 2px;"> 
@@ -587,7 +587,7 @@
 
 
                     {{-- Qna Section --}}
-                    <div class="tab-pane active show fade" id="qna" role="tabpanel">
+                    <div class="tab-pane fade" id="qna" role="tabpanel">
 
                         <div class="" style="border: 1px solid #dddddd; border-radius: 2px;">
 
