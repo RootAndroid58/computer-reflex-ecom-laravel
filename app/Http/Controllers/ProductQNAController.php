@@ -7,11 +7,18 @@ use App\Models\Product;
 use App\Models\ProductReview;
 use App\Models\ProductQuestion;
 use App\Models\ProductAnswer;
+use Auth;
 
 class ProductQNAController extends Controller
 {
     public function QuestionSubmit(Request $req)
     {
+        if (!Auth::check()) {
+            return [
+                'status' => 500,
+            ];
+        }
+        
         $req->validate([
             'product_id'    => 'required|exists:products,id',
             'question'      => 'required',
@@ -30,6 +37,12 @@ class ProductQNAController extends Controller
 
     public function AnswerSubmit(Request $req)
     {
+        if (!Auth::check()) {
+            return [
+                'status' => 500,
+            ];
+        }
+
         $question = ProductQuestion::where('id', $req->question_id)->first();
         $pid = $question->product_id;
         $answerable = Order::where('user_id', Auth()->user()->id)

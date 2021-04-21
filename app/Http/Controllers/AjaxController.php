@@ -155,7 +155,7 @@ class AjaxController extends Controller
         foreach ($qnas as $qna) {
             $qna->days_ago = HowMuchOldDate($qna->created_at, 'days');
             $pid = $qna->product_id;
-            $answerable = Order::where('user_id', Auth()->user()->id)
+            $answerable = Order::where('user_id', Auth()->user()->id ?? 'DummyUserId')
                 ->whereHas('OrderItems', function ($query) use ($pid) {
                     $query->where('product_id', $pid);
                 })->first();
