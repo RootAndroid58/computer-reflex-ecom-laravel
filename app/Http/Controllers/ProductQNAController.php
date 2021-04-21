@@ -31,8 +31,13 @@ class ProductQNAController extends Controller
     public function AnswerSubmit(Request $req)
     {
         $question = ProductQuestion::where('id', $req->question_id)->first();
+        $pid = $question->product_id;
+        $answerable = Order::where('user_id', Auth()->user()->id)
+        ->whereHas('OrderItems', function ($query) use ($pid) {
+            $query->where('product_id', $pid);
+        })->first();
 
-        if (isset($question)) {
+        if (isset($question) && isset($answerable)) {
             ProductAnswer::updateOrCreate(
                 [ 
                     'user_id' => Auth()->user()->id,
