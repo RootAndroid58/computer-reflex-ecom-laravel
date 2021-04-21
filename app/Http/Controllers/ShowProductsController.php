@@ -20,7 +20,7 @@ use Session;
 
 class ShowProductsController extends Controller
 {
-    public function ProductIndex($pid)
+    public function ProductIndex(Request $req, $pid)
     {
         $product = Product::with('comission')->with('tags')->with('questions.answers')->where('id', $pid)->first();
         
@@ -152,6 +152,7 @@ class ShowProductsController extends Controller
                 } else { $affiliateLink = null; }
              }
              
+            Request()->request->add(['variable' => 'value']);
             
 
             return view('product-details', [

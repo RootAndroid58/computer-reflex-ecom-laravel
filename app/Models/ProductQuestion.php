@@ -44,6 +44,10 @@ class ProductQuestion extends Model
         {
             return $this->hasMany(ProductAnswer::class, 'question_id', 'id')->orderBy('id', 'desc');
         }
+        public function answer()
+        {
+            return $this->hasOne(ProductAnswer::class, 'question_id', 'id')->orderBy('id', 'desc');
+        }
         public function user()
         {
             return $this->hasOne(User::class, 'id', 'user_id');

@@ -7,6 +7,9 @@ use App\Models\Product;
 use App\Models\ProductReview;
 use App\Models\SmallBanner;
 use App\Models\ProductQuestion;
+use App\Models\ProductAnswer;
+use App\Models\OrderItem;
+use App\Models\Order;
 
 class AjaxController extends Controller
 {
@@ -133,7 +136,7 @@ class AjaxController extends Controller
     
     public function GetProductQnas(Request $req)
     {
-        $qnas = ProductQuestion::with('answers')->with('user')
+        $qnas = ProductQuestion::with('answers.user')->with('user')
         ->search($req->review_search)
         ->where('product_id', $req->product_id);
         
@@ -151,12 +154,48 @@ class AjaxController extends Controller
 
         foreach ($qnas as $qna) {
             $qna->days_ago = HowMuchOldDate($qna->created_at, 'days');
+            $qna->answerable = false;
+            $pid = $qna->product_id;
+            $answerable = Order::where('user_id', Auth()->user()->id)
+                ->whereHas('OrderItems', function ($query) use ($pid) {
+                    $query->where('product_id', $pid);
+                })->first();
+
+            if (isset($answerable)) {
+                $qna->answerable = true;
+            }
         }
         
         return [
             'status'     => 200,
             'qnas'       => $qnas,
             'qnasCount'  => $TotalQnas,
+            'answerable' => $answerable,
+        ];
+    }
+
+    public function GetAnswerFormDetails(Request $req)
+    {
+        $status = 200;
+        $question = ProductQuestion::where('id', $req->question_id)->first();
+        $answer = ProductAnswer::where('question_id', $req->question_id)->where('user_id', Auth()->user()->id)->first();
+        
+        if (!isset($question)) {
+            $question = false;
+        }
+
+        if (!isset($answer)) {
+            $answer = false;
+        }
+
+        if (!isset($question)) {
+            $status = 500;
+        }
+
+        return [
+            'status'        => $status,
+            'qna'           => $question,
+            'answer'        => $answer,
         ];
     }
 

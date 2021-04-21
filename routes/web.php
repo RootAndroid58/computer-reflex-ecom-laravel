@@ -139,11 +139,15 @@ Route::group(['middleware' => ['verified', 'auth']], function() {
     
     Route::post('/review/product/submit', [App\Http\Controllers\ReviewController::class, 'ReviewSubmit'])->name('review-submit');
     
+    Route::post('/qna/answer/submit', [App\Http\Controllers\ProductQNAController::class, 'AnswerSubmit'])->name('answer-submit');
+    
     Route::get('/ajax/get-auth-name', [App\Http\Controllers\AjaxController::class, 'GetAuthName'])->name('get-auth-name');
 
     Route::get('/ajax/get-auth-email', [App\Http\Controllers\AjaxController::class, 'GetAuthEmail'])->name('get-auth-email');
 
     Route::get('/ajax/get-auth-mobile', [App\Http\Controllers\AjaxController::class, 'GetAuthMobile'])->name('get-auth-mobile');
+   
+    Route::get('/ajax/get-add-answer-form-details', [App\Http\Controllers\AjaxController::class, 'GetAnswerFormDetails'])->name('get-add-answer-form-details');
     
     
 

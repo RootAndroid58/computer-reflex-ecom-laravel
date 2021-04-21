@@ -25,7 +25,42 @@
 @endphp
 
 @section('modals')
-    
+    <!-- Modal -->
+    <div class="modal fade" id="AddAnswerModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="{{ route('answer-submit') }}" method="post" id="SubmitAnswerForm">
+                    <input type="hidden" name="question_id">
+                    <input type="hidden" name="fetchData" value="{{ route('get-add-answer-form-details') }}">@csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title">Contribute Your Answer</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>
+                    <div class="" style="padding: 1rem;">
+                    
+                        <div class="form-group" >
+                          <label for="Question"></label>
+                          <input type="text" readonly
+                            class="form-control" name="question" id="question" aria-describedby="helpId" placeholder="">
+                        </div>
+
+                        <div class="form-group">
+                          <label for="Question"></label>
+                          <input type="text"
+                            class="form-control" name="answer" id="answer" aria-describedby="helpId" placeholder="">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>   
+                </form>
+            </div>
+        </div>
+    </div>
     <!-- Modal -->
     <div class="modal fade" id="PostQuestionModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -555,9 +590,10 @@
                     <div class="tab-pane active show fade" id="qna" role="tabpanel">
 
                         <div class="" style="border: 1px solid #dddddd; border-radius: 2px;">
-                            
-                                    <div class="row">
-                                        <div class="w-100" style="padding: 24px 15px 0px 15px;">
+
+                                <div style="border-bottom: 1px solid #dddddd;">
+                                    <div class="row" >
+                                        <div class="w-100" style="padding: 24px 15px 0px 15px; ">
                                             <div class="col-9">
                                             
                                                     <div class="input-group">
@@ -566,7 +602,7 @@
                                                             <i class="fa fa-search" aria-hidden="true"></i>
                                                             </span>
                                                         </div>
-                                                        <input type="text" id="review_search" class="form-control" placeholder="Search for reviews..." aria-label="Username" aria-describedby="basic-addon1">
+                                                        <input type="text" id="review_search" class="form-control" placeholder="Search for answers..." aria-label="Username" aria-describedby="basic-addon1">
                                                     </div>
                                             </div>
                                             <div class="col-3">
@@ -583,7 +619,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                            
+                                </div>            
                                   
                                     <div class="">
                                         <div class="w-100" style="padding-bottom: 22px;" >
@@ -609,11 +645,11 @@
                                             </div>
                                                 <div class="w-100 loadMoreBtnContainer text-center d-none">
                                                     <div class="mt-3" style="text-align: center;">
-                                                    <a class="cursor-pointer" style="color: #0066c0;"  id="loadMoreReviews">Load More...</a>
+                                                    <a class="cursor-pointer" style="color: #0066c0;"  id="loadMoreQnas">Load More...</a>
                                                     </div>
                                                 </div>
 
-                                                <div class="w-100 text-center mt-3 mb-3" >
+                                                <div class="w-100 text-center mt-3 mb-3"    >
                                                     <div class="mb-3 mt-3">Don't see the answer you're looking for? </div>
                                                     <button class="btn btn-dark btn-sm" id="PostQuestionBtn">Post Question</button>
                                                 </div>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductReview;
 use App\Models\ProductQuestion;
+use App\Models\ProductAnswer;
 
 class ProductQNAController extends Controller
 {
@@ -25,6 +26,28 @@ class ProductQNAController extends Controller
         return [
             'status' => 200,
         ];
+    }
+
+    public function AnswerSubmit(Request $req)
+    {
+        $question = ProductQuestion::where('id', $req->question_id)->first();
+
+        if (isset($question)) {
+            ProductAnswer::updateOrCreate(
+                [ 
+                    'user_id' => Auth()->user()->id,
+                    'question_id' => $req->question_id,
+                ],
+                [ 
+                    'answer' => $req->answer,
+                ]
+            );
+
+            return [
+                'status' => 200,
+            ];
+        }
+
     }
 
     

@@ -1,8 +1,4 @@
 
-
-  
-  
-  
   
   
   
@@ -336,7 +332,6 @@ function fetchQnas(type) {
     },
     async: false,
     success: function (data) {
-      
       if (data.status == 200) {
         $('#reviewsDivLoader').addClass('d-none')
         if (data.qnasCount == 0) {
@@ -351,45 +346,77 @@ function fetchQnas(type) {
               `)
         } 
         else {
-          data.qnas.forEach(qna => {
-            console.log();
-            $('#ShowReviewsArea').append(`
-            <div class="reviewItem reviewCount" style="border: 1px solid #dddddd; border-radius: 2px; border-left: 0; border-right: 0; border-bottom: 0;">
-              <div class="wishlist-basic-padding" >
-                
-              <div style="text-align: left;">
-                  <div class="mb-2">
-                      <span style="color: black; font-weight: 600;">
-                        Q: ${qna.question}
-                      </span>
-                  </div>
-
-                  <div class="mb-3">
-                    <span style="color: grey; font-weight: 500;">
-                      A: ${qna.message}
+          let content;
+          for (let i = 0; i < data.qnas.length; i++) {
+            let qnas = data.qnas[i]
+            content = `
+            <div class="reviewItem reviewCount" style="border-bottom: 1px solid #dddddd; ">
+              
+            <div style="text-align: left; padding: 10px 24px;">
+                <div class="">
+                  <span style="color: black; font-weight: 600;">
+                    Q: ${qnas.question}
+                  </span>
+                `
+                if (data.answerable) {
+                  content += `
+                    <span style="color: black; font-weight: 600;" class="float-right">
+                      <button class="btn btn-sm btn-dark" id="AddAnswerButton" question_id="${qnas.id}">Add Answer</button>
                     </span>
+                  `
+                }
+
+                content += `</div>
+                  </div>`
+                            
+              
+              if (qnas.answers.length < 1) {
+                content += `
+                  <div style="text-align: left; padding: 10px 24px;">
+                    <div class="">
+                      <span style="">No Answers Yet</span>
+                    </div>
                   </div>
-              </div>
+                `
+              }
 
-                 
-            
-              <div style="text-align: left;">
-                <span style="margin: 12px 0;">
-                    ${qna.user.name} <img width="14" src="http://localhost:8000/img/svg/verified-tick.svg" alt=""> (Buyer), 
-                  
-                </span>
-              </div>
+              else {
+                for (let index = 0; index < data.qnas[i].answers.length; index++) {
+                
+                  let answers = qnas.answers[index]
+  
+                    content += `
+                    <div style="text-align: left; padding: 10px 24px;">
+                      <div class="">
+                        <span style="">
+                          A: ${answers.answer}
+                        </span>
+                      </div>
+                      <div class="mt-1">
+                        <span style="">
+                        ${answers.user.name} <img width="14" src="http://localhost:8000/img/svg/verified-tick.svg" alt=""> (Buyer), 
+                        </span>
+                      </div>
+                    </div> 
+                      `
+                }
+              }
+          
+              content += `</div>`;
+            }
+            $('#ShowReviewsArea').append(content);
+          
+       
+          
 
-              </div>
-            </div>
-              `)
-        });
-          if (data.qnasCount != $('.reviewCount').length && data.qnasCount != 0) {
+            if (data.qnasCount != $('.reviewCount').length && data.qnasCount != 0) {
             $('.loadMoreBtnContainer').removeClass('d-none')
           } else {
             $('.loadMoreBtnContainer').addClass('d-none')
           }
         }
+
+
       }
     }
   })
@@ -398,12 +425,68 @@ function fetchQnas(type) {
 $('#loadMoreQnas').on('click', function () {
   fetchQnas()
 })
+
+
+
+// Open Add Answer Modal with prefilled Question and Existing Answer for same user if exists.
+$('#ShowReviewsArea').on('click', '#AddAnswerButton', function () {
+  var question_id = $(this).attr('question_id')
+  var fetchDataURL = $('#SubmitAnswerForm').find('input[name="fetchData"]').val();
+  var question_id_form_field = $('#SubmitAnswerForm').find('input[name="question_id"]').val();
+
+  if (question_id_form_field == question_id) {
+    $('#AddAnswerModal').modal('toggle')
+    return;
+  }
+
+  $.ajax({
+    url: fetchDataURL,
+    method: "GET",
+    data: {
+      question_id : question_id,
+    },
+    success: function (data) {
+      if (data.status == 200) {
+        $('#SubmitAnswerForm').find('input[name="question_id"]').val(data.qna.id);
+        $('#SubmitAnswerForm').find('input[name="question"]').val(data.qna.question);
+        if (answer != false) {
+          $('#SubmitAnswerForm').find('input[name="answer"]').val(data.answer.answer);
+        }
+        $('#AddAnswerModal').modal('toggle')
+      }
+
+    }
+  })
+
+})
+
+
+$('#SubmitAnswerForm').on('submit', function (e) {
+  e.preventDefault()
+  var action = $(this).attr('action');
+  var _token = $(this).find('input[name="_token"]').val();
+  var question_id = $(this).find('input[name="question_id"]').val();
+  var answer = $(this).find('input[name="answer"]').val();
+
+  $.ajax({
+    url: action,
+    method: "POST",
+    data: {
+      _token: _token,
+      question_id: question_id,
+      answer: answer,
+    },
+    success: function (data) {
+      if (data.status == 200) {
+        $('#review_search').val($('#SubmitAnswerForm').find('input[name="question"]').val());
+        fetchQnas('new');
+        $('#AddAnswerModal').modal('toggle');
+      }
+    }
+  })
+
+})
 // Fetch QNA End
-
-
-
-
-
 
 
 
@@ -417,7 +500,6 @@ $('#PostQuestionBtn').on('click', function () {
 
 $('#QuestionSubmitForm').on('submit', function (e) {
   e.preventDefault()
-
   var action = $('#QuestionSubmitForm').attr('action')
   var _token = $('#QuestionSubmitForm').find('input[name="_token"]').val()
   var question = $('#QuestionSubmitForm').find('input[name="question"]').val()
@@ -436,6 +518,8 @@ $('#QuestionSubmitForm').on('submit', function (e) {
       if (data.status == 200) {
         $('#PostQuestionModal').modal('toggle');
         $(".bootstrap-growl").remove();
+        $('#review_search').val(question); 
+        fetchQnas('new');
         $.bootstrapGrowl("Question Added.", {
             type: "success",
             offset: {from:"bottom", amount: 50},
