@@ -24,7 +24,7 @@ class ManageProductsController extends Controller
     public function NewProductListingSubmit(Request $req)
     {
         $req->validate([
-            'product_name'          => 'required|max:255|',
+            'product_name'          => 'required|max:120|',
             'product_brand'         => 'required|max:255|',
             'category'              => 'required|numeric|exists:categories,id',
             'product_mrp'           => 'required|numeric|min:1|gte:product_price',

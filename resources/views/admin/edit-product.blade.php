@@ -38,7 +38,7 @@
                 <div class="col-9">
                     <div class="form-group">
                         <label class="text-dark">Product Name</label>
-                        <input name="product_name" class="form-control @error('product_name') is-invalid @enderror" placeholder="Name of the product you wanna list." value="{{old('product_name') ?? $product->product_name}}" required>
+                        <input name="product_name" maxlength="120" class="form-control @error('product_name') is-invalid @enderror" placeholder="Name of the product you wanna list." value="{{old('product_name') ?? $product->product_name}}" required>
                         @error('product_name')
                         <div class="invalid-feedback">{{$message}}</div>
                         @enderror

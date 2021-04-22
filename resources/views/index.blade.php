@@ -1,3 +1,12 @@
+@if (isMobile())
+
+    @include('mobile.index')
+
+{{ die}}
+@endif
+
+
+
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -167,7 +176,7 @@
                     <div class="categories-wrapper">
                         <form action="{{route('search')}}" method="GET">
                             <input name="category" id="CategoryInput" type="hidden" value="all">
-                            <input name="search" type="text" placeholder="Enter Your key word">
+                            <input name="search" type="text" placeholder="Enter Your key word" maxlength="120">
                             <button type="submit"> Search </button>
                         </form>
                     </div>

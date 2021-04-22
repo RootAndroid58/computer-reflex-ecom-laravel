@@ -21,6 +21,15 @@
         }
         return $thecash; // writes the final format where $currency is the currency symbol.
     }
+
+
+    function isMobile()
+    {
+        $Agent = new Jenssegers\Agent\Agent();
+        if ($Agent->isMobile()) {
+            return true;
+        }
+    }
     
     
     function FirstWord($s)
