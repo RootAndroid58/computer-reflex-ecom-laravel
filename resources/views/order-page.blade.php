@@ -119,15 +119,15 @@
                     <div class="wishlist-basic-padding" >
                         <div class="row">
                             <div class="col-md-2">
-                                <a href="http://localhost:8000/product/{{$item->product->id}}" target="_blank">
+                                <a href="{{route('product-index', $item->product->id)}}" target="_blank">
                                     <div class="wish-product-image-container">
-                                        <img src="http://localhost:8000/storage/images/products/{{$item->image->image}}" alt="">
+                                        <img src="{{asset('storage/images/products/'.$item->image->image)}}" alt="">
                                     </div>
                                 </a>
                             </div>
     
                             <div class="col-md-5">
-                                <a href="http://localhost:8000/product/1" target="_blank">
+                                <a href="{{route('product-index', $item->product->id)}}" target="_blank">
                                     <span class="wish-product-title font-weight-500 color-0066c0">{{$item->product->product_name}}</span>
                                 </a>
                             </div>

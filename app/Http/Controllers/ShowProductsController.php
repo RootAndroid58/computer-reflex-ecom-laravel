@@ -35,20 +35,11 @@ class ShowProductsController extends Controller
             $specifications = Specification::Where('product_id' , $pid)->orderBy('id', 'asc')->get();
             $category = Category::where('id' , $product->product_category_id)->first();
             $discount = ((($product->product_mrp - $product->product_price) / $product->product_mrp)*100)%100;
+            
             $RelatedProducts = Product::where('product_status', 1)->with('images')
-            ->where('product_category_id', $product->product_category_id)
-            ->where(function ($query) use ($product) {
-                foreach ($product->tags as $search) {
-                    $query->orWhere('product_name', 'LIKE' , '%'.$search->product_tag.'%')
-                    ->orWhere('product_brand', 'LIKE' , '%'.$search->product_tag.'%')
-                    ->orWhere('product_description', 'LIKE' , '%'.$search->product_tag.'%');
-                }
-                $query->orWhereHas('tags', function ($query) use ($product) {
-                    foreach ($product->tags as $search) {
-                        $query->orWhere('product_tag', 'LIKE', '%'.$search->product_tag.'%');
-                    }
-                });
-            })->take(10)->get();
+            ->search($product->product_name)->take(10)->get();
+
+
             $reviews = ProductReview::with('user')->where('product_id', $pid)->take(5);
             
             $TotalStars = 0;

@@ -280,7 +280,7 @@
                                 @php $StockCounter = 1; @endphp
                                         <div class="row wishlist-basic-padding" id="CartItem{{ $Product->id }}" style="padding-bottom: 0;">
                                             <div class="col-md-3">
-                                                <a href="http://localhost:8000/product/{{ $Product->id }}" target="_blank">
+                                                <a href="{{route('product-index', $Product->id)}}" target="_blank">
                                                     <div class="wish-product-image-container">
                                                         <img src="{{ asset('storage/images/products/'.$cart->Images->image) }}" alt="">
                                                     </div>
@@ -288,7 +288,7 @@
                                             </div>
 
                                             <div class="col-md-8">
-                                                <a href="http://localhost:8000/product/{{ $Product->id }}" target="_blank">
+                                                <a href="{{route('product-index', $Product->id)}}" target="_blank">
                                                     <span class="wish-product-title font-weight-500 color-0066c0">{{ $Product->product_name }}</span>
                                                 </a>
                                                 
