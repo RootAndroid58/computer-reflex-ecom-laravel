@@ -2,7 +2,7 @@
 
     @include('mobile.index')
 
-{{ die}}
+{{ die }}
 @endif
 
 
@@ -575,8 +575,6 @@
 {{-- Banner Slider Area End --}}
 
 
-
-
             </div>
         </div>
     </div>
@@ -593,9 +591,12 @@
                                     <img style="height: 100%; width: 100%;" loading=lazy src="{{ $SmallBanner->image }}" alt="Small Banner Image">
                                 </div>
                             </a>
+
+                            @canany(['Manage UI', 'Master Admin'])
                             <div>
                                 <span class="cursor-pointer static-blue float-right "  onclick="EditSmallBanner({{ $SmallBanner->id }})">Edit</span>
                             </div>
+                            @endcanany
                         </div>
                     </div>
                     @endif
@@ -627,9 +628,11 @@
                 <img loading=lazy src="{{  $SmallBanners[4]->image  }}" alt="Oops... Banner Image Not Loaded" width="100%">
             </a>
 
+            @canany(['Manage UI', 'Master Admin'])
             <div>
                 <span class="cursor-pointer static-blue float-right"  onclick="EditSmallBanner({{  $SmallBanners[4]->id  }})">Edit</span>
             </div>
+            @endcanany
         </div>
     </div>
     
@@ -821,10 +824,11 @@
         <a href="{{  $SmallBanners[3]->link  }}">
             <img loading=lazy src="{{  $SmallBanners[3]->image  }}" alt="Oops... Banner Image Not Loaded" width="100%">
         </a>
-
+        @canany(['Manage UI', 'Master Admin'])
         <div>
             <span class="cursor-pointer static-blue  float-right"  onclick="EditSmallBanner({{  $SmallBanners[3]->id  }})">Edit</span>
         </div>
+        @endcanany
     </div>
 </div>
 

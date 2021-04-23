@@ -5,7 +5,9 @@
             <div class="bbb_main_container">
                 <div class="bbb_viewed_title_container" >
                     <h3 class="bbb_viewed_title" style="margin-bottom: 5px;">{{$section->title}} 
+                        @canany(['Manage UI', 'Master Admin'])
                         <a style="font-size: 14px;" class="static-blue" target="_blank" href="{{ route('admin-edit-home-carousel-slider', $section->id) }}">Edit</a>
+                        @endcanany
                     </h3>
                     <div class="mb-2">
                         <span >{{$section->caption}}</span>

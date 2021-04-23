@@ -134,12 +134,12 @@
     
     /* brand logo active */
     $('.brand-logo-active2').owlCarousel({
-        loop: true,
+        loop: false,
         nav: false,
         item: 7,
         responsive: {
             0: {
-                items: 3
+                items: 6
             },
             768: {
                 items: 3

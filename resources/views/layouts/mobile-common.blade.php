@@ -36,13 +36,14 @@
     @yield('css-js')
 
     <style>
-        .header {
-                width: 100%;
-            
-                text-align:center;
-                color: #3a3a3a;
-                top: 0px;
-            }
+            .vertical-align-content {
+                background-color:#f18c16;
+                height: 52px;
+                display:flex;
+                align-items:center;
+                /* Uncomment next line to get horizontal align also */
+                /* justify-content:center; */
+                }
         </style>
 </head>
 
@@ -51,12 +52,164 @@
 
 
 
+<div id="burgerMenuWrapper" class="burger-menu-wrapper w-100" style="visibility: hidden; z-index: 11; opacity: 0; position: fixed; height: 100%; background: rgba(0,0,0,.6);">
+    <div id="burgerNavMenu" class="burger-nav-menu w-75" style="position: fixed; z-index: 10; left: -75%;">
+        <div style="height: 100vh;">
+            
+            <div class="w-100 bg-dark  pt-3">
+
+                <div class="prod-back-div user-img-container" 
+                style="margin-left: auto; margin-right: auto; width: 100px; height: 100px; border-radius: 50%; 
+                @if(Auth::check())
+                background-image: url({{ asset('storage/images/dp/'.Auth()->user()->dp) }})
+                @else
+                background-image: url({{ asset('storage/images/dp/default.png') }})
+                @endif
+                "></div>
+                
+                <div class="w-100 mt-3 pb-2" style="color: white; text-align: center;" >
+                    <div>
+                        {!! GreetUser() !!}
+                    </div>
+                    <div>
+                       
+                        <span class="font-weight-bold">{{ FirstWord(Auth()->user()->name ?? 'Guest' ) }}</span>
+                      
+                        @if (!Auth::check())
+                        <div class="mt-2 pb-2">
+                            <a href="{{ route('login') }}" style="font-weight: 600; color: rgb(221, 221, 221);">LOGIN</a>
+                            <span style="color: rgb(119, 119, 119);">|</span> 
+                            <a href="{{ route('register') }}" style="font-weight: 600; color: rgb(221, 221, 221);" >SIGNUP</a>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+            <ul class="mt-3">
+                <li class="account-menu-item account-menu-item-active"><span class="li-icon"><i class="fas fa-shopping-cart"></i></span>
+                    <a href="">Shopping Cart</a>
+                </li>
+                <li>
+                    <span class="li-icon"><i class="fas fa-heart"></i></span> 
+                    <a href="">My Wishlist</a>
+                </li>
+            </ul>
+            <ul >
+                <li>Shopping Cart</li>
+                <li>My Wishlist</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+    <header id="" class="w-100">
+        <div  id="main-header">
+            <div class="w-100 bg-dark main-header-top vertical-align-content" style="min-height: 52px; padding: 0px 15px;">
+                <div class="w-100" style="    display: table; table-layout: fixed; width: 100%; min-height: 52px; height: 52px;">
+                    <a class="burgerMenuBtn"  onclick="toggleBurgerMenu()" style="font-size: 19px; line-height: base-line; color: #fff; display: table-cell; vertical-align: middle;
+                        text-align: center;
+                        width: 20%;
+                        width: 42px;
+                        max-height: 16px;
+                        line-height: 10px;
+                        position: relative;
+                        overflow: hidden;" >
+                        <i class="fas fa-bars"></i>
+                    </a>
+
+                    <a style="
+                    display: table-cell;
+                    vertical-align: middle;
+                    height: 28px;
+                    overflow: hidden;
+                    line-height: 10px;
+                    max-width: 111px;
+                    padding-top: 2px;
+                    position: relative;
+                    " >
+                        <img src="{{ asset('img/logo-white-text.png') }}" style="width: 100px; height: 30px;" alt="">
+                    </a>
+
+                    <a style="
+                        font-size: 19px;
+                        color: #fff;
+                        display: table-cell;
+                        vertical-align: middle;
+                        text-align: center;
+                        width: 20%;
+                        width: 42px;
+                        max-height: 16px;
+                        line-height: 10px;
+                        position: relative;
+                        overflow: hidden;
+                    " >
+                        <i class="fad fa-heart"></i>
+                    </a>
+
+                    <a style="
+                        font-size: 19px;
+                        color: #fff;
+                        display: table-cell;
+                        vertical-align: middle;
+                        text-align: center;
+                        width: 20%;
+                        width: 42px;
+                        max-height: 16px;
+                        line-height: 10px;
+                        position: relative;
+                        overflow: hidden;
+                    ">
+                        <i class="fad fa-shopping-cart"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-100 bg-dark" style="min-height: 0px; padding: 0px 15px 15px 15px;">
+            <div class="input-group ">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1"><i class="fad fa-search"></i></span>
+                </div>
+                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" placeholder="Search for Products...">
+            </div>
+        </div>
+    </header>
+
+
+    <header id="scroll-header" class="w-100"  style="position: fixed; top: -52px; z-index: 10; transition: 300ms;">
+
+                <div class="w-100 bg-dark main-header-top vertical-align-content" style="min-height: 52px; padding: 0px 10px;">
+                    <a class="burgerMenuBtn"  onclick="toggleBurgerMenu()" style="line-height: base-line; font-size: 19px; color: white;">
+                         <i class="fas fa-bars"></i>
+                     </a>
+
+                     <div class="w-100" style="line-height: base-line; font-size: 19px; color: white; padding-left: 10px;">
+                        <div class="input-group w-100">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="basic-addon1"><i class="fad fa-search"></i></span>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" placeholder="Search for Products...">
+                        </div>
+                     </div>
+
+                     <div class="" style="padding-left: 10px;">
+                        <a  style="font-size: 19px; color: white;">
+                            <i class="fad fa-shopping-cart"></i>
+                        </a>
+                     </div>
+                    
+
+                 </div>        
+    </header>
     
 
 
     <div style="min-height: 90vh;">
         @yield('content')
-        <h1>Hello World</h1>
+        
     </div>
 
     
@@ -169,17 +322,44 @@
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
     @yield('bottom-js')
-    <script>
-    $("#header-scroll").hide();
-    $(window).scroll(function() {
-      if ($(this).scrollTop() > 10) {
-        $('#header-scroll').slideDown(500);
-        $('#header-full').slideUp(500);
-      } else {
-        $('#header-scroll').slideUp(500);
-        $('#header-full').slideDown(500);
-      }
-    }); 
+
+
+<script>
+
+
+    $(document).click(function(e) { 
+        var $target = $(e.target);
+        if(!$target.closest('#burgerNavMenu').length && $('#burgerMenuWrapper').css('visibility') == 'visible') {
+            toggleBurgerMenu()
+        }        
+    });
+
+
+     // Toggle function for Mobile Slide Out Burger Menu
+    function toggleBurgerMenu() {
+        if ($('#burgerMenuWrapper').css('opacity') == '0') {
+            $('#burgerMenuWrapper').css('opacity', '1');
+            $('#burgerMenuWrapper').css('visibility', 'visible');
+            $('#burgerNavMenu').css('left', "0%");
+            $('#burgerNavMenu').css('transition', "all 300ms ease");
+        } else {
+            $('#burgerMenuWrapper').css('opacity', '0');
+            $('#burgerMenuWrapper').css('visibility', 'hidden');
+            $('#burgerNavMenu').css('left', "-75%");
+            $('#burgerNavMenu').css('transition', "all 300ms ease");
+        }
+    }
+
+
+
+        // On scroll swap to the right Header
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > $('#main-header').innerHeight() + $('#scroll-header').innerHeight() / 2 ) {
+                $('#scroll-header').css('top', '0');
+            } else {
+                $('#scroll-header').css('top', "-"+$('#scroll-header').innerHeight()+"px");
+            }
+        });
     </script>
       
 

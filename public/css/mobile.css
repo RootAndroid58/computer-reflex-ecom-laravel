@@ -1,0 +1,19 @@
+.burger-nav-menu ul li{
+    padding:  10px 15px;
+    /* border-bottom: 1px white solid; */
+}
+.burger-nav-menu ul li .li-icon{
+    margin-right:  12px;
+    /* border-bottom: 1px white solid; */
+}
+.burger-nav-menu ul{
+    border-bottom: 1px solid #dddddd;
+}
+.burger-nav-menu {
+    background-color: #fff; 
+    transition: all 300ms ease;
+}
+.burger-menu-wrapper { 
+    transition: all 300ms ease;
+}
+

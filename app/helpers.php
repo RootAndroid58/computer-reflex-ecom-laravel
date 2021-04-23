@@ -38,6 +38,21 @@
         return $arr1[0];
     }
 
+    function WordLimit($inputstring, $count)
+    {
+        $pieces = explode(" ", $inputstring);
+        $first_part = implode(" ", array_splice($pieces, 0, $count));
+        return $first_part;
+    }
+
+    
+    function WordLimitBypass($inputstring, $count)
+    {
+        $pieces = explode(" ", $inputstring);
+        $first_part = implode(" ", array_splice($pieces, $count));
+        return $first_part;
+    }
+
     function HowMuchOldDate($date, $type)
     {
         $hours_in_day   = 24;
@@ -74,6 +89,17 @@
     
     }
 
+    function GreetUser()
+    {
+        $Hour = date('G');
+        if ( $Hour >= 5 && $Hour <= 11 ) {
+            return '<span style="color: rgb(0, 119, 255);"><i class="fad fa-sun-cloud"></i> Good Morning</span>';
+        } else if ( $Hour >= 12 && $Hour <= 18 ) {
+            return '<span style="color: yellow;"><i class="fad fa-sun-cloud"></i> Good Afternoon</span>';
+        } else if ( $Hour >= 19 || $Hour <= 4 ) {
+            return '<span style="color: rgba(255, 136, 0, 0.692);"><i class="fad fa-sun-cloud"></i> Good Evening</span>';
+        }
+    }
 
     function CalcPerc($perc, $total)
     {
