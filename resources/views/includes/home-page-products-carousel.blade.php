@@ -8,7 +8,7 @@
         <div class="col-12" style="padding: 0;">
             <div class="bbb_main_container">
                 <div class="bbb_viewed_title_container" >
-                    <h3 class="bbb_viewed_title" style="margin-bottom: 5px;">{{$section->title}} 
+                    <h3 class="bbb_viewed_title" style="margin-bottom: 5px; @if (isMobile()) font-size: 20px; @endif">{{$section->title}} 
                         @if (!isMobile())
                             @canany(['Manage UI', 'Master Admin'])
                             <a style="font-size: 14px;" class="static-blue" target="_blank" href="{{ route('admin-edit-home-carousel-slider', $section->id) }}">Edit</a>

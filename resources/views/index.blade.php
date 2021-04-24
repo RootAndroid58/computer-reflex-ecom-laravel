@@ -909,6 +909,8 @@
             </div>
         </div>
     </div>
+
+    
     <div class="brand-logo-area-2 wrapper-padding ptb-80">
         <div class="container-fluid">
             <div class="brand-logo-active2 owl-carousel">
