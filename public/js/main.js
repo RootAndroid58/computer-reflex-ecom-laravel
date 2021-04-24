@@ -1,13 +1,4 @@
 
-  
-  
-  
-  
-  
-  
-  
-  
-  
   if($('.bbb_viewed_slider').length) {
       var viewedSlider = $('.bbb_viewed_slider');
       viewedSlider.owlCarousel(
@@ -20,7 +11,7 @@
               dots:false,
               responsive:
               {
-                  0:{items:1},
+                  0:{items:2},
                   575:{items:2},
                   768:{items:3},
                   991:{items:4},

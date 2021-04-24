@@ -642,6 +642,17 @@
 
 
 
+
+    @foreach ($sections as $key => $section)
+        @if ($sections->count()/2 <= $key)
+            @include('includes.home-page-products-carousel')
+        @endif
+    @endforeach
+
+
+
+
+
 <div class="electro-product-wrapper wrapper-padding pt-30 pb-45">
     <div class="container-fluid">
         <div class="section-title-4 text-center mb-40">

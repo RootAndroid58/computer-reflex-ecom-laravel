@@ -1,13 +1,19 @@
 
-<div class="electronic-banner-area mb-5">
+
+
+    
+
+<div class="electronic-banner-area @if (!isMobile()) mb-5 @else mb-2 @endif  ">
     <div class="row">
-        <div class="col-12">
+        <div class="col-12" style="padding: 0;">
             <div class="bbb_main_container">
                 <div class="bbb_viewed_title_container" >
                     <h3 class="bbb_viewed_title" style="margin-bottom: 5px;">{{$section->title}} 
-                        @canany(['Manage UI', 'Master Admin'])
-                        <a style="font-size: 14px;" class="static-blue" target="_blank" href="{{ route('admin-edit-home-carousel-slider', $section->id) }}">Edit</a>
-                        @endcanany
+                        @if (!isMobile())
+                            @canany(['Manage UI', 'Master Admin'])
+                            <a style="font-size: 14px;" class="static-blue" target="_blank" href="{{ route('admin-edit-home-carousel-slider', $section->id) }}">Edit</a>
+                            @endcanany
+                        @endif
                     </h3>
                     <div class="mb-2">
                         <span >{{$section->caption}}</span>

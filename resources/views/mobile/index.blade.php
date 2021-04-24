@@ -31,19 +31,19 @@
                 <img style="width: 60px; height: 57px;" loading=lazy src="{{asset('img/categories/ssds.png')}}" alt="">
             </div>
             <div class="single-brand">
-                <img style="width: 60px; height: 57px;" loading=lazy src="ezone/img/brand-logo/11.png" alt="">
+                <img style="width: 60px; height: 57px;" loading=lazy src="{{asset('img/categories/power-supplies.png')}}" alt="">
             </div>
             <div class="single-brand">
-                <img style="width: 60px; height: 57px;" loading=lazy src="ezone/img/brand-logo/12.png" alt="">
+                <img style="width: 60px; height: 57px;" loading=lazy src="{{asset('img/categories/rams.png')}}" alt="">
             </div>
             <div class="single-brand">
-                <img style="width: 60px; height: 57px;" loading=lazy src="ezone/img/brand-logo/13.png" alt="">
+                <img style="width: 60px; height: 57px;" loading=lazy src="{{asset('img/categories/ssds.png')}}" alt="">
             </div>
             <div class="single-brand">
-                <img style="width: 60px; height: 57px;" loading=lazy src="ezone/img/brand-logo/7.png" alt="">
+                <img style="width: 60px; height: 57px;" loading=lazy src="{{asset('img/categories/ssds.png')}}" alt="">
             </div>
             <div class="single-brand">
-                <img style="width: 60px; height: 57px;" loading=lazy src="ezone/img/brand-logo/8.png" alt="">
+                <img style="width: 60px; height: 57px;" loading=lazy src="{{asset('img/categories/ssds.png')}}" alt="">
             </div>
         </div>
     </div>
@@ -108,6 +108,48 @@
             @endif
         @endforeach
     </div>
+</div>
+
+
+
+
+{{-- Products Carousel Slider Start --}}
+@foreach ($sections as $key => $section)
+    @if ($sections->count()/2 > $key)
+        @include('includes.home-page-products-carousel')
+    @endif
+@endforeach
+{{-- Products Carousel Slider End --}}
+
+
+    
+<div class="banner-area wrapper-padding mb-3">
+    <div class="container-fluid" style="padding: 0;">
+        <a href="{{  $SmallBanners[4]->link  }}">
+            <img loading=lazy src="{{  $SmallBanners[4]->image  }}" alt="Oops... Banner Image Not Loaded" width="100%">
+        </a>
+
+        {{-- @canany(['Manage UI', 'Master Admin'])
+        <div>
+            <span class="cursor-pointer static-blue float-right"  onclick="EditSmallBanner({{  $SmallBanners[4]->id  }})">Edit</span>
+        </div>
+        @endcanany --}}
+    </div>
+</div>
+
+
+{{-- Products Carousel Slider Start --}}
+@foreach ($sections as $key => $section)
+    @if ($sections->count()/2 <= $key)
+        @include('includes.home-page-products-carousel')
+    @endif
+@endforeach
+{{-- Products Carousel Slider End --}}
+
+
+
+
+    
 
 @endsection
     
