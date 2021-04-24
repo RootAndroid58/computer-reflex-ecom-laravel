@@ -124,7 +124,7 @@
 
     
 <div class="banner-area wrapper-padding mb-3">
-    <div class="container-fluid" style="padding: 0;">
+    <div class="container-fluid">
         <a href="{{  $SmallBanners[3]->link  }}">
             <img loading=lazy src="{{  $SmallBanners[3]->image  }}" alt="Oops... Banner Image Not Loaded" width="100%">
         </a>
@@ -157,7 +157,7 @@
 
 
 <div class="electro-product-wrapper wrapper-padding pt-30 pb-45">
-    <div class="container-fluid" style="padding: 0px 11px;">
+    <div class="container-fluid">
         <div class="section-title-4 text-center mb-3">
             <h2>Top Products</h2>
         </div>
@@ -214,7 +214,7 @@
 
 
 <div class="banner-area wrapper-padding mb-3">
-    <div class="container-fluid" style="padding: 0;">
+    <div class="container-fluid">
         <a href="{{  $SmallBanners[4]->link  }}">
             <img loading=lazy src="{{  $SmallBanners[4]->image  }}" alt="Oops... Banner Image Not Loaded" width="100%">
         </a>
@@ -246,7 +246,7 @@
         <div class="row">
             @foreach ($BestSellingProducts as $BestSellingProduct)
             <div class="col-lg-6 col-6 col-xl-4" style="padding: 0;">
-                <div class="product-wrapper product-wrapper-border mb-30" style="padding: 20px 20px 47px;">
+                <div class="product-wrapper product-wrapper-border" style="padding: 20px 20px 47px;">
                     <div class="product-img-5">
                         <a href="{{route('product-index', $BestSellingProduct->id)}}">
                             <div class="prod-back-div" style="width: 100%; height: 140px; background-image: url('{{ asset('storage/images/products/'.$BestSellingProduct->images[0]->image) }}')"></div>
