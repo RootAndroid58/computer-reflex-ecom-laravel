@@ -70,10 +70,10 @@
         </a>
     @else
         <div class="single-slider single-slider-hm3 bg-img pt-170" style="padding: 0; background-image: url({{ 'storage/images/banner/'.$banner->banner_img }})">
-            <div style="height: 200px; display: table;" class="slider-animation slider-content-style-3 fadeinup-animated">
-                <div style="display: table-cell; vertical-align: middle;">
-                    <h5 class="animated">{{ $banner->banner_header }}<br>{{ $banner->banner_header_2 }}</h5>
-                    <h6 style="font-size: 13px;" class="animated">{{ WordLimit($banner->banner_caption, 3) }}<br>{{ WordLimitBypass($banner->banner_caption, 3) }}</h6>
+            <div style="height: 200px; " class="d-flex align-items-center slider-animation slider-content-style-3 fadeinup-animated">
+                <div>
+                    <h2 style="font-size: 18px; line-height: 1.2;" class="animated">{{ $banner->banner_header }}<br>{{ $banner->banner_header_2 }}</h2>
+                    <h4 style="font-size: 13px; margin-top: 8px;  margin-bottom: 8px;" class="animated">{{ WordLimit($banner->banner_caption, 3) }}<br>{{ WordLimitBypass($banner->banner_caption, 3) }}</h4>
                     <a style="padding: .25rem .5rem; font-size: 10px;" class="electro-slider-btn btn-hover" href="{{ $banner->banner_btn_link }}">{{ $banner->banner_btn_txt }}</a>
                 </div>
             </div>
