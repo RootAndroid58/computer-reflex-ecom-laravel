@@ -125,9 +125,12 @@
     
 <div class="banner-area wrapper-padding mb-3">
     <div class="container-fluid">
-        <a href="{{  $SmallBanners[3]->link  }}">
-            <img loading=lazy src="{{  $SmallBanners[3]->image  }}" alt="Oops... Banner Image Not Loaded" width="100%">
-        </a>
+        <div class="row">
+            <a href="{{  $SmallBanners[3]->link  }}">
+                <img loading=lazy src="{{  $SmallBanners[3]->image  }}" alt="Oops... Banner Image Not Loaded" width="100%">
+            </a>
+        </div>
+       
         {{-- @canany(['Manage UI', 'Master Admin'])
         <div>
             <span class="cursor-pointer static-blue float-right"  onclick="EditSmallBanner({{  $SmallBanners[4]->id  }})">Edit</span>
@@ -215,9 +218,12 @@
 
 <div class="banner-area wrapper-padding mb-3">
     <div class="container-fluid">
-        <a href="{{  $SmallBanners[4]->link  }}">
-            <img loading=lazy src="{{  $SmallBanners[4]->image  }}" alt="Oops... Banner Image Not Loaded" width="100%">
-        </a>
+        <div class="row">
+            <a href="{{  $SmallBanners[4]->link  }}">
+                <img loading=lazy src="{{  $SmallBanners[4]->image  }}" alt="Oops... Banner Image Not Loaded" width="100%">
+            </a>
+        </div>
+       
         {{-- @canany(['Manage UI', 'Master Admin'])
         <div>
             <span class="cursor-pointer static-blue float-right"  onclick="EditSmallBanner({{  $SmallBanners[4]->id  }})">Edit</span>

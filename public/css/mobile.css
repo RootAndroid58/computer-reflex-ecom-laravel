@@ -17,3 +17,8 @@
     transition: all 300ms ease;
 }
 
+.mobile-nav-category-container {
+    height: 72vh;
+    overflow: scroll;
+}
+

@@ -57,15 +57,15 @@
     <div id="burgerNavMenu" class="burger-nav-menu w-75" style="position: fixed; z-index: 10; left: -75%;">
         <div style="height: 100vh;">
             
-            <div class="w-100 bg-dark  pt-3">
+            <div class="w-100 bg-dark pt-3" style="height: 28vh;">
 
-                <div class="prod-back-div user-img-container" 
+                <div class="prod-back-div user-img-container mt-3" 
                 style="margin-left: auto; margin-right: auto; width: 100px; height: 100px; border-radius: 50%; 
-                @if(Auth::check())
-                background-image: url({{ asset('storage/images/dp/'.Auth()->user()->dp) }})
-                @else
-                background-image: url({{ asset('storage/images/dp/default.png') }})
-                @endif
+                    @if(Auth::check())
+                    background-image: url({{ asset('storage/images/dp/'.Auth()->user()->dp) }})
+                    @else
+                    background-image: url({{ asset('storage/images/dp/default.png') }})
+                    @endif
                 "></div>
                 
                 <div class="w-100 mt-3 pb-2" style="color: white; text-align: center;" >
@@ -87,19 +87,87 @@
                 </div>
             </div>
 
-            <ul class="mt-3">
-                <li class="account-menu-item account-menu-item-active"><span class="li-icon"><i class="fas fa-shopping-cart"></i></span>
-                    <a href="">Shopping Cart</a>
-                </li>
-                <li>
-                    <span class="li-icon"><i class="fas fa-heart"></i></span> 
-                    <a href="">My Wishlist</a>
-                </li>
-            </ul>
-            <ul >
-                <li>Shopping Cart</li>
-                <li>My Wishlist</li>
-            </ul>
+
+            {{-- To activate highlight add class to the Li( account-menu-item-active ) --}}
+
+            <div class="mobile-nav-category-container">
+                <ul class="mt-3">
+                    <li class="@yield('burger-my-account-menu')">
+                        <span class="li-icon"><i class="fas fa-user"></i></span>
+                        <a href="{{ route('my-account') }}">My Account</a>
+                    </li>
+    
+                    <li class="@yield('burger-shopping-cart-menu')">
+                        <span class="li-icon"><i class="fas fa-shopping-cart"></i></span>
+                        <a href="{{ route('cart') }}">Shopping Cart</a>
+                    </li>
+    
+                    <li class="@yield('burger-my-wishlist-menu')">
+                        <span class="li-icon"><i class="fas fa-heart"></i></span> 
+                        <a href="{{ route('wishlist') }}">My Wishlist</a>
+                    </li>
+    
+                    <li class="@yield('burger-compare-menu')">
+                        <span class="li-icon"><i class="fas fa-repeat-alt"></i></span> 
+                        <a href="{{ route('compare') }}">Compare</a>
+                    </li>
+                </ul>
+    
+    
+                <ul class="mt-3">
+                    <li class="@yield('burger-my-account-menu')">
+                        <span class="li-icon"><i class="fas fa-home-lg-alt"></i></span>
+                        <a href="{{ route('my-account') }}">Home</a>
+                    </li>
+    
+                    <li class="@yield('burger-shopping-cart-menu')">
+                        <span class="li-icon"><i class="fas fa-th"></i></span>
+                        <a href="{{ route('cart') }}">Shop By Category</a>
+                    </li>
+                </ul>
+    
+                <ul class="mt-3">
+                    <li class="@yield('burger-my-account-menu')">
+                        <span class="li-icon"><i class="fas fa-ticket-alt"></i></span>
+                        <a href="{{ route('my-account') }}">Raise Support Ticket</a>
+                    </li>
+    
+                    <li class="@yield('burger-shopping-cart-menu')">
+                        <span class="li-icon"><i class="fad fa-envelope-open-text"></i></span>
+                        <a href="{{ route('cart') }}">Support Tickets</a>
+                    </li>
+    
+                    <li class="@yield('burger-shopping-cart-menu')">
+                        <span class="li-icon"><i class="fas fa-user-headset"></i></span>
+                        <a href="{{ route('cart') }}">Contact Info</a>
+                    </li>
+                </ul>
+    
+                <ul class="mt-3">
+                    <li class="@yield('burger-my-account-menu')">
+                        <span class="li-icon"><i class="fas fa-file-certificate"></i></span>
+                        <a href="{{ route('my-account') }}">About Us</a>
+                    </li>
+    
+                    <li class="@yield('burger-shopping-cart-menu')">
+                        <span class="li-icon"><i class="fas fa-user-lock"></i></span>
+                        <a href="{{ route('cart') }}">Privacy Policy</a>
+                    </li>
+    
+                    <li class="@yield('burger-shopping-cart-menu')">
+                        <span class="li-icon"><i class="fas fa-route-interstate"></i></span>
+                        <a href="{{ route('cart') }}">Terms Of Use</a>
+                    </li>
+    
+                    <li class="@yield('burger-shopping-cart-menu')">
+                        <span class="li-icon"><i class="fas fa-truck"></i></span>
+                        <a href="{{ route('cart') }}">Return & Replacement Policy</a>
+                    </li>
+                </ul>
+            </div>
+           
+
+
         </div>
     </div>
 </div>
@@ -343,11 +411,13 @@
             $('#burgerMenuWrapper').css('visibility', 'visible');
             $('#burgerNavMenu').css('left', "0%");
             $('#burgerNavMenu').css('transition', "all 300ms ease");
+            $('body').css('overflow', 'hidden');
         } else {
             $('#burgerMenuWrapper').css('opacity', '0');
             $('#burgerMenuWrapper').css('visibility', 'hidden');
             $('#burgerNavMenu').css('left', "-75%");
             $('#burgerNavMenu').css('transition', "all 300ms ease");
+            $('body').css('overflow', 'unset');
         }
     }
 
