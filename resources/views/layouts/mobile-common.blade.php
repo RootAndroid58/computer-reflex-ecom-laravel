@@ -52,6 +52,30 @@
 <body>
 
 
+<div id="SearchScreen" class="search-screen d-none" style="height: 100vh; width: 100%; position: fixed; z-index: 19" >
+   <input type="hidden" id="FetchSearchSuggestionsUrl" value="{{ route('fetch-search-suggestions') }}">
+   <input type="hidden" id="Url" value="{{ url('/') }}">
+    
+   <div class="row">
+        <div class="col-2" style="padding-right: 0;">
+            <button class="btn btn-block btn-dark " id="SearchScreeenToggleBtn" style="height: 100%; " ><i class="far fa-window-close"></i></button>
+        </div>
+        <div class="col-8" style="padding: 0;">
+            <div class="form-group" style="margin: 0;">
+              <input type="text" style="height: 100%; border-radius: 0;"
+                class="form-control" name="" id="SearchMobileInput" aria-describedby="helpId" placeholder="Search Here...">
+            </div>
+        </div>
+        <div class="col-2" style="padding-left: 0;">
+            <button class="btn btn-block btn-info" style="height: 100%; " ><i class="fas fa-search"></i></button>
+        </div>
+    </div>
+
+    <ul id="MobileSearchOptions" style="background-color: white;"></ul>
+
+</div>
+
+
 
 <div id="burgerMenuWrapper" class="burger-menu-wrapper w-100" style="visibility: hidden; z-index: 11; opacity: 0; position: fixed; height: 100%; background: rgba(0,0,0,.6);">
     <div id="burgerNavMenu" class="burger-nav-menu w-75" style="position: fixed; z-index: 10; left: -75%;">
@@ -242,7 +266,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon1"><i class="fad fa-search"></i></span>
                 </div>
-                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" placeholder="Search for Products...">
+                <input type="text" class="form-control search-input" aria-label="Username" aria-describedby="basic-addon1" placeholder="Search for Products...">
             </div>
         </div>
     </header>
@@ -260,7 +284,7 @@
                             <div class="input-group-prepend">
                               <span class="input-group-text" id="basic-addon1"><i class="fad fa-search"></i></span>
                             </div>
-                            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" placeholder="Search for Products...">
+                            <input type="text" class="form-control search-input" aria-label="Username" aria-describedby="basic-addon1" placeholder="Search for Products...">
                         </div>
                      </div>
 
@@ -363,7 +387,7 @@
             </div>
         </footer>
 
-
+        
 
 
     <!-- all js here -->
@@ -392,7 +416,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
     @yield('bottom-js')
 
-
+       
 <script>
 
 
@@ -402,6 +426,46 @@
             toggleBurgerMenu()
         }        
     });
+
+    $('#SearchMobileInput').on('keyup', function () {
+
+        $.ajax({
+            url: $('#FetchSearchSuggestionsUrl').val(),
+            method: 'GET',
+            data: {
+                search: $(this).val(),
+            },
+            success: function (data) {
+                if (data.status == 200) {
+                    console.log(data.products);
+                    $('#MobileSearchOptions').html('')
+                    var url = $('#Url').val();
+                    data.products.forEach(product => {
+                        $('#MobileSearchOptions').append(`
+                        <a href="${url}/product/${product.id}">
+                            <div class="container-fluid">
+                                <div class="row" style="padding-top: 10px;">
+                                    <div class="col-3">
+                                        <img style="display: block; margin:auto; width: 100%; height: auto;" src="${url}/storage/images/products/${product.images[0].image}">
+                                    </div>
+                                    <div class="col-7 " style="padding: 0;">
+                                        <span class="line-limit-2">${product.product_name}</span>
+                                    </div>
+                                    <div class="col-2" >
+                                        <span><i class="fad fa-location-arrow"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        `)
+                    });
+                
+
+                }
+            }
+        })
+    })
+        
 
 
      // Toggle function for Mobile Slide Out Burger Menu
@@ -418,6 +482,29 @@
             $('#burgerNavMenu').css('left', "-75%");
             $('#burgerNavMenu').css('transition', "all 300ms ease");
             $('body').css('overflow', 'unset');
+        }
+    }
+     // Toggle function for Mobile Slide Out Burger Menu
+
+
+    $('.search-input').on('focus', function () {
+        SearchScreenToggle()
+    })
+    $('#SearchScreeenToggleBtn').on('click', function () {
+        SearchScreenToggle()
+    })
+
+
+    function SearchScreenToggle() {
+        if ($('#SearchScreen').hasClass('d-none')) {
+            $('#SearchScreen').removeClass('d-none');
+            $('#scrollUp').addClass('d-none');
+            $('#SearchMobileInput').focus();
+            $('body').css('overflow', 'hidden');
+        } else { 
+            $('#SearchScreen').addClass('d-none');
+            $('body').css('overflow', 'unset');
+            $('#scrollUp').removeClass('d-none');
         }
     }
 

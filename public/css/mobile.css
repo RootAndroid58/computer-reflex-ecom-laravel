@@ -22,3 +22,16 @@
     overflow: scroll;
 }
 
+.search-screen{
+    background-color: #f1f3f6;
+    transition:visibility 0.3s linear,opacity 0.3s linear;
+}
+
+.search-screen ul{
+    height: 95vh;
+    overflow: scroll;
+}
+
+
+
+

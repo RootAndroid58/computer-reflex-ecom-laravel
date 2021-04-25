@@ -1,3 +1,15 @@
+@if (isMobile())
+
+    @include('mobile.product-details')
+
+{{ die }}
+@endif
+
+
+
+
+
+
 @extends('layouts.common')
 
 @section('title', $product->product_name)

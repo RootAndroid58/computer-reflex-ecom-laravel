@@ -17,6 +17,21 @@ class AjaxController extends Controller
     {
         return Auth()->user()->name;
     }
+
+
+    public function FetchSearchSuggestions(Request $req)
+    {
+        $products = Product::with('images')->search(substr($req->search, 0, 120))->where('product_status', 1)->take(12)->get();
+        
+        return [
+            'status'    => 200,
+            'products'  => $products,
+        ];
+    }
+
+
+
+
     public function GetSmallBannerData(Request $req)
     {
         $SmallBanner = SmallBanner::where('id', $req->banner_id)->first();

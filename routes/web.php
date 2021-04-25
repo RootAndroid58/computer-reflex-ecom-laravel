@@ -75,6 +75,8 @@ Route::get('CartTest', 'App\Http\Controllers\CartController@Test');
     
     Route::get('/product/pid/{product_id}/reviews', [App\Http\Controllers\ReviewController::class, 'AllProductReviews'])->name('all-product-reviews');
     
+    Route::get('/ajax/fetch/search-suggestions', [App\Http\Controllers\AjaxController::class, 'FetchSearchSuggestions'])->name('fetch-search-suggestions');
+    
     Route::post('/ajax/get-small-banner-data', [App\Http\Controllers\AjaxController::class, 'GetSmallBannerData'])->name('get-small-banner-data');
 
 

@@ -19,31 +19,49 @@
     <div class="w-100">
         <div class="brand-logo-active2 owl-carousel">
             <div class="single-brand">
-                <img style="width: 60px; height: 57px;" loading=lazy src="{{asset('img/categories/all-categories.jpg')}}" alt="">
+                <a href="">
+                    <img style="width: 60px; height: 57px;" loading=lazy src="{{asset('img/categories/all-categories.jpg')}}" alt="">
+                </a>
             </div>
             <div class="single-brand">
-                <img style="width: 60px; height: 57px;" loading=lazy src="{{asset('img/categories/graphic-cards.png')}}" alt="">
+                <a href="{{ url('search?category=Graphics+Card&search=') }}">
+                    <img style="width: 60px; height: 57px;" loading=lazy src="{{asset('img/categories/graphic-cards.png')}}" alt="">
+                </a>
             </div>
             <div class="single-brand">
-                <img style="width: 60px; height: 57px;" loading=lazy src="{{asset('img/categories/hdds.png')}}" alt="">
+                <a href="{{ url('search?category=Hard+Disk&search=') }}">
+                    <img style="width: 60px; height: 57px;" loading=lazy src="{{asset('img/categories/hdds.png')}}" alt="">
+                </a>
             </div>
             <div class="single-brand">
-                <img style="width: 60px; height: 57px;" loading=lazy src="{{asset('img/categories/ssds.png')}}" alt="">
+                <a href="{{ url('search?category=SSD&search=') }}">
+                    <img style="width: 60px; height: 57px;" loading=lazy src="{{asset('img/categories/ssds.png')}}" alt="">
+                </a>
             </div>
             <div class="single-brand">
-                <img style="width: 60px; height: 57px;" loading=lazy src="{{asset('img/categories/power-supplies.png')}}" alt="">
+                <a href="{{ url('search?category=Power+Supply&search=') }}">
+                    <img style="width: 60px; height: 57px;" loading=lazy src="{{asset('img/categories/power-supplies.png')}}" alt="">
+                </a>
             </div>
             <div class="single-brand">
-                <img style="width: 60px; height: 57px;" loading=lazy src="{{asset('img/categories/rams.png')}}" alt="">
+                <a href="{{ url('search?category=RAM&search=') }}">
+                    <img style="width: 60px; height: 57px;" loading=lazy src="{{asset('img/categories/rams.png')}}" alt="">
+                </a>
             </div>
             <div class="single-brand">
-                <img style="width: 60px; height: 57px;" loading=lazy src="{{asset('img/categories/ssds.png')}}" alt="">
+                <a href="{{ url('search?category=SSD&search=') }}">
+                    <img style="width: 60px; height: 57px;" loading=lazy src="{{asset('img/categories/ssds.png')}}" alt="">
+                </a>
             </div>
             <div class="single-brand">
-                <img style="width: 60px; height: 57px;" loading=lazy src="{{asset('img/categories/ssds.png')}}" alt="">
+                <a href="{{ url('search?category=SSD&search=') }}">
+                    <img style="width: 60px; height: 57px;" loading=lazy src="{{asset('img/categories/ssds.png')}}" alt="">
+                </a>
             </div>
             <div class="single-brand">
-                <img style="width: 60px; height: 57px;" loading=lazy src="{{asset('img/categories/ssds.png')}}" alt="">
+                <a href="{{ url('search?category=SSD&search=') }}">
+                    <img style="width: 60px; height: 57px;" loading=lazy src="{{asset('img/categories/ssds.png')}}" alt="">
+                </a>
             </div>
         </div>
     </div>
