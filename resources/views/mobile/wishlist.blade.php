@@ -43,7 +43,7 @@
                         @foreach ($wishlist->Products as $Product) 
                     
                             <div class="row top-bottom-basic-padding" id="WishItem{{ $Product->id }}">
-                                <div class="col-3 " style="padding-left: 0;">
+                                <div class="col-3 " >
                                     <a href="{{ url('product/'.$Product->id) }}" target="_blank">
                                         <div class="wish-product-image-container">
                                             <img src="{{ asset('storage/images/products/'.$wishlist->Images->image) }}" alt="">
