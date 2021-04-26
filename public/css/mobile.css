@@ -32,6 +32,6 @@
     overflow: scroll;
 }
 
-
-
-
+[data-star-rating] .gl-star-rating--stars[aria-label]:before, [data-star-rating] .gl-star-rating--stars[aria-label]:after{
+    display: none;
+}

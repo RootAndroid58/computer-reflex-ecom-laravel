@@ -215,6 +215,10 @@
 .top-description iframe{
     display: none;
 }
+.long-description iframe{
+    width: 100%;
+    height: auto;
+}
 
 .product-details-2 {
     max-height: 575px;
