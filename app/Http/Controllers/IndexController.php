@@ -137,7 +137,8 @@ class IndexController extends Controller
        
 
         $ProductsCount = $products->count(); 
-        $products = $products->paginate(2)->appends(request()->query());
+
+        $products = $products->paginate(12)->appends(request()->query());
 
         return view('searched-products', [
             'products'          => $products,

@@ -35,3 +35,15 @@
 [data-star-rating] .gl-star-rating--stars[aria-label]:before, [data-star-rating] .gl-star-rating--stars[aria-label]:after{
     display: none;
 }
+
+.top-bottom-basic-padding{
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+
+.bottom-fixed-bar {
+    bottom: 0;
+    position: fixed;
+    z-index: 10;
+
+}

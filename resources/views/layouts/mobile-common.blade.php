@@ -243,7 +243,7 @@
                         line-height: 10px;
                         position: relative;
                         overflow: hidden;
-                    " >
+                    " href="{{ route('wishlist') }}">
                         <i class="fad fa-heart"></i>
                     </a>
 
@@ -259,7 +259,7 @@
                         line-height: 10px;
                         position: relative;
                         overflow: hidden;
-                    ">
+                    " href="{{ route('cart') }}">
                         <i class="fad fa-shopping-cart"></i>
                     </a>
                 </div>

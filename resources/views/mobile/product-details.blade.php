@@ -87,7 +87,7 @@
             <form action="{{ route('checkout-post') }}" method="post"> <input type="hidden" name="_token" value="VlOthNCquV2Z7Jp4k9ZvDoeKhfjEMsx2ILPGxZJW"> 
                 <input type="hidden" name="product_id[]" value="4">
                 <input type="hidden" name="product_qty[]" value="1">
-                    <button class="btn btn-block btn-warning" style="padding: 10px 0.75rem;">
+                    <button class="btn btn-block btn-dark" style="padding: 10px 0.75rem;">
                         Buy Now
                     </button>
             </form>

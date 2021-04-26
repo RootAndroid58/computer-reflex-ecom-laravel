@@ -1,3 +1,12 @@
+@if (isMobile())
+
+    @include('mobile.wishlist')
+
+{{ die }}
+@endif
+
+
+
 @extends('layouts.menu-layout')
 @php 
 $UserName=str_word_count(Auth()->user()->name, 1); 

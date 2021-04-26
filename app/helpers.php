@@ -93,11 +93,11 @@
     {
         $Hour = date('G');
         if ( $Hour >= 5 && $Hour <= 11 ) {
-            return '<span style="color: rgb(0, 119, 255);"><i class="fad fa-sun-cloud"></i> Good Morning</span>';
+            return '<span style="color: rgb(210 184 146);"><i class="fad fa-sun-cloud"></i> Good Morning</span>';
         } else if ( $Hour >= 12 && $Hour <= 18 ) {
             return '<span style="color: yellow;"><i class="fad fa-sun-cloud"></i> Good Afternoon</span>';
         } else if ( $Hour >= 19 || $Hour <= 4 ) {
-            return '<span style="color: rgba(255, 136, 0, 0.692);"><i class="fad fa-sun-cloud"></i> Good Evening</span>';
+            return '<span style="color: rgb(122 127 189);"><i class="fad fa-sun-cloud"></i> Good Evening</span>';
         }
     }
 
