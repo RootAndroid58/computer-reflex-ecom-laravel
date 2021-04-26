@@ -56,20 +56,25 @@
    <input type="hidden" id="FetchSearchSuggestionsUrl" value="{{ route('fetch-search-suggestions') }}">
    <input type="hidden" id="Url" value="{{ url('/') }}">
     
-   <div class="row">
-        <div class="col-2" style="padding-right: 0;">
-            <button class="btn btn-block btn-dark " id="SearchScreeenToggleBtn" style="height: 100%; " ><i class="far fa-window-close"></i></button>
-        </div>
-        <div class="col-8" style="padding: 0;">
-            <div class="form-group" style="margin: 0;">
-              <input type="text" style="height: 100%; border-radius: 0;"
-                class="form-control" name="" id="SearchMobileInput" aria-describedby="helpId" placeholder="Search Here...">
-            </div>
-        </div>
-        <div class="col-2" style="padding-left: 0;">
-            <button class="btn btn-block btn-info" style="height: 100%; " ><i class="fas fa-search"></i></button>
-        </div>
-    </div>
+
+        <form action="{{route('search')}}" method="GET">
+            <div class="row">
+                    <div class="col-2" style="padding-right: 0;">
+                        <button type="button" class="btn btn-block btn-dark " id="SearchScreeenToggleBtn" style="height: 100%; " ><i class="far fa-window-close"></i></button>
+                    </div>
+                    <div class="col-8" style="padding: 0;">
+                        <div class="form-group" style="margin: 0;">
+                            <input type="text" style="height: 100%; border-radius: 0;"
+                            class="form-control" name="search" id="SearchMobileInput" aria-describedby="helpId" placeholder="Search Here...">
+                        </div>
+                    </div>
+                    <div class="col-2" style="padding-left: 0;">
+                        <button type="submit" class="btn btn-block btn-info" style="height: 100%; " ><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
+
+
 
     <ul id="MobileSearchOptions" style="background-color: white;"></ul>
 
@@ -222,7 +227,7 @@
                     max-width: 111px;
                     padding-top: 2px;
                     position: relative;
-                    " >
+                    " href="{{ url('/') }}">
                         <img src="{{ asset('img/logo-white-text.png') }}" style="width: 100px; height: 30px;" alt="">
                     </a>
 

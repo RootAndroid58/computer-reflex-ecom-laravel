@@ -1,3 +1,12 @@
+@if (isMobile())
+
+    @include('mobile.searched-products')
+
+{{ die }}
+@endif
+
+
+
 @extends('layouts.common')
 
 @section('title', 'Search: '.Request()->search)

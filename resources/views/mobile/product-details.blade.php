@@ -19,7 +19,7 @@
         height: 375px;
         text-align: center;
         line-height: 375px;">
-            <img src="{{ asset('storage/images/products/'.$images[0]->image) }}" style="max-width: 100%;
+            <img id="big_img" src="{{ asset('storage/images/products/'.$images[0]->image) }}" style="max-width: 100%;
             max-height: 100%;
             vertical-align: middle;
             transition: 300ms;" alt="">
@@ -36,7 +36,7 @@
                     @foreach ($images as $image)
                     <div class="single-brand" style="height: 100%; width: 65px; height: 65px;">
                         <div class="w-100" style="height: 100%; padding: 5px;">
-                            <div class="prod-back-div" style="border: 1px solid grey; width: 100%; height: 100%; background-image: url('{{ asset('storage/images/products/'.$image->image) }}');"></div>
+                            <div class="prod-back-div images-menu" style="border: 1px solid grey; width: 100%; height: 100%; background-image: url('{{ asset('storage/images/products/'.$image->image) }}');"></div>
                         </div>
                     </div>
                     @endforeach
@@ -643,6 +643,8 @@
     })
     
     
+
+
     //setup before functions
     var typingTimer;                //timer identifier
     var doneTypingInterval = 1500;  //time in ms, 5 second for example

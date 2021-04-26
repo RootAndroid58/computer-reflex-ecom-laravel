@@ -32,11 +32,10 @@ function NextCarousel(section_id) {
 
 
 
-$('.images-menu').on('mouseover', function () {
+$('.images-menu').on('mouseover click', function () {
   imageUrl = $(this).css('background-image').replace(/^url\(['"]?/,'').replace(/['"]?\)$/,'');
   $('#big_img').attr('src', imageUrl)
 })
-
 
 
 
@@ -91,7 +90,7 @@ $('#sort_by_select').one('change', function () {
 
 
 
-$('.PaginationBtn').on('click', function (e) {
+$('.PaginationBtn').off('click').on('click', function (e) {
   e.preventDefault();
 
   var formGetURL = $(this).attr('href');
