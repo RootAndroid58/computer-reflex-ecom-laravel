@@ -121,10 +121,30 @@
             {{-- To activate highlight add class to the Li( account-menu-item-active ) --}}
 
             <div class="mobile-nav-category-container">
+
+                    
+                <ul class="mt-3">
+                    <li class="@yield('burger-home-menu')">
+                        <span class="li-icon"><i class="fas fa-home-lg-alt"></i></span>
+                        <a href="{{ route('my-account') }}">Home</a>
+                    </li>
+    
+                    <li class="@yield('burger-shop-by-categories-menu')">
+                        <span class="li-icon"><i class="fas fa-th"></i></span>
+                        <a href="{{ route('categories') }}">Shop By Category</a>
+                    </li>
+                </ul>
+
+
                 <ul class="mt-3">
                     <li class="@yield('burger-my-account-menu')">
                         <span class="li-icon"><i class="fas fa-user"></i></span>
                         <a href="{{ route('my-account') }}">My Account</a>
+                    </li>
+
+                    <li class="@yield('burger-my-orders-menu')">
+                        <span class="li-icon"><i class="fad fa-box-check"></i></span>
+                        <a href="{{ route('orders') }}">My Orders</a>
                     </li>
     
                     <li class="@yield('burger-shopping-cart-menu')">
@@ -145,31 +165,19 @@
     
     
                 <ul class="mt-3">
-                    <li class="@yield('burger-my-account-menu')">
-                        <span class="li-icon"><i class="fas fa-home-lg-alt"></i></span>
-                        <a href="{{ route('my-account') }}">Home</a>
-                    </li>
-    
-                    <li class="@yield('burger-shopping-cart-menu')">
-                        <span class="li-icon"><i class="fas fa-th"></i></span>
-                        <a href="{{ route('cart') }}">Shop By Category</a>
-                    </li>
-                </ul>
-    
-                <ul class="mt-3">
-                    <li class="@yield('burger-my-account-menu')">
+                    <li class="@yield('burger-raise-support-ticket-menu')">
                         <span class="li-icon"><i class="fas fa-ticket-alt"></i></span>
-                        <a href="{{ route('my-account') }}">Raise Support Ticket</a>
+                        <a href="{{ route('support.raise-support-ticket') }}">Raise Support Ticket</a>
                     </li>
     
-                    <li class="@yield('burger-shopping-cart-menu')">
+                    <li class="@yield('burger-support-tickets-menu')">
                         <span class="li-icon"><i class="fad fa-envelope-open-text"></i></span>
-                        <a href="{{ route('cart') }}">Support Tickets</a>
+                        <a href="{{ route('support.support-tickets') }}">Support Tickets</a>
                     </li>
     
-                    <li class="@yield('burger-shopping-cart-menu')">
+                    <li class="@yield('burger-contact-us-menu')">
                         <span class="li-icon"><i class="fas fa-user-headset"></i></span>
-                        <a href="{{ route('cart') }}">Contact Info</a>
+                        <a href="{{ route('support.contact-us') }}">Contact Info</a>
                     </li>
                 </ul>
     

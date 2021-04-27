@@ -1,6 +1,8 @@
 @extends('layouts.mobile-common')
 
 @section('title', FirstWord(Auth()->user()->name)."'s Wishlist")
+
+@section('burger-my-wishlist-menu', 'account-menu-item-active')
     
 
 @section('content')

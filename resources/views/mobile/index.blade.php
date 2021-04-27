@@ -2,6 +2,7 @@
 
 @section('title', 'Home')
 
+@section('burger-home-menu', 'account-menu-item-active')
 
 
 @section('css-js')

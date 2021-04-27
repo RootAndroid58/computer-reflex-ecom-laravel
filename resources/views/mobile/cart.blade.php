@@ -1,5 +1,7 @@
 @extends('layouts.mobile-common')
 
+@section('burger-shopping-cart-menu', 'account-menu-item-active')
+
 @php
     $ProductMRPTotal = 0;
     $ProductPriceTotal = 0;
