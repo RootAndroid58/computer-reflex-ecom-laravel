@@ -182,22 +182,22 @@
                 </ul>
     
                 <ul class="mt-3">
-                    <li class="@yield('burger-my-account-menu')">
+                    <li class="@yield('burger-about-us-menu')">
                         <span class="li-icon"><i class="fas fa-file-certificate"></i></span>
                         <a href="{{ route('my-account') }}">About Us</a>
                     </li>
     
-                    <li class="@yield('burger-shopping-cart-menu')">
+                    <li class="@yield('burger-privacy-policy-menu')">
                         <span class="li-icon"><i class="fas fa-user-lock"></i></span>
                         <a href="{{ route('cart') }}">Privacy Policy</a>
                     </li>
     
-                    <li class="@yield('burger-shopping-cart-menu')">
+                    <li class="@yield('burger-terms-of-use-menu')">
                         <span class="li-icon"><i class="fas fa-route-interstate"></i></span>
                         <a href="{{ route('cart') }}">Terms Of Use</a>
                     </li>
     
-                    <li class="@yield('burger-shopping-cart-menu')">
+                    <li class="@yield('burger-return-policy-menu')">
                         <span class="li-icon"><i class="fas fa-truck"></i></span>
                         <a href="{{ route('cart') }}">Return & Replacement Policy</a>
                     </li>
