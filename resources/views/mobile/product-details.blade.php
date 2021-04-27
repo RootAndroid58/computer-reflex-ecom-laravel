@@ -84,8 +84,8 @@
             
             {{-- Quick actions --}}  
 
-            <form action="{{ route('checkout-post') }}" method="post"> <input type="hidden" name="_token" value="VlOthNCquV2Z7Jp4k9ZvDoeKhfjEMsx2ILPGxZJW"> 
-                <input type="hidden" name="product_id[]" value="4">
+            <form action="{{ route('checkout-post') }}" method="post"> @csrf
+                <input type="hidden" name="product_id[]" value="{{$product->id}}">
                 <input type="hidden" name="product_qty[]" value="1">
                     <button class="btn btn-block btn-dark" style="padding: 10px 0.75rem;">
                         Buy Now

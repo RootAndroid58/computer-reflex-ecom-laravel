@@ -1,3 +1,13 @@
+@if (isMobile())
+
+@include('mobile.checkout-form')
+
+{{ die }}
+@endif
+
+
+
+
 @extends('layouts.common')
 
 @section('title', 'Checkout')

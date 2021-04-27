@@ -51,7 +51,8 @@
 
 <body>
 
-
+@yield('modals')
+    
 <div id="SearchScreen" class="search-screen d-none" style="height: 100vh; width: 100%; position: fixed; z-index: 19" >
    <input type="hidden" id="FetchSearchSuggestionsUrl" value="{{ route('fetch-search-suggestions') }}">
    <input type="hidden" id="Url" value="{{ url('/') }}">

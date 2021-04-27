@@ -1,12 +1,4 @@
-@if (isMobile())
-
-@include('mobile.checkout.pending')
-
-{{ die }}
-@endif
-
-
-@extends('layouts.common')
+@extends('layouts.mobile-common')
 
 @section('title', 'Order Pending')
     
@@ -15,14 +7,14 @@
 
     
     
-    <div class="container">
-        <div class="row">
-        <div class="col-md-12">
+    <div class="container-fluid">
+        <div class="">
+        <div class="">
         <div class="account-details-container">
             <div class="right-wishlist-container" style="min-height: 0;">
         
-                <div class="wishlist-basic-padding" style="padding: 10px 32px;">
-                    <div class="account-details-title" style="padding-bottom: 0px;">
+                <div class="" style="">
+                    <div class="mt-3 mb-3" style="padding-bottom: 0px;">
                         <img src="{{ asset('/img/svg/season-change.svg') }}" width="50" alt="" srcset="">
                         <span style="padding-right: 0;"><span style="color: #f6c23e;">Order Pending</span> </span> #{{ date_format($data['order']->created_at,"Y-mdHis").'-'.$data['order']->id }}
                     </div>
@@ -31,8 +23,7 @@
                 <div class="account-menu-break"></div>   
                                                     
                     <div class="wishlist-container">   
-                        <form action="http://localhost:8000/checkout" method="post" id="CartCheckOutForm"> <input type="hidden" name="_token" value="WwI9Iew3SQzo763ogSnhQVllI4PQx3i4qUOQURAF">                                         
-    
+
                             <div class="account-menu-break"></div>     
                                 <div class="wishlist-basic-padding" id="CartItem2" style="padding-bottom: 0;">
                                     <div class="order-confirmation-notes">
@@ -46,8 +37,6 @@
                                 <div class="row wishlist-basic-padding" style="padding-top: 0;"></div>
                             <div class="account-menu-break" id="CartBreak2"></div>      
                              
-                             
-                        </form>
                         </div> 
                         
                     </div>
@@ -67,8 +56,8 @@
 
     
     <div class="container">
-    <div class="row">
-    <div class="col-md-12">
+    <div class="">
+    <div class="">
     <div class="account-details-container">
         <div class="right-wishlist-container" style="min-height: 0;">
     
@@ -88,13 +77,10 @@
             <div class="account-menu-break"></div>   
                                                 
                 <div class="wishlist-container">   
-                    <form action="http://localhost:8000/checkout" method="post" id="CartCheckOutForm"> <input type="hidden" name="_token" value="WwI9Iew3SQzo763ogSnhQVllI4PQx3i4qUOQURAF">                                         
-
                         <div class="account-menu-break"></div>     
                          
                             <div class="row wishlist-basic-padding" id="CartItem2" style="padding-bottom: 0;">
 
-    
                                 <div class="col-6">
                                     <p>
                                         <span style="font-weight: 500;">{{$data['address']->name}}</span> <br>
@@ -153,9 +139,7 @@
                             <div class="row wishlist-basic-padding" style="padding-top: 0;"></div>
 
                         <div class="account-menu-break" id="CartBreak2"></div>      
-                         
-                         
-                    </form>
+
                     </div> 
                     
                 </div>
@@ -190,15 +174,15 @@
                         <div class="account-menu-break"></div>     
                             <div class="row wishlist-basic-padding" style="padding-bottom: 0;">
                                 <div class="col-md-3">
-                                    <a href="http://localhost:8000/product/{{$item->id}}" target="_blank">
+                                    <a href="{{route('product-index', $item->product->id) }}" target="_blank">
                                         <div class="wish-product-image-container">
-                                            <img src="http://localhost:8000/storage/images/products/{{$item->image->image}}" alt="">
+                                            <img src="{{ asset('storage/images/products/'.$item->image->image) }}" alt="">
                                         </div>
                                     </a>
                                 </div>
     
                                 <div class="col-md-8">
-                                    <a href="http://localhost:8000/product/2" target="_blank">
+                                    <a href="{{route('product-index', $item->product->id) }}" target="_blank">
                                         <span class="wish-product-title font-weight-500 color-0066c0">{{$item->product->product_name}}</span>
                                     </a>
                                     <p>

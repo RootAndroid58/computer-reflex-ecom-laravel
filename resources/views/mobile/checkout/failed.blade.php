@@ -1,53 +1,42 @@
-@if (isMobile())
+@extends('layouts.mobile-common')
 
-@include('mobile.checkout.pending')
-
-{{ die }}
-@endif
-
-
-@extends('layouts.common')
-
-@section('title', 'Order Pending')
+@section('title', 'Order Failed')
     
 @section('content')
 <div class="body-container" id="CartContainer">
 
     
     
-    <div class="container">
-        <div class="row">
-        <div class="col-md-12">
+    <div class="container-fluid">
+        <div class="">
+        <div class="">
         <div class="account-details-container">
             <div class="right-wishlist-container" style="min-height: 0;">
         
-                <div class="wishlist-basic-padding" style="padding: 10px 32px;">
+                <div class="mt-3 mb-3" style="">
                     <div class="account-details-title" style="padding-bottom: 0px;">
-                        <img src="{{ asset('/img/svg/season-change.svg') }}" width="50" alt="" srcset="">
-                        <span style="padding-right: 0;"><span style="color: #f6c23e;">Order Pending</span> </span> #{{ date_format($data['order']->created_at,"Y-mdHis").'-'.$data['order']->id }}
+                        <img src="{{ asset('/img/svg/sad.svg') }}" width="50" alt="" srcset="">
+                        <span style="padding-right: 0; color: #e74a3b;">Order Failed (Payment Declined)</span> #{{ date_format($data['order']->created_at,"Y-mdHis").'-'.$data['order']->id }}
                     </div>
                 </div>
         
                 <div class="account-menu-break"></div>   
                                                     
                     <div class="wishlist-container">   
-                        <form action="http://localhost:8000/checkout" method="post" id="CartCheckOutForm"> <input type="hidden" name="_token" value="WwI9Iew3SQzo763ogSnhQVllI4PQx3i4qUOQURAF">                                         
+        
     
                             <div class="account-menu-break"></div>     
                                 <div class="wishlist-basic-padding" id="CartItem2" style="padding-bottom: 0;">
                                     <div class="order-confirmation-notes">
-                                        <span>Umm... Looks like we haven't received any payment confirmation from the Payment Gateway.</span><br>
-                                        <span>Our team will verify the payment manually and update your order accordingly within 24hrs.</span><br>
-                                        <span>If no amount deducted from your account then please place a new order.</span><br>
-                                        <span>Sorry for the inconvenience. If you need any help, feel free to <a href="#">Contact us</a>.</span>
+                                        <span>As per the data received from the Payment Gateway (@if ($data['order']->payment_method == 'paytm') PayTM @elseif($data['order']->payment_method == 'payu') PayU @endif)<br> It looks like the Payment was declined by user or bank.</span><br>
+                                        <span>If any amount deducted from your account, please <a href="#">contact us</a> so that we can help you get your refund as soon as possible.</span><br>
+                                        <span>Sorry for the inconvenience, you may place a <a href="{{url('/')}}">new order.</a></span>
                                     </div>
                                 </div>
                                 
                                 <div class="row wishlist-basic-padding" style="padding-top: 0;"></div>
                             <div class="account-menu-break" id="CartBreak2"></div>      
                              
-                             
-                        </form>
                         </div> 
                         
                     </div>
@@ -66,9 +55,9 @@
 
 
     
-    <div class="container">
-    <div class="row">
-    <div class="col-md-12">
+    <div class="container-fluid">
+    <div class="">
+    <div class="">
     <div class="account-details-container">
         <div class="right-wishlist-container" style="min-height: 0;">
     
@@ -88,7 +77,7 @@
             <div class="account-menu-break"></div>   
                                                 
                 <div class="wishlist-container">   
-                    <form action="http://localhost:8000/checkout" method="post" id="CartCheckOutForm"> <input type="hidden" name="_token" value="WwI9Iew3SQzo763ogSnhQVllI4PQx3i4qUOQURAF">                                         
+                    
 
                         <div class="account-menu-break"></div>     
                          
@@ -138,14 +127,12 @@
         
                                     @if ($data['order']->payment_method != 'cod')
                                     <div style="padding-top: 10px; text-align: right;">
-                                        <span style="font-size: 16px; color: #f6c23e;">
-                                            Payment Pending <i class="fa fa-clock" aria-hidden="true"></i>
+                                        <span style="font-size: 16px; color: #e74a3b;">
+                                            Payment Failed <i class="fa fa-times" aria-hidden="true"></i>
                                         </span>
                                     </div>
                                     @endif
-                                    
-                                  
-                                                                   
+                       
                                 </div>
                                 
                             </div>
@@ -154,8 +141,7 @@
 
                         <div class="account-menu-break" id="CartBreak2"></div>      
                          
-                         
-                    </form>
+
                     </div> 
                     
                 </div>
@@ -186,27 +172,27 @@
                                                 
                 <div class="wishlist-container">   
                     @foreach ($data['items'] as $item)
-                    {{-- {{ dd() }} --}}
+                  
                         <div class="account-menu-break"></div>     
                             <div class="row wishlist-basic-padding" style="padding-bottom: 0;">
                                 <div class="col-md-3">
-                                    <a href="http://localhost:8000/product/{{$item->id}}" target="_blank">
+                                    <a href="{{ route('product-index', $item->product_id) }}" target="_blank">
                                         <div class="wish-product-image-container">
-                                            <img src="http://localhost:8000/storage/images/products/{{$item->image->image}}" alt="">
+                                            <img src="{{ asset('storage/images/products/'.$item->image->image) }}" alt="">
                                         </div>
                                     </a>
                                 </div>
     
                                 <div class="col-md-8">
-                                    <a href="http://localhost:8000/product/2" target="_blank">
+                                    <a href="{{ route('product-index', $item->product_id) }}" target="_blank">
                                         <span class="wish-product-title font-weight-500 color-0066c0">{{$item->product->product_name}}</span>
                                     </a>
                                     <p>
                                         <div class="details-price" style="margin-bottom: 0;">
                                                 <span style="font-weight: normal; font-size: 15px;">Unit Price: <span style="font-weight: 500;"><font class="rupees">₹</font> {{moneyFormatIndia($item->unit_price)}}</span></span><br>
                                                 <span style="font-weight: normal; font-size: 15px;">Qty: <span style="font-weight: 500;"> {{$item->qty}}</span></span><br>
-                                                <span style="font-weight: normal; font-size: 15px;">Total Price: <span style="font-weight: 500;"><font class="rupees">₹</font> {{moneyFormatIndia($item->total_price)}}</span></span>
-                                                <span style="font-weight: normal; font-size: 15px; color: #f6c23e;">Pending...</span>
+                                                <span style="font-weight: normal; font-size: 15px;">Total Price: <span style="font-weight: 500;"><font class="rupees">₹</font> {{moneyFormatIndia($item->total_price)}}</span></span><br>
+                                                <span style="font-weight: normal; font-size: 15px; color: #e74a3b;">Order Failed.</span>
                                         </div>
                                     </p>
                                 </div>

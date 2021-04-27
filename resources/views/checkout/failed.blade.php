@@ -1,3 +1,10 @@
+@if (isMobile())
+
+@include('mobile.checkout.failed')
+
+{{ die }}
+@endif
+
 
 @extends('layouts.common')
 
