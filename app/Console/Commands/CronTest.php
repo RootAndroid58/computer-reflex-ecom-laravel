@@ -39,8 +39,8 @@ class CronTest extends Command
      */
     public function handle()
     {
-        Mail::raw('Cron Working Fine!', function ($message) {
-            $message->to('aniket.das.in@gmail.com')->subject('Cron Working Fine!');
+        Mail::raw('This is a simple text string', function ($m) {
+            $m->to('toemail@abc.com')->subject('Email Subject');
           });
 
         return 0;

@@ -1,110 +1,129 @@
-@if (isMobile())
-
-    @include('mobile.account')
-
-{{ die }}
-@endif
-
-
-@extends('layouts.menu-layout')
+@extends('layouts.mobile-common')
 
 @section('title', 'My Account')
 
-@section('profile-information-nav', 'account-menu-item-active')
+@section('burger-my-account-menu', 'account-menu-item-active')
 
-@section('right-col-menu')
+@section('css-js')
+    <style>
+        .account-details-title {
+            padding-bottom: 9px;
+        }
+    </style>
+@endsection
+
+
+@section('content')
+
+<div class="profile-picture-section bg-secondary justify-content-center align-items-center d-flex" style="min-height: 20vh;">
+    <div class="pt-4 pb-4">
+        <img  src="{{ asset('storage/images/dp/'.Auth()->user()->dp) }}" alt="" style=" width: 150px; height: 150px; border-radius: 50%;">
+    </div>
     
-<div class="right-account-container account-details-container">
+</div>
+
+
+
+
+<div class="container-fluid">
      
-        <div class="account-section">
-            <div class="account-details-title">
-                <span>Personal Information</span>
-                <a href="#" class="" id="NameEditBtn">Edit</a>
-                <a href="#" style="color: red;" class="d-none" id="NameEditCloseBtn">Cancel</a>
-            </div>
-
-            <div class="_1TlPi6 row">
-                <div class="_1YVqbV">
-                    <form id="NameUpdateForm">
-                        <div class="_1Jqgld">
-                            <input type="text" class="_1w3ZZo _1YmvCG _2mFmU7" id="UpdateName" required="" disabled autocomplete="name" tabindex="1" value="{{Auth()->user()->name}} ">
-                        </div>
-                    </form>
-                </div>
-                <button id="NameSubmitBtn" form="NameUpdateForm" class="btn btn-primary btn-lg d-none" style="height: 100%; height: 45px;">SAVE</button>
-            </div>
-        </div>
-   
-
-        <div class="account-section">
-
-            <div class="account-details-title">
-                <span>Email Address</span>
-                <a href="#" class="" id="EmailEditBtn">Edit</a>
-                <a href="#" style="color: red;" class="d-none" id="EmailEditCloseBtn">Cancel</a>
-            </div>
-        
-            <div class="_1TlPi6 row" style="margin-bottom: 20px;" >
-                <div class="_1YVqbV ">
-                    <form id="EmailUpdateForm">
-                        <div class="_1Jqgld">
-                            <input type="text" id="UpdateEmail" class="_1w3ZZo _1YmvCG _2mFmU7" name="lastName" disabled="" required autocomplete="name" tabindex="2" value="{{Auth()->user()->email}}">
-                        </div>
-                    </form>
-                </div>
-                <button id="EmailSubmitBtn" form="EmailUpdateForm" class="btn btn-primary btn-lg d-none" style="height: 100%; height: 45px;">SAVE</button>
-            </div>
-
-
-        
-            <div class="account-details-title">
-                <span>Mobile Number</span>
-                <a href="#" class="" id="MobileEditBtn">Edit</a>
-                <a href="#" style="color: red;" class="d-none" id="MobileEditCloseBtn">Cancel</a>
-            </div>
-
-            <div class="_1TlPi6 row">
-                <div class="_1YVqbV">
-                    <form id="MobileUpdateForm">
-                        <div class="_1Jqgld">
-                            <input type="text" id="UpdateMobile" class="_1w3ZZo _1YmvCG _2mFmU7" name="mobile" disabled="" required autocomplete="name" tabindex="2" value="{{Auth()->user()->mobile ?? 'Not Registered'}}">
-                        </div>
-                    </form>
-                </div>
-                <button id="MobileSubmitBtn" form="MobileUpdateForm" class="btn btn-primary btn-lg d-none" style="height: 100%; height: 45px;">SAVE</button>
-            </div>
-        
-        </div>
-
-
-    <div class="account-section account-faqs-section">
+    <div class="account-section mt-3" style="padding-bottom: 15px;">
         <div class="account-details-title">
-            <span>FAQs</span>
+            <span>Personal Information</span>
+            <a href="#" class="" id="NameEditBtn">Edit</a>
+            <a href="#" style="color: red;" class="d-none" id="NameEditCloseBtn">Cancel</a>
         </div>
-        <h4>This is a dummy question?</h4>
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.</p>
+
+        <div class="_1TlPi6 row">
+            <div class="_1YVqbV">
+                <form id="NameUpdateForm">
+                    <div class="_1Jqgld">
+                        <input type="text" class="_1w3ZZo _1YmvCG _2mFmU7" id="UpdateName" required="" disabled autocomplete="name" tabindex="1" value="{{Auth()->user()->name}} ">
+                        <button id="NameSubmitBtn" type="submit" form="NameUpdateForm" class="btn btn-primary btn-sm btn-block d-none ">SAVE</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="account-section">
+
+        <div class="account-details-title">
+            <span>Email Address</span>
+            <a class="" id="EmailEditBtn">Edit</a>
+            <a style="color: red;" class="d-none" id="EmailEditCloseBtn">Cancel</a>
+        </div>
     
+        <div class="_1TlPi6 row" style="margin-bottom: 20px;" >
+            <div class="_1YVqbV ">
+                <form id="EmailUpdateForm">
+                    <div class="_1Jqgld">
+                        <input type="text" id="UpdateEmail" class="_1w3ZZo _1YmvCG _2mFmU7" name="lastName" disabled="" required autocomplete="name" tabindex="2" value="{{Auth()->user()->email}}">
+                        <button id="EmailSubmitBtn" form="EmailUpdateForm" type="submit" class="btn btn-primary btn-block btn-sm d-none">SAVE</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
     
-        <h4>This is a dummy question?</h4>
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.</p>
-    
-    
-        <h4>This is a dummy question?</h4>
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.</p>
-    
-    
-        <h4>This is a dummy question?</h4>
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.</p>
+        <div class="account-details-title">
+            <span>Mobile Number</span>
+            <a href="#" class="" id="MobileEditBtn">Edit</a>
+            <a href="#" style="color: red;" class="d-none" id="MobileEditCloseBtn">Cancel</a>
+        </div>
+
+        <div class="_1TlPi6 row">
+            <div class="_1YVqbV">
+                <form id="MobileUpdateForm">
+                    <div class="_1Jqgld">
+                        <input type="text" id="UpdateMobile" class="_1w3ZZo _1YmvCG _2mFmU7" name="mobile" disabled="" required autocomplete="name" tabindex="2" value="{{Auth()->user()->mobile ?? 'Not Registered'}}">
+                        <button id="MobileSubmitBtn" type="submit" form="MobileUpdateForm" class="btn btn-primary btn-block btn-sm d-none">SAVE</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     
     </div>
 
-    <div class="account-section account-details-bottom-svg">
-        <img class="" src="{{ asset('img/svg/pride.svg') }}" alt="" srcset="">
+
+<div class="account-section account-faqs-section">
+    <div class="account-details-title">
+        <span>FAQs</span>
     </div>
+    <h4>This is a dummy question?</h4>
+    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.</p>
+
+
+    <h4>This is a dummy question?</h4>
+    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.</p>
+
+
+    <h4>This is a dummy question?</h4>
+    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.</p>
+
+
+    <h4>This is a dummy question?</h4>
+    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.</p>
+
+</div>
+
+<div class="account-section account-details-bottom-svg">
+    <img class="" src="{{ asset('img/svg/pride.svg') }}" alt="" srcset="">
+</div>
 
 </div>
 
 @endsection
+
+
+
+
+
+
+
+
 
 @section('bottom-js')
 

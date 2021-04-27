@@ -59,7 +59,7 @@ class IndexController extends Controller
 
     public function Categories()
     {
-        return 'Categories Page';
+        return view('mobile.categories');
     }
 
 
