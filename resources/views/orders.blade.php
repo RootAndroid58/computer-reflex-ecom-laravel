@@ -1,6 +1,13 @@
-    
+@if (isMobile())
+
+    @include('mobile.orders')
+
+{{ die }}
+@endif
+
+
 @extends('layouts.common')
-@php 
+@php
 $UserName=str_word_count(Auth()->user()->name, 1); 
 @endphp
 @section('title', 'Order Placed')
@@ -82,7 +89,7 @@ $UserName=str_word_count(Auth()->user()->name, 1);
                                     <div class="col-md-2">
                                         <a href="{{route('product-index', $item->product->id)}}" target="_blank">
                                             <div class="wish-product-image-container">
-                                                <img src="{{'storage/images/products/'.$item->image->image}}" alt="">
+                                                <img src="{{ asset('storage/images/products/'.$item->image->image) }}" alt="">
                                             </div>
                                         </a>
                                     </div>
