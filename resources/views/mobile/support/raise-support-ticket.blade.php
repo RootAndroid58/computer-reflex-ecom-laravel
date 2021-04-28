@@ -1,18 +1,11 @@
-@if (isMobile())
-
-    @include('mobile.support.raise-support-ticket')
-
-{{ die }}
-@endif
-
-@extends('layouts.support-menu-layout')
-
-@section('nav-raise-support-ticket', 'account-menu-item-active')
+@extends('layouts.mobile-common')
 
 @section('title', 'Raise Support Ticket')
 
-@section('right-menu-col')
-<div class="right-account-container account-details-container">
+@section('burger-raise-support-ticket-menu', 'account-menu-item-active')
+
+@section('content')
+<div class="container-fluid mt-3">
                 
     <form action="{{ route('support.raise-support-ticket-submit') }}" method="post"> @csrf
 
@@ -59,6 +52,7 @@
 </div>
 @endsection
 
+
 @section('bottom-js')
     <script>
         $(document).ready(function() {
@@ -68,3 +62,4 @@
         });
     </script>
 @endsection
+

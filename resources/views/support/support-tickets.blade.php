@@ -1,3 +1,10 @@
+@if (isMobile())
+
+    @include('mobile.support.support-tickets')
+
+{{ die }}
+@endif
+
 @extends('layouts.support-menu-layout')
 
 @section('nav-support-tickets', 'account-menu-item-active')
