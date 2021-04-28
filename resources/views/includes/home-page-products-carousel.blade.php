@@ -7,6 +7,7 @@
     <div class="row">
         <div class="col-12" style="padding: 0;">
             <div class="bbb_main_container">
+                
                 <div class="bbb_viewed_title_container" >
                     <h3 class="bbb_viewed_title" style="margin-bottom: 5px; @if (isMobile()) font-size: 20px; @endif">{{$section->title}} 
                         @if (!isMobile())
@@ -15,14 +16,19 @@
                             @endcanany
                         @endif
                     </h3>
-                    <div class="mb-2">
-                        <span >{{$section->caption}}</span>
-                    </div>
-                    <div class="bbb_viewed_nav_container">
+
+                    <div class="bbb_viewed_nav_container float-right" style="position: unset;">
                         <div class="bbb_viewed_nav bbb_viewed_prev" onclick="PrevCarousel({{ $section->id }})"><i class="fas fa-chevron-left"></i></div>
                         <div class="bbb_viewed_nav bbb_viewed_next" onclick="NextCarousel({{ $section->id }})"><i class="fas fa-chevron-right"></i></div>
                     </div>
+                    
+                    <div class="mb-2">
+                        <span >{{$section->caption}}</span>
+                    </div>
+                    
                 </div>
+
+
                 <div class="bbb_viewed_slider_container">
                     <div class="owl-carousel owl-carousel-{{ $section->id }} owl-theme bbb_viewed_slider">
                         @foreach ($section->SectionProducts as $product)

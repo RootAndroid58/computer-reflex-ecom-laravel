@@ -1,10 +1,10 @@
- div {
+ /* div {
     display: block;
     position: relative;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box
-}
+} */
 
 
  .bbb_viewed {
@@ -605,6 +605,7 @@ Buy now button Custom
 }
 ._1UHYca {
     z-index: 1;
+    background-color: white;
     white-space: nowrap;
     display: none;
     position: absolute;

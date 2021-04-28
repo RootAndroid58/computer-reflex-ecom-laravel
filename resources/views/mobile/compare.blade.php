@@ -2,6 +2,9 @@
 
 @section('title', 'Compare')
 
+@section('burger-compare-menu', 'account-menu-item-active')
+
+
 @section('css-js')
     <style>
 .tscroll {
@@ -25,7 +28,7 @@
 @section('content')
 <div class="body-container">
     <div id="DynamicDiv">
-        <div class="@if ($compare->count() < 1) container @else container-fluid @endif">
+        <div class="@if ($compare->count() < 1) container @endif">
             <div class="account-details-container">
                 <div class="wishlist-basic-padding" style="padding: 10px 32px;">
                     <div class="account-details-title" style="padding-bottom: 0px;">

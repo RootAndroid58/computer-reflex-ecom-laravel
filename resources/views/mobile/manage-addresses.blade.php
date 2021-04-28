@@ -1,15 +1,9 @@
-@if (isMobile())
+@extends('layouts.mobile-common')
 
-    @include('mobile.manage-addresses')
+@section('title', 'My Addresses')
 
-{{ die }}
-@endif
+@section('burger-my-addresses-menu', 'account-menu-item-active')
 
-@extends('layouts.menu-layout')
-
-@section('title', 'Manage Addresses')
-
-@section('manage-addresses-nav', 'account-menu-item-active')
 
 @section('modals')
 <div id="AddAddressModalDiv">
@@ -226,12 +220,13 @@
 </div>
 @endsection
 
-@section('right-col-menu')
+@section('content')
+<div class="container-fluid">
 <div id="addresses-container-div">
-<div class="account-details-container">
-    <div class="right-account-container ">
-        <div class="account-details-title">
-            <span>Delivery Addresse ({{$addresses->count()}})</span>
+<div class="">
+    <div class="">
+        <div class="mt-3 mb-3">
+            <span style="font-size: 16px; font-weight: 500;">Delivery Addresses ({{$addresses->count()}})</span>
         </div>
 
 
@@ -302,6 +297,7 @@
 
 </div>
 </div>
+</div>  
 @endsection
 
 @section('bottom-js')

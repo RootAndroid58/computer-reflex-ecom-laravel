@@ -156,6 +156,11 @@
                         <span class="li-icon"><i class="fas fa-heart"></i></span> 
                         <a href="{{ route('wishlist') }}">My Wishlist</a>
                     </li>
+
+                    <li class="@yield('burger-my-addresses-menu')">
+                        <span class="li-icon"><i class="fas fa-address-card"></i></span> 
+                        <a href="{{ route('addresses') }}">My Addresses</a>
+                    </li>
     
                     <li class="@yield('burger-compare-menu')">
                         <span class="li-icon"><i class="fas fa-repeat-alt"></i></span> 
@@ -202,6 +207,9 @@
                         <a href="{{ route('cart') }}">Return & Replacement Policy</a>
                     </li>
                 </ul>
+                <div style="padding: 25px;" class="mt-3">
+                    <img src="{{ asset('img/svg/video_game_night.svg') }}" alt="" style="width: 100%;">
+                </div>
             </div>
            
 
