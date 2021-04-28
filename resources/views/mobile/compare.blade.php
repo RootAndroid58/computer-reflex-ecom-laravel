@@ -1,20 +1,7 @@
-@if (isMobile())
-
-    @include('mobile.compare')
-
-{{ die }}
-@endif
-
-
-@extends('layouts.common')
-
-@php
-    $ProductMRPTotal = 0;
-    $ProductPriceTotal = 0;
-@endphp
+@extends('layouts.mobile-common')
 
 @section('title', 'Compare')
-    
+
 @section('css-js')
     <style>
 .tscroll {
@@ -34,8 +21,8 @@
     </style>
 @endsection
 
-@section('content')
 
+@section('content')
 <div class="body-container">
     <div id="DynamicDiv">
         <div class="@if ($compare->count() < 1) container @else container-fluid @endif">
@@ -160,6 +147,11 @@
     </div>
 </div>
 @endsection
+
+
+
+
+
 
 @section('bottom-js')
 

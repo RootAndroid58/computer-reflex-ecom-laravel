@@ -126,7 +126,7 @@
                 <ul class="mt-3">
                     <li class="@yield('burger-home-menu')">
                         <span class="li-icon"><i class="fas fa-home-lg-alt"></i></span>
-                        <a href="{{ route('my-account') }}">Home</a>
+                        <a href="{{ url('/') }}">Home</a>
                     </li>
     
                     <li class="@yield('burger-shop-by-categories-menu')">
