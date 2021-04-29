@@ -275,7 +275,7 @@ class AjaxDataTable extends Controller
             })
             ->addColumn('registered_mobile', function($data){
 
-                $registered_mobile = $data->order->User->mobile;
+                $registered_mobile = $data->order->User->mobile ?? '';
 
                 return $registered_mobile;
             })
@@ -544,7 +544,7 @@ class AjaxDataTable extends Controller
             })
             ->addColumn('registered_mobile', function($data){
 
-                $registered_mobile = $data->User->mobile;
+                $registered_mobile = $data->User->mobile ?? '';
 
                 return $registered_mobile;
             })
@@ -652,7 +652,7 @@ class AjaxDataTable extends Controller
             })
             ->addColumn('registered_mobile', function($data){
 
-                $registered_mobile = $data->User->mobile;
+                $registered_mobile = $data->User->mobile ?? '';
 
                 return $registered_mobile;
             })

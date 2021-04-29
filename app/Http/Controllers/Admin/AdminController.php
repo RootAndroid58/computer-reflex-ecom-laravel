@@ -344,7 +344,7 @@ class AdminController extends Controller
                 'status' => 200,
                 'name' => $user->name,
                 'email' => $user->email,
-                'mobile' => $user->mobile,
+                'mobile' => $user->mobile ?? '',
                 'created_at' => $user->created_at,
                 'updated_at' => $user->updated_at,
                 'user_id' => $user->id,
