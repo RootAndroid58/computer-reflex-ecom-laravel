@@ -42,8 +42,6 @@ class IndexController extends Controller
                 5,
             ])->get();
 
-            // dd($sections);
-
         return view('index', [
             'banners'               => $banners,
             'SmallBanners'          => $SmallBanners,
