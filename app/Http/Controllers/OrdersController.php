@@ -21,7 +21,7 @@ class OrdersController extends Controller
         $order = Order::with('Address')->with('OrderItems')->where('id', $order_id)->first();
 
         if (!isset($order)) {
-            return redirect()->back();
+            abort(404);
         }
         // dd($order);
         return view('order-page', [
