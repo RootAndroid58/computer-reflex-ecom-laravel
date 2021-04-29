@@ -18,7 +18,7 @@
 
 
 @if ($orders->count() == 0)
-<div class="wishlist-basic-padding" >
+<div class="" >
     <div class="w-100">
         <div class="blank-wishlist-container text-center">
             <div class="blank-wishlist-img-container" style="margin-top: 50px;">
@@ -30,7 +30,7 @@
                 <span>You have no orders on your account.</span>
                 
             </div>
-            <a href="{{ route('home') }}" class="btn btn-dark btn-lg">Start Shopping!</a>
+            <a href="{{ route('home') }}" class="btn btn-dark btn-sm">Start Shopping!</a>
             
         </div>
     </div>
