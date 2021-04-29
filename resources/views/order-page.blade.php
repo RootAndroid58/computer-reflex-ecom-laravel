@@ -1,3 +1,11 @@
+@if (isMobile())
+
+    @include('mobile.order-page')
+
+{{ die }}
+@endif
+
+
 @extends('layouts.common')
 
 @section('title', 'Order')
