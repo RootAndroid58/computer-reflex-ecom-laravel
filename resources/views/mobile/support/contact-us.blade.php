@@ -1,24 +1,18 @@
-@if (isMobile())
-
-    @include('mobile.support.contact-us')
-
-{{ die }}
-@endif
-
-@extends('layouts.support-menu-layout')
+@extends('layouts.mobile-common')
 
 @section('title', 'Contact Us')
 
-@section('nav-contact-us', 'account-menu-item-active')
-    
+@section('burger-contact-us-menu', 'account-menu-item-active')
 
-@section('right-menu-col')
-<div class="right-account-container" style="padding: 0;">
-    <div class="wishlist-basic-padding" style="padding: 24px 32px 0px 32px">
+@section('content')
+<div class="container-fluid pt-3    " >
+    @if (!Auth::check())
+    <div class="" >
         <span>Please login first to be able to Raise A Ticket with High Priority or else you can simply contact us on the channels below.</span>
     </div>
-
-        <div class="wishlist-basic-padding " style="padding: 24px 32px 0px 32px">
+    @endif
+        
+        <div class="mt-3" >
             <div class="w-100">
                 <span style="font-size: 17px; font-weight: 600;">
                     <span>
@@ -35,10 +29,12 @@
                 </p>
             </div>
         </div>
+       
+      
 
 
 
-        <div class="wishlist-basic-padding " style="padding: 24px 32px 0px 32px">
+        <div class=" " >
             <div class="w-100">
                 <span style="font-size: 17px; font-weight: 600;">
                     <span>
@@ -58,7 +54,7 @@
         </div>
 
 
-        <div class="wishlist-basic-padding " style="padding: 24px 32px 0px 32px">
+        <div class=" " >
             <div class="w-100">
                 <span style="font-size: 17px; font-weight: 600;">
                     <span>
@@ -84,3 +80,4 @@
 
 </div>
 @endsection
+    
