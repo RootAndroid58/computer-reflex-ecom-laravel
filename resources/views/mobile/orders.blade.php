@@ -45,6 +45,28 @@
 
 <div class="account-menu-break"></div>
     
+
+@if ($orders->count() == 0)
+<div class="wishlist-basic-padding" >
+    <div class="w-100">
+        <div class="blank-wishlist-container text-center">
+            <div class="blank-wishlist-img-container" style="margin-top: 50px;">
+                <img class="img-nodrag" style="max-width: 25%" src="{{asset('img/svg/empty-cart.svg')}}">
+            </div>
+            <div class="blank-wishlist-txt-container text-center mb-3" style="margin-top: 30px;">
+                <span style="font-weight: 500; font-size: 20px;">No Orders!</span>
+                <br>
+                <span>You have no orders on your account.</span>
+                
+            </div>
+            <a href="{{ route('home') }}" class="btn btn-dark btn-lg">Start Shopping!</a>
+            
+        </div>
+    </div>
+</div>
+@endif
+
+
     @foreach ($order->OrderItems as $item)
     <div class="container-fluid pt-3 pb-3">
         <a href="{{ route('order-page', $order->id) }}">
