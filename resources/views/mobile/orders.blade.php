@@ -47,7 +47,7 @@
     
     @foreach ($order->OrderItems as $item)
     <div class="container-fluid pt-3 pb-3">
-        <a href="{{ route('order-page', $item->product->id) }}">
+        <a href="{{ route('order-page', $order->id) }}">
             <div class="row">
                 <div class="col-3">
                     <img style="width: 100%; max-height: 100%;" src="{{ asset('storage/images/products/'.$item->image->image) }}" alt="">
