@@ -105,7 +105,7 @@ class CheckoutController extends Controller
                 'ORDER_ID' => $order->id,
                 'CUST_ID' => Auth()->user()->id,
                 'TXN_AMOUNT' => $price,
-                'MOBILE_NO' => Auth()->user()->mobile ?? 0000000000,
+                'MOBILE_NO' => Auth()->user()->mobile ?? $OrderAddress->mobile,
                 'EMAIL' => Auth()->user()->email,
                 'CALLBACK_URL' => route('checkout-paytm-response'),
             ];
@@ -122,7 +122,7 @@ class CheckoutController extends Controller
                 'amount' => $price,
                 'productinfo' => 'Order on ComputerReflex',
                 'firstname' => Auth()->user()->name,
-                'phone' => Auth()->user()->mobile ?? 0000000000,
+                'phone' => Auth()->user()->mobile ?? $OrderAddress->mobile,
                 'email' => Auth()->user()->email,
                 'surl' => route('checkout-payu-response'),
                 'furl' => route('checkout-payu-response'),
