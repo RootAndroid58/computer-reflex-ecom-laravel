@@ -170,6 +170,26 @@
     
     
                 <ul class="mt-3">
+                    @if (Auth::check() && Auth()->user()->can('Affiliate'))
+                    <li class="@yield('burger-affiliate-purchases-menu')">
+                        <span class="li-icon"><i class="fad fa-envelope-open-text"></i></span>
+                        <a href="{{ route('affiliate.referred-purchases') }}">Affiliate Purchases</a>
+                    </li>
+    
+                    <li class="@yield('burger-affiliate-wallet-menu')">
+                        <span class="li-icon"><i class="fas fa-user-headset"></i></span>
+                        <a href="{{ route('affiliate.wallet') }}">Affiliate Wallet</a>
+                    </li>
+                    @else
+                    <li class="@yield('burger-join-affiliate-menu')">
+                        <span class="li-icon"><i class="fas fa-sack-dollar"></i></span>
+                        <a href="{{ route('affiliate.join') }}">Join Affiliate</a>
+                    </li>
+                    @endif
+                    
+                </ul>
+    
+                <ul class="mt-3">
                     <li class="@yield('burger-raise-support-ticket-menu')">
                         <span class="li-icon"><i class="fas fa-ticket-alt"></i></span>
                         <a href="{{ route('support.raise-support-ticket') }}">Raise Support Ticket</a>

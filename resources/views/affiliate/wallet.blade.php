@@ -1,3 +1,11 @@
+@if (isMobile())
+
+    @include('mobile.affiliate.wallet')
+
+{{ die }}
+@endif
+
+
 @extends('layouts.affiliate-menu-layout')
 
 @section('title', 'Affiliate Wallet')
