@@ -100,7 +100,7 @@
 
                 
                         <div class="text-right w-100 bg-light" style="position: fixed; bottom: 0; left: 0; right: 0;">
-                            <button onclick="submitFilterForm()" class="btn btn-secondary float-left" style="width: 50%">Close</button>
+                            <button data-dismiss="modal" class="btn btn-secondary float-left" style="width: 50%">Close</button>
                             <button onclick="submitFilterForm()" class="btn btn-primary float-right" style="width: 50%">Apply</button>
                         </div>
                  
