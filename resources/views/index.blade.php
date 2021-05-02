@@ -18,7 +18,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('favicon.ico')}}">
-
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-STJZ4CTNF7"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-STJZ4CTNF7');
+    </script>
     <!-- all css here -->
     <link rel="stylesheet" href="{{ asset('ezone/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{ asset('ezone/css/magnific-popup.css')}}">
