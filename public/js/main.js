@@ -85,6 +85,7 @@ $('#filter_form').off('submit').on('submit', function (e) {
 
 $('#sort_by_select').one('change', function () {
   $('#filter_form').find('input[name="sort_by"]').val($(this).val());
+  $('#SearchSortModal').modal('toggle');
   $('#filter_form').submit();
 })
 

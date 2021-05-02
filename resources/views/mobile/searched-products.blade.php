@@ -3,6 +3,31 @@
 @section('title', 'Search: '.Request()->search)
 
 @section('modals')
+
+<!-- Modal -->
+<div class="modal fade" id="SearchSortModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                    <div class="form-group w-100">
+                      <label for="" style="font-weight: 600;">Sort By : </label>
+                      <select class="form-control" name="" id="sort_by_select">
+                        <option value="Default">Default</option>
+                        <option @if (Request()->sort_by == 'A to Z') selected @endif value="A to Z">A to Z</option>
+                        <option @if (Request()->sort_by == 'Z to A') selected @endif value="Z to A">Z to A</option>
+                        <option @if (Request()->sort_by == 'Price Low to High') selected @endif value="Price Low to High">Price Low to High</option>
+                        <option @if (Request()->sort_by == 'Price High to Low') selected @endif value="Price High to Low">Price High to Low</option>
+                      </select>
+                    </div>
+              
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
     <!-- Modal -->
     <div class="modal fade" id="SearchFilterModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -117,9 +142,9 @@
     <div class="container-fluid bg-light">
         <div class="row">
             <div class="col-6 text-center" style="border-right: white solid 2px;">
-                <div style="padding: 10px 0; font-weight: 600;" data-target="#" data-toggle="modal">
+                <div style="padding: 10px 0; font-weight: 600;" data-target="#SearchSortModal" data-toggle="modal">
                     <span>
-                        <i class="fad fa-sort-amount-down-alt"></i> Sort 
+                        <i class="fad fa-sort-amount-down-alt"></i> Sort By
                     </span>
                 </div>
             </div>
