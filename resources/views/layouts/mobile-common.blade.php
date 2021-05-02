@@ -311,6 +311,8 @@
                 <input type="text" class="form-control search-input" aria-label="Username" aria-describedby="basic-addon1" placeholder="Search for Products...">
             </div>
         </div>
+
+        @yield('header-extra')
     </header>
 
 
@@ -335,9 +337,9 @@
                             <i class="fad fa-shopping-cart"></i>
                         </a>
                      </div>
-                    
-
-                 </div>        
+                 </div>    
+                 
+                @yield('header-extra')
     </header>
     
 
@@ -554,12 +556,22 @@
 
         // On scroll swap to the right Header
         $(window).scroll(function() {
+            SwitchHeaders()
+        });
+        
+        $(document).ready(function () {
+            SwitchHeaders()
+        })
+
+        function SwitchHeaders() {
             if ($(this).scrollTop() > $('#main-header').innerHeight() + $('#scroll-header').innerHeight() / 2 ) {
                 $('#scroll-header').css('top', '0');
             } else {
                 $('#scroll-header').css('top', "-"+$('#scroll-header').innerHeight()+"px");
             }
-        });
+        }
+
+      
     </script>
       
 

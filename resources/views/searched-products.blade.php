@@ -24,6 +24,8 @@
             <div class="col-lg-2">
                 <div id="SideBar">
                     <div class="shop-sidebar mr-50">
+
+                        
                     <form method="GET" action="@if(isset($slug)){{route('show-catalog', $slug)}}@else{{ route('search')}}@endif" id="filter_form">
                         <input type="hidden" name="sort_by" value="">
                         <input type="hidden" name="search" value="{{ request()->search }}">
