@@ -17,9 +17,9 @@ use Distinct;
 class IndexController extends Controller
 {
 
-
     public function Index()
     {
+
         $SmallBanners = SmallBanner::get();
         $banners = Banner::where('banner_status', 1)->orderBy('banner_position', 'ASC')->get();
         $categories = Category::get();
