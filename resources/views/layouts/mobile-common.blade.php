@@ -8,6 +8,17 @@
 
     <title>@yield('title') - {{ env('APP_NAME') }}</title>
 
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-STJZ4CTNF7"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-STJZ4CTNF7');
+    </script>
+
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico')}}">
 
