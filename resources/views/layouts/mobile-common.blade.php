@@ -136,46 +136,94 @@
                     
                 <ul class="mt-3">
                     <li class="@yield('burger-home-menu')">
-                        <span class="li-icon"><i class="fas fa-home-lg-alt"></i></span>
-                        <a href="{{ url('/') }}">Home</a>
+                        <div class="row">
+                            <div class="col-1">
+                                <span class="li-icon"><i class="fas fa-home-lg-alt"></i></span>
+                            </div>
+                            <div class="col-9">
+                                <a href="{{ url('/') }}">Home</a>
+                            </div>
+                        </div>
                     </li>
     
                     <li class="@yield('burger-shop-by-categories-menu')">
-                        <span class="li-icon"><i class="fas fa-th"></i></span>
-                        <a href="{{ route('categories') }}">Shop By Category</a>
+                        <div class="row">
+                            <div class="col-1">
+                                <span class="li-icon"><i class="fas fa-th"></i></span>
+                            </div>
+                            <div class="col-9">
+                                <a href="{{ route('categories') }}">Shop By Category</a>
+                            </div>
+                        </div>
                     </li>
                 </ul>
 
 
                 <ul class="mt-3">
                     <li class="@yield('burger-my-account-menu')">
-                        <span class="li-icon"><i class="fas fa-user"></i></span>
-                        <a href="{{ route('my-account') }}">My Account</a>
+                        <div class="row">
+                            <div class="col-1">
+                                <span class="li-icon"><i class="fas fa-user"></i></span>
+                            </div>
+                            <div class="col-9">
+                                <a href="{{ route('my-account') }}">My Account</a>
+                            </div>
+                        </div>
                     </li>
 
                     <li class="@yield('burger-my-orders-menu')">
-                        <span class="li-icon"><i class="fad fa-box-check"></i></span>
-                        <a href="{{ route('orders') }}">My Orders</a>
+                        <div class="row">
+                            <div class="col-1">
+                                <span class="li-icon"><i class="fad fa-box-check"></i></span>
+                            </div>
+                            <div class="col-9">
+                                <a href="{{ route('orders') }}">My Orders</a>
+                            </div>
+                        </div>
                     </li>
     
                     <li class="@yield('burger-shopping-cart-menu')">
-                        <span class="li-icon"><i class="fas fa-shopping-cart"></i></span>
-                        <a href="{{ route('cart') }}">Shopping Cart</a>
+                        <div class="row">
+                            <div class="col-1">
+                                <span class="li-icon"><i class="fas fa-shopping-cart"></i></span>
+                            </div>
+                            <div class="col-9">
+                                <a href="{{ route('cart') }}">Shopping Cart</a>
+                            </div>
+                        </div>
                     </li>
     
                     <li class="@yield('burger-my-wishlist-menu')">
-                        <span class="li-icon"><i class="fas fa-heart"></i></span> 
-                        <a href="{{ route('wishlist') }}">My Wishlist</a>
+                        <div class="row">
+                            <div class="col-1">
+                                <span class="li-icon"><i class="fas fa-heart"></i></span> 
+                            </div>
+                            <div class="col-9">
+                                <a href="{{ route('wishlist') }}">My Wishlist</a>
+                            </div>
+                        </div>
                     </li>
 
                     <li class="@yield('burger-my-addresses-menu')">
-                        <span class="li-icon"><i class="fas fa-address-card"></i></span> 
-                        <a href="{{ route('addresses') }}">My Addresses</a>
+                        <div class="row">
+                            <div class="col-1">
+                                <span class="li-icon"><i class="fas fa-address-card"></i></span> 
+                            </div>
+                            <div class="col-9">
+                                <a href="{{ route('addresses') }}">My Addresses</a>
+                            </div>
+                        </div>
                     </li>
     
                     <li class="@yield('burger-compare-menu')">
-                        <span class="li-icon"><i class="fas fa-repeat-alt"></i></span> 
-                        <a href="{{ route('compare') }}">Compare</a>
+                        <div class="row">
+                            <div class="col-1">
+                                <span class="li-icon"><i class="fas fa-repeat-alt"></i></span> 
+                            </div>
+                            <div class="col-9">
+                                <a href="{{ route('compare') }}">Compare</a>
+                            </div>
+                        </div>                  
                     </li>
                 </ul>
     
@@ -183,18 +231,36 @@
                 <ul class="mt-3">
                     @if (Auth::check() && Auth()->user()->can('Affiliate'))
                     <li class="@yield('burger-affiliate-purchases-menu')">
-                        <span class="li-icon"><i class="fad fa-envelope-open-text"></i></span>
-                        <a href="{{ route('affiliate.referred-purchases') }}">Affiliate Purchases</a>
+                        <div class="row">
+                            <div class="col-1">
+                                <span class="li-icon"><i class="fad fa-envelope-open-text"></i></span>
+                            </div>
+                            <div class="col-9">
+                                <a href="{{ route('affiliate.referred-purchases') }}">Affiliate Purchases</a>
+                            </div>
+                        </div>   
                     </li>
     
                     <li class="@yield('burger-affiliate-wallet-menu')">
-                        <span class="li-icon"><i class="fas fa-user-headset"></i></span>
-                        <a href="{{ route('affiliate.wallet') }}">Affiliate Wallet</a>
+                        <div class="row">
+                            <div class="col-1">
+                                <span class="li-icon"><i class="fas fa-user-headset"></i></span>
+                            </div>
+                            <div class="col-9">
+                                <a href="{{ route('affiliate.wallet') }}">Affiliate Wallet</a>
+                            </div>
+                        </div>   
                     </li>
                     @else
                     <li class="@yield('burger-join-affiliate-menu')">
-                        <span class="li-icon"><i class="fas fa-sack-dollar"></i></span>
-                        <a href="{{ route('affiliate.join') }}">Join Affiliate</a>
+                        <div class="row">
+                            <div class="col-1">
+                                <span class="li-icon"><i class="fas fa-sack-dollar"></i></span>
+                            </div>
+                            <div class="col-9">
+                                <a href="{{ route('affiliate.join') }}">Join Affiliate</a>
+                            </div>
+                        </div>  
                     </li>
                     @endif
                     
@@ -202,40 +268,82 @@
     
                 <ul class="mt-3">
                     <li class="@yield('burger-raise-support-ticket-menu')">
-                        <span class="li-icon"><i class="fas fa-ticket-alt"></i></span>
-                        <a href="{{ route('support.raise-support-ticket') }}">Raise Support Ticket</a>
+                        <div class="row">
+                            <div class="col-1">
+                                <span class="li-icon"><i class="fas fa-ticket-alt"></i></span>
+                            </div>
+                            <div class="col-9">
+                                <a href="{{ route('support.raise-support-ticket') }}">Raise Support Ticket</a>
+                            </div>
+                        </div> 
                     </li>
     
                     <li class="@yield('burger-support-tickets-menu')">
-                        <span class="li-icon"><i class="fad fa-envelope-open-text"></i></span>
-                        <a href="{{ route('support.support-tickets') }}">Support Tickets</a>
+                        <div class="row">
+                            <div class="col-1">
+                                <span class="li-icon"><i class="fad fa-envelope-open-text"></i></span>
+                            </div>
+                            <div class="col-9">
+                                <a href="{{ route('support.support-tickets') }}">Support Tickets</a>
+                            </div>
+                        </div> 
                     </li>
     
                     <li class="@yield('burger-contact-us-menu')">
-                        <span class="li-icon"><i class="fas fa-user-headset"></i></span>
-                        <a href="{{ route('support.contact-us') }}">Contact Info</a>
+                        <div class="row">
+                            <div class="col-1">
+                                <span class="li-icon"><i class="fas fa-user-headset"></i></span>
+                            </div>
+                            <div class="col-9">
+                                <a href="{{ route('support.contact-us') }}">Contact Info</a>
+                            </div>
+                        </div> 
                     </li>
                 </ul>
     
                 <ul class="mt-3">
                     <li class="@yield('burger-about-us-menu')">
-                        <span class="li-icon"><i class="fas fa-file-certificate"></i></span>
-                        <a href="{{ route('my-account') }}">About Us</a>
+                        <div class="row">
+                            <div class="col-1">
+                                <span class="li-icon"><i class="fas fa-file-certificate"></i></span>
+                            </div>
+                            <div class="col-9">
+                                <a href="{{ route('my-account') }}">About Us</a>
+                            </div>
+                        </div> 
                     </li>
     
                     <li class="@yield('burger-privacy-policy-menu')">
-                        <span class="li-icon"><i class="fas fa-user-lock"></i></span>
-                        <a href="{{ route('cart') }}">Privacy Policy</a>
+                        <div class="row">
+                            <div class="col-1">
+                                <span class="li-icon"><i class="fas fa-user-lock"></i></span>
+                            </div>
+                            <div class="col-9">
+                                <a href="{{ route('cart') }}">Privacy Policy</a>
+                            </div>
+                        </div> 
                     </li>
     
                     <li class="@yield('burger-terms-of-use-menu')">
-                        <span class="li-icon"><i class="fas fa-route-interstate"></i></span>
-                        <a href="{{ route('cart') }}">Terms Of Use</a>
+                        <div class="row">
+                            <div class="col-1">
+                                <span class="li-icon"><i class="fas fa-route-interstate"></i></span>
+                            </div>
+                            <div class="col-9">
+                                <a href="{{ route('cart') }}">Terms Of Use</a>
+                            </div>
+                        </div> 
                     </li>
     
                     <li class="@yield('burger-return-policy-menu')">
-                        <span class="li-icon"><i class="fas fa-truck"></i></span>
-                        <a href="{{ route('cart') }}">Return & Replacement Policy</a>
+                        <div class="row">
+                            <div class="col-1">
+                                <span class="li-icon"><i class="fas fa-truck"></i></span>
+                            </div>
+                            <div class="col-9">
+                                <a href="{{ route('cart') }}">Return & Replacement Policy</a>
+                            </div>
+                        </div> 
                     </li>
                 </ul>
                 <div style="padding: 25px;" class="mt-3">
