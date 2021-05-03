@@ -98,7 +98,7 @@
     <div id="burgerNavMenu" class="burger-nav-menu w-75" style="position: fixed; z-index: 10; left: -75%;">
         <div style="height: 100vh;">
             
-            <div class="w-100 bg-dark pt-3" style="height: 28vh;">
+            <div class="w-100 bg-dark pt-3" style="height: 225px;">
 
                 <div class="prod-back-div user-img-container mt-3" 
                 style="margin-left: auto; margin-right: auto; width: 100px; height: 100px; border-radius: 50%; 
