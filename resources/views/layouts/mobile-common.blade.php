@@ -134,7 +134,7 @@
             <div class="mobile-nav-category-container">
 
                     
-                <ul class="mt-3">
+                <ul class="mt-2 pb-2">
                     <li class="@yield('burger-home-menu')">
                         <div class="row">
                             <div class="col-1">
@@ -159,7 +159,7 @@
                 </ul>
 
 
-                <ul class="mt-3">
+                <ul class="mt-2 pb-2">
                     <li class="@yield('burger-my-account-menu')">
                         <div class="row">
                             <div class="col-1">
@@ -228,7 +228,7 @@
                 </ul>
     
     
-                <ul class="mt-3">
+                <ul class="mt-2 pb-2">
                     @if (Auth::check() && Auth()->user()->can('Affiliate'))
                     <li class="@yield('burger-affiliate-purchases-menu')">
                         <div class="row">
@@ -266,7 +266,7 @@
                     
                 </ul>
     
-                <ul class="mt-3">
+                <ul class="mt-2 pb-2">
                     <li class="@yield('burger-raise-support-ticket-menu')">
                         <div class="row">
                             <div class="col-1">
@@ -301,7 +301,7 @@
                     </li>
                 </ul>
     
-                <ul class="mt-3">
+                <ul class="mt-2 pb-2">
                     <li class="@yield('burger-about-us-menu')">
                         <div class="row">
                             <div class="col-1">
