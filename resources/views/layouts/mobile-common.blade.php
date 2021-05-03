@@ -384,7 +384,7 @@
                     padding-top: 2px;
                     position: relative;
                     " href="{{ url('/') }}">
-                        <img src="{{ asset('img/logo-white-text.png') }}" style="width: 100px; height: 30px;" alt="">
+                        <img src="{{ asset('img/logo-white-text.png') }}" style="height: 30px;" alt="">
                     </a>
 
                     <a style="
