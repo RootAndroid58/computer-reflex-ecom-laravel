@@ -112,17 +112,17 @@
 
     
 <div class="electronic-banner-area mt-5">
-    <div class="custom-row-2 row">
+    <div class="row">
         @foreach ($SmallBanners as $key => $SmallBanner)
             @if ($key < 3)
-            <div class="col-12 mb-2" style="padding-left: 1px; padding-right: 1px;">
-                <div class="div-shadow">
-                    <a href="{{ $SmallBanner->link }}">
+            <div class="col-12 mb-2" style="padding-left: 0; padding-right: 0;">
+               
+                    <a href="{{ $SmallBanner->link }}" class="w-100">
                         <div class="electronic-banner-wrapper">
                             <img style="height: 100%; width: 100%;" loading=lazy src="{{ $SmallBanner->image }}" alt="Small Banner Image">
                         </div>
                     </a>
-                </div>
+            
             </div>
             @endif
         @endforeach
