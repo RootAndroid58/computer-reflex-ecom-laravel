@@ -371,7 +371,7 @@
                         line-height: 10px;
                         position: relative;
                         overflow: hidden;" >
-                        <i class="fad fa-bars"></i>
+                        <i class="fas fa-bars"></i>
                     </a>
 
                     <a style="
