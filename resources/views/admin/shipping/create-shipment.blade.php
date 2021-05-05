@@ -23,49 +23,50 @@
 
 
 
-
-<div class="container">
-    <div class="row">
-    <div class="col-md-12">
-    <div class="account-details-container">
-        <div class="right-wishlist-container" style="min-height: 0;">
-    
-            <div class="wishlist-basic-padding" style="padding: 10px 32px;">
-                <div class="account-details-title" style="padding-bottom: 0px;">
-                    <img src="{{ asset('/img/svg/packages.svg') }}" width="50" alt="" srcset="">
-                    <span style="padding-right: 0;"><font style="font-weight: 600; color: black;">Process Order</font></span> #{{ date_format($order->created_at,"Y-mdHis").'-'.$order->id }}
+<form action="{{ route('admin-create-shipment-submit') }}" method="post" class="w-100"> @csrf
+    <input type="hidden" name="order_id" value="{{ $order->id }}">
+    <div class="container">
+        <div class="row">
+        <div class="col-md-12">
+        <div class="account-details-container">
+            <div class="right-wishlist-container" style="min-height: 0;">
+        
+                <div class="wishlist-basic-padding" style="padding: 10px 32px;">
+                    <div class="account-details-title" style="padding-bottom: 0px;">
+                        <img src="{{ asset('/img/svg/packages.svg') }}" width="50" alt="" srcset="">
+                        <span style="padding-right: 0;"><font style="font-weight: 600; color: black;">Process Order</font></span> #{{ date_format($order->created_at,"Y-mdHis").'-'.$order->id }}
+                    </div>
                 </div>
-            </div>
-    
-            <div class="account-menu-break"></div>   
-                                                
-                <div class="wishlist-container ">   
-    
-                        <div class="account-menu-break"></div>     
-                            
-                            <div class="wishlist-basic-padding">
-                                <div class="order-confirmation-notes">
-                                    <span>Order ID: <span style="font-weight: 600; color: black;">{{ $order->id }}</span></span><br>
-                                    <span>Order Date: <span style="font-weight: 600; color: black;">{{ $order->created_at }}</span></span><br>
-                                    <span>Status: 
-                                        @if($order->status == 'order_placed') 
-                                        <span style="color: #2874f0">
-                                            <span style="">
-                                                <i class="fa fa-circle" aria-hidden="true"></i>
+        
+                <div class="account-menu-break"></div>   
+                                                    
+                    <div class="wishlist-container ">   
+        
+                            <div class="account-menu-break"></div>     
+                                
+                                <div class="wishlist-basic-padding">
+                                    <div class="order-confirmation-notes">
+                                        <span>Order ID: <span style="font-weight: 600; color: black;">{{ $order->id }}</span></span><br>
+                                        <span>Order Date: <span style="font-weight: 600; color: black;">{{ $order->created_at }}</span></span><br>
+                                        <span>Status: 
+                                            @if($order->status == 'order_placed') 
+                                            <span style="color: #2874f0">
+                                                <span style="">
+                                                    <i class="fa fa-circle" aria-hidden="true"></i>
+                                                </span>
+                                                Order Placed.
                                             </span>
-                                            Order Placed.
+                                        @endif
                                         </span>
-                                    @endif
-                                    </span>
+                                    </div>
                                 </div>
-                            </div>
-                            
-                    </div> 
+                                
+                        </div> 
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 
 
@@ -103,19 +104,50 @@
                             <div class="row wishlist-basic-padding" id="CartItem2" style="padding-bottom: 0;">
 
                                 <div class="col-6">
-                                    <p>
-                                        <span style="font-weight: 500;">{{$order->Address->name}}</span> <br>
-                                        {{$order->Address->house_no}}, <br>
-                                        {{$order->Address->locality}}, <br>
-                                        {{$order->Address->city}}, <br>
-                                        {{$order->Address->district}}, <br>
-                                        {{$order->Address->state}}, {{$order->Address->pin_code}} <br>
-                                    </p>
-                                    <p>
-                                        <span style="font-weight: 500;">Contact information</span><br>
-                                        {{$order->Address->mobile}}@if (isset($order->Address->alt_mobile)), {{$order->Address->alt_mobile}}@endif
-                                        
-                                    </p>
+                                        <div class="form-group">
+                                            <label for="">Buyer Name</label>
+                                            <input type="text" name="buyer_name" value="{{ $order->address->name ?? '' }}" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                                        </div>
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label for="">House No. / Apt.</label>
+                                            <input type="text" name="house_no" value="{{ $order->address->house_no ?? '' }}"  id="" class="form-control" placeholder="" aria-describedby="helpId">
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="">Locality</label>
+                                            <input type="text" name="locality" value="{{ $order->address->locality ?? '' }}" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label for="">City/Town</label>
+                                            <input type="text" name="city" value="{{ $order->address->city ?? '' }}" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="">District </label>
+                                            <input type="text" name="district" value="{{ $order->address->district ?? '' }}" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label for="">State  </label>
+                                            <input type="text" name="state" value="{{ $order->address->state ?? '' }}" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="">Postal PIN Code</label>
+                                            <input type="text" name="pin_code" value="{{ $order->address->pin_code ?? '' }}" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label for="">Mobile Number</label>
+                                            <input type="text" name="mobile" value="{{ $order->address->mobile ?? '' }}" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="">Alternate Mobile</label>
+                                            <input type="text" name="alt_mobile" value="{{ $order->address->alt_mobile ?? '' }}" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="col-6">
@@ -182,6 +214,13 @@
 
 
 
+
+
+
+
+
+
+
     <div class="container">
         <div class="row">
         <div class="col-md-12">
@@ -220,35 +259,41 @@
                                                             <span style="font-weight: normal; font-size: 15px;">Unit Price: <span style="font-weight: 500;"><font class="rupees">₹</font> {{moneyFormatIndia($item->unit_price)}}</span></span><br>
                                                             <span style="font-weight: normal; font-size: 15px;">Qty: <span style="font-weight: 500;"> {{$item->qty}}</span></span><br>
                                                             <span style="font-weight: normal; font-size: 15px;">Total Price: <span style="font-weight: 500;"><font class="rupees">₹</font> {{moneyFormatIndia($item->total_price)}}</span></span><br>
-                                                            @if ($item->status == 'order_placed')
-                                                            <span style="color: #2874f0">
-                                                                <span style="">
-                                                                    <i class="fa fa-circle" aria-hidden="true"></i>
-                                                                </span>
-                                                                Order Placed.
-                                                            </span>
-                                                            @elseif($item->status == 'packing_started')
-                                                            <span style="color: #2874f0">
-                                                                <span style="">
-                                                                    <i class="fa fa-circle" aria-hidden="true"></i>
-                                                                </span>
-                                                                Packing Started.
-                                                            </span>
-                                                            @elseif($item->status == 'packing_completed')
-                                                            <span style="color: #2874f0">
-                                                                <span style="">
-                                                                    <i class="fa fa-circle" aria-hidden="true"></i>
-                                                                </span>
-                                                                Packing Completed.
-                                                            </span>
-                                                            @elseif($item->status == 'shipment_created')
-                                                            <span style="color: #2874f0">
-                                                                <span style="">
-                                                                    <i class="fa fa-circle" aria-hidden="true"></i>
-                                                                </span>
-                                                                Shipment Created, Waiting For Pickup.
-                                                            </span>
-                                                            @endif
+
+                                                            <div class="row" style="color: rgb(70, 70, 70); font-weight: 600;">
+                                                                
+                                                                    <div class="form-group col-4">
+                                                                        <label for="">Length</label>
+                                                                        <div class="input-group">
+                                                                            <input required type="text" name="length[{{ $item->id }}]" value="{{ $item->product->length ?? '' }}" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                                                                            <div class="input-group-append">
+                                                                              <span class="input-group-text" id="basic-addon1">CM</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                
+                                                                    <div class="form-group col-4">
+                                                                        <label for="">Height</label>
+                                                                        <div class="input-group">
+                                                                            <input required type="text" name="height[{{ $item->id }}]" value="{{ $item->product->height ?? '' }}" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                                                                            <div class="input-group-append">
+                                                                              <span class="input-group-text" id="basic-addon1">CM</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                
+                                                                    <div class="form-group col-4">
+                                                                        <label for="">Weight</label>
+                                                                        <div class="input-group">
+                                                                            <input required type="text" name="weight[{{ $item->id }}]" value="{{ $item->product->weight ?? '' }}" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                                                                            <div class="input-group-append">
+                                                                              <span class="input-group-text" id="basic-addon1">KG</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                
+                                                            </div>
+                                                            
                                                         </div>
 
                                                         <div class="col-5" style="text-align: right;">
@@ -286,14 +331,20 @@
         </div>
 
 
+        <div class="container ">
+            <div class="wishlist-basic-padding account-details-container">
+                <button class="btn btn-block btn-dark" type="submit">
+                    Create Shipment Order With Courier
+                </button>
+            </div>
+        </div>
 
 
 
 
 
 
-
-
+</form>
 
 
         

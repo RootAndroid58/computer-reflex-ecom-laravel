@@ -25,6 +25,9 @@ class CreateProductsTable extends Migration
             $table->boolean('product_status')->default(0);
             $table->boolean('product_published')->default(0);
             $table->bigInteger('product_category_id')->foreign('id')->on('categories');
+            $table->bigInteger('length')->nullable();
+            $table->bigInteger('height')->nullable();
+            $table->bigInteger('weight')->nullable();
             $table->timestamps();
         });
     }

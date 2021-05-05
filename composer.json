@@ -19,6 +19,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
         "nicolaslopezj/searchable": "^1.13",
+        "seshac/laravel-shiprocket-api": "^1.0",
         "softon/indipay": "^1.2",
         "spatie/laravel-permission": "^3.18",
         "yajra/laravel-datatables-oracle": "^9.15"

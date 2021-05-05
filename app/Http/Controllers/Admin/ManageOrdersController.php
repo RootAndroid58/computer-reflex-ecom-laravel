@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\Shipment;
 use App\Models\OrderItem;
 use DateTime;
+
+use Seshac\Shiprocket\Shiprocket;
 
 class ManageOrdersController extends Controller
 {
@@ -106,13 +109,56 @@ class ManageOrdersController extends Controller
         
     }
 
+    public function CreateShipmentSubmit(Request $req)
+    {
+        $req->validate([
+            'order_id'      => 'required|exists:orders,id',
+            'buyer_name'    => 'required',
+            'house_no'      => 'required',
+            'locality'      => 'required',
+            'city'          => 'required',
+            'district'      => 'required',
+            'state'         => 'required',
+            'pin_code'      => 'required',
+            'mobile'        => 'required',
+            'alt_mobile'    => 'nullable',
+            'length'        => 'required',
+            'height'        => 'required',
+            'weight'        => 'required',
+        ]);
+  
+
+        foreach ($req->length as $key => $length) {
+            $OrderItem = OrderItem::where('id', $key)->first();
+            
+            Product::where('id', $OrderItem->product_id)->update([
+                'length' => $req->length[$key],
+                'height' => $req->height[$key],
+                'weight' => $req->weight[$key],
+            ]);
+        }
+
+        $ShiprocketParams = [
+            'order_id' => $req->order_id,
+        ];
+
+        $token =  Shiprocket::getToken();
+
+        dd($token);
+
+        $response =  Shiprocket::order($token)->create($ShiprocketParams);
+        
+
+        dd($response);
+    }
+
     public function CreateShipment(Request $req)
     {
         $req->validate([
             'order_item_ids' => 'required',
         ]);
 
-        $order = Order::with('OrderItems')->where('id', $req->order_id)->first();
+        $order = Order::with('OrderItems')->with('address')->where('id', $req->order_id)->first();
         $orderItems = OrderItem::whereIn('id', $req->order_item_ids)->get();
         // dd($req);
 
