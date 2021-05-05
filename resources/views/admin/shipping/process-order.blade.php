@@ -5,6 +5,111 @@
 @section('nav-manage-orders', 'active')
 
 @section('modals')
+
+    <!-- Modal -->
+    <div class="modal fade" id="CreateShipmentModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <form action="{{ route('admin-create-shipment') }}" method="post" class="w-100"> @csrf
+                <input type="hidden" name="order_id" value="{{ $order->id }}">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create Shipment</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    @foreach ($order->OrderItems as $item)
+                    <div class="account-menu-break"></div>     
+                        <div class="row wishlist-basic-padding" style="padding-bottom: 0;">
+                            <div class="col-md-3">
+                                <a href="{{route('product-index', $item->product_id)}}" target="_blank">
+                                    <div class="wish-product-image-container">
+                                        <img src="{{asset('storage/images/products/'.$item->image->image)}}" alt="">
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="col-md-8">
+                                <a href="{{route('product-index', $item->product_id)}}" target="_blank">
+                                    <span class="wish-product-title font-weight-500 color-0066c0">{{$item->product->product_name}}</span>
+                                </a>
+                                <p>
+                                    <div class="details-price" style="margin-bottom: 0;">
+                                            <div class="row">
+                                                <div class="col-7">
+                                                    <span style="font-weight: normal; font-size: 15px;">Unit Price: <span style="font-weight: 500;"><font class="rupees">₹</font> {{moneyFormatIndia($item->unit_price)}}</span></span><br>
+                                                    <span style="font-weight: normal; font-size: 15px;">Qty: <span style="font-weight: 500;"> {{$item->qty}}</span></span><br>
+                                                    <span style="font-weight: normal; font-size: 15px;">Total Price: <span style="font-weight: 500;"><font class="rupees">₹</font> {{moneyFormatIndia($item->total_price)}}</span></span><br>
+                                                    @if ($item->status == 'order_placed')
+                                                    <span style="color: #2874f0">
+                                                        <span style="">
+                                                            <i class="fa fa-circle" aria-hidden="true"></i>
+                                                        </span>
+                                                        Order Placed.
+                                                    </span>
+                                                    @elseif($item->status == 'packing_started')
+                                                    <span style="color: #2874f0">
+                                                        <span style="">
+                                                            <i class="fa fa-circle" aria-hidden="true"></i>
+                                                        </span>
+                                                        Packing Started.
+                                                    </span>
+                                                    @elseif($item->status == 'packing_completed')
+                                                    <span style="color: #2874f0">
+                                                        <span style="">
+                                                            <i class="fa fa-circle" aria-hidden="true"></i>
+                                                        </span>
+                                                        Packing Completed.
+                                                    </span>
+                                                    @elseif($item->status == 'shipment_created')
+                                                    <span style="color: #2874f0">
+                                                        <span style="">
+                                                            <i class="fa fa-circle" aria-hidden="true"></i>
+                                                        </span>
+                                                        Shipment Created, Waiting For Pickup.
+                                                    </span>
+                                                    @endif
+                                                </div>
+
+                                                <div class="col-5" >
+                                                    @if ($item->status == 'packing_completed')
+                                                        <div class="form-check">
+                                                          <label class="form-check-label cursor-pointer">
+                                                            <input type="checkbox" class="form-check-input cursor-pointer" name="order_item_ids[]" id="" value="{{$item->id}}">
+                                                                Add To The Shipment
+                                                          </label>
+                                                        </div>
+                                                    @else
+                                                        <span class="text-danger text-left">Complete the packaging to add this item to a shipment.</span>
+                                                    @endif
+                                                    
+                                                </div>
+
+
+                                            </div>
+                                    </div>
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div class="row wishlist-basic-padding" style="padding-top: 0;"></div>
+
+                    <div class="account-menu-break" id="CartBreak2"></div>      
+       
+                    @endforeach
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+
+
     <!-- Modal -->
     @foreach ($order->OrderItems as $item)
     <div class="modal fade" id="StartPackingModal{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
@@ -29,6 +134,8 @@
         </div>
     </div> 
     @endforeach
+
+
     <!-- Modal -->
     @foreach ($order->OrderItems as $item)
     <div class="modal fade" id="PackingCompletedModal{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
@@ -218,6 +325,14 @@
 
 
 
+
+
+
+
+
+
+
+
     <div class="container">
         <div class="row">
         <div class="col-md-12">
@@ -293,7 +408,7 @@
                                                             @elseif($item->status == 'packing_started')
                                                                 <a data-toggle="modal" data-target="#PackingCompletedModal{{$item->id}}" class="btn btn-dark">PACKING COMPLETED</a>
                                                             @elseif($item->status == 'packing_completed')
-                                                                <a href="{{ route('admin-create-shipment-view', $item->id) }}" class="btn btn-dark">CREATE SHIPMENT</a>
+                                                                {{-- <a href="{{ route('admin-create-shipment-view', $item->id) }}" class="btn btn-dark">CREATE SHIPMENT</a> --}}
                                                             @elseif($item->status == 'shipment_created')
                                                                 <a href="{{ route('admin-order-pickup-done', $item->id) }}" class="btn btn-dark">PICKUP COMPLETED</a>
                                                             @endif
@@ -320,6 +435,40 @@
           
             </div>
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="account-details-container">
+                    <div class="right-wishlist-container" style="min-height: unset;">             
+                        
+                        <div class="wishlist-basic-padding">
+                            <div class="account-details-title" style="padding-bottom: 0px;">
+                                <span style="font-weight: 600; color: black;">Create Shipment</span>
+                            </div>
+                        </div>
+
+                        <div class="wishlist-basic-padding" style="padding-top: 0;">
+                            <button class="btn btn-block btn-dark" data-toggle="modal" data-target="#CreateShipmentModal">Create Shipment</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 

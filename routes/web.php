@@ -20,7 +20,10 @@ Route::get('CartTest', 'App\Http\Controllers\CartController@Test');
     Route::get('login', 'App\Http\Controllers\Auth\LoginController@showLoginForm')->name('login');
     Route::post('login', 'App\Http\Controllers\Auth\LoginController@login');
     Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
-        
+
+    Route::get('login/{provider}', 'App\Http\Controllers\OAuthController@redirect')->name('social.login');
+    Route::get('login/{provider}/callback','App\Http\Controllers\OAuthController@Callback');
+
     // Verification Routes 
     Route::post('email/resend', 'App\Http\Controllers\Auth\VerificationController@resend')->name('verification.resend');
     Route::get('email/verify', 'App\Http\Controllers\Auth\VerificationController@show')->name('verification.notice');
@@ -222,9 +225,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:Admin', 'verifie
     
     Route::get('/manage-order/{order_item_id}/packing-completed','App\Http\Controllers\Admin\ManageOrdersController@CompletePacking')->middleware('permission:Manage Orders|Master Admin')->name('admin-complete-packing-order');
     
-    Route::get('/manage-order/{order_item_id}/create-shipment','App\Http\Controllers\Admin\ManageOrdersController@CreateShipmentView')->middleware('permission:Manage Orders|Master Admin')->name('admin-create-shipment-view');
+    // Route::get('/manage-order/{order_item_id}/create-shipment','App\Http\Controllers\Admin\ManageOrdersController@CreateShipmentView')->middleware('permission:Manage Orders|Master Admin')->name('admin-create-shipment-view');
     
-    Route::post('/manage-order/create-shipment/submit','App\Http\Controllers\Admin\ManageOrdersController@CreateShipment')->middleware('permission:Manage Orders|Master Admin')->name('admin-create-shipment-submit');
+    Route::post('/manage-order/create-shipment','App\Http\Controllers\Admin\ManageOrdersController@CreateShipment')->middleware('permission:Manage Orders|Master Admin')->name('admin-create-shipment');
+    
+    Route::post('/manage-order/create-shipment/submit','App\Http\Controllers\Admin\ManageOrdersController@CreateShipmentSubmit')->middleware('permission:Manage Orders|Master Admin')->name('admin-create-shipment-submit');
     
     Route::get('/manage-order/{order_item_id}/pickup-done','App\Http\Controllers\Admin\ManageOrdersController@PickupDone')->middleware('permission:Manage Orders|Master Admin')->name('admin-order-pickup-done');
 

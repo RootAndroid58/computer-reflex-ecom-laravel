@@ -84,6 +84,7 @@
             
             {{-- Quick actions --}}  
 
+            @if ($product->product_stock > 0)
             <form action="{{ route('checkout-post') }}" method="post"> @csrf
                 <input type="hidden" name="product_id[]" value="{{$product->id}}">
                 <input type="hidden" name="product_qty[]" value="1">
@@ -91,6 +92,8 @@
                         Buy Now
                     </button>
             </form>
+            @endif
+            
 
             
             
@@ -103,7 +106,7 @@
                     @if (Auth::check())
                     <a title="Wishlist" id="ToggleWishlistBtn" class="btn-hover cursor-pointer @if($wishlisted == 1) btn-wishlisted @else btn-not-wishlisted @endif ">&nbsp;<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;</a>
                     @endif
-                    <a title="Compare" style="vertical-align: unset" id="ToggleCompareBtn" class="btn cursor-pointer @if($compared == 1) btn-danger @else btn-info @endif ">&nbsp;<i class="fas fa-repeat"></i>&nbsp;</a>
+                    <a title="Compare" style="vertical-align: unset" id="ToggleCompareBtn" class="btn cursor-pointer @if($compared == 1) btn-secondary @else btn-light @endif ">&nbsp;<i class="fas fa-repeat"></i>&nbsp;</a>
                 </div>
             </div>
 
@@ -885,11 +888,11 @@
 
                         if (data.status == 200) {
                             console.log(200);
-                            $('#ToggleCompareBtn').addClass('btn-danger').removeClass('btn-info')
+                            $('#ToggleCompareBtn').addClass('btn-secondary').removeClass('btn-light')
                             // $('#CartCount').load("{{ route('cart') }} #CartCount")
                         } else if(data.status == 500) {
                             console.log(500);
-                            $('#ToggleCompareBtn').addClass('btn-info').removeClass('btn-danger')
+                            $('#ToggleCompareBtn').addClass('btn-light').removeClass('btn-secondary')
                             // $('#CartCount').load("{{ route('cart') }} #CartCount")
                         }
                     }

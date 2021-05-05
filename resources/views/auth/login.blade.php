@@ -66,7 +66,7 @@
                                         
                                         <hr>
                                         
-                                        <a class="btn btn-primary btn-block text-white btn-google btn-user" role="button">
+                                        <a class="btn btn-primary btn-block text-white btn-google btn-user" role="button" href="{{ route('social.login', 'google') }}">
                                             <i class="fab fa-google"></i>
                                             &nbsp; Login with Google
                                         </a>

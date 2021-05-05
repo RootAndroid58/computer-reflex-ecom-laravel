@@ -109,29 +109,17 @@ class ManageOrdersController extends Controller
     public function CreateShipment(Request $req)
     {
         $req->validate([
-            'courier_name'      => 'required',
-            'tracking_id'       => 'required',
-            'delivery_date'     => 'required',
-            'order_item_id'     => 'required',
+            'order_item_ids' => 'required',
         ]);
 
-        $item = OrderItem::where('id', $req->order_item_id)->first();
+        $order = Order::with('OrderItems')->where('id', $req->order_id)->first();
+        $orderItems = OrderItem::whereIn('id', $req->order_item_ids)->get();
+        // dd($req);
 
-        if ($item->status == 'packing_completed') {
-            
-            OrderItem::where('id', $req->order_item_id)->update([
-                'status' => 'shipment_created',
-            ]);
-    
-            $Shimpent = new Shipment;
-            $Shimpent->order_item_id = $req->order_item_id;
-            $Shimpent->courier_name = $req->courier_name;
-            $Shimpent->tracking_id = $req->tracking_id;
-            $Shimpent->delivery_date = $req->delivery_date;
-            $Shimpent->save();
-
-            return redirect()->route('admin-ship-order', $item->order_id);
-        }
+        return view('admin.shipping.create-shipment', [
+            'order'         => $order,
+            'orderItems'    => $orderItems,
+        ]);
     }
 
     public function PickupDone($order_item_id)
