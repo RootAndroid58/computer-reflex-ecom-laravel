@@ -20,7 +20,7 @@ class OAuthController extends Controller
     {
         $userSocial =   Socialite::driver($provider)->user();
         $users      =   User::where(['email' => $userSocial->getEmail()])->first();
-        
+        dd($userSocial);
         if($users){
             Auth::login($users);
             return redirect('/');
