@@ -29,7 +29,7 @@ class OAuthController extends Controller
             $user = User::create([
                 'name'          => $userSocial->getName(),
                 'email'         => $userSocial->getEmail(),
-                'dp'            => $userSocial->getAvatar(),
+                'dp'            => 'default.png',
                 'provider_id'   => $userSocial->getId(),
                 'provider'      => $provider,
                 'status'        => 'active',
