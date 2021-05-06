@@ -30,6 +30,8 @@ class AdminSupportTicketReplyMail extends Mailable
      */
     public function build()
     {
-        return $this->subject($this->data['ticket']->subject.' - Support Ticket #'.$this->data['ticket']->id)->view('mails.add-support-reply-mail');
+        return $this
+        ->subject($this->data['ticket']->subject.' - Support Ticket #'.$this->data['ticket']->id)
+        ->view('mails.add-support-reply-mail');
     }
 }

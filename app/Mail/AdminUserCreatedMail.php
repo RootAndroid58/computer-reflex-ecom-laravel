@@ -29,6 +29,9 @@ class AdminUserCreatedMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Welcome Onboard - Computer Reflex')->bcc('bcc@computer-reflex.tk')->view('mails.admin-user-created');
+        return $this
+        ->subject('Welcome Onboard - Computer Reflex')
+        ->bcc('bcc@computer-reflex.tk')
+        ->view('mails.admin-user-created');
     }
 }
