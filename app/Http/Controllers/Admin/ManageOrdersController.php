@@ -154,7 +154,7 @@ class ManageOrdersController extends Controller
 
         $order = Order::with('Address')->with('User')->where('id', $req->order_id)->first();
         
-        if ($order->status == 'cod') { 
+        if ($order->payment_method == 'cod') { 
             $payment_method = "COD";
         } else { 
             $payment_method = "Prepaid";
