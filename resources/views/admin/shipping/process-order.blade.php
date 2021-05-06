@@ -67,7 +67,7 @@
                                                         <span style="">
                                                             <i class="fa fa-circle" aria-hidden="true"></i>
                                                         </span>
-                                                        Shipment Created, Waiting For Pickup.
+                                                        Shipment #{{ $item->shipment->tracking_id }} Created, Waiting For Pickup.
                                                     </span>
                                                     @endif
                                                 </div>
@@ -397,7 +397,7 @@
                                                                 <span style="">
                                                                     <i class="fa fa-circle" aria-hidden="true"></i>
                                                                 </span>
-                                                                Shipment Created, Waiting For Pickup.
+                                                                Shipment #{{ $item->shipment->tracking_id }} Created, Waiting For Pickup.
                                                             </span>
                                                             @endif
                                                         </div>

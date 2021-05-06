@@ -237,7 +237,7 @@
                                                     
                     <div class="wishlist-container">   
                         @foreach ($orderItems as $item)
-        
+                            <input type="hidden" name="order_item_ids[]" value="{{$item->id}}">
                             <div class="account-menu-break"></div>     
                                 <div class="row wishlist-basic-padding" style="padding-bottom: 0;">
                                     <div class="col-md-3">
@@ -260,39 +260,6 @@
                                                             <span style="font-weight: normal; font-size: 15px;">Qty: <span style="font-weight: 500;"> {{$item->qty}}</span></span><br>
                                                             <span style="font-weight: normal; font-size: 15px;">Total Price: <span style="font-weight: 500;"><font class="rupees">₹</font> {{moneyFormatIndia($item->total_price)}}</span></span><br>
 
-                                                            <div class="row" style="color: rgb(70, 70, 70); font-weight: 600;">
-                                                                
-                                                                    <div class="form-group col-4">
-                                                                        <label for="">Length</label>
-                                                                        <div class="input-group">
-                                                                            <input required type="text" name="length[{{ $item->id }}]" value="{{ $item->product->length ?? '' }}" id="" class="form-control" placeholder="" aria-describedby="helpId">
-                                                                            <div class="input-group-append">
-                                                                              <span class="input-group-text" id="basic-addon1">CM</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                
-                                                                    <div class="form-group col-4">
-                                                                        <label for="">Height</label>
-                                                                        <div class="input-group">
-                                                                            <input required type="text" name="height[{{ $item->id }}]" value="{{ $item->product->height ?? '' }}" id="" class="form-control" placeholder="" aria-describedby="helpId">
-                                                                            <div class="input-group-append">
-                                                                              <span class="input-group-text" id="basic-addon1">CM</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                
-                                                                    <div class="form-group col-4">
-                                                                        <label for="">Weight</label>
-                                                                        <div class="input-group">
-                                                                            <input required type="text" name="weight[{{ $item->id }}]" value="{{ $item->product->weight ?? '' }}" id="" class="form-control" placeholder="" aria-describedby="helpId">
-                                                                            <div class="input-group-append">
-                                                                              <span class="input-group-text" id="basic-addon1">KG</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                
-                                                            </div>
                                                             
                                                         </div>
 
@@ -307,6 +274,8 @@
                                                                 <a href="{{ route('admin-order-pickup-done', $item->id) }}" class="btn btn-dark">PICKUP COMPLETED</a>
                                                             @endif
                                                         </div>
+
+                                                        
                                                     </div>
                                                     
                                             </div>
@@ -333,6 +302,52 @@
 
         <div class="container ">
             <div class="wishlist-basic-padding account-details-container">
+                
+                <div class="row mb-3" style="color: rgb(70, 70, 70); font-weight: 600;">
+                                                                
+                    <div class="form-group col-3">
+                        <label for="">Length</label>
+                        <div class="input-group">
+                            <input required type="text" name="length" placeholder="Length" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                            <div class="input-group-append">
+                              <span class="input-group-text" id="basic-addon1">CM</span>
+                            </div>
+                        </div>
+                    </div>
+                
+                
+                    <div class="form-group col-3">
+                        <label for="">Width</label>
+                        <div class="input-group">
+                            <input required type="text" name="width" placeholder="Width" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                            <div class="input-group-append">
+                              <span class="input-group-text" id="basic-addon1">CM</span>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="form-group col-3">
+                        <label for="">Height</label>
+                        <div class="input-group">
+                            <input required type="text" name="height" placeholder="Height" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                            <div class="input-group-append">
+                              <span class="input-group-text" id="basic-addon1">CM</span>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="form-group col-3">
+                        <label for="">Weight</label>
+                        <div class="input-group">
+                            <input required type="text" name="weight" placeholder="Weight"  id="" class="form-control" placeholder="" aria-describedby="helpId">
+                            <div class="input-group-append">
+                              <span class="input-group-text" id="basic-addon1">KG</span>
+                            </div>
+                        </div>
+                    </div>
+                
+            </div>
+
                 <button class="btn btn-block btn-dark" type="submit">
                     Create Shipment Order With Courier
                 </button>

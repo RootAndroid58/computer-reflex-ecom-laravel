@@ -109,10 +109,34 @@ class ManageOrdersController extends Controller
         
     }
 
-    public function CreateShipmentSubmit(Request $req)
+
+
+    public function CreateShipment(Request $req)
     {
         $req->validate([
+            'order_item_ids' => 'required',
+        ]);
+
+        $order = Order::with('OrderItems')->with('address')->where('id', $req->order_id)->first();
+        $orderItems = OrderItem::whereIn('id', $req->order_item_ids)->where('status', 'packing_completed')->get();
+        // dd($req);
+
+        if ($orderItems->count() < 1) {
+            abort(500);
+        }
+        return view('admin.shipping.create-shipment', [
+            'order'         => $order,
+            'orderItems'    => $orderItems,
+        ]);
+    }
+
+
+    public function CreateShipmentSubmit(Request $req)
+    {
+        
+        $req->validate([
             'order_id'      => 'required|exists:orders,id',
+            'order_item_ids'=> 'required|exists:order_items,id',
             'buyer_name'    => 'required',
             'house_no'      => 'required',
             'locality'      => 'required',
@@ -126,47 +150,96 @@ class ManageOrdersController extends Controller
             'height'        => 'required',
             'weight'        => 'required',
         ]);
-  
-
-        foreach ($req->length as $key => $length) {
-            $OrderItem = OrderItem::where('id', $key)->first();
             
-            Product::where('id', $OrderItem->product_id)->update([
-                'length' => $req->length[$key],
-                'height' => $req->height[$key],
-                'weight' => $req->weight[$key],
-            ]);
+
+        $order = Order::with('Address')->with('User')->where('id', $req->order_id)->first();
+        
+        if ($order->status == 'cod') { 
+            $payment_method = "COD";
+        } else { 
+            $payment_method = "Prepaid";
         }
 
+        $TotalPackagePrice = 0;
+
+        foreach ($req->order_item_ids as $key => $order_item_id) {
+            
+            $shipmentCheck = Shipment::where('order_item_id', $order_item_id)->where('active', 1)->first();
+            
+            if (isset($shipmentCheck)) {
+                abort(500);
+            }
+
+            $OrderItem = OrderItem::with('product')->where('id', $order_item_id)->first();
+            
+            $TotalPackagePrice = $TotalPackagePrice + $OrderItem->unit_price;
+            
+            $shipment = new Shipment;
+            $shipment->order_item_id = $order_item_id;
+            $shipment->courier_name = 'Shiprocket';
+            $shipment->tracking_id = 'Not Available';
+            $shipment->active = 0;
+            $shipment->save();
+
+            $shippingItems[] = [
+                'name'          => $OrderItem->product->product_name, 
+                'sku'           => $OrderItem->product->id, 
+                'units'         => $OrderItem->qty, 
+                'selling_price' => $OrderItem->total_price, 
+                'discount'      => $OrderItem->unit_mrp - $OrderItem->unit_price, 
+            ];
+        }
+       
         $ShiprocketParams = [
-            'order_id' => $req->order_id,
+            'order_id'                  => $shipment->id,
+            'order_date'                => $order->created_at,
+            'pickup_location'           => 'Aniket',
+            'billing_customer_name'     => $order->Address->name,
+            'billing_last_name'         => '',
+            'billing_address'           => $order->Address->house_no,
+            'billing_city'              => $order->Address->city,
+            'billing_pincode'           => $order->Address->pin_code,
+            'billing_state'             => $order->Address->state,
+            'billing_country'           => 'India',
+            'billing_email'             => $order->User->email,
+            'billing_phone'             => $order->Address->mobile,
+            'billing_alternate_phone'   => $order->Address->alt_mobile,
+            'shipping_is_billing'       => true,
+            'order_items'               => $shippingItems,
+            'payment_method'            => $payment_method,
+            'sub_total'                 => $TotalPackagePrice, 
+            'length'                    => $req->length, 
+            'breadth'                   => $req->width, 
+            'weight'                    => $req->weight, 
+            'height'                    => $req->height, 
         ];
-
-        $token =  Shiprocket::getToken();
-
-        dd($token);
-
-        $response =  Shiprocket::order($token)->create($ShiprocketParams);
         
 
-        dd($response);
+        $token =  Shiprocket::getToken();
+        $response =  Shiprocket::order($token)->create($ShiprocketParams);
+    
+        if ($response['status'] == 'NEW') {
+            
+            foreach ($req->order_item_ids as $key => $value) {
+
+                OrderItem::where('id', $value)->update([
+                    'status' => 'shipment_created',
+                ]);
+
+                Shipment::where('order_item_id', $value)->update([
+                    'active'        => 1,
+                    'tracking_id'   => $shipment->id,
+                    'shipment_id'   => $response['shipment_id'],
+                ]);
+            }
+        }
+
+        Shipment::where('active', 0)->delete();
+
+        return redirect()->route('admin-ship-order', $order->id);
+        
     }
 
-    public function CreateShipment(Request $req)
-    {
-        $req->validate([
-            'order_item_ids' => 'required',
-        ]);
-
-        $order = Order::with('OrderItems')->with('address')->where('id', $req->order_id)->first();
-        $orderItems = OrderItem::whereIn('id', $req->order_item_ids)->get();
-        // dd($req);
-
-        return view('admin.shipping.create-shipment', [
-            'order'         => $order,
-            'orderItems'    => $orderItems,
-        ]);
-    }
 
     public function PickupDone($order_item_id)
     {

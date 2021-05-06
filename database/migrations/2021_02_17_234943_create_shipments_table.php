@@ -17,9 +17,11 @@ class CreateShipmentsTable extends Migration
             $table->id();
             $table->bigInteger('order_item_id')->foreign('id')->on('order_items')->onDelete('cascade');
             $table->string('type');
+            $table->boolean('active')->default(0);
             $table->string('courier_name');
             $table->string('tracking_id');
-            $table->timestamp('delivery_date');
+            $table->string('shipment_id')->nullable();
+            $table->dateTime('delivery_date')->nullable();
             $table->timestamps();
         });
     }
