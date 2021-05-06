@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Mail\ItemShippedMail;
 use Seshac\Shiprocket\Shiprocket;
 use App\Models\OrderItem;
 use App\Models\Order;
@@ -40,7 +41,7 @@ class ShippingStatusUpdate extends Command
      */
     public function handle()
     {
-        $OrderItems = OrderItem::with('shipment')->where('status', 'shipment_created')->whereHas('shipment', function($q) {
+        $OrderItems = OrderItem::with('shipment')->with('order.User')->where('status', 'shipment_created')->whereHas('shipment', function($q) {
             $q->where('courier_name', 'Shiprocket')
             ->whereNotNull('shipment_id');
         })->get();
@@ -53,6 +54,12 @@ class ShippingStatusUpdate extends Command
                 OrderItem::where('id', $OrderItem->id)->update([
                     'status' => 'item_shipped',
                 ]);
+                
+                // Send Notification To User That Ordered Item Shipped
+                $data = [
+                    'OrderItem' => $OrderItem,
+                ];
+                Mail::to($OrderItem->order->User->email)->send(new ItemDeliveredMail($data));
             }
 
             $a = OrderItem::where('order_id', $OrderItem->order_id)->get();
@@ -64,7 +71,6 @@ class ShippingStatusUpdate extends Command
                 ]);
             }
 
-            // Send Notification To User That Ordered Item Shipped
             
         }
 

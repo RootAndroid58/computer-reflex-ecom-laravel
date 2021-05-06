@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\SupportTicket;
 use App\Models\SupportTicketMsg;
 use App\Mail\AdminSupportTicketReplyMail;
+use App\Mail\SupportTicketRaisedMail;
 use Auth;
 use Mail;
 
@@ -79,7 +80,14 @@ class SupportController extends Controller
         $SupportTicketMsg->msg = $req->ticket_description;   
         $SupportTicketMsg->save();
 
+        $ticket = SupportTicket::with('user')->where('id', $SupportTicket->id)->first();
+
         // Send Ticket Raised Confirmation Mail To The User
+        $data = [
+            'ticket' => $ticket,
+        ];
+        Mail::to($ticket->user->email)->send(new SupportTicketRaisedMail($data));
+
 
         return redirect()->route('support.show-ticket', $SupportTicket->id)->with([
             'ticket_raised' => $SupportTicket->id,

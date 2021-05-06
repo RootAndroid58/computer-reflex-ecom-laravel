@@ -7,12 +7,12 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class OrderPlacedMail extends Mailable
+class SupportTicketRaisedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $data;
-    
+
     /**
      * Create a new message instance.
      *
@@ -31,7 +31,7 @@ class OrderPlacedMail extends Mailable
     public function build()
     {
         return $this
-        ->subject('Order Placed :) #'.$this->data['order']->id.' - '.config('app.name'));
-        ->view('mails.order-placed-mail');
+        ->subject('Support Ticket Raised #'.$this->data['ticket']->id.' - '.config('app.name'))
+        ->view('mails.support-ticket-raised');
     }
 }
