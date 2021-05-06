@@ -1,4 +1,3 @@
-
 <?php
 
 namespace App\Http\Controllers;
@@ -21,10 +20,10 @@ class OAuthController extends Controller
     {
         $userSocial =   Socialite::driver($provider)->user();
         $users      =   User::where(['email' => $userSocial->getEmail()])->first();
-
+       
         if($users){
             Auth::login($users);
-            
+            // return redirect('/');
         }else{
 
             $user = User::create([
@@ -39,7 +38,7 @@ class OAuthController extends Controller
 
             Auth::login($user);
 
-         
+        //  return redirect()->route('home');
         }
     }
 }
