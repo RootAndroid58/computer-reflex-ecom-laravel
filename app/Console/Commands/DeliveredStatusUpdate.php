@@ -3,18 +3,15 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Seshac\Shiprocket\Shiprocket;
-use App\Models\OrderItem;
-use App\Models\Order;
 
-class ShippingStatusUpdate extends Command
+class DeliveredStatusUpdate extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'command:ShippingStatusUpdate';
+    protected $signature = 'command:DeliveredStatusUpdate';
 
     /**
      * The console command description.
@@ -40,7 +37,8 @@ class ShippingStatusUpdate extends Command
      */
     public function handle()
     {
-        $OrderItems = OrderItem::with('shipment')->where('status', 'shipment_created')->whereHas('shipment', function($q) {
+
+        $OrderItems = OrderItem::with('shipment')->where('status', 'item_shipped')->whereHas('shipment', function($q) {
             $q->where('courier_name', 'Shiprocket')
             ->whereNotNull('shipment_id');
         })->get();
@@ -49,22 +47,22 @@ class ShippingStatusUpdate extends Command
             $token =  Shiprocket::getToken();
             $track = Shiprocket::track($token)->throwShipmentId($OrderItem->shipment->shipment_id);
             
-            if ($track['tracking_data']['track_status'] == 6) {
+            if ($track['tracking_data']['track_status'] == 7) {
                 OrderItem::where('id', $OrderItem->id)->update([
-                    'status' => 'item_shipped',
+                    'status' => 'item_delivered',
                 ]);
             }
 
             $a = OrderItem::where('order_id', $OrderItem->order_id)->get();
-            $b = OrderItem::where('order_id', $OrderItem->order_id)->where('status', 'item_shipped')->get();
+            $b = OrderItem::where('order_id', $OrderItem->order_id)->where('status', 'item_delivered')->get();
                 
             if ($a->count() == $b->count()) {
                 Order::where('id', $OrderItem->order_id)->update([
-                    'status' => 'order_shipped',
+                    'status' => 'order_delivered',
                 ]);
             }
 
-            // Send Notification To User That Ordered Item Shipped
+            // Send Notification To User That Ordered Item Delivered
             
         }
 

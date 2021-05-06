@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         'App\Console\Commands\CreditAffiliateComission',
         'App\Console\Commands\ShippingStatusUpdate',
+        'App\Console\Commands\DeliveredStatusUpdate',
     ];
 
     /**
@@ -26,7 +27,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('command:CreditAffiliateComission')->everyMinute();
-        $schedule->command('command:command:ShippingStatusUpdate')->everyMinute();
+        $schedule->command('command:ShippingStatusUpdate')->everyMinute();
+        $schedule->command('command:DeliveredStatusUpdate')->everyMinute();
         // $schedule->command('command:CronTest')->everyMinute();
     }
 
