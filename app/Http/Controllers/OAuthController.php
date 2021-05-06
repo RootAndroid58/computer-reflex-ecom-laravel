@@ -23,7 +23,7 @@ class OAuthController extends Controller
        
         if($users){
             Auth::login($users);
-            // return redirect('/');
+            return redirect('/');
         }else{
 
             $user = User::create([
@@ -38,7 +38,7 @@ class OAuthController extends Controller
 
             Auth::login($user);
 
-        //  return redirect()->route('home');
+         return redirect()->route('home');
         }
     }
 }
