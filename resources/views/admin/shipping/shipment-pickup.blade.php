@@ -69,7 +69,7 @@
                                 <div class="order-confirmation-notes">
                                     <span>Order ID: <span style="font-weight: 600; color: black;">{{ $order->id }}</span></span><br>
                                     <span>Order Date: <span style="font-weight: 600; color: black;">{{ $order->created_at }}</span></span><br>
-                                    <span>Delivery By: <span style="font-weight: 600; color: black;">{{date_format(new DateTime($order->delivery_date), "dS M, Y (D)")}}</span></span><br>
+                                
                                     <span>Status: 
                                     @if($order->status == 'order_placed') 
                                         <span style="color: #2874f0">

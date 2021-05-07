@@ -409,8 +409,7 @@
                                                                 <a data-toggle="modal" data-target="#PackingCompletedModal{{$item->id}}" class="btn btn-dark">PACKING COMPLETED</a>
                                                             @elseif($item->status == 'packing_completed')
                                                                 {{-- <a href="{{ route('admin-create-shipment-view', $item->id) }}" class="btn btn-dark">CREATE SHIPMENT</a> --}}
-                                                            @elseif($item->status == 'shipment_created')
-                                                                <a href="{{ route('admin-order-pickup-done', $item->id) }}" class="btn btn-dark">PICKUP COMPLETED</a>
+                                                            
                                                             @endif
                                                         </div>
                                                     </div>

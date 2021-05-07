@@ -169,9 +169,9 @@
                                                     <span style="">
                                                         <i class="fa fa-circle" aria-hidden="true"></i>
                                                     </span>
-                                                    Product Shipped Via <b>{{ $item->shipment->courier_name }}</b>.<br>
+                                                    Product Shipped Via <b>{{ $item->shipment->courier_name }}</b>.
                                                   
-                                                        Delivery By: <b>{{date_format(new DateTime($item->shipment->delivery_date), "dS M,(D)")}}</b>
+                                                       
                                                 
                                                 </span>
                                                 @elseif($item->status == 'item_delivered')

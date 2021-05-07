@@ -3,10 +3,11 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Mail\ItemDeliveredMail;
 use Seshac\Shiprocket\Shiprocket;
 use App\Models\OrderItem;
 use App\Models\Order;
+use App\Mail\ItemDeliveredMail;
+use Mail;
 
 class DeliveredStatusUpdate extends Command
 {
@@ -41,7 +42,7 @@ class DeliveredStatusUpdate extends Command
      */
     public function handle()
     {
-        $OrderItems = OrderItem::with('shipment')->with('order.User')->where('status', 'item_shipped')->whereHas('shipment', function($q) {
+        $OrderItems = OrderItem::with('shipment')->with('order.User')->with('product.images')->where('status', 'item_shipped')->whereHas('shipment', function($q) {
             $q->where('courier_name', 'Shiprocket')
             ->whereNotNull('shipment_id');
         })->get();
@@ -50,7 +51,7 @@ class DeliveredStatusUpdate extends Command
             $token =  Shiprocket::getToken();
             $track = Shiprocket::track($token)->throwShipmentId($OrderItem->shipment->shipment_id);
             
-            if ($track['tracking_data']['track_status'] == 7) {
+            if (isset($track['tracking_data']['shipment_status']) && $track['tracking_data']['shipment_status'] == 7) {
                 OrderItem::where('id', $OrderItem->id)->update([
                     'status' => 'item_delivered',
                 ]);

@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Shipment;
 use App\Models\OrderItem;
 use DateTime;
+use Mail;
 
 use Seshac\Shiprocket\Shiprocket;
 

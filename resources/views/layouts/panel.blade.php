@@ -51,7 +51,7 @@
     @yield('modals')
 
     <div id="wrapper">
-    <nav class="toggled navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0" style="transition: 300ms;">
+    <nav class="toggled navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-dark p-0" style="transition: 300ms;">
         <div class="container-fluid d-flex flex-column p-0">
             <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="/admin">
                 <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
@@ -93,7 +93,7 @@
                 <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
                     <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
-                            <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                            <div class="input-group-append"><button class="btn btn-dark py-0" type="button"><i class="fas fa-search"></i></button></div>
                         </div>
                     </form>
                     <ul class="nav navbar-nav flex-nowrap ml-auto">
@@ -101,7 +101,7 @@
                             <div class="dropdown-menu dropdown-menu-right p-3 animated--grow-in" aria-labelledby="searchDropdown">
                                 <form class="form-inline mr-auto navbar-search w-100">
                                     <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
-                                        <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                                        <div class="input-group-append"><button class="btn btn-dark py-0" type="button"><i class="fas fa-search"></i></button></div>
                                     </div>
                                 </form>
                             </div>

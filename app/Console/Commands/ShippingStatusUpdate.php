@@ -3,10 +3,11 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Mail\ItemShippedMail;
 use Seshac\Shiprocket\Shiprocket;
 use App\Models\OrderItem;
 use App\Models\Order;
+use App\Mail\ItemShippedMail;
+use Mail;
 
 class ShippingStatusUpdate extends Command
 {
@@ -50,7 +51,7 @@ class ShippingStatusUpdate extends Command
             $token =  Shiprocket::getToken();
             $track = Shiprocket::track($token)->throwShipmentId($OrderItem->shipment->shipment_id);
             
-            if ($track['tracking_data']['track_status'] == 6) {
+            if (isset($track['tracking_data']['shipment_status']) && $track['tracking_data']['shipment_status'] == 6) {
                 OrderItem::where('id', $OrderItem->id)->update([
                     'status' => 'item_shipped',
                 ]);
@@ -59,7 +60,7 @@ class ShippingStatusUpdate extends Command
                 $data = [
                     'OrderItem' => $OrderItem,
                 ];
-                Mail::to($OrderItem->order->User->email)->send(new ItemDeliveredMail($data));
+                Mail::to($OrderItem->order->User->email)->send(new ItemShippedMail($data));
             }
 
             $a = OrderItem::where('order_id', $OrderItem->order_id)->get();
