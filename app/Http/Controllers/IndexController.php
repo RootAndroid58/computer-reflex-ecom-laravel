@@ -88,7 +88,7 @@ class IndexController extends Controller
 
         $categories = Category::get();
          
-        $products = Product::with('specifications')->search(substr($req->search, 0, 120))
+        $products = Product::with('specifications')->search(substr($req->search, 0, 100))
         ->where('product_status', 1)
         ->where('product_stock', '>=', $stock)
         ->whereBetween('product_price', [$min_price, $max_price]);
