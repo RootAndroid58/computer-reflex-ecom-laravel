@@ -154,6 +154,9 @@ class ManageOrdersController extends Controller
             
 
         $order = Order::with('Address')->with('User')->where('id', $req->order_id)->first();
+
+        $OrderShipmentIncrementID = Shipment::where('order_id', $req->order_id)->count() + 1;
+        $ShiprocketOrderId = $req->order_id.'-'.$OrderShipmentIncrementID;
         
         if ($order->payment_method == 'cod') { 
             $payment_method = "COD";
@@ -173,10 +176,13 @@ class ManageOrdersController extends Controller
 
             $OrderItem = OrderItem::with('product')->where('id', $order_item_id)->first();
             
-            $TotalPackagePrice = $TotalPackagePrice + $OrderItem->unit_price;
+            $TotalPackagePrice = $TotalPackagePrice + $OrderItem->total_price;
+
             
+
             $shipment = new Shipment;
             $shipment->order_item_id = $order_item_id;
+            $shipment->order_id = $req->order_id;
             $shipment->courier_name = 'Shiprocket';
             $shipment->tracking_id = 'Not Available';
             $shipment->active = 0;
@@ -186,13 +192,15 @@ class ManageOrdersController extends Controller
                 'name'          => $OrderItem->product->product_name, 
                 'sku'           => $OrderItem->product->id, 
                 'units'         => $OrderItem->qty, 
-                'selling_price' => $OrderItem->total_price, 
+                'selling_price' => $OrderItem->unit_mrp, 
                 'discount'      => $OrderItem->unit_mrp - $OrderItem->unit_price, 
             ];
         }
+        
+        
        
         $ShiprocketParams = [
-            'order_id'                  => $shipment->id,
+            'order_id'                  => $ShiprocketOrderId,
             'order_date'                => $order->created_at,
             'pickup_location'           => 'Aniket',
             'billing_customer_name'     => $order->Address->name,
@@ -219,17 +227,19 @@ class ManageOrdersController extends Controller
         $token =  Shiprocket::getToken();
         $response =  Shiprocket::order($token)->create($ShiprocketParams);
     
-        if ($response['status'] == 'NEW') {
+        if (isset($response['status']) && $response['status'] == 'NEW') {
             
             foreach ($req->order_item_ids as $key => $value) {
 
                 OrderItem::where('id', $value)->update([
+
                     'status' => 'shipment_created',
                 ]);
 
                 Shipment::where('order_item_id', $value)->update([
+                    'delivery_date' => TenDaysFuture(''),
                     'active'        => 1,
-                    'tracking_id'   => $shipment->id,
+                    'tracking_id'   => $ShiprocketOrderId,
                     'shipment_id'   => $response['shipment_id'],
                 ]);
             }

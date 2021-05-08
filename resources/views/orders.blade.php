@@ -10,7 +10,7 @@
 @php
 $UserName=str_word_count(Auth()->user()->name, 1); 
 @endphp
-@section('title', 'Order Placed')
+@section('title', FirstWord(Auth()->user()->name)."'s Orders")
     
 @section('content')
 <div class="body-container" id="CartContainer">

@@ -38,7 +38,7 @@ class ShowProductsController extends Controller
             $discount = ((($product->product_mrp - $product->product_price) / $product->product_mrp)*100)%100;
            
             $RelatedProducts = Product::where('product_status', 1)
-            ->search(substr($product->product_name, 0, 120))
+            ->search(substr($product->product_name, 0, 100))
             ->with('images')
             ->take(10)->get();
 
