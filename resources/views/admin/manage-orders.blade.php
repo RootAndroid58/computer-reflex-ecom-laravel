@@ -26,6 +26,9 @@
         <div class="col-md-4">
             <a href="{{route('admin-delivery-confirmation')}}" class="btn btn-block btn-lg btn-primary">Delivery Confirmation</a>
         </div>
+        <div class="col-md-4">
+            <a href="{{route('admin-delivery-confirmation')}}" class="btn btn-block btn-lg btn-primary">Cancel Requests</a>
+        </div>
     </div>
 
 <br><br>

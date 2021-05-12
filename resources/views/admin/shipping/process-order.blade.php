@@ -7,107 +7,65 @@
 @section('modals')
 
     <!-- Modal -->
-    <div class="modal fade" id="CreateShipmentModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <form action="{{ route('admin-create-shipment') }}" method="post" class="w-100"> @csrf
-                <input type="hidden" name="order_id" value="{{ $order->id }}">
-            <div class="modal-content ">
-                <div class="modal-header">
-                    <h5 class="modal-title">Create Shipment</h5>
+    @if (isset($order->PendingCancelRequest))
+    <form action="{{ route('admin-cancel-review-submit') }}" method="post"> @csrf <input type="hidden" name="order_id" value="{{ $order->id }}">
+    <div class="modal fade" id="CancelReqRespondModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header "> 
+                    <h5 class="modal-title">Review Cancel Request #{{ $order->PendingCancelRequest->id }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                 </div>
+
                 <div class="modal-body">
-                    @foreach ($order->OrderItems as $item)
-                    <div class="account-menu-break"></div>     
-                        <div class="row wishlist-basic-padding" style="padding-bottom: 0;">
-                            <div class="col-md-3">
-                                <a href="{{route('product-index', $item->product_id)}}" target="_blank">
-                                    <div class="wish-product-image-container">
-                                        <img src="{{asset('storage/images/products/'.$item->image->image)}}" alt="">
-                                    </div>
-                                </a>
-                            </div>
+                    <div class="form-check">
+                        <label class="form-check-label cursor-pointer">
+                        <input required type="radio" class="form-check-input cursor-pointer" name="cancel_review" id="approve" value="approve">
+                        Approve (Cancel The Order)
+                      </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label cursor-pointer">
+                        <input required type="radio" class="form-check-input cursor-pointer" name="cancel_review" id="decline" value="decline">
+                        Decline
+                      </label>
+                    </div>
 
-                            <div class="col-md-8">
-                                <a href="{{route('product-index', $item->product_id)}}" target="_blank">
-                                    <span class="wish-product-title font-weight-500 color-0066c0">{{$item->product->product_name}}</span>
-                                </a>
-                                <p>
-                                    <div class="details-price" style="margin-bottom: 0;">
-                                            <div class="row">
-                                                <div class="col-7">
-                                                    <span style="font-weight: normal; font-size: 15px;">Unit Price: <span style="font-weight: 500;"><font class="rupees">₹</font> {{moneyFormatIndia($item->unit_price)}}</span></span><br>
-                                                    <span style="font-weight: normal; font-size: 15px;">Qty: <span style="font-weight: 500;"> {{$item->qty}}</span></span><br>
-                                                    <span style="font-weight: normal; font-size: 15px;">Total Price: <span style="font-weight: 500;"><font class="rupees">₹</font> {{moneyFormatIndia($item->total_price)}}</span></span><br>
-                                                    @if ($item->status == 'order_placed')
-                                                    <span style="color: #2874f0">
-                                                        <span style="">
-                                                            <i class="fa fa-circle" aria-hidden="true"></i>
-                                                        </span>
-                                                        Order Placed.
-                                                    </span>
-                                                    @elseif($item->status == 'packing_started')
-                                                    <span style="color: #2874f0">
-                                                        <span style="">
-                                                            <i class="fa fa-circle" aria-hidden="true"></i>
-                                                        </span>
-                                                        Packing Started.
-                                                    </span>
-                                                    @elseif($item->status == 'packing_completed')
-                                                    <span style="color: #2874f0">
-                                                        <span style="">
-                                                            <i class="fa fa-circle" aria-hidden="true"></i>
-                                                        </span>
-                                                        Packing Completed.
-                                                    </span>
-                                                    @elseif($item->status == 'shipment_created')
-                                                    <span style="color: #2874f0">
-                                                        <span style="">
-                                                            <i class="fa fa-circle" aria-hidden="true"></i>
-                                                        </span>
-                                                        Shipment #{{ $item->shipment->tracking_id }} Created, Waiting For Pickup.
-                                                    </span>
-                                                    @endif
-                                                </div>
+                    <div class="form-group mt-4 reviewComment d-none">
+                      <label for="review_comment">Why rejecting the cancellation request?</label>
+                      <textarea class="form-control" name="review_comment" id="review_comment" rows="3" placeholder="Rejection Reason..." ></textarea>
+                    </div>
 
-                                                <div class="col-5" >
-                                                    @if ($item->status == 'packing_completed')
-                                                        <div class="form-check">
-                                                          <label class="form-check-label cursor-pointer">
-                                                            <input type="checkbox" class="form-check-input cursor-pointer" name="order_item_ids[]" id="" value="{{$item->id}}">
-                                                                Add To The Shipment
-                                                          </label>
-                                                        </div>
-                                                    @else
-                                                        <span class="text-danger text-left">Complete the packaging to add this item to a shipment.</span>
-                                                    @endif
-                                                    
-                                                </div>
+                    @if ($order->payment_method == 'paytm' || $order->payment_method == 'payu')
+                    <div class="reviewRefund d-none mt-4 alert alert-info">
+                        <span>
+                            On order cancellation Full Refund of 
+                            <span class="text-primary"><font class="rupees">₹</font>{{ moneyFormatIndia($order->price) }}</span>
+                            will be Initiated via ({{ $order->payment_method }}). 
+                        </span>
+                    </div>
 
+                    <p class="mt-4 reviewRefund d-none">
+                        <span class="font-weight-bold">Note: </span>if somehow the refund fails, a refund requested will be created for this order.
+                        <br>
+                        The most common cause of refund fail is Insufficient balance on PG wallet.
+                    </p>
+                    @endif
+                    
 
-                                            </div>
-                                    </div>
-                                </p>
-                            </div>
-
-                        </div>
-
-                        <div class="row wishlist-basic-padding" style="padding-top: 0;"></div>
-
-                    <div class="account-menu-break" id="CartBreak2"></div>      
-       
-                    @endforeach
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Create</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </div>
-            </form>
         </div>
     </div>
+    </form>     
+    @endif
 
 
     <!-- Modal -->
@@ -170,9 +128,7 @@
 
 
 <div class="container-fluid">
-
     <h3>Ship Order</h3>
-
 </div>
 
 <div class="container">
@@ -219,6 +175,54 @@
 </div>
 
 
+
+
+
+                @if ($order->CancelRequest->count() > 0)
+                <div class="container">
+                    <div class="account-details-container">
+                        <div class="wishlist-basic-padding" style="padding-bottom: 0;">
+                            @foreach ($order->CancelRequest as $cancelReq)
+                                <div class="collapse-item mb-4">
+                                    <div class="collapse-btn" style="padding: 7px 10px; transition: all 200ms; background-color: rgba(212, 212, 212, 0.781);">
+                                        <span style="font-weight: 600">Cancel Request #{{ $cancelReq->id }} - 
+                                            @if ($cancelReq->status == 'requested')
+                                            <span class="btn btn-sm btn-warning">Requested</span>
+                                            @elseif ($cancelReq->status == 'approved')
+                                            <span class="btn btn-sm btn-success">Approved</span>
+                                            @endif
+                                        </span>
+                                    </div>
+                                    <div class="collapse-content bg-light" style="">
+                                        <div style="padding-top: 6px; padding-bottom: 6px;">
+                                            <p>
+                                                @if ($cancelReq->status == 'requested')
+                                                    <span>
+                                                        <span style="font-weight: 700;">Reason:</span>
+                                                        {{ $cancelReq->reason }}
+                                                    </span>
+                                                @endif
+                                                @if ($cancelReq->status == 'approved')
+                                                    <span>
+                                                        Approved and order cancelled.
+                                                    </span>
+                                                @endif
+                                            </p>
+                                            @if ($cancelReq->status == 'requested')
+                                            <div>
+                                                <button class="btn btn-dark btn-block" type="button" data-target="#CancelReqRespondModal" data-toggle="modal">Respond To The Request</button>
+                                            </div>
+                                            @endif
+                                        </div>
+                                        <div class="account-menu-break"></div>  
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="account-menu-break"></div> 
+                    </div>   
+                </div>    
+                @endif
 
 
 
@@ -316,9 +320,8 @@
         
             </div>
         </div>
-      
-        </div>
     </div>
+</div>
 
 
 
@@ -346,10 +349,11 @@
                 </div>
         
                 <div class="account-menu-break"></div>   
-                                                    
+
                     <div class="wishlist-container">   
+                        @php $shipmentEligible = true; @endphp
                         @foreach ($order->OrderItems as $item)
-        
+                            @if ($item->status != 'packing_completed') @php $shipmentEligible = false; @endphp @endif
                             <div class="account-menu-break"></div>     
                                 <div class="row wishlist-basic-padding" style="padding-bottom: 0;">
                                     <div class="col-md-3">
@@ -446,28 +450,32 @@
 
 
 
-        
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="account-details-container">
-                    <div class="right-wishlist-container" style="min-height: unset;">             
-                        
-                        <div class="wishlist-basic-padding">
-                            <div class="account-details-title" style="padding-bottom: 0px;">
-                                <span style="font-weight: 600; color: black;">Create Shipment</span>
-                            </div>
+@if ($shipmentEligible)
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="account-details-container">
+                <div class="right-wishlist-container" style="min-height: unset;">             
+                    
+                    <div class="wishlist-basic-padding">
+                        <div class="account-details-title" style="padding-bottom: 0px;">
+                            <span style="font-weight: 600; color: black;">Create Shipment</span>
                         </div>
-
-                        <div class="wishlist-basic-padding" style="padding-top: 0;">
-                            <button class="btn btn-block btn-dark" data-toggle="modal" data-target="#CreateShipmentModal">Create Shipment</button>
-                        </div>
-
                     </div>
+
+                    <div class="wishlist-basic-padding" style="padding-top: 0;">
+                        
+                            <a href="{{ route('admin-create-shipment', $order->id) }}" class="btn btn-block btn-dark" type="submit">Create Shipment</a>
+                       
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
+</div>
+@endif
+
 
 
 

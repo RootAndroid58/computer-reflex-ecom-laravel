@@ -21,6 +21,7 @@ class CreateShipmentsTable extends Migration
             $table->boolean('active')->default(0);
             $table->string('courier_name');
             $table->string('tracking_id');
+            $table->string('shiprocket_order_id')->nullable();
             $table->string('shipment_id')->nullable();
             $table->dateTime('delivery_date')->nullable();
             $table->timestamps();

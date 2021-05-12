@@ -64,6 +64,10 @@ $UserName=str_word_count(Auth()->user()->name, 1);
                                         <span style="color: #f6c23e">
                                             (Payment Pending.)
                                         </span>
+                                    @elseif($order->status == 'order_cancelled')
+                                    <span class="text-danger">
+                                        (Order Cancelled.)
+                                    </span>
                                     @elseif($order->status == 'order_placed') 
                                         <span style="color: #2874f0">
                                             (Order Placed.)
@@ -124,6 +128,13 @@ $UserName=str_word_count(Auth()->user()->name, 1);
                                                 <i class="fa fa-circle" aria-hidden="true"></i>
                                             </span>
                                             Order Placed.
+                                        </span>
+                                        @elseif($item->status == 'order_cancelled')
+                                        <span class="text-danger">
+                                            <span style="">
+                                                <i class="fa fa-circle" aria-hidden="true"></i>
+                                            </span>
+                                            Order Cancelled.
                                         </span>
                                         @elseif($item->status == 'packing_started')
                                         <span style="color: #2874f0">

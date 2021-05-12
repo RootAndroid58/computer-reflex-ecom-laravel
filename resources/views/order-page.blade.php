@@ -10,6 +10,59 @@
 
 @section('title', 'Order')
 
+@section('modals')
+    <!-- Modal -->
+
+    <form action="{{ route('cancel-order.request') }}" method="post"> @csrf <input type="hidden" name="order_id" value="{{ $order->id }}">
+        <div class="modal fade" id="OrderCancelModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+            <div class="modal-dialog " role="document">
+                <div class="modal-content ">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Cancel Ordered Items</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="w-100" >
+                            @if (!isset($order->PendingCancelRequest))
+                                <div class="form-group">
+                                    <label>Cancellation Reason</label>
+                                    <textarea required name="reason" cols="30" rows="10" placeholder="Why you want to cancel the order?"></textarea>
+                                </div>
+                            @else
+                                @if ($order->status == 'order_shipped')
+                                    <div>
+                                        <span>
+                                            Can't cancel the order now. <br>
+                                            The order has already been handed over to courier partner. <br>
+                                            If you don't want this order, simply don't accept the parcel when delivery executive attempts the delivery.
+                                        </span>
+                                    </div>
+                                @else
+                                <div>
+                                    <span>
+                                        Can't create a new cancellation request. <br>
+                                        This order already has a pending cancellation request.
+                                    </span>
+                                </div>
+                                @endif
+                            @endif
+                            
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        @if (!isset($order->PendingCancelRequest))
+                        <button type="submit" class="btn btn-primary" >Request Cancellation</button>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+@endsection
+
 @section('content')
 <div class="body-container" style="padding-bottom: 14px;">
     <div class="container">
@@ -95,6 +148,10 @@
                                             </span>
                                         </div>
                                         @endif
+
+                                        <div style="padding-top: 10px; text-align: right;">
+                                            <button class="btn btn-dark btn-block" data-toggle="modal" data-target="#OrderCancelModal">CANCEL ORDER</button>
+                                        </div>
                                         
                                       
                                                                        
@@ -115,7 +172,36 @@
             
                 </div>
 
-
+                
+                @if ($order->CancelRequest->count() > 0)
+                <div class="account-details-container">
+                    <div class="wishlist-basic-padding" style="padding-bottom: 0;">
+                   
+                        @foreach ($order->CancelRequest as $cancelReq)
+                            <div class="collapse-item mb-4">
+                                <div class="collapse-btn" style="padding: 7px 10px; transition: all 200ms; background-color: rgba(212, 212, 212, 0.781);">
+                                    <span style="font-weight: 600">Cancel Request #{{ $cancelReq->id }} - 
+                                        @if ($cancelReq->status == 'requested')
+                                        <span class="btn btn-sm btn-warning">Requested</span>
+                                        @endif
+                                    </span>
+                                </div>
+                                <div class="collapse-content bg-light" style="">
+                                    <div style="padding-top: 6px; padding-bottom: 6px;">
+                                        <p>
+                                            @if ($cancelReq->status == 'requested')
+                                                <span>We have received your cancellation request, our team will verify your request shortly, and update the status accordingly. <br> Reference #{{ $cancelReq->id }} <br> Thank you for your patience. </span>
+                                            @endif
+                                        </p>
+                                    </div>
+                                    <div class="account-menu-break"></div>  
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="account-menu-break"></div> 
+                </div>       
+                @endif
 
 
 
@@ -205,6 +291,7 @@
                                 </span>
                                 @endif
                             </div>
+
                         </div>
     
                     </div>
@@ -219,3 +306,4 @@
 </div>
 @endsection
     
+

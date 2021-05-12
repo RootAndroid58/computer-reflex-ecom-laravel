@@ -1,4 +1,31 @@
 
+  var acc = document.getElementsByClassName("collapse-btn");
+  for (let i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+      this.classList.toggle("on");
+      var panel = this.nextElementSibling;
+      if (panel.style.maxHeight){
+        panel.style.maxHeight = null;
+      } else {
+        panel.style.maxHeight = panel.scrollHeight + "px";
+      }
+    });
+  }
+
+  $('input[name="cancel_review"]').on('change', function () {
+    if ($(this).val() == 'decline') {
+      $('.reviewComment').removeClass('d-none');
+      $('.reviewRefund').addClass('d-none');
+      $('#review_comment').attr('required', true);
+    } else {
+      
+      $('.reviewRefund').removeClass('d-none');
+      $('.reviewComment').addClass('d-none');
+      $('#review_comment').attr('required', false);
+    }
+  })
+
+
   if($('.bbb_viewed_slider').length) {
       var viewedSlider = $('.bbb_viewed_slider');
       viewedSlider.owlCarousel(

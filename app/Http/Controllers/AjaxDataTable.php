@@ -693,6 +693,12 @@ class AjaxDataTable extends Controller
                 }
                 elseif ($data->status == 'order_delivered') {
                     $status = '<span style="color: #0f6848"><span style=""><i class="fa fa-circle" aria-hidden="true"></i></span> Order Delivered.</span>';
+                } 
+                elseif ($data->status == 'order_cancelled') {
+                    $status = '<span class="text-danger"><span style=""><i class="fa fa-circle" aria-hidden="true"></i></span> Order Cancelled.</span>';
+                }
+                else {
+                    $status = $data->status;
                 }
                     
                 return $status;

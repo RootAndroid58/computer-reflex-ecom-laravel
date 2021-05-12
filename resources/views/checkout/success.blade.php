@@ -84,7 +84,7 @@
             <div class="account-menu-break"></div>   
                                                 
                 <div class="wishlist-container">   
-                    <form action="http://localhost:8000/checkout" method="post" id="CartCheckOutForm"> <input type="hidden" name="_token" value="WwI9Iew3SQzo763ogSnhQVllI4PQx3i4qUOQURAF">                                         
+    
 
                         <div class="account-menu-break"></div>     
                          
@@ -150,8 +150,7 @@
 
                         <div class="account-menu-break" id="CartBreak2"></div>      
                          
-                         
-                    </form>
+                        
                     </div> 
                     
                 </div>
@@ -186,15 +185,15 @@
                         <div class="account-menu-break"></div>     
                             <div class="row wishlist-basic-padding" style="padding-bottom: 0;">
                                 <div class="col-md-3">
-                                    <a href="http://localhost:8000/product/{{$item->id}}" target="_blank">
+                                    <a href="{{ route('product-index', $item->id) }}" target="_blank">
                                         <div class="wish-product-image-container">
-                                            <img src="http://localhost:8000/storage/images/products/{{$item->image->image}}" alt="">
+                                            <img src="{{ asset('storage/images/products/'.$item->image->image) }}" alt="">
                                         </div>
                                     </a>
                                 </div>
     
                                 <div class="col-md-8">
-                                    <a href="http://localhost:8000/product/2" target="_blank">
+                                    <a href="{{ route('product-index', $item->id) }}" target="_blank">
                                         <span class="wish-product-title font-weight-500 color-0066c0">{{$item->product->product_name}}</span>
                                     </a>
                                     <p>

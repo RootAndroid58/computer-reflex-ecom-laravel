@@ -244,40 +244,41 @@ class CheckoutController extends Controller
 
     public function PaytmResponse(Request $req)
     {
-        if ($req->STATUS == 'TXN_SUCCESS') {
-            Order::where('id', $req->ORDERID)->update([
+        $response = Indipay::gateway('Paytm')->response($req);
+        if ($response['STATUS'] == 'TXN_SUCCESS') {
+            Order::where('id', $response['ORDERID'])->update([
                 'status' => 'order_placed'
             ]);
 
-            OrderItem::where('order_id', $req->ORDERID)->update([
+            OrderItem::where('order_id', $response['ORDERID'])->update([
                 'status' => 'order_placed'
             ]);
-    
+
         }
 
-        else if ($req->STATUS == 'TXN_FAILURE') {
-            Order::where('id', $req->ORDERID)->update([
+        else if ($response->STATUS == 'TXN_FAILURE') {
+            Order::where('id', $response['ORDERID'])->update([
                 'status' => 'payment_failed'
             ]);
 
-            OrderItem::where('order_id', $req->ORDERID)->update([
+            OrderItem::where('order_id', $response['ORDERID'])->update([
                 'status' => 'payment_failed'
             ]);
 
         }
 
         else {
-            Order::where('id', $req->ORDERID)->update([
+            Order::where('id', $response['ORDERID'])->update([
                 'status' => 'payment_pending'
             ]);
 
-            OrderItem::where('order_id', $req->ORDERID)->update([
+            OrderItem::where('order_id', $response['ORDERID'])->update([
                 'status' => 'payment_pending'
             ]);
 
         }
         
-        return $this->AfterPayment($req->ORDERID);
+        return $this->AfterPayment($response['ORDERID']);
 
     }
     

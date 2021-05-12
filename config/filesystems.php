@@ -52,6 +52,12 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
         ],
 
+        'private' => [
+            'driver' => 'local',
+            'root' => storage_path('private'),
+            // 'visibility' => 'hidden',
+        ],
+
     ],
 
     /*

@@ -29,5 +29,18 @@ class Order extends Model
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
+    public function ForwardShipment()
+    {
+        return $this->hasOne(Shipment::class, 'order_id', 'id')->where('type', 'forward');
+    }
+    public function CancelRequest()
+    {
+        return $this->hasMany(OrderCancelRequest::class, 'order_id', 'id')
+        ;
+    }
+    public function PendingCancelRequest()
+    {
+        return $this->hasOne(OrderCancelRequest::class, 'order_id', 'id')->where('status', 'requested');
+    }
 
 }

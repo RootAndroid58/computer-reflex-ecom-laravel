@@ -131,6 +131,8 @@ Route::group(['middleware' => ['verified', 'auth']], function() {
     Route::post('/checkout', [App\Http\Controllers\CheckoutController::class, 'CheckoutView'])->name('checkout-post');
     
     Route::post('/checkout/submit', [App\Http\Controllers\CheckoutController::class, 'CheckoutSubmit'])->name('checkout-submit');
+   
+    Route::post('/cancel-order/request', [App\Http\Controllers\OrdersController::class, 'CancelRequest'])->name('cancel-order.request');
 
     Route::post('/ajax/calcMRP', [App\Http\Controllers\AjaxController::class, 'CalcMRPPrice'])->name('calc-mrp-price');
 
@@ -227,9 +229,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:Admin', 'verifie
     
     // Route::get('/manage-order/{order_item_id}/create-shipment','App\Http\Controllers\Admin\ManageOrdersController@CreateShipmentView')->middleware('permission:Manage Orders|Master Admin')->name('admin-create-shipment-view');
     
-    Route::post('/manage-order/create-shipment','App\Http\Controllers\Admin\ManageOrdersController@CreateShipment')->middleware('permission:Manage Orders|Master Admin')->name('admin-create-shipment');
+    Route::get('/manage-order/{order_id}/create-shipment','App\Http\Controllers\Admin\ManageOrdersController@CreateShipment')->middleware('permission:Manage Orders|Master Admin')->name('admin-create-shipment');
     
     Route::post('/manage-order/create-shipment/submit','App\Http\Controllers\Admin\ManageOrdersController@CreateShipmentSubmit')->middleware('permission:Manage Orders|Master Admin')->name('admin-create-shipment-submit');
+    
+    Route::post('/cancel-order/review/submit','App\Http\Controllers\Admin\ManageOrdersController@CancelReviewSubmit')->middleware('permission:Manage Orders|Master Admin')->name('admin-cancel-review-submit');
     
     // Route::get('/manage-order/{order_item_id}/pickup-done','App\Http\Controllers\Admin\ManageOrdersController@PickupDone')->middleware('permission:Manage Orders|Master Admin')->name('admin-order-pickup-done');
 

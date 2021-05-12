@@ -6,6 +6,11 @@
     box-sizing: border-box
 } */
 
+.modal-open .container-fluid, .modal-open  .container {
+    -webkit-filter: blur(2px) grayscale(40%);
+}
+
+
 
  .bbb_viewed {
     padding-top: 51px;

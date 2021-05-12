@@ -98,7 +98,7 @@
     <div id="burgerNavMenu" class="burger-nav-menu w-75" style="position: fixed; z-index: 10; left: -75%;">
         <div style="height: 100vh;">
             
-            <div class="w-100 bg-dark pt-3" style="height: 225px;">
+            <div class="w-100 bg-dark pt-3" style="height: 245px;">
 
                 <div class="prod-back-div user-img-container mt-3" 
                 style="margin-left: auto; margin-right: auto; width: 100px; height: 100px; border-radius: 50%; 
@@ -122,6 +122,10 @@
                             <a href="{{ route('login') }}" style="font-weight: 600; color: rgb(221, 221, 221);">LOGIN</a>
                             <span style="color: rgb(119, 119, 119);">|</span> 
                             <a href="{{ route('register') }}" style="font-weight: 600; color: rgb(221, 221, 221);" >SIGNUP</a>
+                        </div>
+                        @else
+                        <div class="mt-2 pb-2">
+                            <a href="{{ route('logout') }}" style="font-weight: 600; color: rgb(221, 221, 221);" >LOGOUT <span style="font-size: 12px;"><i class="fas fa-power-off"></i></span> </a>
                         </div>
                         @endif
                     </div>

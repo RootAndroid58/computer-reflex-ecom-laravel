@@ -237,7 +237,6 @@
                                                     
                     <div class="wishlist-container">   
                         @foreach ($orderItems as $item)
-                            <input type="hidden" name="order_item_ids[]" value="{{$item->id}}">
                             <div class="account-menu-break"></div>     
                                 <div class="row wishlist-basic-padding" style="padding-bottom: 0;">
                                     <div class="col-md-3">

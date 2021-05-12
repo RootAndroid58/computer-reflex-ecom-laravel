@@ -8,6 +8,11 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Shipment;
 use App\Models\OrderItem;
+use App\Models\OrderAddress;
+use App\Models\OrderCancelRequest;
+use Softon\Indipay\Facades\Indipay;
+use App\Http\Helpers\PaytmHelper;
+use App\Http\Helpers\PayuHelper;
 use DateTime;
 use Mail;
 
@@ -112,32 +117,100 @@ class ManageOrdersController extends Controller
 
 
 
-    public function CreateShipment(Request $req)
+    public function CreateShipment($order_id)
     {
-        $req->validate([
-            'order_item_ids' => 'required',
-        ]);
+        $order = Order::with('OrderItems')->with('address')->where('id', $order_id)->first();
 
-        $order = Order::with('OrderItems')->with('address')->where('id', $req->order_id)->first();
-        $orderItems = OrderItem::whereIn('id', $req->order_item_ids)->where('status', 'packing_completed')->get();
-        // dd($req);
-
-        if ($orderItems->count() < 1) {
+        foreach ($order->OrderItems as $key => $OrderItem) {
+            if ($OrderItem->status != 'packing_completed') {
+                abort(500);
+            }
+        }
+       
+        if ($order->OrderItems->count() < 1) {
             abort(500);
         }
+
         return view('admin.shipping.create-shipment', [
             'order'         => $order,
-            'orderItems'    => $orderItems,
+            'orderItems'    => $order->OrderItems,
         ]);
+    }
+
+    public function CancelReviewSubmit(Request $req)
+    {
+        $req->validate([
+            'cancel_review'     => 'required',
+        ]);
+
+        $order = Order::with('ForwardShipment')->where('id', $req->order_id)->with('PendingCancelRequest')->first();
+       
+        if (!isset($order->PendingCancelRequest)) {
+            abort(500);
+        }
+
+        if ($order->status != 'order_placed') {
+            abort(500);
+        }
+
+        if ($req->cancel_review == 'approve') {
+            // Cancel the order on Shiprocket.
+            $shiprocketCancel =  Shiprocket::order(Shiprocket::getToken())->cancel(['ids' => [$order->ForwardShipment->shiprocket_order_id]]);
+            // Initiate refund via Paytm
+            if ($order->payment_method == 'paytm') {
+                $txnStatus = PaytmHelper::status([
+                    'orderId' => $req->order_id,
+                ]);
+                $refund = PaytmHelper::refund([
+                    'txnType' => 'REFUND',
+                    'orderId' => $req->order_id,
+                    'txnId' => $txnStatus->txnId,
+                    'refId' => 'ORDER_REVERSAL_'.$req->order_id,
+                    'refundAmount' => $order->price,
+                ]);
+            } 
+
+            // Initiate refund via PayU
+            if ($order->payment_method == 'payu') {
+                
+            }
+            
+            // Update Order Cancellation Request
+            OrderCancelRequest::where('id', $order->PendingCancelRequest->id)->update([
+                'status' => 'approved',
+            ]);
+            // Cancel The Order
+            Order::where('id', $order->id)->update([
+                'status' => 'order_cancelled',
+            ]);
+            // Update All Ordered Items
+            OrderItem::where('order_id', $order->id)->update([
+                'status' => 'order_cancelled',
+            ]);
+        }
+
+        if ($req->cancel_review == 'decline') {
+
+            $req->validate([
+                'review_comment' => 'required',
+            ]);
+
+            OrderCancelRequest::where('id', $order->PendingCancelRequest->id)->update([
+                'status' => 'rejected',
+                'reason' => $req->review_comment,
+            ]);
+        }
+        
+        return redirect()->back();
     }
 
 
     public function CreateShipmentSubmit(Request $req)
     {
-        
+        Shipment::where('active', 0)->delete();
+
         $req->validate([
             'order_id'      => 'required|exists:orders,id',
-            'order_item_ids'=> 'required|exists:order_items,id',
             'buyer_name'    => 'required',
             'house_no'      => 'required',
             'locality'      => 'required',
@@ -151,99 +224,103 @@ class ManageOrdersController extends Controller
             'height'        => 'required',
             'weight'        => 'required',
         ]);
-            
+         
+        $order = Order::with('Address')->with('OrderItems.shipment')->with('User')->where('id', $req->order_id)->first();
 
-        $order = Order::with('Address')->with('User')->where('id', $req->order_id)->first();
-
-        $OrderShipmentIncrementID = Shipment::where('order_id', $req->order_id)->count() + 1;
-        $ShiprocketOrderId = $req->order_id.'-'.$OrderShipmentIncrementID;
-        
-        if ($order->payment_method == 'cod') { 
-            $payment_method = "COD";
-        } else { 
-            $payment_method = "Prepaid";
-        }
-
-        $TotalPackagePrice = 0;
-
-        foreach ($req->order_item_ids as $key => $order_item_id) {
-            
-            $shipmentCheck = Shipment::where('order_item_id', $order_item_id)->where('active', 1)->first();
-            
-            if (isset($shipmentCheck)) {
+            if (!isset($order) && $order->status != 'order_placed') {
                 abort(500);
+            } 
+
+            foreach ($order->OrderItems as $key => $OrderItem) {
+                if ($OrderItem->status != 'packing_completed' && isset($OrderItem->shipment)) {
+                    abort(500);
+                }
             }
 
-            $OrderItem = OrderItem::with('product')->where('id', $order_item_id)->first();
-            
-            $TotalPackagePrice = $TotalPackagePrice + $OrderItem->total_price;
+            OrderAddress::where('order_id', $order->id)->update([
+                'name' => $req->buyer_name,
+                'house_no' => $req->house_no,
+                'locality' => $req->locality,
+                'city' => $req->city,
+                'district' => $req->district,
+                'state' => $req->state,
+                'pin_code' => $req->pin_code,
+                'mobile' => $req->mobile,
+                'alt_mobile' => $req->alt_mobile,
+            ]);
 
-            
+            $order = Order::with('Address')->with('OrderItems')->with('User')->where('id', $req->order_id)->first();
 
-            $shipment = new Shipment;
-            $shipment->order_item_id = $order_item_id;
-            $shipment->order_id = $req->order_id;
-            $shipment->courier_name = 'Shiprocket';
-            $shipment->tracking_id = 'Not Available';
-            $shipment->active = 0;
-            $shipment->save();
+            foreach ($order->OrderItems as $key => $OrderItem) { 
 
-            $shippingItems[] = [
-                'name'          => $OrderItem->product->product_name, 
-                'sku'           => $OrderItem->product->id, 
-                'units'         => $OrderItem->qty, 
-                'selling_price' => $OrderItem->unit_mrp, 
-                'discount'      => $OrderItem->unit_mrp - $OrderItem->unit_price, 
+                $shipment = new Shipment;
+                $shipment->order_item_id = $OrderItem->id;
+                $shipment->type = 'forward';
+                $shipment->order_id = $order->id;
+                $shipment->courier_name = 'Shiprocket';
+                $shipment->tracking_id = 'Not Available';
+                $shipment->active = 0;
+                $shipment->save();
+
+                $shippingItems[] = [
+                    'name'          => $OrderItem->product->product_name, 
+                    'sku'           => $OrderItem->product->id, 
+                    'units'         => $OrderItem->qty, 
+                    'selling_price' => $OrderItem->unit_mrp, 
+                    'discount'      => $OrderItem->unit_mrp - $OrderItem->unit_price, 
+                ];
+            }
+
+            if ($order->payment_method == 'cod') { 
+                $payment_method = "COD";
+            } else { 
+                $payment_method = "Prepaid";
+            }
+
+        
+            $ShiprocketParams = [
+                'order_id'                  => $order->id,
+                'order_date'                => $order->created_at,
+                'pickup_location'           => 'Aniket',
+                'billing_customer_name'     => $order->Address->name,
+                'billing_last_name'         => '',
+                'billing_address'           => $order->Address->house_no,
+                'billing_city'              => $order->Address->city,
+                'billing_pincode'           => $order->Address->pin_code,
+                'billing_state'             => $order->Address->state,
+                'billing_country'           => 'India',
+                'billing_email'             => $order->User->email,
+                'billing_phone'             => $order->Address->mobile,
+                'billing_alternate_phone'   => $order->Address->alt_mobile,
+                'shipping_is_billing'       => true,
+                'order_items'               => $shippingItems,
+                'payment_method'            => $payment_method,
+                'sub_total'                 => $order->price, 
+                'length'                    => $req->length, 
+                'breadth'                   => $req->width, 
+                'weight'                    => $req->weight, 
+                'height'                    => $req->height, 
             ];
-        }
         
-        
-       
-        $ShiprocketParams = [
-            'order_id'                  => $ShiprocketOrderId,
-            'order_date'                => $order->created_at,
-            'pickup_location'           => 'Aniket',
-            'billing_customer_name'     => $order->Address->name,
-            'billing_last_name'         => '',
-            'billing_address'           => $order->Address->house_no,
-            'billing_city'              => $order->Address->city,
-            'billing_pincode'           => $order->Address->pin_code,
-            'billing_state'             => $order->Address->state,
-            'billing_country'           => 'India',
-            'billing_email'             => $order->User->email,
-            'billing_phone'             => $order->Address->mobile,
-            'billing_alternate_phone'   => $order->Address->alt_mobile,
-            'shipping_is_billing'       => true,
-            'order_items'               => $shippingItems,
-            'payment_method'            => $payment_method,
-            'sub_total'                 => $TotalPackagePrice, 
-            'length'                    => $req->length, 
-            'breadth'                   => $req->width, 
-            'weight'                    => $req->weight, 
-            'height'                    => $req->height, 
-        ];
-        
+            $token =  Shiprocket::getToken();
+         
+            $response =  Shiprocket::order($token)->create($ShiprocketParams);
+           
+            if (isset($response['status']) && $response['status'] == 'NEW') {
 
-        $token =  Shiprocket::getToken();
-        $response =  Shiprocket::order($token)->create($ShiprocketParams);
-    
-        if (isset($response['status']) && $response['status'] == 'NEW') {
-            
-            foreach ($req->order_item_ids as $key => $value) {
-
-                OrderItem::where('id', $value)->update([
-
+                OrderItem::where('order_id', $order->id)->update([
                     'status' => 'shipment_created',
                 ]);
 
-                Shipment::where('order_item_id', $value)->update([
-                    'delivery_date' => TenDaysFuture(''),
-                    'active'        => 1,
-                    'tracking_id'   => $ShiprocketOrderId,
-                    'shipment_id'   => $response['shipment_id'],
+                Shipment::where('type', 'forward')->where('order_id', $order->id)->update([
+                    'delivery_date'         => TenDaysFuture(''),
+                    'active'                => 1,
+                    'tracking_id'           => $order->id,
+                    'shiprocket_order_id'   => $response['order_id'],
+                    'shipment_id'           => $response['shipment_id'],
                 ]);
+                    
             }
-        }
 
         Shipment::where('active', 0)->delete();
 
@@ -277,3 +354,5 @@ class ManageOrdersController extends Controller
         }
     }
 }
+
+
