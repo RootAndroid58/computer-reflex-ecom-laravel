@@ -1,3 +1,9 @@
+$( document ).ready(function( $ ) {
+  $(window).on('popstate', function() {
+  location.reload(true);
+  });
+});
+
 
   var acc = document.getElementsByClassName("collapse-btn");
   for (let i = 0; i < acc.length; i++) {
@@ -123,12 +129,21 @@ $('.PaginationBtn').off('click').on('click', function (e) {
 
   var formGetURL = $(this).attr('href');
 
-  $('#RowDiv').load(formGetURL+' #RowDiv')
+  $.get(formGetURL, function(data) {
+    var RowDiv = $(data).find('#RowDiv').children();
+    $('#RowDiv').empty().append(RowDiv);
 
-  history.pushState({page: null}, null, formGetURL);
+    var PadginationContainer = $(data).find('#PadginationContainer').children();
+    $('#PadginationContainer').empty().append(PadginationContainer);
 
-  $.getScript('/js/main.js'); 
+    $.getScript('/js/main.js'); 
+    
+    history.pushState({page: null}, null, formGetURL);
+
+  });
+
 })
+
 
 
 

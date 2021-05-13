@@ -29,7 +29,7 @@ $UserName=str_word_count(Auth()->user()->name, 1);
         
                 <div class="account-menu-break"></div>   
                                                 
-                    <div class="wishlist-container">        
+                    <div class="wishlist-container" id="RowDiv">        
                         <div class="account-menu-break"></div>     
                      
                         @if ($orders->count() == 0)
@@ -183,16 +183,19 @@ $UserName=str_word_count(Auth()->user()->name, 1);
                                   
                             @endforeach
                             @endforeach
+
                         </div> 
-                       
-                        
+                    
                     </div>
-            
                 </div>
+
+                <div class="pb-4 pt-2" id="PadginationContainer">
+                    {{ $orders->links('pagination::bootstrap-4') }}
+                </div>
+
             </div>
-          
-            </div>
-        </div>
+        </div> 
+    </div>
     
     
     
