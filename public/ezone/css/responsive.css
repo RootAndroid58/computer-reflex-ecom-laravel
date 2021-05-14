@@ -1,5 +1,13 @@
 /* large desktop :1366px. */
 
+@media (min-width: 768px) and (max-width: 1366px) {
+    .electronics-login-register > ul > li {
+        margin-left: 18px;
+    }
+    .electronics-login-register > ul > li > a::before {
+        right: -10px;
+    }
+}
 @media (min-width: 1200px) and (max-width: 1650px) {
     .wacth-img img {
         max-width: 340px;
@@ -517,7 +525,7 @@
         padding-left: 50px;
     }
     .electronics-login-register > ul > li {
-        margin-left: 20px;
+        margin-left: 10px;
     }
     .electronics-login-register ul li ul {
       left: -55px;

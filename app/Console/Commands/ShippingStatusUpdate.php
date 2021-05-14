@@ -71,7 +71,6 @@ class ShippingStatusUpdate extends Command
                     'status' => 'order_shipped',
                 ]);
             }
-
             
         }
 
