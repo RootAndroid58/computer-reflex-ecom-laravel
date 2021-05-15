@@ -305,7 +305,7 @@
                                        
                                     </table>
         
-                                    @if ($order->payment_method != 'cod')
+                                    @if ($order->payment_method != 'cod' && $order->status != 'checkout_pending' && $order->status != 'payment_failed' && $order->status != 'payment_pending')
                                     <div style="padding-top: 10px; text-align: right;">
                                         <span style="font-size: 16px; color: #388e3c;">
                                             Payment Completed <i class="fa fa-check" aria-hidden="true"></i>

@@ -717,8 +717,14 @@ class AjaxDataTable extends Controller
                     
                 return $payment_method;
             })
+            ->addColumn('action', function($data){
 
-            ->rawColumns(['order_id', 'status', 'price', 'payment_method', 'registered_email'])->make(true);
+                $action = '<a href="'.route('admin-ship-order', $data->id).'" class="btn btn-dark"><i class="fas fa-cog"></i></a>';
+                    
+                return $action;
+            })
+
+            ->rawColumns(['order_id', 'status', 'price', 'payment_method', 'registered_email', 'action'])->make(true);
 
         } else 
         { 

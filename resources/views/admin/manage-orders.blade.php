@@ -47,6 +47,7 @@
         <th style="width: 10%">Payment</th>
         <th style="width: 15%">Total Price</th>
         <th style="width: 20%">Status</th>
+        <th style="width: 10%">Action</th>
     </tr>
     </thead>
     <tbody>
@@ -62,6 +63,7 @@
         <th style="width: 10%">Payment</th>
         <th style="width: 15%">Total Price</th>
         <th style="width: 20%">Status</th>
+        <th style="width: 10%">Action</th>
     </tr>
     </tfoot>
 </table>
@@ -119,6 +121,10 @@
             {
                 data: 'status',
                 name: 'status',
+            },
+            {
+                data: 'action',
+                name: 'action',
             },
 
         ]
