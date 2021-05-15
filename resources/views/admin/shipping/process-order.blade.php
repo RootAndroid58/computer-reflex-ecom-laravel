@@ -1,6 +1,6 @@
 @extends('layouts.panel')
 
-@section('title', 'Process Order')
+@section('title', 'Manage Order')
 
 @section('nav-manage-orders', 'active')
 
@@ -128,7 +128,7 @@
 
 
 <div class="container-fluid">
-    <h3>Ship Order</h3>
+    <h3>Manage Order</h3>
 </div>
 
 <div class="container">
@@ -140,7 +140,7 @@
             <div class="wishlist-basic-padding" style="padding: 10px 32px;">
                 <div class="account-details-title" style="padding-bottom: 0px;">
                     <img src="{{ asset('/img/svg/packages.svg') }}" width="50" alt="" srcset="">
-                    <span style="padding-right: 0;"><font style="font-weight: 600; color: black;">Process Order</font></span> #{{ date_format($order->created_at,"Y-mdHis").'-'.$order->id }}
+                    <span style="padding-right: 0;"><font style="font-weight: 600; color: black;">Manage Order</font></span> #{{ date_format($order->created_at,"Y-mdHis").'-'.$order->id }}
                 </div>
             </div>
     
@@ -155,12 +155,19 @@
                                     <span>Order ID: <span style="font-weight: 600; color: black;">{{ $order->id }}</span></span><br>
                                     <span>Order Date: <span style="font-weight: 600; color: black;">{{ $order->created_at }}</span></span><br>
                                     <span>Status: 
-                                        @if($order->status == 'order_placed') 
+                                    @if($order->status == 'order_placed') 
                                         <span style="color: #2874f0">
                                             <span style="">
                                                 <i class="fa fa-circle" aria-hidden="true"></i>
                                             </span>
                                             Order Placed.
+                                        </span>
+                                    @elseif($order->status == 'order_cancelled') 
+                                        <span class="text-danger">
+                                            <span style="">
+                                                <i class="fa fa-circle" aria-hidden="true"></i>
+                                            </span>
+                                            Order Cancelled.
                                         </span>
                                     @endif
                                     </span>
@@ -388,6 +395,13 @@
                                                                     <i class="fa fa-circle" aria-hidden="true"></i>
                                                                 </span>
                                                                 Packing Started.
+                                                            </span>
+                                                            @elseif($item->status == 'order_cancelled')
+                                                            <span class="text-danger">
+                                                                <span style="">
+                                                                    <i class="fa fa-circle" aria-hidden="true"></i>
+                                                                </span>
+                                                                Order Cancelled.
                                                             </span>
                                                             @elseif($item->status == 'packing_completed')
                                                             <span style="color: #2874f0">

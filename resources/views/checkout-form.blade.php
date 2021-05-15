@@ -417,17 +417,24 @@
                     <div class="wishlist-container">
                         <div class="PaymentBoxes" >                            
                                 <div class="PaymentMethodContainer">
-                                    <div class="payment-option-container paytm_btn" style="cursor: pointer;">
-                                        <span>UPI / Credit Card / Debit Card / Netbanking (PayTM)</span>
-                                    </div>
-                                    
-                                    <div class="payment-option-container payu_btn" style="cursor: pointer;">
-                                        <span>UPI / Credit Card / Debit Card / Netbanking (PayU)</span>
-                                    </div>
+                                
+                                    @if (App\Models\SystemSetting::where('key', 'PaytmCheckout')->first()->value == 'active')
+                                        <div class="payment-option-container paytm_btn" style="cursor: pointer;">
+                                            <span>UPI / Credit Card / Debit Card / Netbanking (PayTM)</span>
+                                        </div>
+                                    @endif
 
-                                    <div class="payment-option-container cod_btn" style="cursor: pointer;">
-                                        <span>Cash On Delivery (COD)</span>
-                                    </div>
+                                    @if (App\Models\SystemSetting::where('key', 'PayuCheckout')->first()->value == 'active')
+                                        <div class="payment-option-container payu_btn" style="cursor: pointer;">
+                                            <span>UPI / Credit Card / Debit Card / Netbanking (PayU)</span>
+                                        </div>
+                                    @endif
+
+                                    @if (App\Models\SystemSetting::where('key', 'CODCheckout')->first()->value == 'active')
+                                        <div class="payment-option-container cod_btn" style="cursor: pointer;">
+                                            <span>Cash On Delivery (COD)</span>
+                                        </div>
+                                    @endif
                                 </div>
                         </div>
                     </div>

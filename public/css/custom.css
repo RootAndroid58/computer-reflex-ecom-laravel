@@ -10,6 +10,9 @@
     -webkit-filter: blur(2px) grayscale(40%);
 }
 
+.fa {
+    font-family: Font Awesome\ 5 Pro;
+}
 
 
  .bbb_viewed {

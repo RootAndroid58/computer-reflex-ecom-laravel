@@ -65,13 +65,10 @@ class ManageOrdersController extends Controller
     {
         $order = Order::with('OrderItems')->where('id', $order_id)->first();
 
-        if (isset($order) && $order->status == 'order_placed') {
-            return view('admin.shipping.process-order',[
-                'order' => $order,
-            ]);
-        } else {
-            abort(500);
-        }
+        return view('admin.shipping.process-order',[
+            'order' => $order,
+        ]);
+
     }
 
     public function StartPacking($order_item_id)
@@ -155,7 +152,10 @@ class ManageOrdersController extends Controller
 
         if ($req->cancel_review == 'approve') {
             // Cancel the order on Shiprocket.
-            $shiprocketCancel =  Shiprocket::order(Shiprocket::getToken())->cancel(['ids' => [$order->ForwardShipment->shiprocket_order_id]]);
+            if (isset($order->ForwardShipment->shiprocket_order_id)) {
+                $shiprocketCancel =  Shiprocket::order(Shiprocket::getToken())->cancel(['ids' => [$order->ForwardShipment->shiprocket_order_id]]);
+            }
+            
             // Initiate refund via Paytm
             if ($order->payment_method == 'paytm') {
                 $txnStatus = PaytmHelper::status([

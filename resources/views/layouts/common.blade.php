@@ -21,27 +21,27 @@
         </script>
 
 		<!-- all css here -->
-        <link rel="stylesheet" href="{{ asset('ezone/css/bootstrap.min.css') }}?{{ env('ASSET_VER') }}">
+        <link rel="stylesheet" href="{{ asset('ezone/css/bootstrap.min.css') }}?{{ $assetVer }}">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
-        <link rel="stylesheet" href="{{ asset('ezone/css/magnific-popup.css') }}?{{ env('ASSET_VER') }}">
-        <link rel="stylesheet" href="{{ asset('ezone/css/animate.css')}}?{{ env('ASSET_VER') }}">
-        <link rel="stylesheet" href="{{ asset('ezone/css/owl.carousel.min.css')}}?{{ env('ASSET_VER') }}">
-        <link rel="stylesheet" href="{{ asset('ezone/css/themify-icons.css')}}?{{ env('ASSET_VER') }}">
-        <link rel="stylesheet" href="{{ asset('ezone/css/pe-icon-7-stroke.css')}}?{{ env('ASSET_VER') }}">
+        <link rel="stylesheet" href="{{ asset('ezone/css/magnific-popup.css') }}?{{ $assetVer }}">
+        <link rel="stylesheet" href="{{ asset('ezone/css/animate.css')}}?{{ $assetVer }}">
+        <link rel="stylesheet" href="{{ asset('ezone/css/owl.carousel.min.css')}}?{{ $assetVer }}">
+        <link rel="stylesheet" href="{{ asset('ezone/css/themify-icons.css')}}?{{ $assetVer }}">
+        <link rel="stylesheet" href="{{ asset('ezone/css/pe-icon-7-stroke.css')}}?{{ $assetVer }}">
         
-        <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css')}}?{{ env('ASSET_VER') }}">
+        <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css')}}?{{ $assetVer }}">
         
-        <link rel="stylesheet" href="{{ asset('css/star-rating.css')}}?{{ env('ASSET_VER') }}">
-        <link rel="stylesheet" href="{{ asset('ezone/css/icofont.css')}}?{{ env('ASSET_VER') }}">
-        <link rel="stylesheet" href="{{ asset('ezone/css/meanmenu.min.css')}}?{{ env('ASSET_VER') }}">
-        <link rel="stylesheet" href="{{ asset('ezone/css/easyzoom.css')}}?{{ env('ASSET_VER') }}">
+        <link rel="stylesheet" href="{{ asset('css/star-rating.css')}}?{{ $assetVer }}">
+        <link rel="stylesheet" href="{{ asset('ezone/css/icofont.css')}}?{{ $assetVer }}">
+        <link rel="stylesheet" href="{{ asset('ezone/css/meanmenu.min.css')}}?{{ $assetVer }}">
+        <link rel="stylesheet" href="{{ asset('ezone/css/easyzoom.css')}}?{{ $assetVer }}">
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset('ezone/css/bundle.css')}}?{{ env('ASSET_VER') }}">
-        <link rel="stylesheet" href="{{ asset('ezone/css/style.css')}}?{{ env('ASSET_VER') }}">
-        <link rel="stylesheet" href="{{ asset('ezone/css/responsive.css')}}?{{ env('ASSET_VER') }}">
-        <link rel="stylesheet" href="{{ asset('css/collapse-bs4.css')}}?{{ env('ASSET_VER') }}">
-        <link rel="stylesheet" href="{{ asset('css/custom.css')}}?{{ env('ASSET_VER') }}">
-        <script src="{{ asset('ezone/js/vendor/modernizr-2.8.3.min.js')}}?{{ env('ASSET_VER') }}"></script>
+        <link rel="stylesheet" href="{{ asset('ezone/css/bundle.css')}}?{{ $assetVer }}">
+        <link rel="stylesheet" href="{{ asset('ezone/css/style.css')}}?{{ $assetVer }}">
+        <link rel="stylesheet" href="{{ asset('ezone/css/responsive.css')}}?{{ $assetVer }}">
+        <link rel="stylesheet" href="{{ asset('css/collapse-bs4.css')}}?{{ $assetVer }}">
+        <link rel="stylesheet" href="{{ asset('css/custom.css')}}?{{ $assetVer }}">
+        <script src="{{ asset('ezone/js/vendor/modernizr-2.8.3.min.js')}}?{{ $assetVer }}"></script>
         @yield('css-js')
         <style>
             .body-container{
@@ -369,28 +369,28 @@
 		
 		
 		<!-- all js here -->
-        <script src="{{ asset('ezone/js/vendor/jquery-1.12.0.min.js') }}?{{ env('ASSET_VER') }}"></script>
-        <script src="{{ asset('ezone/js/popper.js') }}?{{ env('ASSET_VER') }}"></script>
-        <script src="{{ asset('ezone/js/bootstrap.min.js') }}?{{ env('ASSET_VER') }}"></script>
-        <script src="{{ asset('ezone/js/jquery.magnific-popup.min.js') }}?{{ env('ASSET_VER') }}"></script>
-        <script src="{{ asset('ezone/js/isotope.pkgd.min.js') }}?{{ env('ASSET_VER') }}"></script>
-        <script src="{{ asset('ezone/js/imagesloaded.pkgd.min.js') }}?{{ env('ASSET_VER') }}"></script>
-        <script src="{{ asset('ezone/js/jquery.counterup.min.js') }}?{{ env('ASSET_VER') }}"></script>
-        <script src="{{ asset('ezone/js/waypoints.min.js') }}?{{ env('ASSET_VER') }}"></script>
-        <script src="{{ asset('ezone/js/ajax-mail.js') }}?{{ env('ASSET_VER') }}"></script>
-        <script src="{{ asset('ezone/js/owl.carousel.min.js') }}?{{ env('ASSET_VER') }}"></script>
-        <script src="{{ asset('ezone/js/plugins.js') }}?{{ env('ASSET_VER') }}"></script>
-        <script src="{{ asset('ezone/js/main.js') }}?{{ env('ASSET_VER') }}"></script>
-        <script src="{{ asset('js/zoomsl.min.js') }}?{{ env('ASSET_VER') }}"></script>
-        <script src="{{ asset('js/jquery.easyzoom-modified.min.js') }}?{{ env('ASSET_VER') }}"></script>
-        <script src="{{ asset('js/summernote-bs4.js') }}?{{ env('ASSET_VER') }}"></script>
-        <script src="{{ asset('js/jquery.bootstrap-growl.min.js')}}?{{ env('ASSET_VER') }}"></script>
-        <script src="{{ asset('ezone/js/owl.carousel.min.js')}}?{{ env('ASSET_VER') }}"></script>
-        <script src="{{ asset('js/star-rating.js?ver=4.1.2')}}?{{ env('ASSET_VER') }}"></script>
+        <script src="{{ asset('ezone/js/vendor/jquery-1.12.0.min.js') }}?{{ $assetVer }}"></script>
+        <script src="{{ asset('ezone/js/popper.js') }}?{{ $assetVer }}"></script>
+        <script src="{{ asset('ezone/js/bootstrap.min.js') }}?{{ $assetVer }}"></script>
+        <script src="{{ asset('ezone/js/jquery.magnific-popup.min.js') }}?{{ $assetVer }}"></script>
+        <script src="{{ asset('ezone/js/isotope.pkgd.min.js') }}?{{ $assetVer }}"></script>
+        <script src="{{ asset('ezone/js/imagesloaded.pkgd.min.js') }}?{{ $assetVer }}"></script>
+        <script src="{{ asset('ezone/js/jquery.counterup.min.js') }}?{{ $assetVer }}"></script>
+        <script src="{{ asset('ezone/js/waypoints.min.js') }}?{{ $assetVer }}"></script>
+        <script src="{{ asset('ezone/js/ajax-mail.js') }}?{{ $assetVer }}"></script>
+        <script src="{{ asset('ezone/js/owl.carousel.min.js') }}?{{ $assetVer }}"></script>
+        <script src="{{ asset('ezone/js/plugins.js') }}?{{ $assetVer }}"></script>
+        <script src="{{ asset('ezone/js/main.js') }}?{{ $assetVer }}"></script>
+        <script src="{{ asset('js/zoomsl.min.js') }}?{{ $assetVer }}"></script>
+        <script src="{{ asset('js/jquery.easyzoom-modified.min.js') }}?{{ $assetVer }}"></script>
+        <script src="{{ asset('js/summernote-bs4.js') }}?{{ $assetVer }}"></script>
+        <script src="{{ asset('js/jquery.bootstrap-growl.min.js')}}?{{ $assetVer }}"></script>
+        <script src="{{ asset('ezone/js/owl.carousel.min.js')}}?{{ $assetVer }}"></script>
+        <script src="{{ asset('js/star-rating.js?ver=4.1.2')}}?{{ $assetVer }}"></script>
         <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
-        <script src="{{ asset('js/main.js') }}?{{ env('ASSET_VER') }}"></script>
+        <script src="{{ asset('js/main.js') }}?{{ $assetVer }}"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
     

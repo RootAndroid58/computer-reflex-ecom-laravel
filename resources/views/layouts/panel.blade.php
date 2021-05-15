@@ -21,7 +21,7 @@
 
     <link rel="stylesheet" href="{{ asset('SB-Admin/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-    <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css')}}?{{ env('ASSET_VER') }}">
+    <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css')}}?{{ $assetVer }}">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="{{ asset('css/jquery.tagit.css')}}">
     <link rel="stylesheet" href="{{ asset('css/tagit.ui-zendesk.css')}}">
@@ -83,6 +83,10 @@
                 
                 @canany(['Support Staff', 'Master Admin'])
                 <li class="nav-item"><a class="nav-link @yield('nav-support-tickets')" href="{{ route('admin-support-tickets')}}"><i class="fas fa-ticket-alt"></i><span>Support Tickets</span></a></li>
+                @endcanany
+                
+                @canany(['System Admin', 'Master Admin'])
+                <li class="nav-item"><a class="nav-link @yield('nav-system-settings')" href="{{ route('admin-system-settings')}}"><i class="fas fa-cog"></i><span>System Settings</span></a></li>
                 @endcanany
             </ul>
             <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>

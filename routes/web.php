@@ -165,6 +165,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:Admin', 'verifie
 
     Route::get('/','App\Http\Controllers\Admin\AdminController@IndexDashboard')->name('admin-dashboard');
 
+    Route::get('/system-settings','App\Http\Controllers\Admin\AdminController@SystemSettings')->name('admin-system-settings');
+    
+    Route::get('/system-settings/update','App\Http\Controllers\Admin\AdminController@SystemSettingsUpdate')->name('admin-system-settings-update');
+
     Route::get('/profile','App\Http\Controllers\Admin\AdminController@IndexProfile')->name('admin-profile');
 
     Route::get('/user-management','App\Http\Controllers\Admin\AdminController@AdminUserManagement')->middleware('permission:User Management|Master Admin')->name('admin-user-management');
@@ -219,7 +223,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:Admin', 'verifie
     
     Route::get('/delivery-confirmation','App\Http\Controllers\Admin\ManageOrdersController@DeliveryConfirmationPage')->middleware('permission:Manage Orders|Master Admin')->name('admin-delivery-confirmation');
     
-    Route::get('/manage-order/{order_id}/ship','App\Http\Controllers\Admin\ManageOrdersController@ShipOrder')->middleware('permission:Manage Orders|Master Admin')->name('admin-ship-order');
+    Route::get('/manage-order/{order_id}','App\Http\Controllers\Admin\ManageOrdersController@ShipOrder')->middleware('permission:Manage Orders|Master Admin')->name('admin-ship-order');
     
     Route::get('/manage-order/{order_item_id}/delivered','App\Http\Controllers\Admin\ManageOrdersController@ItemDeliveredConfirmation')->middleware('permission:Manage Orders|Master Admin')->name('admin-item-delivered-confirmation');
 

@@ -24,6 +24,7 @@ use App\Models\HomeSection;
 use App\Models\HomeSectionProduct;
 use App\Models\Catalog;
 use App\Models\CatalogProduct;
+use App\Models\SystemSetting;
 use App\Mail\AdminUserCreatedMail;
 
 
@@ -40,6 +41,31 @@ class AdminController extends Controller
 
         return view('admin.profile', ['permissions' => $permissions]);
     }
+
+    public function SystemSettings()
+    {
+        return view('admin.system-settings');
+    }
+
+    public function SystemSettingsUpdate(Request $req)
+    {
+        if ($req->type == 'active' || $req->type == 'inactive') {
+            SystemSetting::where('key', $req->key)->update([
+                'value' => $req->type,
+            ]);
+        } else if ($req->type == 'btn') {
+            SystemSetting::where('key', $req->key)->increment('value');
+        }
+        
+        $type = 'success';
+        $message = 'Settings Updated.';
+
+        return [
+            'message'   => $message,
+            'type'      => $type,
+        ];
+    }
+
     public function AdminUserManagement()
     {
         $AdminUsers = User::permission('Admin')->get();

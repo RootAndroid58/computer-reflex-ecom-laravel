@@ -56,7 +56,7 @@
         <![endif]-->
     <!-- header start -->
     <!--Notification Section-->
-    @if (!Auth::check())
+    {{-- @if (!Auth::check())
     <div class="notification-section notification-section-padding  notification-img ptb-10">
         <div class="container-fluid">
             <div class="notification-wrapper">
@@ -74,7 +74,7 @@
             </div>
         </div>
     </div>
-    @endif
+    @endif --}}
 
     
     <!-- Modal -->
