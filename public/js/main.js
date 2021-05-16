@@ -5,18 +5,15 @@ $( document ).ready(function( $ ) {
 });
 
 
-  var acc = document.getElementsByClassName("collapse-btn");
-  for (let i = 0; i < acc.length; i++) {
-    acc[i].addEventListener("click", function() {
-      this.classList.toggle("on");
-      var panel = this.nextElementSibling;
-      if (panel.style.maxHeight){
-        panel.style.maxHeight = null;
-      } else {
-        panel.style.maxHeight = panel.scrollHeight + "px";
-      }
-    });
-  }
+  $(".collapse-btn").on("click",function() {
+    this.classList.toggle("on");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight){
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    }
+  });
 
   $('input[name="cancel_review"]').on('change', function () {
     if ($(this).val() == 'decline') {
@@ -30,7 +27,6 @@ $( document ).ready(function( $ ) {
       $('#review_comment').attr('required', false);
     }
   })
-
 
   if($('.bbb_viewed_slider').length) {
       var viewedSlider = $('.bbb_viewed_slider');
@@ -53,8 +49,6 @@ $( document ).ready(function( $ ) {
           });
     }
 
-
-
 function PrevCarousel(section_id) {
   $('.owl-carousel-'+section_id).trigger('prev.owl.carousel')
 }
@@ -63,17 +57,10 @@ function NextCarousel(section_id) {
 }
 
 
-
-
 $('.images-menu').on('mouseover click', function () {
   imageUrl = $(this).css('background-image').replace(/^url\(['"]?/,'').replace(/['"]?\)$/,'');
   $('#big_img').attr('src', imageUrl)
 })
-
-
-
-
-
 
 
 $('#help_topic').on('change', function () {
@@ -92,27 +79,15 @@ $('#help_topic').on('change', function () {
 
 
 
-
-
-
-
-
-
-
-
 $('#filter_form').off('submit').on('submit', function (e) {
     e.preventDefault()
     var formGetURL = $('#filter_form').attr('action') + "?" + $('#filter_form').serialize();
     $.get(formGetURL, function(data) {
       var newContent = $(data).find('#RowDiv').children();
       $('#RowDiv').empty().append(newContent);
-      $.getScript('/js/main.js'); 
       history.pushState({page: null}, null, formGetURL);
     });
 })
-
-
-
 
 
 

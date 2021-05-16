@@ -4,12 +4,11 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>@yield('title') - {{env('APP_NAME')}}</title>
+        <title>@yield('title') - {{ Config::get('app.name') }}</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico')}}">
-
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-STJZ4CTNF7"></script>
         <script>
@@ -19,7 +18,6 @@
 
             gtag('config', 'G-STJZ4CTNF7');
         </script>
-
 		<!-- all css here -->
         <link rel="stylesheet" href="{{ asset('ezone/css/bootstrap.min.css') }}?{{ $assetVer }}">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
@@ -28,9 +26,7 @@
         <link rel="stylesheet" href="{{ asset('ezone/css/owl.carousel.min.css')}}?{{ $assetVer }}">
         <link rel="stylesheet" href="{{ asset('ezone/css/themify-icons.css')}}?{{ $assetVer }}">
         <link rel="stylesheet" href="{{ asset('ezone/css/pe-icon-7-stroke.css')}}?{{ $assetVer }}">
-        
         <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css')}}?{{ $assetVer }}">
-        
         <link rel="stylesheet" href="{{ asset('css/star-rating.css')}}?{{ $assetVer }}">
         <link rel="stylesheet" href="{{ asset('ezone/css/icofont.css')}}?{{ $assetVer }}">
         <link rel="stylesheet" href="{{ asset('ezone/css/meanmenu.min.css')}}?{{ $assetVer }}">
@@ -107,7 +103,7 @@
                                                 $AllCategories = App\Models\Category::get();
                                             @endphp
                                             @foreach ($AllCategories as $AllCategories)
-                                                <li><a href="about-us.html">{{$AllCategories->category}}</a></li>  
+                                                <li><a href="{{ route('search', ['category' => $AllCategories->category]) }}">{{$AllCategories->category}}</a></li>  
                                             @endforeach
                                         </ul>
                                     </li>

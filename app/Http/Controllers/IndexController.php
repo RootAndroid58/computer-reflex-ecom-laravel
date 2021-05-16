@@ -93,13 +93,16 @@ class IndexController extends Controller
         ->where('product_stock', '>=', $stock)
         ->whereBetween('product_price', [$min_price, $max_price]);
 
-        if (isset($req->specs) && $req->specs > 0) {
+        if (isset($req->specs) && count($req->specs) > 0) {
             $products->whereHas('specifications', function ($query) use ($req) {
                 foreach ($req->specs as $key => $value) {
                     $query->where('specification_key', $key)
                             ->where('specification_value', $value);
                 }
             });
+        }
+        if (isset($req->brands) && count($req->brands) > 0) {
+            $products->whereIn('product_brand', $req->brands);
         }
         
         if ($cat != 'ALL' && $cat != '') {
@@ -124,7 +127,7 @@ class IndexController extends Controller
         ->groupBy(['specification_key', 'specification_value']) // group by query
         ->get()
         ->groupBy('specification_key'); // group by collection
-    
+
         // max($products->pluck('product_price')->toArray())
 
         if (isset($MinPriceUnset) && $products->pluck('product_price')->count() > 0) {
@@ -137,7 +140,8 @@ class IndexController extends Controller
                 'max_price' => max($products->pluck('product_price')->toArray()),
             ]);
         }
-       
+        
+        $brands = $products->get()->groupBy('product_brand');
 
         $ProductsCount = $products->count(); 
 
@@ -145,6 +149,7 @@ class IndexController extends Controller
 
         return view('searched-products', [
             'products'          => $products,
+            'brands'            => $brands,
             'categories'        => $categories,
             'ProductsCount'     => $ProductsCount,
             'SpecsFilter'       => $specifications,

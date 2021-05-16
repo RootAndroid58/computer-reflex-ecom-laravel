@@ -19,7 +19,6 @@ class CompareController extends Controller
         } else {
             $compare = SessionCompare::with('product.specifications')->with('product.images')->where('session_id', Session::getId())->get();
         }
-        
 
         $product_ids = $compare->pluck('product_id');
 

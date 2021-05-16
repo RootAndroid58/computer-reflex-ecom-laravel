@@ -23,7 +23,7 @@
             {{-- Sidebar Start --}}
             <div class="col-lg-2">
                 <div id="SideBar">
-                    <div class="shop-sidebar mr-50">
+                    <div class="shop-sidebar">
 
                         
                     <form method="GET" action="@if(isset($slug)){{route('show-catalog', $slug)}}@else{{ route('search')}}@endif" id="filter_form">
@@ -77,9 +77,30 @@
                     
                         <div class="sidebar-widget mb-40">
                             <h3 class="sidebar-title">Specifications</h3>
-                                
+
+
+                                <div class="collapse-item" style="border-bottom: 1px solid rgb(197, 197, 197);">
+                                    <div class="collapse-btn" style="padding: 7px 10px; transition: all 200ms; background-color: rgba(212, 212, 212, 0.781);">
+                                        <span style="font-weight: 600">Brand</span>
+                                    </div>
+                                    <div class="collapse-content">
+                                    
+                                        @foreach ($brands as $brand => $value)
+                                            <div style="padding-top: 6px; padding-bottom: 6px;">
+                                                <div class="form-check">
+                                                    <input onchange="submitFilterForm()" class="form-check-input cursor-pointer" name="brands[]" value="{{ $brand }}" type="checkbox" id="{{ $brand }}">
+                                                    <label class="form-check-label cursor-pointer line-limit-2" for="{{$brand}}">{{$brand}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="account-menu-break"></div>  
+                                        @endforeach
+                                    </div>
+                                </div>                         
+                               
+
+
                                 @foreach ($SpecsFilter as $Group => $SpecsGroup)
-                                <div class="collapse-item">
+                                <div class="collapse-item" style="border-bottom: 1px solid rgb(197, 197, 197);">
                                     @php
                                     if (isset(Request()->specs[$Group])) {
                                         $checked = Request()->specs[$Group];
@@ -120,7 +141,6 @@
                 <div id="RowDiv" class="w-100">
                     <div class="shop-product-wrapper res-xl">
                         <div class="shop-bar-area">
-
 
 
                             <div class="shop-bar pb-60">
