@@ -35,6 +35,7 @@
                         @php
                            $product = $product->product;
                         @endphp
+                        @if (isset($product))
                         <div class="owl-item">
                             <div class="product-wrapper mb-30">
                                 <div class="product-img">
@@ -66,7 +67,8 @@
                                     @endif
                                 </div>
                             </div>
-                        </div>
+                        </div>                  
+                        @endif
                         @endforeach
                     </div>
                 </div>

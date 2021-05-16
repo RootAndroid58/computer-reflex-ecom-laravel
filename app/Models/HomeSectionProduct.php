@@ -12,6 +12,6 @@ class HomeSectionProduct extends Model
 
     public function product()
     {
-        return $this->hasOne(Product::class, 'id', 'product_id')->where('product_status', 1)->where('product_stock', '>', '0');
+        return $this->hasOne(Product::class, 'id', 'product_id')->where('product_status', 1);
     }
 }
