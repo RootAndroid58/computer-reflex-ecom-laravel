@@ -71,8 +71,8 @@ return [
     ],
 
     'paytm' =>  [
-        'MERCHANT_KEY' => env('PAYTM_MERCHANT_KEY',''),
-        'MID' => env('PAYTM_MID', ''),
+        'MID' => env('PAYTM_MID', 'Mzhxhe80102019061443'),
+        'MERCHANT_KEY' => env('PAYTM_MERCHANT_KEY','v!u9Fu6A!Lm05Ox@'),
         'CHANNEL_ID' => env('PAYTM_CHANNEL_ID', 'WEB'),
         'WEBSITE' => env('PAYTM_WEBSITE', 'WEBSTAGING'),
         'INDUSTRY_TYPE_ID' => env('PAYTM_INDUSTRY_TYPE_ID', 'Retail'),

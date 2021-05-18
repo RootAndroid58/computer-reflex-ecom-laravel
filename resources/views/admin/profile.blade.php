@@ -11,47 +11,48 @@
 @section('content')
 
 
-<div class="container-fluid">
-
-
-
 <!-- Modal -->
 <div class="modal fade" id="DPupdateModal" tabindex="-1" role="dialog" aria-labelledby="DPupdateModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 >Change Photo <span class="badge badge-secondary">New</span></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-            <!-- Upload image input-->
-        <form action="{{ route('dp-update')}}" method="post" id="dpUpdate" name="dpUpdate" enctype="multipart/form-data">
-            @csrf
-            <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                <input id="upload" name="dp" type="file" class="form-control border-0">
-                <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
-                <div class="input-group-append">
-                    <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload" aria-hidden="true"></i> <small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
-                </div>
-            </div>
-        </form>
-            <!-- Uploaded image area-->
-            <p class="font-italic text-white text-center">Supported formats: jpg, jpeg, png & max file size of 2 MB</p>
-            <div class="image-area mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
-
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="document.dpUpdate.submit();">Save changes</button>
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 >Change Photo <span class="badge badge-secondary">New</span></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+              <!-- Upload image input-->
+          <form action="{{ route('dp-update')}}" method="post" id="dpUpdate" name="dpUpdate" enctype="multipart/form-data">
+              @csrf
+              <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+                  <input id="upload" name="dp" type="file" class="form-control border-0">
+                  <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
+                  <div class="input-group-append">
+                      <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload" aria-hidden="true"></i> <small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
+                  </div>
+              </div>
+          </form>
+              <!-- Uploaded image area-->
+              <p class="font-italic text-white text-center">Supported formats: jpg, jpeg, png & max file size of 2 MB</p>
+              <div class="image-area mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+  
+  
+  
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="document.dpUpdate.submit();">Save changes</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<!-- Modal End -->
+  <!-- Modal End -->
+
+
+
+<div class="container-fluid">
+
 
 
 
