@@ -18,10 +18,7 @@
         
        
 
-            <div style="width: 100%;
-            height: 375px;
-            text-align: center;
-            line-height: 375px;" >
+            <div style="width: 100%; height: 375px; text-align: center; line-height: 375px;" >
                 <div class="zoom5">
                     <img id="big_img" src="{{ asset('storage/images/products/'.$images[0]->image) }}" style="max-width: 100%;
                     max-height: 100%;

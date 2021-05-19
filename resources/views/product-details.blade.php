@@ -752,7 +752,25 @@
 @section('bottom-js')
 
 
-
+    
+<script>
+    $(document).ready(function(){
+        $('.big_img').imagezoomsl({
+            cursorshade: true,
+            zindex: 11,
+            magnifycursor:'zoom-in',
+            zoomrange: [2, 10],
+            scrollspeedanimate: 5,
+            zoomspeedanimate: 1,
+            loopspeedanimate: 1,  
+            magnifierspeedanimate: 350,
+            magnifiersize: ['43%', '75vh'],
+            leftoffset:  15, 						// îòñòóï ñëåâà îò tmb êàðòèíêè
+            rightoffset: 15, 	
+            magnifierborder: 'no-border',   
+        });
+    });
+</script>
 
 
 <script>
@@ -984,8 +1002,8 @@ function ToggleCart(product_id) {
                             $('#CartCount').load("{{ route('cart') }} #CartCount")
                         }
                     }
-                })
-            })
+                });
+            });
 
 
 
@@ -994,8 +1012,6 @@ function ToggleCart(product_id) {
                 e.preventDefault()
 
                 var product_id  = $('input[name="product_id"]').val()
-
-                console.log(product_id)
 
                 $.ajax({
                     url: "{{route('toggle-compare-btn')}}",
@@ -1012,7 +1028,7 @@ function ToggleCart(product_id) {
                                 align: 'center',
                                 allow_dismis: true,
                                 stack_spacing: 10,
-                            })
+                            });
                         }
 
                         if (data.status == 200) {
@@ -1025,9 +1041,9 @@ function ToggleCart(product_id) {
                             // $('#CartCount').load("{{ route('cart') }} #CartCount")
                         }
                     }
-                })
-            })
-        })
+                });
+            });
+        });
     </script>
 
 
@@ -1057,28 +1073,11 @@ function ToggleCart(product_id) {
                             $('#ToggleWishlistBtn').addClass('btn-not-wishlisted').removeClass('btn-wishlisted')
                         }
                     }
-                })
-            })
-        })
+                });
+            });
+        });
     </script>
-    
-	<script>
-		$(document).ready(function(){
-			$('#big_img').imagezoomsl({
-                cursorshade:true,
-                magnifycursor:'zoom-in',
-				zoomrange: [2, 10],
-                scrollspeedanimate: 5,
-                zoomspeedanimate: 1,
-                loopspeedanimate: 1,  
-                magnifierspeedanimate: 350,
-                magnifiersize: ['43%', '75vh'],
-                leftoffset:  15, 						// îòñòóï ñëåâà îò tmb êàðòèíêè
-				rightoffset: 15, 	
-                magnifierborder: 'no-border',     
-			})
-		})
-	</script>
+
 
 
 @endsection
