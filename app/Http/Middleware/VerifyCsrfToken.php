@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
+        '/dp/update', 
         '/wishlist/toggle',
         '/cart/toggle',
         '/compare/toggle',
@@ -26,6 +27,7 @@ class VerifyCsrfToken extends Middleware
         '/ajax/calcMRP',
         '/ajax/sync-price',
         '/ajax/get-small-banner-data',
+        '/checkout/payment/response/*',   
         '/checkout/payment/response/*'  
     ];
 }

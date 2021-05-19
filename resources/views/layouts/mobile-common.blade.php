@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css')}}?{{ $assetVer }}">
     
     <link rel="stylesheet" href="{{ asset('css/star-rating.css')}}?{{ $assetVer }}">
+    <link rel="stylesheet" href="{{ asset('css/cropper.css')}}?{{ $assetVer }}">
     <link rel="stylesheet" href="{{ asset('ezone/css/icofont.css')}}?{{ $assetVer }}">
     <link rel="stylesheet" href="{{ asset('ezone/css/meanmenu.min.css')}}?{{ $assetVer }}">
     <link rel="stylesheet" href="{{ asset('ezone/css/easyzoom.css')}}?{{ $assetVer }}">
@@ -576,6 +577,7 @@
     <script src="{{ asset('js/jquery.bootstrap-growl.min.js')}}?{{ $assetVer }}"></script>
     <script src="{{ asset('ezone/js/owl.carousel.min.js')}}?{{ $assetVer }}"></script>
     <script src="{{ asset('js/star-rating.js?ver=4.1.2')}}?{{ $assetVer }}"></script>
+    <script src="{{ asset('js/cropper.js?ver=4.1.2')}}?{{ $assetVer }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/pinch-zoom-js@2.3.4/dist/pinch-zoom.umd.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>

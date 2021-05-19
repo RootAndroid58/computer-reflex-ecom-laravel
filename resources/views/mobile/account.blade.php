@@ -9,19 +9,71 @@
         .account-details-title {
             padding-bottom: 9px;
         }
+    .label {
+      cursor: pointer;
+    }
+
+    .progress {
+      display: none;
+      margin-bottom: 1rem;
+    }
+
+    .alert {
+      display: none;
+    }
+
+    .img-container img {
+      max-width: 100%;
+    }
     </style>
 @endsection
 
+@section('modals')
+        <!-- Modal -->
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modalLabel">Crop the image</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="img-container">
+                    <img id="image" src="https://avatars0.githubusercontent.com/u/3456749">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-primary" id="crop">Upload</button>
+                </div>
+              </div>
+            </div>
+          </div>
+@endsection
 
 @section('content')
-
-<div class="profile-picture-section bg-secondary justify-content-center align-items-center d-flex" style="min-height: 20vh;">
-    <div class="pt-4 pb-4">
-        <img  src="{{ asset('storage/images/dp/'.Auth()->user()->dp) }}" alt="" style=" width: 150px; height: 150px; border-radius: 50%;">
+<input type="hidden" id="updateDpURL" value="{{ route('dp-update') }}">
+<div class="profile-picture-section bg-secondary " style="min-height: 20vh;">
+    <div class="pt-4 pb-4 justify-content-center align-items-center d-flex">
+        <img id="avatar"  src="{{ asset('storage/images/dp/'.Auth()->user()->dp) }}" alt="" style=" width: 150px; height: 150px; border-radius: 50%;">
     </div>
-    
+    <div class="pb-4 text-center">
+        <label class="label">
+            <span class="btn btn-dark btn-sm "  >Change DP</span>
+            <input type="file" class="sr-only" id="dp_uploader" name="image" accept="image/*">
+        </label>
+    </div>
 </div>
 
+
+<div>
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+      </div>
+      <div class="alert" role="alert"></div>
+</div>
 
 
 
@@ -126,6 +178,18 @@
 
 
 @section('bottom-js')
+
+
+
+
+
+
+
+
+
+
+
+
 
 {{-- Name Update --}}
     <script>
