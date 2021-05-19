@@ -15,15 +15,21 @@
 
 @section('content')
     <div class="container-fluid">
-        <div style="width: 100%;
-        height: 375px;
-        text-align: center;
-        line-height: 375px;">
-            <img id="big_img" src="{{ asset('storage/images/products/'.$images[0]->image) }}" style="max-width: 100%;
-            max-height: 100%;
-            vertical-align: middle;
-            transition: 300ms;" alt="">
-        </div>
+        
+       
+
+            <div style="width: 100%;
+            height: 375px;
+            text-align: center;
+            line-height: 375px;" >
+                <div class="zoom5">
+                    <img id="big_img" src="{{ asset('storage/images/products/'.$images[0]->image) }}" style="max-width: 100%;
+                    max-height: 100%;
+                    vertical-align: middle;
+                    transition: 300ms;" alt="">
+                </div>
+            </div>
+       
         
            
     </div>
@@ -637,229 +643,230 @@
 
 @section('bottom-js')
     
-
+<script>
+    new window.PinchZoom.default(document.querySelector('div.zoom5'), {});
+</script>
 
 <script>
 
-    $('document').ready( function (){
-        fetchQnas('new')
-    })
-    
-    
+   $('document').ready( function (){
+       fetchQnas('new')
+   })
+   
+   
 
 
-    //setup before functions
-    var typingTimer;                //timer identifier
-    var doneTypingInterval = 1500;  //time in ms, 5 second for example
-    var $input = $('#review_search');
-    
-    //on keyup, start the countdown
-    $input.on('keyup', function () {
-        $('#searchPre').html(`<i class="fa fa-spinner fa-spin"></i>`)
-        clearTimeout(typingTimer);
-        typingTimer = setTimeout(doneTyping, doneTypingInterval);
-    });
-    
-    //on keydown, clear the countdown 
-    $input.on('keydown', function () {
-      clearTimeout(typingTimer);
-    });
-    
-    //user is "finished typing," do something
-    function doneTyping () {
-        $('#searchPre').html(`<i class="fa fa-search" aria-hidden="true"></i>`)
-        $('#searchPre').removeClass('searchLoading')
-        fetchQnas('new')
-    }
-    
-    
-    
-    
-    // COPY TO CLIPBOARD
-    // Attempts to use .execCommand('copy') on a created text field
-    // Falls back to a selectable alert if not supported
-    // Attempts to display status in Bootstrap tooltip
-    // ------------------------------------------------------------------------------
-    
-    function copyToClipboard(text, el) {
-      var copyTest = document.queryCommandSupported('copy');
-      var elOriginalText = el.attr('data-original-title');
-    
-      if (copyTest === true) {
-        var copyTextArea = document.createElement("textarea");
-        copyTextArea.value = text;
-        document.body.appendChild(copyTextArea);
-        copyTextArea.select();
-        try {
-          var successful = document.execCommand('copy');
-          var msg = successful ? 'Copied!' : 'Whoops, not copied!';
-          el.attr('data-original-title', msg).tooltip('show');
-        } catch (err) {
-          console.log('Oops, unable to copy');
-        }
-        document.body.removeChild(copyTextArea);
-        el.attr('data-original-title', elOriginalText);
-      } else {
-        // Fallback if browser doesn't support .execCommand('copy')
-        window.prompt("Copy to clipboard: Ctrl+C or Command+C, Enter", text);
-      }
-    }
-    
-    $(document).ready(function() {
-      // Initialize
-      // ---------------------------------------------------------------------
-    
-      // Tooltips
-      // Requires Bootstrap 3 for functionality
-      $('.js-tooltip').tooltip();
-    
-      // Copy to clipboard
-      // Grab any text in the attribute 'data-copy' and pass it to the 
-      // copy function
-      $('.js-copy').click(function() {
-        var text = $(this).attr('data-copy');
-        var el = $(this);
-        copyToClipboard(text, el);
-      });
-    });
-    </script>
+   //setup before functions
+   var typingTimer;                //timer identifier
+   var doneTypingInterval = 1500;  //time in ms, 5 second for example
+   var $input = $('#review_search');
+   
+   //on keyup, start the countdown
+   $input.on('keyup', function () {
+       $('#searchPre').html(`<i class="fa fa-spinner fa-spin"></i>`)
+       clearTimeout(typingTimer);
+       typingTimer = setTimeout(doneTyping, doneTypingInterval);
+   });
+   
+   //on keydown, clear the countdown 
+   $input.on('keydown', function () {
+     clearTimeout(typingTimer);
+   });
+   
+   //user is "finished typing," do something
+   function doneTyping () {
+       $('#searchPre').html(`<i class="fa fa-search" aria-hidden="true"></i>`)
+       $('#searchPre').removeClass('searchLoading')
+       fetchQnas('new')
+   }
+   
+   
+   
+   
+   // COPY TO CLIPBOARD
+   // Attempts to use .execCommand('copy') on a created text field
+   // Falls back to a selectable alert if not supported
+   // Attempts to display status in Bootstrap tooltip
+   // ------------------------------------------------------------------------------
+   
+   function copyToClipboard(text, el) {
+     var copyTest = document.queryCommandSupported('copy');
+     var elOriginalText = el.attr('data-original-title');
+   
+     if (copyTest === true) {
+       var copyTextArea = document.createElement("textarea");
+       copyTextArea.value = text;
+       document.body.appendChild(copyTextArea);
+       copyTextArea.select();
+       try {
+         var successful = document.execCommand('copy');
+         var msg = successful ? 'Copied!' : 'Whoops, not copied!';
+         el.attr('data-original-title', msg).tooltip('show');
+       } catch (err) {
+         console.log('Oops, unable to copy');
+       }
+       document.body.removeChild(copyTextArea);
+       el.attr('data-original-title', elOriginalText);
+     } else {
+       // Fallback if browser doesn't support .execCommand('copy')
+       window.prompt("Copy to clipboard: Ctrl+C or Command+C, Enter", text);
+     }
+   }
+   
+   $(document).ready(function() {
+     // Initialize
+     // ---------------------------------------------------------------------
+   
+     // Tooltips
+     // Requires Bootstrap 3 for functionality
+     $('.js-tooltip').tooltip();
+   
+     // Copy to clipboard
+     // Grab any text in the attribute 'data-copy' and pass it to the 
+     // copy function
+     $('.js-copy').click(function() {
+       var text = $(this).attr('data-copy');
+       var el = $(this);
+       copyToClipboard(text, el);
+     });
+   });
+   </script>
 
 
 
 
 <script>
-    function ToggleCompare(product_id) {
-    
-    $.ajax({
-        url: "{{route('toggle-compare-btn')}}",
-        method: 'POST',
-        data: {
-            'product_id' : product_id,
-        },
-        success: function (data) {
-            if (data.status == 500 || data.status == 200) {
-                $(".bootstrap-growl").remove();
-                $.bootstrapGrowl(data.msg, {
-                    type: data.type,
-                    offset: {from:"bottom", amount: 100},
-                    align: 'center',
-                    allow_dismis: true,
-                    stack_spacing: 10,
-                })
-            }
-        }
-    })
-    
-    }
-    
-    
-    
-        function ToggleWishlist(product_id) {
-    
-    $.ajax({
-        url: "{{route('toggle-wishlist-btn')}}",
-        method: 'POST',
-        data: {
-            'product_id' : product_id,
-        },
-        success: function (data) {
-    
-            if (data == 500) {
-                $(".bootstrap-growl").remove();
-                $.bootstrapGrowl("Removed from wishlist.", {
-                    type: "danger",
-                    offset: {from:"bottom", amount: 50},
-                    align: 'center',
-                    allow_dismis: true,
-                    stack_spacing: 10,
-                })
-            } else if(data == 200) {
-                $(".bootstrap-growl").remove();
-                $.bootstrapGrowl("Added to wishlist.", {
-                    type: "success",
-                    offset: {from:"bottom", amount: 50},
-                    align: 'center',
-                    allow_dismis: true,
-                    stack_spacing: 10,
-                })
-            }
-        }
-    })
-    
-    }
-    
-    function ToggleCart(product_id) {
-    
-        $.ajax({
-        url: "{{route('toggle-cart-btn')}}",
-        method: 'POST',
-        data: {
-            'product_id' : product_id,
-        },
-        success: function (data) {
-    
-            if (data == 200) {
-                $('#CartCount').load("{{ route('cart') }} #CartCount")
-                $(".bootstrap-growl").remove();
-                $.bootstrapGrowl("Added To Cart.", {
-                    type: "success",
-                    offset: {from:"top", amount: 100},
-                    align: 'center',
-                    allow_dismis: true,
-                    stack_spacing: 10,
-                })
-            } else if(data == 500) {
-                $('#CartCount').load("{{ route('cart') }} #CartCount")
-                $(".bootstrap-growl").remove();
-                $.bootstrapGrowl("Removed From Cart.", {
-                    type: "danger",
-                    offset: {from:"top", amount: 100},
-                    align: 'center',
-                    allow_dismis: true,
-                    stack_spacing: 10,
-                })
-            }
-        }
-    })
-    
-    }
-    </script>
+   function ToggleCompare(product_id) {
+   
+   $.ajax({
+       url: "{{route('toggle-compare-btn')}}",
+       method: 'POST',
+       data: {
+           'product_id' : product_id,
+       },
+       success: function (data) {
+           if (data.status == 500 || data.status == 200) {
+               $(".bootstrap-growl").remove();
+               $.bootstrapGrowl(data.msg, {
+                   type: data.type,
+                   offset: {from:"bottom", amount: 100},
+                   align: 'center',
+                   allow_dismis: true,
+                   stack_spacing: 10,
+               })
+           }
+       }
+   })
+   
+   }
+</script>
+   
 
+<script>
 
-    {{-- Toggle Cart --}}
-    <script>
-        $(document).ready(function() {
+function ToggleWishlist(product_id) {
+   
+   $.ajax({
+       url: "{{route('toggle-wishlist-btn')}}",
+       method: 'POST',
+       data: {
+           'product_id' : product_id,
+       },
+       success: function (data) {
+   
+           if (data == 500) {
+               $(".bootstrap-growl").remove();
+               $.bootstrapGrowl("Removed from wishlist.", {
+                   type: "danger",
+                   offset: {from:"bottom", amount: 50},
+                   align: 'center',
+                   allow_dismis: true,
+                   stack_spacing: 10,
+               })
+           } else if(data == 200) {
+               $(".bootstrap-growl").remove();
+               $.bootstrapGrowl("Added to wishlist.", {
+                   type: "success",
+                   offset: {from:"bottom", amount: 50},
+                   align: 'center',
+                   allow_dismis: true,
+                   stack_spacing: 10,
+               })
+           }
+       }
+   })
+   
+   }
+       
+</script>
 
-            $('#ToggleCartBtn').click(function (e) {
-
-                e.preventDefault()
-
-                var product_id  = $('input[name="product_id"]').val()
-
-                console.log(product_id)
-
-                $.ajax({
-                    url: "{{route('toggle-cart-btn')}}",
-                    method: 'POST',
-                    data: {
-                        'product_id' : product_id,
-                    },
-                    success: function (data) {
-
-                        if (data == 200) {
-                            console.log('Added to cart')
-                            $('#ToggleCartBtn').html('remove from cart')
-                            $('#CartCount').load("{{ route('cart') }} #CartCount")
-                        } else if(data == 500) {
-                            $('#ToggleCartBtn').html('add to cart')
-                            $('#CartCount').load("{{ route('cart') }} #CartCount")
-                        }
-                    }
-                })
-            })
+<script>
+   function ToggleCart(product_id) {
+   
+       $.ajax({
+       url: "{{route('toggle-cart-btn')}}",
+       method: 'POST',
+       data: {
+           'product_id' : product_id,
+       },
+       success: function (data) {
+   
+           if (data == 200) {
+               $('#CartCount').load("{{ route('cart') }} #CartCount")
+               $(".bootstrap-growl").remove();
+               $.bootstrapGrowl("Added To Cart.", {
+                   type: "success",
+                   offset: {from:"top", amount: 100},
+                   align: 'center',
+                   allow_dismis: true,
+                   stack_spacing: 10,
+               })
+           } else if(data == 500) {
+               $('#CartCount').load("{{ route('cart') }} #CartCount")
+               $(".bootstrap-growl").remove();
+               $.bootstrapGrowl("Removed From Cart.", {
+                   type: "danger",
+                   offset: {from:"top", amount: 100},
+                   align: 'center',
+                   allow_dismis: true,
+                   stack_spacing: 10,
+               })
+           }
+       }
+   })
+   
+   }
+   </script>
 
 
 
+   <script>
+
+           $('#ToggleCartBtn').click(function () {
+           
+               var product_id  = $('input[name="product_id"]').val();
+
+               $.ajax({
+                   url: "{{ route('toggle-cart-btn') }}",
+                   method: 'POST',
+                   data: {
+                       'product_id' : product_id,
+                   },
+                   success: function (data) {
+                       if (data == 200) {
+                           $('#ToggleCartBtn').html('remove from cart');
+                           $('#CartCount').load("{{ route('cart') }} #CartCount");
+                       } else if(data == 500) {
+                           $('#ToggleCartBtn').html('add to cart');
+                           $('#CartCount').load("{{ route('cart') }} #CartCount");
+                       }
+                   }
+               })
+           })
+           
+        </script>
+
+        <script>
             $('#ToggleCompareBtn').click(function (e) {
 
                 e.preventDefault()
@@ -897,57 +904,52 @@
                         }
                     }
                 })
-            })
-        })
-    </script>
-
-
-    {{-- Toggle Wishlist --}}
-    <script>
-        $(document).ready(function() {
-
-            $('#ToggleWishlistBtn').click(function (e) {
-                e.preventDefault()
-                var product_id  = $('input[name="product_id"]').val()
-
-                $.ajax({
-                    url: "{{route('toggle-wishlist-btn')}}",
-                    method: 'POST',
-                    data: {
-                        'product_id' : product_id,
-                    },
-                    success: function (data) {
-                        
-                        if (data == 200) {
-                            $('#ToggleWishlistBtn').addClass('btn-wishlisted').removeClass('btn-not-wishlisted')
-                            $(".bootstrap-growl").remove();
-                            $.bootstrapGrowl('Added To Wishlist.', {
-                                type: 'success',
-                                offset: {from:"bottom", amount: 100},
-                                align: 'center',
-                                allow_dismis: true,
-                                stack_spacing: 10,
-                            });
-                        } else if(data == 500) {
-                            $(".bootstrap-growl").remove();
-                            $.bootstrapGrowl('Removed From Wishlist.', {
-                                type: 'danger',
-                                offset: {from:"bottom", amount: 100},
-                                align: 'center',
-                                allow_dismis: true,
-                                stack_spacing: 10,
-                            });
-                            $('#ToggleWishlistBtn').addClass('btn-not-wishlisted').removeClass('btn-wishlisted')
-                        }
-                    }
-                })
-            })
-        })
+            });
     </script>
 
 
 
+   <script>
+       $(document).ready(function() {
 
+           $('#ToggleWishlistBtn').click(function (e) {
+               e.preventDefault()
+               var product_id  = $('input[name="product_id"]').val()
+
+               $.ajax({
+                   url: "{{route('toggle-wishlist-btn')}}",
+                   method: 'POST',
+                   data: {
+                       'product_id' : product_id,
+                   },
+                   success: function (data) {
+                       
+                       if (data == 200) {
+                           $('#ToggleWishlistBtn').addClass('btn-wishlisted').removeClass('btn-not-wishlisted')
+                           $(".bootstrap-growl").remove();
+                           $.bootstrapGrowl('Added To Wishlist.', {
+                               type: 'success',
+                               offset: {from:"bottom", amount: 100},
+                               align: 'center',
+                               allow_dismis: true,
+                               stack_spacing: 10,
+                           });
+                       } else if(data == 500) {
+                           $(".bootstrap-growl").remove();
+                           $.bootstrapGrowl('Removed From Wishlist.', {
+                               type: 'danger',
+                               offset: {from:"bottom", amount: 100},
+                               align: 'center',
+                               allow_dismis: true,
+                               stack_spacing: 10,
+                           });
+                           $('#ToggleWishlistBtn').addClass('btn-not-wishlisted').removeClass('btn-wishlisted')
+                       }
+                   }
+               })
+           })
+       });
+   </script>
 
 
 @endsection
