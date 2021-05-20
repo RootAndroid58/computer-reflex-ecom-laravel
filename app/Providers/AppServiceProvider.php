@@ -30,10 +30,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
-        $tables = DB::select('SHOW TABLES');
-        dd($tables);
-
         $AllCategories = Category::get();
         View::share([
             // 'AllCategories' => $AllCategories,
