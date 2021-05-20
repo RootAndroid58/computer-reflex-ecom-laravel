@@ -89,20 +89,20 @@
                         {{-- Website Logo --}}
                         <div class="logo-2 furniture-logo ptb-30">
                             <a href="{{ route('home') }}">
-                                <img src="{{ asset('ezone/img/logo/logo.png')}}" alt="">
+                                <img loading=lazy src="{{ asset('ezone/img/logo/logo.png')}}" alt="">
                             </a>
                         </div>
 
                         <div class="menu-style-2 furniture-menu menu-hover">
+                            @php
+                                $AllCategories = App\Models\Category::get();
+                            @endphp
                             <nav>
                                 <ul>    
                                     <li><a href="{{url('/')}}">home</a>
                                     </li>
                                     <li><a href="#">Categories</a>
                                         <ul class="single-dropdown">
-                                            @php
-                                                $AllCategories = App\Models\Category::get();
-                                            @endphp
                                             @foreach ($AllCategories as $AllCategories)
                                                 <li><a href="{{ route('search', ['category' => $AllCategories->category]) }}">{{$AllCategories->category}}</a></li>  
                                             @endforeach
