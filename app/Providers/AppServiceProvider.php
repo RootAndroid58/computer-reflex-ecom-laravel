@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\View;
 use App\Models\SystemSetting;
 use App\Models\Category;
 
+use DB;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +30,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        $tables = DB::select('SHOW TABLES');
+        dd($tables);
+
         $AllCategories = Category::get();
         View::share([
             // 'AllCategories' => $AllCategories,
