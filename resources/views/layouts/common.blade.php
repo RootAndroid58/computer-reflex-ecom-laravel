@@ -28,6 +28,7 @@
         <link rel="stylesheet" href="{{ asset('ezone/css/pe-icon-7-stroke.css')}}?{{ $assetVer }}">
         <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css')}}?{{ $assetVer }}">
         <link rel="stylesheet" href="{{ asset('css/star-rating.css')}}?{{ $assetVer }}">
+        <link rel="stylesheet" href="{{ asset('css/cropper.css')}}?{{ $assetVer }}">
         <link rel="stylesheet" href="{{ asset('ezone/css/icofont.css')}}?{{ $assetVer }}">
         <link rel="stylesheet" href="{{ asset('ezone/css/meanmenu.min.css')}}?{{ $assetVer }}">
         <link rel="stylesheet" href="{{ asset('ezone/css/easyzoom.css')}}?{{ $assetVer }}">
@@ -380,6 +381,7 @@
         <script src="{{ asset('js/zoomsl.min.js') }}?{{ $assetVer }}"></script>
         <script src="{{ asset('js/jquery.easyzoom-modified.min.js') }}?{{ $assetVer }}"></script>
         <script src="{{ asset('js/summernote-bs4.js') }}?{{ $assetVer }}"></script>
+        <script src="{{ asset('js/cropper.js?ver=4.1.2')}}?{{ $assetVer }}"></script>
         <script src="{{ asset('js/jquery.bootstrap-growl.min.js')}}?{{ $assetVer }}"></script>
         <script src="{{ asset('ezone/js/owl.carousel.min.js')}}?{{ $assetVer }}"></script>
         <script src="{{ asset('js/star-rating.js?ver=4.1.2')}}?{{ $assetVer }}"></script>

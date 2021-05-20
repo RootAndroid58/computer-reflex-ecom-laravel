@@ -3,19 +3,54 @@
 @section('content') <div class="body-container">
 
     @yield('modals')
-    
+                <!-- Modal -->
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="modalLabel">Crop the image</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" id="updateDpURL" value="{{ route('dp-update') }}">
+                          <div class="img-container">
+                            <img id="image" src="https://avatars0.githubusercontent.com/u/3456749">
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                          <button type="button" class="btn btn-primary" id="crop">Upload</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
 <div class="container">
     <div class="row">
 
     <div class="col-md-3">
             <div id="ProfileDetailsDiv">
-                <div class="account-details-container row" style="padding: 12px;">
-                    <img class="account-dp" src="{{ asset('storage/images/dp/'.Auth()->user()->dp)}}">
+                <div class="account-details-container row" style="padding: 12px; margin-bottom: 0;">
+                    <img class="account-dp" id="avatar" src="{{ asset('storage/images/dp/'.Auth()->user()->dp)}}">
                     <div class="account-greet">
                         <div class="account-hello">Hello,</div>
                         <div class="account-name">{{Auth()->user()->name}}</div>
+                    </div>               
+                </div>
+                <div class="row">
+                    <div class="pb-4 text-center w-100">
+                        <label class="label w-100">
+                            <span class="btn btn-dark btn-sm btn-block"  >Change DP</span>
+                            <input type="file" class="sr-only" id="dp_uploader" name="image" accept="image/*">
+                        </label>
                     </div>
                 </div>
+                
             </div>
         
                 <div class="account-details-container row">

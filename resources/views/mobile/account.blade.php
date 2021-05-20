@@ -40,8 +40,9 @@
                   </button>
                 </div>
                 <div class="modal-body">
+                    <input type="hidden" id="updateDpURL" value="{{ route('dp-update') }}">
                   <div class="img-container">
-                    <img id="image" src="https://avatars0.githubusercontent.com/u/3456749">
+                    <img id="image" src="">
                   </div>
                 </div>
                 <div class="modal-footer">
@@ -54,7 +55,7 @@
 @endsection
 
 @section('content')
-<input type="hidden" id="updateDpURL" value="{{ route('dp-update') }}">
+
 <div class="profile-picture-section bg-secondary " style="min-height: 20vh;">
     <div class="pt-4 pb-4 justify-content-center align-items-center d-flex">
         <img id="avatar"  src="{{ asset('storage/images/dp/'.Auth()->user()->dp) }}" alt="" style=" width: 150px; height: 150px; border-radius: 50%;">

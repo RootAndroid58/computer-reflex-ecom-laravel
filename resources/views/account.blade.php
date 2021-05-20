@@ -12,6 +12,10 @@
 
 @section('profile-information-nav', 'account-menu-item-active')
 
+@section('modals')
+
+@endsection
+
 @section('right-col-menu')
     
 <div class="right-account-container account-details-container">

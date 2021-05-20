@@ -27,7 +27,9 @@ window.addEventListener('DOMContentLoaded', function () {
       input.value = '';
       image.src = url;
       $alert.hide();
-      $modal.modal('show');
+      $modal.modal({
+        backdrop: 'static',
+      }).modal('show');
     };
     var reader;
     var file;
