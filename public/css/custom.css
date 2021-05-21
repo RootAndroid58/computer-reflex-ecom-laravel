@@ -5,6 +5,23 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box
 } */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+   }
+   ::-webkit-scrollbar-thumb {
+    background: radial-gradient(circle, #5C5C5C 14%,#5c5c5c 100%);
+    border-radius: 0px;
+   }
+   ::-webkit-scrollbar-thumb:hover{
+    background: linear-gradient(0deg, #dddee0 14%,#cfcfcf 64%);
+   }
+   ::-webkit-scrollbar-track{
+    background: #e5f8ff;
+    border-radius: 10px;
+    box-shadow: inset 7px 10px 12px #f0f0f0;
+   }
+
 .bbb_viewed_nav_container {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
