@@ -22,7 +22,7 @@ class IndexController extends Controller
         $SmallBanners = SmallBanner::get();
         $banners = Banner::where('banner_status', 1)->orderBy('banner_position', 'ASC')->get();
         $categories = Category::get();
-        $sections = HomeSection::with(['SectionProducts.product.images', 'SectionProducts.product.category'])
+        $sections = HomeSection::with(['SectionProducts.product.images', 'SectionProducts.product.category', 'SectionProducts.product.stars'])
         ->get();    
      
         $BestSellingProducts = Product::with('images')->with('stars')->where('product_status', 1)->whereIn('id', [
@@ -53,16 +53,11 @@ class IndexController extends Controller
             'topProducts3'          => $topProducts3,
         ]);
     }
-
-
+    
     public function Categories()
     {
         return view('mobile.categories');
     }
-
-
-
-
     
     public function Search(Request $req)
     {

@@ -229,6 +229,7 @@
                                                 <li class="no-before"><a href="{{ route('orders')}}">My Orders</a></li>
                                                 <li class="no-before"><a href="{{ route('wishlist')}}">My Wishlist</a></li>
                                                 <li class="no-before"><a href="{{ route('support')}}">Support</a></li>
+                                                <li class="no-before"><a href="{{ route('logout')}}">Logout</a></li>
                                             </ul>
                                         </li>
                                     </ul>

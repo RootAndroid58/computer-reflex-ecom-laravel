@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
 use Session;
 use URL;
 
@@ -41,8 +43,14 @@ class LoginController extends Controller
         Session::put('backUrl', URL::previous());
     }
 
+    protected function authenticated(Request $request, $user)
+    {
+        // 
+    }
+
     public function redirectTo()
     {
         return Session::get('backUrl') ? Session::get('backUrl') :   $this->redirectTo;
     }
+
 }
