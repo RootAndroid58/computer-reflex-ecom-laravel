@@ -169,6 +169,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:Admin', 'verifie
    
     Route::get('/manage-vouchers','App\Http\Controllers\Admin\PromotionalsOffersController@ManageVouchers')->name('admin-manage-vouchers');
     
+    Route::post('/create-voucher/sbumit','App\Http\Controllers\Admin\PromotionalsOffersController@CreateVoucherSubmit')->name('admin-create-voucher-submit');
+    
     Route::get('/create-voucher','App\Http\Controllers\Admin\PromotionalsOffersController@CreateVoucher')->name('admin-create-voucher');
     
     Route::get('/system-settings','App\Http\Controllers\Admin\AdminController@SystemSettings')->name('admin-system-settings');

@@ -113,6 +113,11 @@
         $dt = $dt->modify( '+10 days' );
         return $dt;
     }
+
+    function newVoucherCode()
+    {
+        return Str::upper(Str::random(5)).'-'.Str::upper(Str::random(5)).'-'.Str::upper(Str::random(5)).'-'.Str::upper(Str::random(5));
+    }
     
 
 ?>

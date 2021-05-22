@@ -14,12 +14,8 @@
 <div class="container-fluid">
 
 <h3>Edit Home Carousel Slider</h3>
+<br>
 
-
-
-
-
-    <div class="PageSection mt-3">
 
             <form action="{{ route('admin-edit-home-carousel-sliders-submit') }}" method="post" class="mt-3 mb-3"> @csrf
                 <input type="hidden" name="home_section_id" value="{{ $HomeSection->id }}">
@@ -106,7 +102,7 @@
 
 
 
-    </div>
+    
 
 
 </div> <!--Container-Fluid End-->

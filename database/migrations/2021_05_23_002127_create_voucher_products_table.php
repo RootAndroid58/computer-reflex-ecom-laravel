@@ -16,6 +16,7 @@ class CreateVoucherProductsTable extends Migration
         Schema::create('voucher_products', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('product_id')->foreign('id')->on('products')->onDelete('cascade');
+            $table->bigInteger('voucher_id')->foreign('id')->on('vouchers')->onDelete('cascade');
             $table->bigInteger('special_price');
             $table->bigInteger('qty')->default(1);
             $table->timestamps();

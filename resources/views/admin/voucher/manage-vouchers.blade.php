@@ -20,11 +20,11 @@
         <thead class="bg-dark text-white">
         <tr>
             <th style="width: 5%">#</th>
-            <th >Voucher Code</th>
-            <th >Products</th>
-            <th >Status</th>
-            <th >Exp. Date</th>
-            <th >Action</th>
+            <th style="width: 15%">Voucher Code</th>
+            <th style="width: 40%">Products</th>
+            <th style="width: 10%">Status</th>
+            <th style="width: 10%">Exp. Date</th>
+            <th style="width: 10%">Action</th>
         </tr>
         </thead>
         <tbody>
@@ -33,11 +33,11 @@
         <tfoot>
         <tr>
             <th style="width: 5%">#</th>
-            <th >Voucher Code</th>
-            <th >Products</th>
-            <th >Status</th>
-            <th >Exp. Date</th>
-            <th >Action</th>
+            <th style="width: 15%">Voucher Code</th>
+            <th style="width: 40%">Products</th>
+            <th style="width: 10%">Status</th>
+            <th style="width: 10%">Exp. Date</th>
+            <th style="width: 10%">Action</th>
         </tr>
         </tfoot>
     </table>

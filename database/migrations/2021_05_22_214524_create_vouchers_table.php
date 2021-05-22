@@ -16,7 +16,9 @@ class CreateVouchersTable extends Migration
         Schema::create('vouchers', function (Blueprint $table) {
             $table->id();
             $table->string('code');
+            $table->string('status');
             $table->dateTime('exp_date')->nullable();
+            $table->bigInteger('used_by')->nullable()->foreign('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -447,13 +447,13 @@ class AjaxDataTable extends Controller
         })
             ->addColumn('product_mrp_custom', function($data){
 
-                $mrp = number_format($data->product_mrp, 2, ".", ",");
+                $mrp = moneyFormatIndia($data->product_mrp);
                 
                 return $mrp;
         })
             ->addColumn('product_price_custom', function($data){
 
-                $price = number_format($data->product_price, 2, ".", ",");
+                $price = moneyFormatIndia($data->product_price);
 
                 return $price;
         })
@@ -477,7 +477,7 @@ class AjaxDataTable extends Controller
 
                 $EditURL = route('edit-product',$data->id);
                 $image = asset('storage/images/products/'.$data->images[0]->image);
-                $button = '<button class="btn btn-primary" onclick="AddToSlider(\'' . $data->id . '\',\''.$image.'\',\'' . $data->product_name . '\')">Add This Product</button>';
+                $button = '<button type="button" class="btn btn-primary" onclick="AddToSlider(\'' . $data->id . '\',\''.$image.'\',\'' . $data->product_name . '\',\'' . moneyFormatIndia($data->product_mrp) . '\')">Add This Product</button>';
 
                 
                 return $button;
@@ -738,18 +738,11 @@ class AjaxDataTable extends Controller
 
 
 
-
-
-
-
-
-
-
     function AdminVouchersTable(Request $req)
     {
         if (Request()->ajax()) {
 
-            return datatables()->of(Voucher::with('products')->latest()->get())
+            return datatables()->of(Voucher::with('products.product')->latest()->get())
 
             ->addColumn('voucher_id', function($data){
                 
@@ -764,8 +757,22 @@ class AjaxDataTable extends Controller
                 return $voucher_code;
         })
             ->addColumn('products', function($data){
+                $products = '';
 
-                $products = $data->products;
+                foreach ($data->products as $key => $product) {
+                    $products .= 
+                    '<div class="">
+                        <div>
+                            <span class="line-limit-2">'.$product->product->product_name.'</span>
+                        </div>
+                        <div>
+                            <span class="line-limit-2"> Qty: '.$product->qty.'</span>
+                        </div>
+                            <strong>@'.moneyFormatIndia($product->special_price).'</strong>
+                    </div>
+                    <hr>'
+                    ; 
+                }
 
                 return $products;
         })
@@ -777,7 +784,7 @@ class AjaxDataTable extends Controller
         })
             ->addColumn('exp_date', function($data){
 
-                $exp_date = $data->exp_data;
+                $exp_date = date('d-m-Y', strtotime($data->exp_date));;
 
                 return $exp_date;
         })
