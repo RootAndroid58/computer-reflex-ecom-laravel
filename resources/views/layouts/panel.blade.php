@@ -77,12 +77,16 @@
                 <li class="nav-item"><a class="nav-link @yield('nav-manage-products')" href="{{ route('admin-manage-products')}}"><i class="fas fa-tags"></i><span>Manage Products</span></a></li>
                 @endcanany
 
-                @canany(['Manage UI', 'Master Admin'])
-                <li class="nav-item"><a class="nav-link @yield('nav-manage-ui')" href="{{ route('admin-manage-ui')}}"><i class="fas fa-window-maximize"></i><span>Manage UI</span></a></li>
+                @canany(['Manage Offers & Promotionals', 'Master Admin'])
+                <li class="nav-item"><a class="nav-link @yield('nav-manage-offers-promotionals')" href="{{ route('admin-manage-offers-promotionals')}}"><i class="fad fa-gift-card"></i><span>Manage Offers & Promotionals</span></a></li>
                 @endcanany
                 
                 @canany(['Support Staff', 'Master Admin'])
                 <li class="nav-item"><a class="nav-link @yield('nav-support-tickets')" href="{{ route('admin-support-tickets')}}"><i class="fas fa-ticket-alt"></i><span>Support Tickets</span></a></li>
+                @endcanany
+                
+                @canany(['Manage UI', 'Master Admin'])
+                <li class="nav-item"><a class="nav-link @yield('nav-manage-ui')" href="{{ route('admin-manage-ui')}}"><i class="fas fa-window-maximize"></i><span>Manage UI</span></a></li>
                 @endcanany
                 
                 @canany(['System Admin', 'Master Admin'])

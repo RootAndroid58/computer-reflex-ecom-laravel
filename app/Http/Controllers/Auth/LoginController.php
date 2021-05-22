@@ -42,12 +42,7 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
         Session::put('backUrl', URL::previous());
     }
-
-    protected function authenticated(Request $request, $user)
-    {
-        // 
-    }
-
+    
     public function redirectTo()
     {
         return Session::get('backUrl') ? Session::get('backUrl') :   $this->redirectTo;

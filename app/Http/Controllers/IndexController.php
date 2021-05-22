@@ -79,7 +79,7 @@ class IndexController extends Controller
         } else {
             $stock = 1;
         }
-        // dd($req);
+      
         $cat = (strtoupper($req->category)) ?? '';
 
         $categories = Category::get();
@@ -205,6 +205,10 @@ class IndexController extends Controller
                 }
             });
         }
+
+        if (isset($req->brands) && count($req->brands) > 0) {
+            $products->whereIn('product_brand', $req->brands);
+        }
         
         if ($cat != 'ALL' && $cat != '') {
             $products->whereHas('category', function ($query) use ($cat) { 
@@ -242,11 +246,12 @@ class IndexController extends Controller
             ]);
         }
        
-
+        $brands = $products->get()->groupBy('product_brand');
         $ProductsCount = $products->count(); 
         $products = $products->paginate(12)->appends(request()->query());
 
         return view('searched-products', [
+            'brands'            => $brands,
             'products'          => $products,
             'categories'        => $categories,
             'ProductsCount'     => $ProductsCount,

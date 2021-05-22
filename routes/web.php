@@ -165,6 +165,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:Admin', 'verifie
 
     Route::get('/','App\Http\Controllers\Admin\AdminController@IndexDashboard')->name('admin-dashboard');
 
+    Route::get('/manage-offers-promotionals','App\Http\Controllers\Admin\PromotionalsOffersController@ManageOffers')->name('admin-manage-offers-promotionals');
+   
+    Route::get('/manage-vouchers','App\Http\Controllers\Admin\PromotionalsOffersController@ManageVouchers')->name('admin-manage-vouchers');
+    
+    Route::get('/create-voucher','App\Http\Controllers\Admin\PromotionalsOffersController@CreateVoucher')->name('admin-create-voucher');
+    
     Route::get('/system-settings','App\Http\Controllers\Admin\AdminController@SystemSettings')->name('admin-system-settings');
     
     Route::get('/system-settings/update','App\Http\Controllers\Admin\AdminController@SystemSettingsUpdate')->name('admin-system-settings-update');
@@ -332,6 +338,7 @@ Route::group(['prefix' => 'ajax/data-table'], function() {
     Route::get('admin-support-tickets-table', 'App\Http\Controllers\AjaxDataTable@AdminSupportTicketsTable')->name('ajax-datatable.AdminSupportTicketsTable');
     Route::get('admin-delivery-confirmation-table', 'App\Http\Controllers\AjaxDataTable@AdminDeliveryConfirmationTable')->name('ajax-datatable.AdminDeliveryConfirmationTable');
     Route::get('admin-Wallet-txn-table', 'App\Http\Controllers\AjaxDataTable@WalletTxnTable')->name('ajax-datatable.WalletTxnTable');
+    Route::get('admin-vouchers-table', 'App\Http\Controllers\AjaxDataTable@AdminVouchersTable')->name('ajax-datatable.AdminVouchersTable');
 });
 
 Route::group(['prefix' => 'jquery/load/components'], function() {

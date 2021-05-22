@@ -10,6 +10,7 @@ use App\Models\OrderItem;
 use App\Models\AffiliateWalletTxn;
 use App\Models\SupportTicket;
 use App\Models\Catalog;
+use App\Models\Voucher;
 use DateTime;
 
 class AjaxDataTable extends Controller
@@ -744,13 +745,52 @@ class AjaxDataTable extends Controller
 
 
 
+    function AdminVouchersTable(Request $req)
+    {
+        if (Request()->ajax()) {
 
+            return datatables()->of(Voucher::with('products')->latest()->get())
 
+            ->addColumn('voucher_id', function($data){
+                
+                $voucher_id = $data->id;
 
+                return $voucher_id;
+        })
+            ->addColumn('voucher_code', function($data){
 
+                $voucher_code = $data->code;
+                
+                return $voucher_code;
+        })
+            ->addColumn('products', function($data){
 
+                $products = $data->products;
 
+                return $products;
+        })
+            ->addColumn('status', function($data){
 
+                $status = $data->status;
+
+                return $status;
+        })
+            ->addColumn('exp_date', function($data){
+
+                $exp_date = $data->exp_data;
+
+                return $exp_date;
+        })
+            ->addColumn('action', function($data){
+
+                $action = 'Action';
+
+                return $action;
+        })
+            ->rawColumns(['action', 'exp_date', 'status', 'products', 'voucher_code', 'voucher_id'])->make(true);
+        }
+
+    }
 
 
     function AdminProductsTable(Request $req)
