@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Product;
 use App\Models\Order;
+use App\Models\Voucher;
 use App\Models\OrderItem;
 use App\Models\Address;
 use App\Models\OrderAddress;
@@ -21,15 +22,39 @@ class CheckoutController extends Controller
     {
         $addresses = Address::where('user_id', Auth()->user()->id)->get();
 
-        foreach ($req->product_id as $key => $value) {
-            $data[] = Product::with('images')->where('id', $value)->first();
-            $qty[] = $req->product_qty[$key];
+
+        if (isset($req->voucher_code)) 
+        {
+            $type = 'voucher';
+            $voucher_code = $req->voucher_code;
+            $voucher = Voucher::with('products.product.images')->where('code', $req->voucher_code)->first();
+            
+            if (isset($voucher) && $voucher->status == 'active') {
+                foreach ($voucher->products as $VoucherProduct) {
+                    $data[] = Product::with('images')->where('id', $VoucherProduct->product_id)->first();
+                    $qty[] = $VoucherProduct->qty;
+                }
+            } else {
+                return redirect()->back();
+            }
+        } 
+        
+        else 
+        {
+            $type = 'normal';
+            foreach ($req->product_id as $key => $value) {
+                $data[] = Product::with('images')->where('id', $value)->first();
+                $qty[] = $req->product_qty[$key];
+            }
         }
+        
 
         return view('checkout-form', [
-            'data'      => $data,
-            'qty'       => $qty,
-            'addresses' => $addresses,
+            'data'          => $data,
+            'voucher_code'  => $voucher_code ?? '',
+            'type'          => $type,
+            'qty'           => $qty,
+            'addresses'     => $addresses,
         ]);
     }
 

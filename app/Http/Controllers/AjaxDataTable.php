@@ -778,7 +778,13 @@ class AjaxDataTable extends Controller
         })
             ->addColumn('status', function($data){
 
-                $status = $data->status;
+                if ($data->status == 'active') {
+                    $status = '<i class="text-success fas fa-circle"></i> Active';
+                } else if ($data->status == 'used') {
+                    $status = '<i class="text-info fas fa-circle"></i> Used By: '.$data->used_by;
+                } else {
+                    $status = $data->status;
+                }
 
                 return $status;
         })

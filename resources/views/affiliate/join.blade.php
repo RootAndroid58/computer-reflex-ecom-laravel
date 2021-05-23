@@ -167,7 +167,7 @@
             <div class="text-center w-100">
                 <span style="font-size: 19px; font-weight: 600;">Have Any Doubts?</span>
                 <br>
-                <a style="padding: .375rem .75rem; height: 30px;"  href="{{ route('support') }}" class="btn btn-info mt-3">CONTACT US</a>
+                <a href="{{ route('support') }}" class="btn btn-info mt-3 btn-sm">CONTACT US</a>
             </div>
         </div>
     

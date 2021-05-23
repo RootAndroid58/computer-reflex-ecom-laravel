@@ -51,4 +51,24 @@ class PromotionalsOffersController extends Controller
         
         return redirect()->back();
     }
+
+    public function Redeem(Request $req)
+    {
+
+        $voucher = Voucher::with('products.product.images')->where('code', $req->code)->first();
+
+        if (!isset($voucher)) {
+            $error = 'Voucher code invalid.';
+        }
+
+        if (isset($voucher)) {
+            return view('redeem-voucher', [
+                'voucher' => $voucher,
+            ]);
+        } else {
+            return view('redeem-voucher', [
+                'error' => $error,
+            ]);
+        }
+    }
 }

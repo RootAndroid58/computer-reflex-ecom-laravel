@@ -8,6 +8,7 @@ use App\Models\ProductReview;
 use App\Models\SmallBanner;
 use App\Models\ProductQuestion;
 use App\Models\ProductAnswer;
+use App\Models\Voucher;
 use App\Models\OrderItem;
 use App\Models\Order;
 
@@ -84,7 +85,20 @@ class AjaxController extends Controller
 
         foreach ($req->product_ids as $key => $product_id) {
             $product = Product::where('id', $product_id)->first();
-            $price  = $price + ($product->product_price * $req->qtys[$key]); 
+            
+            if ($req->voucher_code != 'null') {
+                
+                $voucher = Voucher::where('status', 'active')->where('code', $req->voucher_code)->whereHas('products', function ($q) use ($product_id)
+                {
+                    $q->where('product_id', $product_id);
+                })->first();
+
+                $price  = $price + ($voucher->products[0]->special_price * $req->qtys[$key]); 
+                
+            } else {
+                $price  = $price + ($product->product_price * $req->qtys[$key]); 
+            }
+            
             $mrp    = $mrp + ($product->product_mrp * $req->qtys[$key]); 
         }
 

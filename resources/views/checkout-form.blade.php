@@ -259,12 +259,24 @@
                             
             <div class="wishlist-container">   
                 <form id="CheckoutForm" method="POST" action="{{ route('checkout-submit') }}"> @csrf
+                @if (isset($voucher_code))
+                    <input type="hidden" name="voucher_code" id="voucher_code" value="{{ $voucher_code }}">
+                @endif
                 <input type="hidden" name="payment_method" required>
                 <input type="hidden" name="address_id" required>
                 @foreach ($data as $key => $item )
                 @if(!$item->product_stock <= 0) 
                 
-                @php $StockCounter = 1; @endphp
+                @php $StockCounter = 1; 
+                if ($type = 'voucher') {
+                    $voucher = App\Models\Voucher::where('code', $voucher_code)
+                    ->whereHas('products', function ($q) use ($item){
+                        $q->where('product_id', $item->id);
+                    })->first();
+
+                    $item->product_price = $voucher->products[0]->special_price;
+                }
+                @endphp
 
                                         <div class="row wishlist-basic-padding" id="CartItem{{ $item->id }}" style="padding-bottom: 0;">
                                             <div class="col-md-3">
@@ -298,10 +310,15 @@
                                                         </div>
                                                         <input type="hidden" class="product_ids" name="product_id[]" id="" value="{{ $item->id }}">
                                                         <select name="product_qty[]" class="custom-select qtys" id="product-quantity-{{ $item->id }}" onchange="ChangeQty('{{ $item->id }}')">
-                                                        @while ($StockCounter <= $item->product_stock)
-                                                            <option @if ($qty[$key] == $StockCounter) selected @endif value="{{$StockCounter}}">{{$StockCounter}}</option>
-                                                            {{ $StockCounter++ }}
-                                                        @endwhile
+                                                            @if ($type != 'voucher')
+                                                                @while ($StockCounter <= $item->product_stock)
+                                                                    <option @if ($qty[$key] == $StockCounter) selected @endif value="{{$StockCounter}}">{{$StockCounter}}</option>
+                                                                    {{ $StockCounter++ }}
+                                                                @endwhile
+                                                            @else 
+                                                            <option selected value="{{ $qty[$key] }}">{{ $qty[$key] }}</option>
+                                                            @endif
+                                                            
                                                         </select>
                                                     </div>
                                                     @endif
@@ -415,7 +432,14 @@
                     </div>
 
                     <div class="wishlist-container">
-                        <div class="PaymentBoxes" >                            
+                        <div class="PaymentBoxes" >             
+                            
+                                <div class="VoucherMethodContainer d-none">
+                                    <div class="payment-option-container payment-option-active" style="cursor: pointer;">
+                                        <span>Voucher</span>
+                                    </div>
+                                </div>
+
                                 <div class="PaymentMethodContainer">
                                 
                                     @if (App\Models\SystemSetting::where('key', 'PaytmCheckout')->first()->value == 'active')
@@ -485,6 +509,14 @@
                 </span>
             </span>
         </div>
+        @if (isset($voucher_code))
+            <div class="alert alert-success w-100" role="alert" style="font-size: 14px; border-radius: 0;">
+                <strong>Voucher Applied:</strong> <br>
+                {{ $voucher_code }}
+            </div>
+        @endif
+       
+        
        
             <div class="w-100 cart-checkout-btn-container">
                 <button type="submit" class="OrderSummaryBtn">Next &nbsp;<i class="fa fa-credit-card" aria-hidden="true"></i></button>
@@ -499,6 +531,9 @@
 
     </div>
 </div>
+
+
+
 @endsection
 
 
@@ -521,17 +556,32 @@
                     return this.value; 
             }).get();
 
+            if ($('#voucher_code').length) {
+                var voucher_code = $('#voucher_code').val();
+            } else {
+                voucher_code = 'null';
+            }
+
+
         $.ajax({
                 url: "{{ route('sync-price') }}",
                 method: 'POST',
                 data: {
                     'product_ids'   : product_ids,
                     'qtys'          : qtys,
+                    'voucher_code'  : voucher_code,
                 },
                 success: function (data) {
-                    $('#MRPSpan').html(data.mrp)
-                    $('#TotalSpan').html(data.price)
-                    $('#DiscountSpan').html(data.discount)
+                    $('#MRPSpan').html(data.mrp);
+                    $('#TotalSpan').html(data.price);
+                    $('#DiscountSpan').html(data.discount);
+                    if (data.price < 1) {
+                        $('.PaymentMethodContainer').addClass('d-none');
+                        $('.VoucherMethodContainer').removeClass('d-none');
+                    } else {
+                        $('.PaymentMethodContainer').removeClass('d-none');
+                        $('.VoucherMethodContainer').addClass('d-none');
+                    }
                 }
 
         })
@@ -554,7 +604,7 @@
         $('.payment-option-container').removeClass('payment-option-active')
         $(this).addClass('payment-option-active')
         $('#CheckoutForm').find("input[name='payment_method']").val('cod')
-    })
+    });
 </script>
 
 <script>
@@ -565,7 +615,7 @@
         $('#PaymentSection').removeClass('d-none')
         $('.PaymentBtn').addClass('d-none')
         $('.PayNowBtn').removeClass('d-none')
-    })
+    });
 </script>
 
 <script>
@@ -584,8 +634,8 @@
                     'qty'      : qty,
                 },
                 success: function (data) {
-                    $('#MRPField'+ProdID).html(data.mrp)
-                    $('#PriceField'+ProdID).html(data.price)
+                    $('#MRPField'+ProdID).html(data.mrp);
+                    $('#PriceField'+ProdID).html(data.price);
                 }
             })
     }
@@ -620,7 +670,7 @@
                     })
         }
         
-    })
+    });
 </script>
 
 

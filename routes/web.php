@@ -54,6 +54,8 @@ Route::get('CartTest', 'App\Http\Controllers\CartController@Test');
     
     Route::get('/categories', [App\Http\Controllers\IndexController::class, 'Categories'])->name('categories')->middleware(['VerifiedNoAuth']);
     
+    Route::get('/redeem-voucher', [App\Http\Controllers\Admin\PromotionalsOffersController::class, 'Redeem'])->name('redeem-voucher')->middleware(['VerifiedNoAuth']);
+    
     Route::get('/catalog/{slug}', [App\Http\Controllers\IndexController::class, 'Catalog'])->name('show-catalog')->middleware(['VerifiedNoAuth']);
     
     Route::get('/r/{short_url}', [App\Http\Controllers\IndexController::class, 'ShortUrlRedirect'])->name('ShortUrlRedirect')->middleware(['VerifiedNoAuth']);
