@@ -37,7 +37,7 @@ class CheckoutController extends Controller
                     $data[] = $prod;
                     $qty[] = $VoucherProduct->qty;
 
-                    if ($prod->qty < $VoucherProduct->qty) {
+                    if ($prod->product_stock < $VoucherProduct->qty) {
                         abort(500);
                     }
                 }
@@ -79,7 +79,7 @@ class CheckoutController extends Controller
             foreach ($req->product_id as $key => $prod_id) {
 
                 $VoucherProd = VoucherProduct::with('product')->where('voucher_id', $voucher->id)->where('product_id', $prod_id)->first();
-                if ($VoucherProd->product->qty < $VoucherProd->qty) {
+                if ($VoucherProd->product->product_stock < $VoucherProd->qty) {
                     abort(500);
                 }
                 if ($VoucherProd->qty != $req->product_qty[$key]) {

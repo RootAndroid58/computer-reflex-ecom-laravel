@@ -58,7 +58,7 @@ class PromotionalsOffersController extends Controller
         $voucher = Voucher::with('products.product.images')->where('code', $req->code)->first();
 
         if (isset($req->code) && !isset($voucher)) {
-            $error = 'Oops! The Voucher code invalid.';
+            $error = 'Oops! The Voucher code is invalid, please check for any typo.';
         }
 
         return view('redeem-voucher', [

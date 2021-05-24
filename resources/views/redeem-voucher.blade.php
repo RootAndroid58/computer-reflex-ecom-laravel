@@ -27,14 +27,18 @@
                     <strong>{{ $error }}</strong>
                 </div>
                 @endif
+                @if (isset($voucher) && $voucher->status == 'used' || isset($voucher->used_by))
+                <div class="alert alert-danger w-100" role="alert">
+                    <strong>Sorry! The voucher has already been used.</strong>
+                </div>
+                @endif
         </div>
 
         @if (isset($voucher))
-            @if ($voucher->status == 'used' || isset($voucher->used_by))
-            <div class="alert alert-danger w-100" role="alert">
-                <strong>Sorry! The voucher has already been used.</strong>
-            </div>
-            @elseif ($voucher->status == 'active')
+            @if ($voucher->status == 'active')
+            @php
+                $outOfStock = false;    
+            @endphp
             <form class="w-100" action="{{ route('checkout-post') }}" method="post"> @csrf
                 @foreach ($voucher->products as $VoucherProduct)
                 @php
@@ -66,7 +70,7 @@
                                 
                                 
                                 <div>
-                                    @if ($Product->qty < $VoucherProduct->qty)
+                                    @if ($Product->product_stock < $VoucherProduct->qty)
                                         @php
                                             $outOfStock = true;
                                         @endphp
