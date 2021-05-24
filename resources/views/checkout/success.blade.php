@@ -185,7 +185,7 @@
                         <div class="account-menu-break"></div>     
                             <div class="row wishlist-basic-padding" style="padding-bottom: 0;">
                                 <div class="col-md-3">
-                                    <a href="{{ route('product-index', $item->id) }}" target="_blank">
+                                    <a href="{{ route('product-index', $item->product->id) }}" target="_blank">
                                         <div class="wish-product-image-container">
                                             <img src="{{ asset('storage/images/products/'.$item->image->image) }}" alt="">
                                         </div>
@@ -193,7 +193,7 @@
                                 </div>
     
                                 <div class="col-md-8">
-                                    <a href="{{ route('product-index', $item->id) }}" target="_blank">
+                                    <a href="{{ route('product-index', $item->product->id) }}" target="_blank">
                                         <span class="wish-product-title font-weight-500 color-0066c0">{{$item->product->product_name}}</span>
                                     </a>
                                     <p>

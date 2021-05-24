@@ -41,8 +41,6 @@
                     $Product = $VoucherProduct->product;
                 @endphp
                     <div class="row wishlist-basic-padding" style="padding-top: 0; padding: bottom:0;">
-                        <input type="hidden" name="product_id[]" value="{{ $Product->id }}">
-                        <input type="hidden" name="product_qty[]" value="{{ $VoucherProduct->qty }}">
                         <input type="hidden" name="voucher_code" value="{{ $voucher->code }}">
                         <div class="col-md-2">
                             <a href="{{ url('product/'.$Product->id) }}" target="_blank">
@@ -65,10 +63,15 @@
                                         {{ ((($Product->product_mrp - $VoucherProduct->special_price) / $Product->product_mrp)*100)%100 }}% off
                                     </b>  
                                 </span>
+                                
+                                
                                 <div>
-                                    <span>
-                                        
-                                    </span>
+                                    @if ($Product->qty < $VoucherProduct->qty)
+                                        @php
+                                            $outOfStock = true;
+                                        @endphp
+                                        <span class="text-danger font-weight-bold">Not Enough Stock</span>
+                                    @endif
                                 </div>
 
                             </div>
@@ -77,9 +80,14 @@
                     <div class="account-menu-break"></div>
                 @endforeach
 
-                <div class="w-100 text-center mt-2 mb-2">
-                    <button class="btn btn-dark" style="width: 245px;" type="submit">Proceed To Checkout</button>
+                <div class="w-100 text-center mt-3 mb-3">
+                    @if (!$outOfStock)
+                        <button class="btn btn-dark" style="width: 245px;" type="submit">Proceed To Checkout</button>
+                    @else
+                        <span class="text-danger font-weight-bold">One or more products dosen't have enough stock to proceed with this order, try again later. <br> Sorry for the inconvenience</span>
+                    @endif
                 </div>
+                
 
             </form>
             @endif  

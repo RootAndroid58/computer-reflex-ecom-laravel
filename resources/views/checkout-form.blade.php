@@ -260,15 +260,15 @@
             <div class="wishlist-container">   
                 <form id="CheckoutForm" method="POST" action="{{ route('checkout-submit') }}"> @csrf
                 @if (isset($voucher_code))
-                    <input type="hidden" name="voucher_code" id="voucher_code" value="{{ $voucher_code }}">
+                <input type="hidden" name="voucher_code" id="voucher_code" value="{{ $voucher_code }}">
                 @endif
                 <input type="hidden" name="payment_method" required>
                 <input type="hidden" name="address_id" required>
                 @foreach ($data as $key => $item )
                 @if(!$item->product_stock <= 0) 
-                
+
                 @php $StockCounter = 1; 
-                if ($type = 'voucher') {
+                if ($type == 'voucher') {
                     $voucher = App\Models\Voucher::where('code', $voucher_code)
                     ->whereHas('products', function ($q) use ($item){
                         $q->where('product_id', $item->id);
@@ -509,6 +509,7 @@
                 </span>
             </span>
         </div>
+       
         @if (isset($voucher_code))
             <div class="alert alert-success w-100" role="alert" style="font-size: 14px; border-radius: 0;">
                 <strong>Voucher Applied:</strong> <br>

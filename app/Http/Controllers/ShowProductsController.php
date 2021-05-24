@@ -24,7 +24,11 @@ class ShowProductsController extends Controller
     {
        
         $product = Product::with('comission')->with('tags')->with('questions.answers')->where('id', $pid)->first();
-        
+
+        if (!isset($product)) {
+            abort(404);
+        }
+
         if (!isset(request()->prod_name)) {
             $prod_name = str_replace(' ', '-', $product->product_name);
             return redirect(request()->fullUrlWithQuery(['prod_name' => $prod_name]));

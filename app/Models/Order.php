@@ -42,5 +42,9 @@ class Order extends Model
     {
         return $this->hasOne(OrderCancelRequest::class, 'order_id', 'id')->where('status', 'requested');
     }
+    public function voucher()
+    {
+        return $this->hasOne(OrderHasVoucher::class, 'order_id', 'id')->where('status', 'requested');
+    }
 
 }

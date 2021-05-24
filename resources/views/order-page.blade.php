@@ -141,7 +141,7 @@
                                            
                                         </table>
             
-                                        @if ($order->payment_method != 'cod')
+                                        @if ($order->status == 'order_placed' && $order->payment_method != 'cod')
                                         <div style="padding-top: 10px; text-align: right;">
                                             <span style="font-size: 16px; color: #388e3c;">
                                                 Payment Completed <i class="fa fa-check" aria-hidden="true"></i>
@@ -250,6 +250,20 @@
                                         <i class="fa fa-circle" aria-hidden="true"></i>
                                     </span>
                                     Order Placed.
+                                </span>
+                                @elseif($item->status == 'payment_pending')
+                                <span class="text-danger">
+                                    <span style="">
+                                        <i class="fa fa-circle" aria-hidden="true"></i>
+                                    </span>
+                                    Payment Pending.
+                                </span>
+                                @elseif($item->status == 'payment_failed')
+                                <span class="text-danger">
+                                    <span style="">
+                                        <i class="fa fa-circle" aria-hidden="true"></i>
+                                    </span>
+                                    Payment Failed.
                                 </span>
                                 @elseif($item->status == 'packing_started')
                                 <span style="color: #2874f0">

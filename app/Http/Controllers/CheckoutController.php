@@ -11,6 +11,8 @@ use App\Models\OrderItem;
 use App\Models\Address;
 use App\Models\OrderAddress;
 use App\Models\AffiliateOrderItem;
+use App\Models\VoucherProduct;
+use App\Models\OrderHasVoucher;
 use App\Mail\OrderPlacedMail;
 use Softon\Indipay\Facades\Indipay;
 use Illuminate\Support\Facades\Mail;
@@ -31,8 +33,13 @@ class CheckoutController extends Controller
             
             if (isset($voucher) && $voucher->status == 'active') {
                 foreach ($voucher->products as $VoucherProduct) {
-                    $data[] = Product::with('images')->where('id', $VoucherProduct->product_id)->first();
+                    $prod = Product::with('images')->where('id', $VoucherProduct->product_id)->first();
+                    $data[] = $prod;
                     $qty[] = $VoucherProduct->qty;
+
+                    if ($prod->qty < $VoucherProduct->qty) {
+                        abort(500);
+                    }
                 }
             } else {
                 return redirect()->back();
@@ -51,7 +58,7 @@ class CheckoutController extends Controller
 
         return view('checkout-form', [
             'data'          => $data,
-            'voucher_code'  => $voucher_code ?? '',
+            'voucher_code'  => $voucher_code ?? null,
             'type'          => $type,
             'qty'           => $qty,
             'addresses'     => $addresses,
@@ -60,6 +67,27 @@ class CheckoutController extends Controller
 
     public function CheckoutSubmit(Request $req)
     {   
+        if (isset($req->voucher_code)) {
+            $voucher = Voucher::where('code', $req->voucher_code)->first();
+            if (!isset($voucher) || $voucher->status != 'active') {
+                abort(500);
+            }
+            $VoucherProducts = VoucherProduct::where('voucher_id', $voucher->id)->get(); 
+            if ($VoucherProducts->count() != count($req->product_id)) {
+                abort(500);
+            }
+            foreach ($req->product_id as $key => $prod_id) {
+
+                $VoucherProd = VoucherProduct::with('product')->where('voucher_id', $voucher->id)->where('product_id', $prod_id)->first();
+                if ($VoucherProd->product->qty < $VoucherProd->qty) {
+                    abort(500);
+                }
+                if ($VoucherProd->qty != $req->product_qty[$key]) {
+                    abort(500);
+                }
+            }
+        }
+
         $address = Address::where('user_id', Auth()->user()->id)->where('id', $req->address_id)->first();
            
         if (!isset($address)) {  // Check if address is invalid then abort 
@@ -73,6 +101,11 @@ class CheckoutController extends Controller
         foreach ($req->product_id as $i => $pid) {
             $product = Product::where('id', $pid)->first();
             if ($product->product_stock >= $req->product_qty[$i]) {
+                
+                if (isset($req->voucher_code)) {
+                    $VoucherProd = VoucherProduct::where('voucher_id', $voucher->id)->where('product_id', $product->id)->first();
+                    $product->product_price = $VoucherProd->special_price;
+                }
                 $mrp        += $product->product_mrp * $req->product_qty[$i];
                 $price      += $product->product_price * $req->product_qty[$i];
                 $itemCount  += 1;
@@ -113,6 +146,10 @@ class CheckoutController extends Controller
         // Add items for order
         foreach ($req->product_id as $key => $pid) {
             $prod = Product::where('id', $pid)->first();
+            if (isset($req->voucher_code)) {
+                $VoucherProd = VoucherProduct::where('voucher_id', $voucher->id)->where('product_id', $pid)->first();
+                $prod->product_price = $VoucherProd->special_price;
+            }
             $orderItem = new OrderItem;
             $orderItem->order_id = $order->id;
             $orderItem->product_id = $pid;
@@ -122,6 +159,13 @@ class CheckoutController extends Controller
             $orderItem->total_price = $prod->product_price * $req->product_qty[$key];
             $orderItem->status = 'checkout_pending';
             $orderItem->save();
+        }
+
+        if (isset($req->voucher_code)) {
+            $orderHasVoucher = new OrderHasVoucher;
+            $orderHasVoucher->voucher_id = $voucher->id;
+            $orderHasVoucher->order_id = $order->id;
+            $orderHasVoucher->save();
         }
 
         // Send user to paytm for payment
@@ -167,6 +211,14 @@ class CheckoutController extends Controller
                 'status' => 'order_placed',
             ]);
 
+            if (isset($req->voucher_code)) {
+                Voucher::where('id', $voucher->id)->update([
+                    'status'    => 'used',
+                    'used_by'   => Auth()->user()->id,
+                ]); 
+            }
+            
+
             return $this->AfterPayment($order->id);
         }
 
@@ -175,6 +227,7 @@ class CheckoutController extends Controller
 
     public function AfterPayment($order_id)
     {
+
         $order = Order::where('id', $order_id)->where('user_id', Auth()->user()->id)->with('OrderItems.product.comission')->with('Address')->with('Address')->first();
 
         if (!isset($order)) {
@@ -204,7 +257,6 @@ class CheckoutController extends Controller
             }
         }
           
-            
             mail::to(Auth()->user()->email)->send(new OrderPlacedMail($data)); 
         }
     
@@ -270,6 +322,21 @@ class CheckoutController extends Controller
     public function PaytmResponse(Request $req)
     {
         $response = Indipay::gateway('Paytm')->response($req);
+
+        $OrderHasVoucher = OrderHasVoucher::where('order_id', $response['ORDERID'])->first();
+
+        if (isset($OrderHasVoucher) && $OrderHasVoucher->voucher->status != 'active') {
+            Order::where('id', $response['ORDERID'])->update([
+                'status' => 'payment_failed'
+            ]);
+
+            OrderItem::where('order_id', $response['ORDERID'])->update([
+                'status' => 'payment_failed'
+            ]);
+            return $this->AfterPayment($req->ORDERID);
+        }
+
+
         if ($response['STATUS'] == 'TXN_SUCCESS') {
             Order::where('id', $response['ORDERID'])->update([
                 'status' => 'order_placed'
@@ -278,6 +345,14 @@ class CheckoutController extends Controller
             OrderItem::where('order_id', $response['ORDERID'])->update([
                 'status' => 'order_placed'
             ]);
+
+                    
+            if (isset($OrderHasVoucher)) {
+                Voucher::where('id', $OrderHasVoucher->voucher_id)->update([
+                    'status'    => 'used',
+                    'used_by'   => Auth()->user()->id,
+                ]); 
+            }
 
         }
 
@@ -308,39 +383,63 @@ class CheckoutController extends Controller
     }
     
     public function PayuResponse(Request $req)
-    { 
-        if ($req->status == 'success') {
-            Order::where('id', $req->txnid)->update([
-                'status' => 'order_placed'
-            ]);
+    {
+        $response = Indipay::gateway('PayUMoney')->response($req);
 
-            OrderItem::where('order_id', $req->txnid)->update([
-                'status' => 'order_placed'
-            ]);
-        }
-
-        else if ($req->status == 'failure') {
-            Order::where('id', $req->txnid)->update([
+        $OrderHasVoucher = OrderHasVoucher::where('order_id', $response['txnid'])->first();
+        
+        if (isset($OrderHasVoucher) && $OrderHasVoucher->voucher->status != 'active') {
+            Order::where('id', $response['txnid'])->update([
                 'status' => 'payment_failed'
             ]);
 
-            OrderItem::where('order_id', $req->txnid)->update([
+            OrderItem::where('order_id', $response['txnid'])->update([
+                'status' => 'payment_failed'
+            ]);
+            return $this->AfterPayment($response['txnid']);
+        }
+
+
+        if ($req->status == 'success') {
+            Order::where('id', $response['txnid'])->update([
+                'status' => 'order_placed'
+            ]);
+
+            OrderItem::where('order_id', $response['txnid'])->update([
+                'status' => 'order_placed'
+            ]);
+            
+            if (isset($OrderHasVoucher)) {
+                Voucher::where('id', $OrderHasVoucher->voucher_id)->update([
+                    'status'    => 'used',
+                    'used_by'   => Auth()->user()->id,
+                ]);
+            }
+
+        }
+
+        else if ($req->status == 'failure') {
+            Order::where('id', $response['txnid'])->update([
+                'status' => 'payment_failed'
+            ]);
+
+            OrderItem::where('order_id', $response['txnid'])->update([
                 'status' => 'payment_failed'
             ]);
 
         }
 
         else {
-            Order::where('id', $req->txnid)->update([
+            Order::where('id', $response['txnid'])->update([
                 'status' => 'payment_pending'
             ]);
 
-            OrderItem::where('order_id', $req->txnid)->update([
+            OrderItem::where('order_id', $response['txnid'])->update([
                 'status' => 'payment_pending'
             ]);
         }
 
-        return $this->AfterPayment($req->txnid);
+        return $this->AfterPayment($response['txnid']);
     }
 
 
