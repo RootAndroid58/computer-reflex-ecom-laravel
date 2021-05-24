@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('command:ShippingStatusUpdate')->everyMinute();
         $schedule->command('command:DeliveredStatusUpdate')->everyMinute();
         $schedule->command('command:AfterShippedStatusUpdates')->everyMinute();
-        $schedule->command('command:CronTest')->everyMinute();
+        // $schedule->command('command:CronTest')->everyMinute();
     }
 
     /**
