@@ -166,6 +166,10 @@ Route::group(['middleware' => ['verified', 'auth']], function() {
 Route::group(['prefix' => 'admin', 'middleware' => ['permission:Admin', 'verified']], function() {
 
     Route::get('/','App\Http\Controllers\Admin\AdminController@IndexDashboard')->name('admin-dashboard');
+    
+    Route::get('/console','App\Http\Controllers\Admin\AdminController@Console')->name('admin-console');
+    
+    Route::post('/console/submit','App\Http\Controllers\Admin\AdminController@ConsoleSubmit')->name('admin-console-submit');
 
     Route::get('/manage-offers-promotionals','App\Http\Controllers\Admin\PromotionalsOffersController@ManageOffers')->name('admin-manage-offers-promotionals');
    
