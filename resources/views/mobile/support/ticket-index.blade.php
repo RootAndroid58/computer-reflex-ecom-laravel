@@ -1,21 +1,7 @@
-@if (isMobile())
-
-    @include('mobile.support.ticket-index')
-
-{{ die }}
-@endif
-
-
-
-@extends('layouts.support-menu-layout')
-
-@section('nav-support-tickets', 'account-menu-item-active')
+@extends('layouts.mobile-common')
 
 @section('title', 'Support Ticket #'.$ticket->id)
 
-@section('css-js')
-
-@endsection
 
 @section('modals')    
     <!-- Modal -->
@@ -46,11 +32,10 @@
     </div>
 @endsection
 
-@section('right-menu-col')
+@section('content')
 
-<div class="right-account-container account-details-container" style="padding: 0;">
 
-        <div class="wishlist-basic-padding">
+        <div class="container-fluid mt-3">  
             <span style="font-size: 17px; font-weight: 600;">
                 <span>
                     <i class="fas fa-ticket-alt"></i>
@@ -59,10 +44,10 @@
                     {{ $ticket->subject }} - Ticket #{{ $ticket->id }}
                 </span>
                 @if ($ticket->status != 'resolved')
-                <span style="float: right;">
+                <span class="w-100 text-right ">
                     <form action="{{ route('support.ticket-mark-resolved') }}" method="post"> @csrf
                         <input type="hidden" name="ticket_id" value="{{$ticket->id}}">
-                        <button type="submit" class="btn btn-sm btn-success">Mark as Resolved <i class="fas fa-check-square"></i></button>
+                        <button type="submit" class="btn btn-sm btn-success mt-3">Mark as Resolved <i class="fas fa-check-square"></i></button>
                     </form>
                 </span>
                 @endif
@@ -197,9 +182,6 @@
                 </div>
             </div>  
         @endforeach
-    
-
-</div>
 
 @endsection
 

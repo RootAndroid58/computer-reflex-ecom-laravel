@@ -45,7 +45,7 @@
                         <div class="w-100"  >
                             <div class="blank-wishlist-container text-center">
                                 <div class="blank-wishlist-img-container" style="margin-top: 50px;">
-                                    <img loading=lazy class="img-nodrag" style="max-width: 35%" src="{{ asset('img/svg/split_testing.svg') }}">
+                                    <img class="img-nodrag" style="max-width: 35%" src="{{ asset('img/grey.gif') }}" data-src="{{ asset('img/svg/split_testing.svg') }}">
                                 </div>
                                 <div class="blank-wishlist-txt-container text-center" style="margin-top: 30px;">
                                     <span style="font-weight: 500; font-size: 20px;">No Products To Compare!</span>
@@ -70,7 +70,7 @@
                                     <td style="width: 5px;">Images</td>
                                     @for ($i = 0; $i < $product_ids->count(); $i++)
                                     <td class="item-cell-{{ $compare[$i]->product->id }}" style="text-align: center; width: 600px !important; "> 
-                                        <img loading=lazy width="150" src="{{ asset('storage/images/products/'.$compare[$i]->product->images[0]->image) }}" alt="">
+                                        <img src="{{ asset('img/grey.gif') }}" width="150" data-src="{{ asset('storage/images/products/'.$compare[$i]->product->images[0]->image) }}" alt="">
                                     </td>
                                     @endfor
                                 </tr>

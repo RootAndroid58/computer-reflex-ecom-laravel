@@ -20,7 +20,7 @@
 
             <div style="width: 100%; height: 375px; text-align: center; line-height: 375px;" >
                 <div class="zoom5">
-                    <img id="big_img" src="{{ asset('storage/images/products/'.$images[0]->image) }}" style="max-width: 100%;
+                    <img id="big_img" src="{{ asset('img/grey.gif') }}" data-src="{{ asset('storage/images/products/'.$images[0]->image) }}" style="max-width: 100%;
                     max-height: 100%;
                     vertical-align: middle;
                     transition: 300ms;" alt="">
@@ -481,7 +481,7 @@
 
                             <div class="row">
                                 <span style="margin: 12px 0;">
-                                    {{ $review->user->name }} <img width="14" src="{{asset('img/svg/verified-tick.svg')}}" alt=""> (Buyer), {{ HowMuchOldDate($review->created_at, 'days') }} ago
+                                    {{ $review->user->name }} <img width="14" src="{{ asset('img/grey.gif') }}" data-src="{{asset('img/svg/verified-tick.svg')}}" alt=""> (Buyer), {{ HowMuchOldDate($review->created_at, 'days') }} ago
                                 </span>
                             </div>
                         </div>        

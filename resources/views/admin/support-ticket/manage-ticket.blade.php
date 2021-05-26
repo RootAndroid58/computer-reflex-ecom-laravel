@@ -23,7 +23,7 @@
                     
                     <div style="padding: 23px 23px">
                         <div>
-                            <p>Hi <b>{{$ticket->user->name}}</b>,<br><br>This message is regarding the <b>Ticket #{{$ticket->id}} </b>raised by you.&nbsp;</p>
+                            <p>Hi <b>{{ $ticket->user->name }}</b>,<br><br>This message is regarding the <b>Ticket #{{$ticket->id}} </b>raised by you.&nbsp;</p>
                         </div>
                         
                         <textarea name="message" id="msg"></textarea>
@@ -144,7 +144,7 @@
                                 <div class="user w-100" > 
                                     <span class="name">
                                         <span style="font-weight: 600;">
-                                            {{$ticket->user->name}}
+                                            {{ $msg->user->name }}
                                         </span>
 
                                         @if ($msg->type == 'staff')

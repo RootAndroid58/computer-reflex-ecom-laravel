@@ -7,7 +7,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="mt-3 mb-3 d-flex align-items-center">
-        <div class="mr-2"><img src="{{ asset('/img/svg/gift-box.svg') }}" width="40px" height="40px" alt=""></div>
+        <div class="mr-2"><img src="{{ asset('img/grey.gif') }}" data-src="{{ asset('/img/svg/gift-box.svg') }}" width="40px" height="40px" alt=""></div>
         <div><span style="font-size: 16px; font-weight: 500;">My Orders</span></div>
     </div>
 </div>
@@ -22,7 +22,7 @@
     <div class="w-100">
         <div class="blank-wishlist-container text-center">
             <div class="blank-wishlist-img-container" style="margin-top: 50px;">
-                <img class="img-nodrag" style="max-width: 25%" src="{{asset('img/svg/empty-cart.svg')}}">
+                <img class="img-nodrag" style="max-width: 25%" src="{{ asset('img/grey.gif') }}" data-src="{{asset('img/svg/empty-cart.svg')}}">
             </div>
             <div class="blank-wishlist-txt-container text-center mb-3" style="margin-top: 30px;">
                 <span style="font-weight: 500; font-size: 20px;">No Orders!</span>
@@ -71,7 +71,7 @@
         <a href="{{ route('order-page', $order->id) }}">
             <div class="row">
                 <div class="col-3">
-                    <img style="width: 100%; max-height: 100%;" src="{{ asset('storage/images/products/'.$item->image->image) }}" alt="">
+                    <img style="width: 100%; max-height: 100%;" src="{{ asset('img/grey.gif') }}" data-src="{{ asset('storage/images/products/'.$item->image->image) }}" alt="">
                 </div>
                 <div class="col-9" style="padding-left: 0;">
                     <span class="line-limit-2">{{ $item->product->product_name }}</span>
