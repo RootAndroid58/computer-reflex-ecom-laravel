@@ -1,57 +1,19 @@
-@if (isMobile())
+@extends('layouts.mobile-common')
 
-    @include('mobile.product-reviews')
+@section('title', 'Product Reviews')
 
-{{ die }}
-@endif
-
-
-@extends('layouts.common')
-
-@section('title', 'Reviews')
 
 @section('content')
 
 <div class="body-container">
     <div class="container-fluid mt-3 account-details-container" style="max-width: 1300px;">
         <div class="row">
-            <div class="col-3">
+
+            <div class="col-md-12" style="border: 1px solid #f0f0f0; border-top: 0; border-bottom: 0;">
                 <div class="row">
-                    <a href="{{ route('product-index', $product->id) }}" class="w-100">
-                        <div class="w-100" style="padding: 24px 20px 24px 20px">
-                            <div class="w-100 prod-back-div" style="height: 246px; background-image: url('{{asset('storage/images/products/'.$product->images[0]->image)}}');"></div>
-                        </div>
-                    </a>
-
-                    <div class="w-100" style="padding: 0px 20px 24px 20px">
-                        <a href="{{ route('product-index', $product->id) }}" target="_blank">
-                            <div class="w-100">
-                                <span style="color: #0066c0; font-size: 18px;">{{ $product->product_name }}</span>
-                            </div>
-                        </a>
-                       
-                        <div class="mt-2">
-                            <button type="button" class="btn btn-success btn-sm" style="height: unset;">
-                                {{ $stars }} <span><i class="fa fa-star" aria-hidden="true"></i></span>
-                            </button>
-                            <span style="margin-left: 6px;">{{ $reviews->count() }} Review/Rating (S)</span>
-                        </div>
-
-                        <div class="mt-2">
-                            <span style="font-size: 16px; font-weight: 500; color: #212121;"><font class="rupees">₹</font>{{ moneyFormatIndia($product->product_price) }}</span>
-                            <span style="text-decoration: line-through; font-size: 14px;"><font class="rupees">₹</font>{{ moneyFormatIndia($product->product_mrp) }}</span>
-                        </div>
-                        
-                    </div>
-                </div>
-               
-            </div>
-
-            <div class="col-9" style="border: 1px solid #f0f0f0; border-top: 0; border-bottom: 0;">
-                <div class="row">
-                    <div class="w-100" style="padding: 24px 5px 24px 32px; border: 1px solid #f0f0f0; border-left: 0; border-right: 0; border-top: 0;">
+                    <div class="w-100" style="padding: 0px 5px 24px 32px; border: 1px solid #f0f0f0; border-left: 0; border-right: 0; border-top: 0;">
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-md-12">
                                 <div class="row">
                                     <span style="color: black; font-size: 18px; font-weight: 500;">{{ $product->product_name }}</span>
                                 </div>
@@ -62,23 +24,26 @@
 
             <div id="RatingAreaDIV">
                 <div class="row">
-                    <div class="w-100" style="padding: 24px 5px 24px 32px; border: 1px solid #f0f0f0; border-left: 0; border-right: 0; border-top: 0;">
+                    <div class="w-100" style="border: 1px solid #f0f0f0; border-left: 0; border-right: 0; border-top: 0;">
                         
-                        <div class="col-3">
-                            <span style="font-size: 30px; color: rgb(27, 27, 27);">
-                                {{$stars}} <i class="fa fa-star" aria-hidden="true"></i>
-                            </span>
-                            <br>
-                            <span>
-                                {{$reviews->count()}} Rating/Review @if($reviews->count() > 1)(S)@endif 
-                            </span>
+                        <div class="col-12 mb-3">
+                            <div class="w-100 text-center">
+                                <span style="font-size: 30px; color: rgb(27, 27, 27);">
+                                    {{$stars}} <i class="fa fa-star" aria-hidden="true"></i>
+                                </span>
+                                <br>
+                                <span>
+                                    {{$reviews->count()}} Rating/Review @if($reviews->count() > 1)(S)@endif 
+                                </span>
+                            </div>
                         </div>
-                        <div class="col-6">
+
+                        <div class="col-12">
                             <div class="rating-slider-container row">
                                 <div class="col-12">
 
                                     <div class="row " >
-                                        <div class="col-2" style="text-align:justify;">
+                                        <div class="col-2">
                                             5 <i class="fa fa-star" aria-hidden="true"></i>
                                         </div>
     
@@ -96,7 +61,7 @@
                                     </div>
 
                                     <div class="row " >
-                                        <div class="col-2" style="text-align:justify;">
+                                        <div class="col-2">
                                             4 <i class="fa fa-star" aria-hidden="true"></i>
                                         </div>
     
@@ -113,7 +78,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row " style="text-align:justify;">
+                                    <div class="row ">
                                         <div class="col-2">
                                             3 <i class="fa fa-star" aria-hidden="true"></i>
                                         </div>
@@ -131,7 +96,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row " style="text-align:justify;">
+                                    <div class="row ">
                                         <div class="col-2">
                                             2 <i class="fa fa-star" aria-hidden="true"></i>
                                         </div>
@@ -149,7 +114,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row " style="text-align:justify;">
+                                    <div class="row ">
                                         <div class="col-2">
                                             <span>
                                                 1 <i class="fa fa-star" aria-hidden="true"></i>
@@ -174,17 +139,14 @@
                             </div>
                         </div>
 
-
-                      
-
-                        <div class="col-3">
-                            <button class="btn btn-dark ReviewModalToggleBtn">@if ($reviewed == 1) Edit Review @else Rate Product @endif</button>
-                        </div>
-
                     </div>
                 </div>
 
-
+              
+                    <div class="container mt-3">
+                        <button class="btn btn-dark btn-block ReviewModalToggleBtn">@if ($reviewed == 1) Edit Review @else Rate Product @endif</button>
+                    </div>
+              
 
                 <div class="row">
                     <div class="w-100">
@@ -237,10 +199,9 @@
 
 
 
-                <div class="row">
-                    <div class="w-100" style="padding: 24px 15px 0px 15px;">
-                        <div class="col-9">
-                           
+                <div class="row mt-3">
+                
+                        <div class="col-9" >    
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                       <span class="input-group-text" id="searchPre">
@@ -250,7 +211,7 @@
                                     <input type="text" id="review_search" class="form-control" placeholder="Search for reviews..." aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-3 pl-0">
                          
                                 <div class="form-group">
                                     <select onchange="fetchReviews('new')" class="form-control" name="" id="sort_by" style="font-size: 14px;">
@@ -264,7 +225,7 @@
                                 </div>
                          
                         </div>
-                    </div>
+                   
                 </div>
                         
                 {{-- Show Reviews Area --}}
