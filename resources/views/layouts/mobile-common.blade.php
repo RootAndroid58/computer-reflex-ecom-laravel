@@ -101,14 +101,9 @@
             
             <div class="w-100 bg-dark pt-3" style="height: 245px;">
 
-                <div class="prod-back-div user-img-container mt-3" 
-                style="margin-left: auto; margin-right: auto; width: 100px; height: 100px; border-radius: 50%; 
-                    @if(Auth::check())
-                    background-image: url({{ asset('storage/images/dp/'.Auth()->user()->dp) }})
-                    @else
-                    background-image: url({{ asset('storage/images/dp/default.png') }})
-                    @endif
-                "></div>
+                <img loading="lazy" class="mt-3" style="display: block; margin-left: auto; margin-right: auto; border-radius: 50%; " width="100px" height="100px" 
+                    src="@if(Auth::check()) {{ asset('storage/images/dp/'.Auth()->user()->dp) }} @else {{ asset('storage/images/dp/default.png') }} @endif">
+
                 
                 <div class="w-100 mt-3 pb-2" style="color: white; text-align: center;" >
                     <div>
@@ -352,7 +347,7 @@
                     </li>
                 </ul>
                 <div style="padding: 25px;" class="mt-3">
-                    <img src="{{ asset('img/svg/video_game_night.svg') }}" alt="" style="width: 100%;">
+                    <img loading="lazy" src="{{ asset('img/svg/video_game_night.svg') }}" alt="" style="width: 100%;">
                 </div>
             </div>
            
@@ -389,7 +384,7 @@
                     padding-top: 2px;
                     position: relative;
                     " href="{{ url('/') }}">
-                        <img src="{{ asset('img/logo-white-text.png') }}" style="height: 30px;" alt="">
+                        <img src="{{ asset('img/grey.gif') }}" data-src="{{ asset('img/logo-white-text.png') }}" style="height: 30px;" alt="">
                     </a>
 
                     <a style="
@@ -577,6 +572,7 @@
     <script src="{{ asset('js/jquery.bootstrap-growl.min.js')}}?{{ $assetVer }}"></script>
     <script src="{{ asset('ezone/js/owl.carousel.min.js')}}?{{ $assetVer }}"></script>
     <script src="{{ asset('js/star-rating.js?ver=4.1.2')}}?{{ $assetVer }}"></script>
+    <script src="{{ asset('js/lazyload.min.js')}}?{{ $assetVer }}"></script>
     <script src="{{ asset('js/cropper.js?ver=4.1.2')}}?{{ $assetVer }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/pinch-zoom-js@2.3.4/dist/pinch-zoom.umd.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>

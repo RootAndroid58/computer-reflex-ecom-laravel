@@ -58,7 +58,7 @@
 
 <div class="profile-picture-section bg-secondary " style="min-height: 20vh;">
     <div class="pt-4 pb-4 justify-content-center align-items-center d-flex">
-        <img id="avatar"  src="{{ asset('storage/images/dp/'.Auth()->user()->dp) }}" alt="" style=" width: 150px; height: 150px; border-radius: 50%;">
+        <img src="{{ asset('img/grey.gif') }}" id="avatar"  data-src="{{ asset('storage/images/dp/'.Auth()->user()->dp) }}" alt="" style=" width: 150px; height: 150px; border-radius: 50%;">
     </div>
     <div class="pb-4 text-center">
         <label class="label">
@@ -163,7 +163,7 @@
 </div>
 
 <div class="account-section account-details-bottom-svg">
-    <img class="" src="{{ asset('img/svg/pride.svg') }}" alt="" srcset="">
+    <img src="{{ asset('img/grey.gif') }}" data-src="{{ asset('img/svg/pride.svg') }}" alt="" srcset="">
 </div>
 
 </div>

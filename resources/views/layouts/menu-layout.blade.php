@@ -42,6 +42,7 @@
                         <div class="account-name">{{Auth()->user()->name}}</div>
                     </div>               
                 </div>
+
                 <div class="row">
                     <div class="pb-4 text-center w-100">
                         <label class="label w-100">
