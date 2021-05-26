@@ -122,7 +122,9 @@ if ($('#dp_uploader').length) {
 }
 
 
-
+$("img").lazyload({
+  effect       : "fadeIn"
+});
 
 
 

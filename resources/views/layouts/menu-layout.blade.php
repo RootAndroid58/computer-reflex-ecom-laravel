@@ -16,7 +16,7 @@
                         <div class="modal-body">
                             <input type="hidden" id="updateDpURL" value="{{ route('dp-update') }}">
                           <div class="img-container">
-                            <img loading="lazy" id="image" src="https://avatars0.githubusercontent.com/u/3456749">
+                            <img id="image" src="https://avatars0.githubusercontent.com/u/3456749">
                           </div>
                         </div>
                         <div class="modal-footer">
