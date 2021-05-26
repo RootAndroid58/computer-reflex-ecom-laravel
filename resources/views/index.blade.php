@@ -344,7 +344,7 @@
                                 </div>
                                 <div class="mega-banner-img">
                                     <a href="single-product.html">
-                                        <img loading=lazy src="{{ asset('ezone/img/banner/1.jpg')}}" alt="">
+                                        <img src="{{ asset('img/grey.gif') }}" data-src="{{ asset('ezone/img/banner/1.jpg')}}" alt="">
                                     </a>
                                 </div>
                             </div>
@@ -722,7 +722,7 @@
                         <div class="div-shadow">
                             <a href="{{ $SmallBanner->link }}">
                                 <div class="electronic-banner-wrapper">
-                                    <img style="height: 100%; width: 100%;" loading=lazy src="{{ $SmallBanner->image }}" alt="Small Banner Image">
+                                    <img loading="lazy" style="height: 100%; width: 100%;" src="{{ $SmallBanner->image }}" alt="Small Banner Image">
                                 </div>
                             </a>
 
