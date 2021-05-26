@@ -10,17 +10,11 @@
         <div class="row">
 
             <div class="col-md-12" style="border: 1px solid #f0f0f0; border-top: 0; border-bottom: 0;">
-                <div class="row">
-                    <div class="w-100" style="padding: 0px 5px 24px 32px; border: 1px solid #f0f0f0; border-left: 0; border-right: 0; border-top: 0;">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <span style="color: black; font-size: 18px; font-weight: 500;">{{ $product->product_name }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+         
+            <span style="color: black; font-size: 18px; font-weight: 500;">{{ $product->product_name }}</span>
+                   
+            <div class="account-menu-break mt-2 mb-2"></div>
+                        
 
             <div id="RatingAreaDIV">
                 <div class="row">
