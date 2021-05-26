@@ -4,8 +4,14 @@ $( document ).ready(function( $ ) {
   });
 });
 
-
-
+$("img").lazyload({
+  src: "data-src",
+  effect : "fadeIn",
+  selector: ".lazyload",
+  root: null,
+  rootMargin: "0px",
+  threshold: 0
+})
 
 
 if ($('#dp_uploader').length) {
@@ -121,10 +127,6 @@ if ($('#dp_uploader').length) {
   
 }
 
-
-$("img").lazyload({
-  effect       : "fadeIn"
-});
 
 
 

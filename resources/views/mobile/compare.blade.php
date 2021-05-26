@@ -32,7 +32,7 @@
             <div class="account-details-container">
                 <div class="wishlist-basic-padding" style="padding: 10px 32px;">
                     <div class="account-details-title" style="padding-bottom: 0px;">
-                        <img loading=lazy src="{{ asset('/img/svg/gift-box.svg') }}" width="50" alt="" srcset="">
+                        <img src="{{ asset('img/grey.gif') }}" data-src="{{ asset('/img/svg/gift-box.svg') }}" width="50" alt="" srcset="">
                         <span style="padding-right: 0;">Compare Products</span>
                     </div>
                 </div>

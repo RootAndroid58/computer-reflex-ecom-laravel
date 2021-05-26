@@ -103,7 +103,7 @@
     </div>
 
     <div class="account-section account-details-bottom-svg">
-        <img class="" src="{{ asset('img/svg/pride.svg') }}" alt="" srcset="">
+        <img class="" src="{{ asset('img/grey.gif') }}" data-src="{{ asset('img/svg/pride.svg') }}" alt="" srcset="">
     </div>
 
 </div>

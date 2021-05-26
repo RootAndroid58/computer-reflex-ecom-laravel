@@ -163,7 +163,7 @@
             <div class="header-bottom-wrapper pr-200 pl-200">
                 <div class="logo-3">
                     <a href="{{ url('/') }}">
-                        <img loading=lazy src="{{ asset('ezone/img/logo/logo.png')}}" alt="">
+                        <img src="{{ asset('img/grey.gif') }}" data-src="{{ asset('ezone/img/logo/logo.png')}}" alt="">
                     </a>
                 </div>
 
@@ -292,7 +292,7 @@
                 <div class="category-menu-list">
                     <ul>
                         <li>
-                            <a href="#"><img loading=lazy alt="" src="ezone/img/icon-img/5.png">Computer & Laptops <i class="pe-7s-angle-right"></i></a>
+                            <a href="#"><img src="{{ asset('img/grey.gif') }}" alt="" data-src="ezone/img/icon-img/5.png">Computer & Laptops <i class="pe-7s-angle-right"></i></a>
                             <div class="category-menu-dropdown">
                                 <div class="category-dropdown-style category-common4 mb-40">
                                     <h4 class="categories-subtitle"> Desktop</h4>
@@ -1460,6 +1460,7 @@
     <script src="{{ asset('ezone/js/waypoints.min.js')}}"></script>
     <script src="{{ asset('ezone/js/ajax-mail.js')}}"></script>
     <script src="{{ asset('ezone/js/owl.carousel.min.js')}}"></script>
+    <script src="{{ asset('js/lazyload.min.js')}}?{{ $assetVer }}"></script>
     <script src="{{ asset('js/jquery.bootstrap-growl.min.js')}}"></script>
     <script src="{{ asset('ezone/js/plugins.js')}}"></script>
     <script src="{{ asset('ezone/js/main.js')}}"></script>

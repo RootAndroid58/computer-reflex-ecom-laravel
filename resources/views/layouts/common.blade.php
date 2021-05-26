@@ -31,7 +31,6 @@
         <link rel="stylesheet" href="{{ asset('css/cropper.css')}}?{{ $assetVer }}">
         <link rel="stylesheet" href="{{ asset('ezone/css/icofont.css')}}?{{ $assetVer }}">
         <link rel="stylesheet" href="{{ asset('ezone/css/meanmenu.min.css')}}?{{ $assetVer }}">
-        <link rel="stylesheet" href="{{ asset('ezone/css/easyzoom.css')}}?{{ $assetVer }}">
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('ezone/css/bundle.css')}}?{{ $assetVer }}">
         <link rel="stylesheet" href="{{ asset('ezone/css/style.css')}}?{{ $assetVer }}">
@@ -89,7 +88,7 @@
                         {{-- Website Logo --}}
                         <div class="logo-2 furniture-logo ptb-30">
                             <a href="{{ route('home') }}">
-                                <img loading=lazy src="{{ asset('ezone/img/logo/logo.png')}}" alt="">
+                                <img src="{{ asset('img/grey.gif') }}" data-src="{{ asset('ezone/img/logo/logo.png')}}" alt="">
                             </a>
                         </div>
 
@@ -380,28 +379,20 @@
         <script src="{{ asset('ezone/js/plugins.js') }}?{{ $assetVer }}"></script>
         <script src="{{ asset('ezone/js/main.js') }}?{{ $assetVer }}"></script>
         <script src="{{ asset('js/zoomsl.min.js') }}?{{ $assetVer }}"></script>
-        <script src="{{ asset('js/jquery.easyzoom-modified.min.js') }}?{{ $assetVer }}"></script>
         <script src="{{ asset('js/summernote-bs4.js') }}?{{ $assetVer }}"></script>
         <script src="{{ asset('js/cropper.js?ver=4.1.2')}}?{{ $assetVer }}"></script>
         <script src="{{ asset('js/jquery.bootstrap-growl.min.js')}}?{{ $assetVer }}"></script>
         <script src="{{ asset('ezone/js/owl.carousel.min.js')}}?{{ $assetVer }}"></script>
         <script src="{{ asset('js/star-rating.js?ver=4.1.2')}}?{{ $assetVer }}"></script>
+        <script src="{{ asset('js/lazyload.min.js')}}?{{ $assetVer }}"></script>
         <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
         <script src="{{ asset('js/main.js') }}?{{ $assetVer }}"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
-    
 
-        {{-- <script>
-            $(document).ready(function () {
-               console.log(window.location.href) 
-               new_url = window.location.href + "{{ $product->product_name }}"
-               window.history.pushState("data","Title",new_url);
-            })
-        </script> --}}
+    @yield('bottom-js')
 
-        @yield('bottom-js')
     </body>
 </html>

@@ -1237,7 +1237,7 @@
     opacity: 1;
 }
 .subscribe-form .mc-form .clear {
-    background: rgba(0, 0, 0, 0) url("../../assets/img/icon-img/1.png") no-repeat scroll right 0 center;
+    background: rgba(0, 0, 0, 0) no-repeat scroll right 0 center;
     bottom: 0;
     display: inline-block;
     position: absolute;

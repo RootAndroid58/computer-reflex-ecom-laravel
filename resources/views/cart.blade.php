@@ -46,7 +46,7 @@
                             <div class="w-100"  >
                                 <div class="blank-wishlist-container text-center">
                                     <div class="blank-wishlist-img-container" style="margin-top: 50px;">
-                                        <img class="img-nodrag" style="max-width: 35%" src="{{ asset('img/svg/blank-cart.png') }}">
+                                        <img class="img-nodrag" style="max-width: 35%" src="{{ asset('img/grey.gif') }}" data-src="{{ asset('img/svg/blank-cart.png') }}">
                                     </div>
                                     <div class="blank-wishlist-txt-container text-center" style="margin-top: 30px;">
                                         <span style="font-weight: 500; font-size: 20px;">Empty Cart!</span>
@@ -71,7 +71,7 @@
                                 <div class="col-md-3">
                                     <a href="{{route('product-index', $Product->id)}}" target="_blank">
                                         <div class="wish-product-image-container">
-                                            <img src="{{ asset('storage/images/products/'.$cart->Images->image) }}" alt="">
+                                            <img src="{{ asset('img/grey.gif') }}" data-src="{{ asset('storage/images/products/'.$cart->Images->image) }}" alt="">
                                         </div>
 
                                     </a>
