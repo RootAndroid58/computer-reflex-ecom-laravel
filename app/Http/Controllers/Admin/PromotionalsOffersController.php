@@ -26,6 +26,11 @@ class PromotionalsOffersController extends Controller
         return view('admin.voucher.create-voucher');
     }
 
+    public function EditVoucher($voucher_id)
+    {
+        Voucher::where('id', $voucher_id)->first();
+    }
+
     public function CreateVoucherSubmit(Request $req)
     {        
         $req->validate([

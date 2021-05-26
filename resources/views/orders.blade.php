@@ -82,7 +82,7 @@ $UserName=str_word_count(Auth()->user()->name, 1);
                                         <span>Order Placed: <span style="font-weight: 500;">{{date_format($order->created_at,"dS M, Y (D)")}}</span></span>
                                     </div>
                                     <div class="col-4" style="text-align: right;">
-                                        <span>Total: <span style="font-weight: 500;"><font class="rupees">₹</font>{{moneyFormatIndia($order->price)}}</span>@if ($order->payment_method == 'cod') (Cash On Delivery) @elseif($order->payment_method == 'paytm') (PayTM) @elseif($order->payment_method == 'payu') (PayU) @endif</span>
+                                        <span>Total: <span style="font-weight: 500;"><font class="rupees">₹</font>{{moneyFormatIndia($order->price)}}</span>@if ($order->payment_method == 'cod') (Cash On Delivery) @elseif($order->payment_method == 'paytm') (PayTM) @elseif($order->payment_method == 'payu') (PayU) @elseif($order->payment_method == 'voucher') (Voucher) @endif</span>
                                     </div>
                                 </div>
                             </div>

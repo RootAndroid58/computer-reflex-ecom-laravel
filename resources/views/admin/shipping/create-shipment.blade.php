@@ -154,7 +154,7 @@
                                     <table style="width: 100%;">
                                         <tr style="width: 100%">
                                             <td style="width: 50%; font-weight: 500;">Payment Method:</td>    
-                                            <td style="width: 50%; text-align: right;">@if ($order->payment_method == 'cod') Cash On Delivery @elseif($order->payment_method == 'paytm') PayTM @elseif($order->payment_method == 'payu') PayU @endif</td>    
+                                            <td style="width: 50%; text-align: right;">@if ($order->payment_method == 'cod') Cash On Delivery @elseif($order->payment_method == 'paytm') PayTM @elseif($order->payment_method == 'payu') PayU @elseif($order->payment_method == 'voucher') Voucher @endif</td>    
                                         </tr>    
                                         <tr style="width: 100%">
                                             <td style="width: 50%; font-weight: 500;">Items Ordered:</td>    

@@ -77,7 +77,7 @@ $UserName=str_word_count(Auth()->user()->name, 1);
                                     <br>
                                     <span><font class="rupees" style="font-size: 18px">&#8377;</font> <span style="font-size: 18px;">{{ number_format($Product->product_price, 2, ".", ",") }}</span> 
                                         <b style="font-size: 15px; color: #388e3c; font-weight: 500;">
-                                            {{ ((($Product->product_mrp - $Product->product_price) / $Product->product_mrp)*100)%100 }}% off
+                                            {{ round((($Product->product_mrp - $Product->product_price) / $Product->product_mrp)*100) }}% off
                                         </b>  
                                     </span>
                                     <div>

@@ -59,7 +59,7 @@
                                     <h4><a class="line-limit-2" href="{{route('product-index', $product->id)}}"> {{$product->product_name}} </a></h4>
                                     <span><font class="rupees">₹</font> 
                                         {{ moneyFormatIndia($product->product_price) }}
-                                        <b style="font-size: 17px; color: #388e3c; font-weight: 500;">{{((($product->product_mrp - $product->product_price) / $product->product_mrp)*100)%100}}% off</b>
+                                        <b style="font-size: 17px; color: #388e3c; font-weight: 500;">{{ round((($product->product_mrp - $product->product_price) / $product->product_mrp)*100)}}% off</b>
                                     </span>
                                     @if ($product->product_stock <= 0)
                                         <br>

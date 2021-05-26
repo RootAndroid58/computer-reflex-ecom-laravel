@@ -297,7 +297,7 @@
                                                     <br>
                                                     <span><font class="rupees" style="font-size: 18px">₹</font> <span style="font-size: 18px;"><span id="PriceField{{$item->id}}">{{ moneyFormatIndia($item->product_price * $qty[$key]) }}</span></span> 
                                                         <b style="font-size: 15px; color: #388e3c; font-weight: 500;"> 
-                                                            {{ ((($item->product_mrp - $item->product_price) / $item->product_mrp)*100)%100 }}% off
+                                                            {{ round((($item->product_mrp - $item->product_price) / $item->product_mrp)*100) }}% off
                                                         </b>  
                                                     </span>
         

@@ -616,7 +616,7 @@
                         <h4><a href="{{route('product-index', $RelatedProduct->id)}}" target="_blank" class="line-limit-2" title="{{$RelatedProduct->product_name}}"> {{$RelatedProduct->product_name}} </a></h4>
                         <span><font class="rupees">₹</font> 
                             {{ moneyFormatIndia($RelatedProduct->product_price) }}
-                            <b style="font-size: 17px; color: #388e3c; font-weight: 500;">{{((($RelatedProduct->product_mrp - $RelatedProduct->product_price) / $RelatedProduct->product_mrp)*100)%100}}% off</b>
+                            <b style="font-size: 17px; color: #388e3c; font-weight: 500;">{{ round((($RelatedProduct->product_mrp - $RelatedProduct->product_price) / $RelatedProduct->product_mrp)*100) }}% off</b>
                         </span>
                     </div>
                 </div>

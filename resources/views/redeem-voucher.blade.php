@@ -64,7 +64,7 @@
                                 <br>
                                 <span style="font-size: 14px;"><span class="text-secondary">Special Price: </span><font class="rupees" style="font-size: 18px">&#8377;</font><span style="font-size: 18px;">{{ number_format($VoucherProduct->special_price, 2, ".", ",") }}</span> 
                                     <b style="font-size: 15px; color: #388e3c; font-weight: 500;">
-                                        {{ ((($Product->product_mrp - $VoucherProduct->special_price) / $Product->product_mrp)*100)%100 }}% off
+                                        {{ round((($Product->product_mrp - $VoucherProduct->special_price) / $Product->product_mrp)*100) }}% off
                                     </b>  
                                 </span>
                                 

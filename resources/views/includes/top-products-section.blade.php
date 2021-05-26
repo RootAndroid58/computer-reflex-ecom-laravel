@@ -30,7 +30,7 @@
                 </div>
                 <h4><a href="{{ route('product-index', $product->id) }}" class="line-limit-2">{{$product->product_name}}</a></h4>
                 <span>
-                    <span class="text-muted" style="font-size: 15px;"><font class="rupees"><s>₹</s></font><s> 35,799</s></span> <b style="font-size: 17px; color: #388e3c; font-weight: 500;">{{ ((($product->product_mrp - $product->product_price) / $product->product_mrp)*100)%100 }}% off</b>
+                    <span class="text-muted" style="font-size: 15px;"><font class="rupees"><s>₹</s></font><s> 35,799</s></span> <b style="font-size: 17px; color: #388e3c; font-weight: 500;">{{ round((($product->product_mrp - $product->product_price) / $product->product_mrp)*100) }}% off</b>
                 </span>
                 <h5><font class="rupees">₹</font>{{ moneyFormatIndia($product->product_price) }}</h5>
             </div>

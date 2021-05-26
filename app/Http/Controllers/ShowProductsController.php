@@ -39,7 +39,7 @@ class ShowProductsController extends Controller
             $images = ProductImage::Where('product_id' , $pid)->orderBy('id', 'desc')->get();
             $specifications = Specification::Where('product_id' , $pid)->orderBy('id', 'asc')->get();
             $category = Category::where('id' , $product->product_category_id)->first();
-            $discount = ((($product->product_mrp - $product->product_price) / $product->product_mrp)*100)%100;
+            $discount = round((($product->product_mrp - $product->product_price) / $product->product_mrp)*100);
            
             $RelatedProducts = Product::where('product_status', 1)
             ->search(substr($product->product_name, 0, 100))

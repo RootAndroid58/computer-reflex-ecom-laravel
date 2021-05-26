@@ -87,7 +87,7 @@
                                         <br>
                                         <span><font class="rupees" style="font-size: 18px">₹</font> <span style="font-size: 18px;">{{ moneyFormatIndia($Product->product_price * $cart->qty) }}</span> 
                                             <b style="font-size: 15px; color: #388e3c; font-weight: 500;"> 
-                                                {{ ((($Product->product_mrp - $Product->product_price) / $Product->product_mrp)*100)%100 }}% off
+                                                {{ round((($Product->product_mrp - $Product->product_price) / $Product->product_mrp)*100) }}% off
                                             </b>  
                                         </span>
                                         @php

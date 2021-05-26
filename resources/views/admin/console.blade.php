@@ -1,7 +1,7 @@
 @extends('layouts.panel')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="account-details-container ">
             <div class="wishlist-basic-padding">
                 <form action="{{route('admin-console-submit')}}" method="post"> @csrf
@@ -14,8 +14,8 @@
                     </div>
 
                     @if (isset($output))
-                    <code>
-                        {{ $output }}
+                    <code class="code-1">
+                        {!! str_replace("\n", '<br />',  $output) !!}
                     </code>
                     @endif
                     

@@ -68,6 +68,7 @@ class CheckoutController extends Controller
     public function CheckoutSubmit(Request $req)
     {   
         if (isset($req->voucher_code)) {
+            
             $voucher = Voucher::where('code', $req->voucher_code)->first();
             if (!isset($voucher) || $voucher->status != 'active') {
                 abort(500);
@@ -87,13 +88,14 @@ class CheckoutController extends Controller
                 }
             }
         }
+        
 
         $address = Address::where('user_id', Auth()->user()->id)->where('id', $req->address_id)->first();
            
         if (!isset($address)) {  // Check if address is invalid then abort 
             abort(500); 
         }
-
+        
         // Calculate the MRP & Price 
         $mrp        = 0; // Default MRP
         $price      = 0; // Default Price
@@ -113,11 +115,17 @@ class CheckoutController extends Controller
                 return redirect()->route('cart');
             }
         }
+       
+
+        if (isset($req->voucher_code) && $price == 0)  {
+            $req->payment_method = 'voucher';
+        } 
 
         // Abort if no items for checkout 
         if ($itemCount <= 0) {
             abort(500);
         }
+      
 
         // Create new order entry
         $order = new Order;
@@ -202,7 +210,7 @@ class CheckoutController extends Controller
         } 
 
         // Process COD Order
-        elseif ($req->payment_method == 'cod') 
+        elseif ($req->payment_method == 'cod' || $req->payment_method == 'voucher') 
         {
             Order::where('id', $order->id)->update([
                 'status' => 'order_placed',
@@ -217,7 +225,6 @@ class CheckoutController extends Controller
                     'used_by'   => Auth()->user()->id,
                 ]); 
             }
-            
 
             return $this->AfterPayment($order->id);
         }
