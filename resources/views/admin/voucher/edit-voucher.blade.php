@@ -7,26 +7,22 @@
 @section('content')
 
 <div class="container-fluid">
-    <h3>Create Voucher</h3>
+    <h3>Edit Voucher</h3>
     <br>
-
-    @if($errors->any())
-        <div class="alert alert-danger" role="alert">
-            @foreach ($errors->all() as $error)
-            <li><strong>{{ $error }}</strong></li>
-            @endforeach
+    @if (Session::has('voucherEdited'))
+        <div class="alert alert-success" role="alert">
+            <strong>Voucher edited successfully. Voucher ID: {{ Session('voucherEdited') }}</strong>
         </div>
     @endif
-
-    <form action="{{ route('admin-create-voucher-submit') }}" method="post" class="mt-3 mb-3"> @csrf
-
-        <div class="form-group">    
+    <form action="{{ route('admin-edit-voucher-submit') }}" method="post" class="mt-3 mb-3"> @csrf
+        <input type="hidden" name="voucher_id" value="{{ $voucher->id }}">
+        <div class="form-group">   
             <label for="section_title">Expiry Date <font class="text-danger">*</font></label>
-            <input type="date" min="{{ date('Y-m-d', strtotime(' +1 day')) }}" required value="" class="form-control" name="exp_date">
+            <input type="date" min="{{ date('Y-m-d', strtotime(' +1 day')) }}" required value="{{ date('Y-m-d',strtotime($voucher->exp_date)) }}" class="form-control" name="exp_date">
         </div>
 
         <div class="w-100 text-right mb-3">
-            <button type="submit" class="btn btn-success">Create Voucher</button>
+            <button type="submit" class="btn btn-success">Edit Voucher</button>
         </div>
 
         <table id="AdminProductsTable" class="table table-striped table-bordered w-100">
@@ -61,7 +57,40 @@
 
         <p class="mt-3">Products List (Add Products From Below Table)</p>
         
-        <div class="products-list-container"></div>
+        <div class="products-list-container">
+            @foreach ($voucher->products as $VoucherProduct)
+            <div class="SectionProduct{{$VoucherProduct->product->id}}">        
+                <input type="hidden" name="product_ids[]" value="{{$VoucherProduct->product->id}}">
+                    <div class="row">
+                        <div class="col-1">
+                            <img width="100%" src="{{ asset('/storage/images/products/'.$VoucherProduct->product->images[0]->image) }}" alt="" srcset="">
+                        </div>
+                        <div class="col-6">
+                            {{ $VoucherProduct->product->product_name }}
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label>Special Price / Unit <font class="text-danger">*</font></label>
+                                <input type="number" required
+                                    class="form-control" name="special_prices[]" value="{{ $VoucherProduct->special_price }}" aria-describedby="helpId" placeholder="">
+                                <small class="form-text text-muted">MRP: <strong>{{ moneyFormatIndia($VoucherProduct->product->product_mrp) }}</strong></small>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label>Qty <font class="text-danger">*</font></label>
+                                <input type="number" required value="{{ $VoucherProduct->qty }}"
+                                    class="form-control" name="qty[]" aria-describedby="helpId" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-1 justify-content-center align-items-center d-flex">
+                            <button type="button" class="btn btn-danger" onclick="RemoveFromSlider({{$VoucherProduct->product->id}})">Remove</button>
+                        </div>
+                    </div>
+                    <div class="account-menu-break"></div>
+                </div>
+            @endforeach
+        </div>
 
     </form>
 

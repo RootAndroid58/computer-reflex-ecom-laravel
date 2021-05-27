@@ -35,6 +35,7 @@ class AdminController extends Controller
     {
         return view('admin.console');
     }
+
     public function ConsoleSubmit(Request $req)
     {
         \Artisan::call($req->artisan);
@@ -47,6 +48,7 @@ class AdminController extends Controller
     {
         return view('admin.dashboard');
     }
+
     public function IndexProfile()
     {
         $permissions = Auth()->User()->getAllPermissions();
@@ -84,20 +86,24 @@ class AdminController extends Controller
 
         return view('admin.user-management', ['AdminUsers' => $AdminUsers]);
     }
+
     public function ManageProducts()
     {
         $products = Product::get();
 
         return view('admin.manage-products', ['products' => $products]);
     }
+
     public function ManageUI()
     {
         return view('admin.manage-ui');
     }
+
     public function ManageBanners()
     {
         return view('admin.manage-banners');
     }
+
     public function NewBanner()
     {
         return view('admin.new-banner');
@@ -150,9 +156,8 @@ class AdminController extends Controller
                 'link'  => $req->link,
             ]);
         }
-        
+
         return redirect()->back();
-        
     }
 
     public function EditBannerSubmit(Request $req)
@@ -502,6 +507,44 @@ class AdminController extends Controller
     public function ManageFeaturedCatalogs()
     {
         return view('admin.catalog.manage-catalogs');
+    }
+
+    public function EditCatalog($catalog_id)
+    {
+        $catalog = Catalog::with('CatalogProducts.product')->where('id', $catalog_id)->first();
+        return view('admin.catalog.edit-catalog', [
+            'catalog' => $catalog,
+        ]);
+    }
+
+    public function EditCatalogSubmit(Request $req)
+    {
+        $req->merge([
+            'slug' => strtolower(preg_replace('/\s+/', '-', $req->slug)),
+        ]);
+
+        $req->validate([
+            'catalog_id'    => 'required|exists:catalogs,id',
+            'product_ids'   => 'required|exists:products,id',
+        ]);
+        $req->validate([
+            'slug' => 'required|unique:catalogs,slug,'.$req->catalog_id,
+        ]);
+       
+        Catalog::where('id', $req->catalog_id)->update([
+            'slug' => $req->slug,
+        ]);
+
+        CatalogProduct::where('catalog_id', $req->catalog_id)->delete();
+
+        foreach ($req->product_ids as $key => $product_id) {
+            $CatalogProduct = new CatalogProduct;
+            $CatalogProduct->catalog_id = $req->catalog_id;
+            $CatalogProduct->product_id = $product_id;
+            $CatalogProduct->save();
+        }
+
+        return redirect()->route('admin-edit-catalog', $req->catalog_id)->with('CatalogEdited', $req->slug);
     }
 
     public function CreateNewCatalog()

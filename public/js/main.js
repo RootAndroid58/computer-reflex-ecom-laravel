@@ -4,6 +4,17 @@ $( document ).ready(function( $ ) {
   });
 });
 
+
+$(document).on('ajaxStop', function() {
+  $("img").lazyload();
+  $(".lazyimgContainer").each(function() {
+    var tthis = $(this);
+    $(this).find('img').lazyload({
+        container: tthis
+    });
+  });
+});
+
 $(".lazyimgContainer").each(function() {
   var tthis = $(this);
   $(this).find('img').lazyload({

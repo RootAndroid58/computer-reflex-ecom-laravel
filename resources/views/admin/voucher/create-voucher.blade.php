@@ -17,6 +17,11 @@
             @endforeach
         </div>
     @endif
+    @if (Session::has('voucherCreated'))
+    <div class="alert alert-success" role="alert">
+        <strong>Voucher edited successfully. Voucher ID: {{ Session('voucherCreated') }}</strong>
+    </div>
+    @endif
 
     <form action="{{ route('admin-create-voucher-submit') }}" method="post" class="mt-3 mb-3"> @csrf
 

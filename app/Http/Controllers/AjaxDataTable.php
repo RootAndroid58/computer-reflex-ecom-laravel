@@ -47,7 +47,7 @@ class AjaxDataTable extends Controller
 
                 $action = '
                         <a target="_blank" href="'.route('show-catalog', $data->slug).'" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                        <a href="#" class="btn btn-dark"><i class="fas fa-cog"></i></a>
+                        <a target="_blank" href="'.route('admin-edit-catalog', $data->id).'" class="btn btn-dark"><i class="fas fa-cog"></i></a>
                 ';
 
                 return $action;
@@ -805,7 +805,11 @@ class AjaxDataTable extends Controller
         })
             ->addColumn('action', function($data){
 
-                $action = 'Action';
+                $action = '';
+
+                if ($data->status != 'used') {
+                    $action = '<a class="btn btn-sm btn-info" href="'.route('admin-edit-voucher', $data->id).'" target="_blank"><i class="fas fa-cog"></i></a>';
+                }
 
                 return $action;
         })

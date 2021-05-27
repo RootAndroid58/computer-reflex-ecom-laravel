@@ -28,7 +28,53 @@ class PromotionalsOffersController extends Controller
 
     public function EditVoucher($voucher_id)
     {
-        Voucher::where('id', $voucher_id)->first();
+        $voucher = Voucher::with('products.product')->where('id', $voucher_id)->first();
+        if (!isset($voucher) || $voucher->status == 'used') {
+            abort(404);
+        }
+        return view('admin.voucher.edit-voucher', [
+            'voucher' => $voucher,
+        ]);
+    }
+
+    public function EditVoucherSubmit(Request $req)
+    {
+        // dd($req);
+        $req->validate([
+            'voucher_id'        => 'required|exists:vouchers,id',
+            'product_ids'       => 'required|exists:products,id',
+            'special_prices.*'  => 'required|numeric',
+            'exp_date'          => 'required',
+        ]);
+
+        if (count($req->qty) != count($req->product_ids)) {
+            abort(500);
+        }
+
+        $voucher = Voucher::where('id', $req->voucher_id)->first();
+
+        if ($voucher->status == 'used') {
+            abort(404);
+        }
+
+        $voucher->update([
+            'exp_date' => $req->exp_date,
+        ]);
+
+        VoucherProduct::where('voucher_id', $req->voucher_id)->delete();
+
+        foreach ($req->product_ids as $key => $product_id) {
+            $VoucherProduct = new VoucherProduct;
+            $VoucherProduct->voucher_id = $req->voucher_id;
+            $VoucherProduct->product_id = $product_id;
+            $VoucherProduct->qty = $req->qty[$key];
+            $VoucherProduct->save();
+        }
+        
+        return redirect()->route('admin-edit-voucher', $req->voucher_id)->with([
+            'voucherEdited' => $req->voucher_id,
+        ]);
+
     }
 
     public function CreateVoucherSubmit(Request $req)
@@ -38,6 +84,10 @@ class PromotionalsOffersController extends Controller
             'special_prices.*'  => 'required|numeric',
             'exp_date'          => 'required',
         ]);
+
+        if (count($req->qty) != count($req->product_ids)) {
+            abort(500);
+        }
 
         $Voucher = new Voucher;
         $Voucher->code = newVoucherCode();
@@ -54,7 +104,9 @@ class PromotionalsOffersController extends Controller
             $VoucherProduct->save();
         }
         
-        return redirect()->back();
+        return redirect()->route('admin-edit-voucher', $req->voucher_id)->with([
+            'voucherCreated' => $Voucher->id,
+        ]);
     }
 
     public function Redeem(Request $req)

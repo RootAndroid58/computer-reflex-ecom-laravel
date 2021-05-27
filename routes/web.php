@@ -181,6 +181,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:Admin', 'verifie
     
     Route::get('/manage-voucher/{voucher_id}/edit','App\Http\Controllers\Admin\PromotionalsOffersController@EditVoucher')->name('admin-edit-voucher');
     
+    Route::post('/manage-voucher/edit/submit','App\Http\Controllers\Admin\PromotionalsOffersController@EditVoucherSubmit')->name('admin-edit-voucher-submit');
+    
     Route::get('/system-settings','App\Http\Controllers\Admin\AdminController@SystemSettings')->name('admin-system-settings');
     
     Route::get('/system-settings/update','App\Http\Controllers\Admin\AdminController@SystemSettingsUpdate')->name('admin-system-settings-update');
@@ -214,6 +216,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:Admin', 'verifie
     Route::get('/manage-ui/create-new-catalog','App\Http\Controllers\Admin\AdminController@CreateNewCatalog')->middleware('permission:Manage UI|Master Admin')->name('admin-create-new-catalog');
 
     Route::post('/manage-ui/create-new-catalog/submit','App\Http\Controllers\Admin\AdminController@CreateNewCatalogSubmit')->middleware('permission:Manage UI|Master Admin')->name('admin-create-new-catalog-submit');
+       
+    Route::get('/manage-ui/edit-catalog/{catalog_id}','App\Http\Controllers\Admin\AdminController@EditCatalog')->middleware('permission:Manage UI|Master Admin')->name('admin-edit-catalog');
+
+    Route::post('/manage-ui/edit-catalog/submit','App\Http\Controllers\Admin\AdminController@EditCatalogSubmit')->middleware('permission:Manage UI|Master Admin')->name('admin-edit-catalog-submit');
 
     Route::get('/manage-ui/home-carousel-sliders','App\Http\Controllers\Admin\AdminController@ManageHomeCarouselSlider')->middleware('permission:Manage UI|Master Admin')->name('admin-manage-home-carousel-sliders');
     
