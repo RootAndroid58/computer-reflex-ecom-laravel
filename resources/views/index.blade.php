@@ -1011,7 +1011,9 @@
                     <div class="product-wrapper product-wrapper-border mb-30">
                         <div class="product-img-5">
                             <a href="{{route('product-index', $BestSellingProduct->id)}}">
-                                <div class="prod-back-div" style="width: 100%; height: 100%; background-image: url('{{ asset('storage/images/products/'.$BestSellingProduct->images[0]->image) }}')"></div>
+                              
+                                    <img style="width: 100%; max-height: 100%;" src="{{ asset('img/grey.gif')  }}" data-src="{{ asset('storage/images/products/'.$BestSellingProduct->images[0]->image) }}">
+                           
                             </a>
                         </div>
 

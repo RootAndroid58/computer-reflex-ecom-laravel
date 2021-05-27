@@ -210,6 +210,6 @@
             $('#msg').summernote({
                 height: 250,
             })
-        })
+        });
     </script>
 @endsection

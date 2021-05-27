@@ -4,14 +4,16 @@ $( document ).ready(function( $ ) {
   });
 });
 
+$(".lazyimgContainer").each(function() {
+  var tthis = $(this);
+  $(this).find('img').lazyload({
+      container: tthis
+  });
+});
+
 $("img").lazyload({
-  src: "data-src",
   effect : "fadeIn",
-  selector: ".lazyload",
-  root: null,
-  rootMargin: "0px",
-  threshold: 0
-})
+});
 
 
 if ($('#dp_uploader').length) {
@@ -193,6 +195,7 @@ if ($('#dp_uploader').length) {
               autoplay:true,
               autoplayTimeout:8000,
               nav:false,
+              lazyLoad:true,
               dots:false,
               responsive:
               {
@@ -430,7 +433,7 @@ function fetchReviews(type) {
     
                   <div class="row">
                       <span style="margin: 12px 0;">
-                          ${review.user.name} <img width="14" src="http://localhost:8000/img/svg/verified-tick.svg" alt=""> (Buyer), ${review.days_ago}
+                          ${review.user.name} <img width="14" src="${domain}/img/svg/verified-tick.svg" alt=""> (Buyer), ${review.days_ago}
                       </span>
                   </div>
 
@@ -558,7 +561,7 @@ function fetchQnas(type) {
                       </div>
                       <div class="mt-1">
                         <span style="">
-                        ${answers.user.name} <img width="14" src="http://localhost:8000/img/svg/verified-tick.svg" alt=""> (Buyer), 
+                        ${answers.user.name} <img width="14" src="${domain}/img/svg/verified-tick.svg" alt=""> (Buyer), 
                         </span>
                       </div>
                     </div> 

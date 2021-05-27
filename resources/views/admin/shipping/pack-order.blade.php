@@ -283,7 +283,7 @@
                                     <div class="col-md-3">
                                         <a href="{{ route('product-index', $item->product_id)}}" target="_blank">
                                             <div class="wish-product-image-container">
-                                                <img src="http://localhost:8000/storage/images/products/{{$item->image->image}}" alt="">
+                                                <img src="{{ asset('storage/images/products/'.$item->image->image)}}" alt="">
                                             </div>
                                         </a>
                                     </div>

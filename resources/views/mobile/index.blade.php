@@ -313,5 +313,127 @@
 
 @section('bottom-js')
     
+<script>
+
+    function EditSmallBanner(banner_id) {
+    
+    $.ajax({
+      url: "{{ route('get-small-banner-data') }}",
+      method: 'POST',
+      data: {
+          'banner_id' : banner_id,
+      },
+      success: function (data) {
+        if (data.status != 500) {
+            $('#small_banner_id').val(banner_id);
+            $('#small_banner_img').val(data.SmallBanner.image);
+            $('#small_banner_link').val(data.SmallBanner.link);
+            $('#small_banner_suggested_size').html(data.size);
+            $('#SmallBannerEditModal').modal('toggle');
+        }
+      }
+    })
+    }
+    
+    
+    function ToggleCompare(product_id) {
+    
+    $.ajax({
+        url: "{{route('toggle-compare-btn')}}",
+        method: 'POST',
+        data: {
+            'product_id' : product_id,
+        },
+        success: function (data) {
+            if (data.status == 500 || data.status == 200) {
+                $(".bootstrap-growl").remove();
+                $.bootstrapGrowl(data.msg, {
+                    type: data.type,
+                    offset: {from:"bottom", amount: 100},
+                    align: 'center',
+                    allow_dismis: true,
+                    stack_spacing: 10,
+                })
+            }
+        }
+    })
+    
+    }
+    
+    
+    function ToggleWishlist(product_id) {
+    
+    $.ajax({
+        url: "{{route('toggle-wishlist-btn')}}",
+        method: 'POST',
+        data: {
+            'product_id' : product_id,
+        },
+        success: function (data) {
+    
+            if (data == 500) {
+                $(".bootstrap-growl").remove();
+                $.bootstrapGrowl("Removed from wishlist.", {
+                    type: "danger",
+                    offset: {from:"bottom", amount: 100},
+                    align: 'center',
+                    allow_dismis: true,
+                    stack_spacing: 10,
+                })
+            } else if(data == 200) {
+                $(".bootstrap-growl").remove();
+                $.bootstrapGrowl("Added to wishlist.", {
+                    type: "success",
+                    offset: {from:"bottom", amount: 100},
+                    align: 'center',
+                    allow_dismis: true,
+                    stack_spacing: 10,
+                })
+            }
+        }
+    })
+    
+    }
+    
+    function ToggleCart(product_id) {
+    
+        $.ajax({
+        url: "{{route('toggle-cart-btn')}}",
+        method: 'POST',
+        data: {
+            'product_id' : product_id,
+        },
+        success: function (data) {
+    
+            if (data == 200) {
+                $('#CartCount').load("{{ route('cart') }} #CartCount")
+                $(".bootstrap-growl").remove();
+                $.bootstrapGrowl("Added To Cart.", {
+                    type: "success",
+                    offset: {from:"bottom", amount: 100},
+                    align: 'center',
+                    allow_dismis: true,
+                    stack_spacing: 10,
+                })
+            } else if(data == 500) {
+                $('#CartCount').load("{{ route('cart') }} #CartCount")
+                $(".bootstrap-growl").remove();
+                $.bootstrapGrowl("Removed From Cart.", {
+                    type: "danger",
+                    offset: {from:"bottom", amount: 100},
+                    align: 'center',
+                    allow_dismis: true,
+                    stack_spacing: 10,
+                })
+            }
+        }
+    })
+    
+    }
+    
+    
+    
+    </script>
+    
 @endsection
     

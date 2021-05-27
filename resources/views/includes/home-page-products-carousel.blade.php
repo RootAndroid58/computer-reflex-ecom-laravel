@@ -29,8 +29,8 @@
                 </div>
 
 
-                <div class="bbb_viewed_slider_container">
-                    <div class="owl-carousel owl-carousel-{{ $section->id }} owl-theme bbb_viewed_slider">
+                <div class="bbb_viewed_slider_container ">
+                    <div class=" owl-carousel owl-carousel-{{ $section->id }} owl-theme bbb_viewed_slider">
                         @foreach ($section->SectionProducts as $product)
                         @php
                            $product = $product->product;
@@ -40,7 +40,9 @@
                             <div class="product-wrapper mb-30">
                                 <div class="product-img">
                                     <a href="{{route('product-index', $product->id)}}" target="_blank">
-                                        <div class="sm-prod-img-container" style="background-image: url('{{ asset('storage/images/products/'.$product->images[0]->image) }}');"></div>
+                                        <div class="sm-prod-img-container">
+                                            <img class="owl-lazy d-block" style="margin:auto; width: auto; max-width: 100%; max-height: 100%;" data-src="{{ asset('storage/images/products/'.$product->images[0]->image) }}" alt="" srcset="">
+                                        </div>
                                     </a>
                                     <div class="product-action">
                                         <a class="animate-left cursor-pointer" onclick="ToggleWishlist({{$product->id}})" title="Wishlist"><i class="pe-7s-like"></i></a>

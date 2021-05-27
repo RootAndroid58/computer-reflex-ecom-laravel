@@ -34,7 +34,6 @@
 
 @section('content')
 
-
         <div class="container-fluid mt-3">  
             <span style="font-size: 17px; font-weight: 600;">
                 <span>

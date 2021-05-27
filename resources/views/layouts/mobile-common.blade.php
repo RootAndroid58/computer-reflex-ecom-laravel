@@ -99,12 +99,11 @@
     <div id="burgerNavMenu" class="burger-nav-menu w-75" style="position: fixed; z-index: 10; left: -75%;">
         <div style="height: 100vh;">
             
-            <div class="w-100 bg-dark pt-3" style="height: 245px;">
+            <div class="w-100 bg-dark pt-3 lazyimgContainer" style="height: 245px;">
 
-                <img loading="lazy" class="mt-3" style="display: block; margin-left: auto; margin-right: auto; border-radius: 50%; " width="100px" height="100px" 
-                    src="@if(Auth::check()) {{ asset('storage/images/dp/'.Auth()->user()->dp) }} @else {{ asset('storage/images/dp/default.png') }} @endif">
+                <img src="{{ asset('img/grey.gif') }}" class="mt-3" style="display: block; margin-left: auto; margin-right: auto; border-radius: 50%; " width="100px" height="100px" 
+                    data-src="@if(Auth::check()) {{ asset('storage/images/dp/'.Auth()->user()->dp) }} @else {{ asset('storage/images/dp/default.png') }} @endif">
 
-                
                 <div class="w-100 mt-3 pb-2" style="color: white; text-align: center;" >
                     <div>
                         {!! GreetUser() !!}
@@ -131,7 +130,7 @@
 
             {{-- To activate highlight add class to the Li( account-menu-item-active ) --}}
 
-            <div class="mobile-nav-category-container">
+            <div class="mobile-nav-category-container lazyimgContainer">
 
                     
                 <ul class="mt-2 pb-2">
@@ -347,7 +346,7 @@
                     </li>
                 </ul>
                 <div style="padding: 25px;" class="mt-3">
-                    <img loading="lazy" src="{{ asset('img/svg/video_game_night.svg') }}" alt="" style="width: 100%;">
+                    <img src="{{ asset('img/grey.gif') }}" data-src="{{ asset('img/svg/video_game_night.svg') }}" alt="" style="width: 100%;">
                 </div>
             </div>
            

@@ -69,7 +69,7 @@
         <div class="account-details-container" style="margin-bottom: 10px;">
             <div style="padding: 10px 32px;">
                 <div class="account-details-title" style="padding-bottom: 0px;">
-                    <img src="{{ asset('/img/svg/happy-birth-day.svg') }}" width="50" alt="" srcset="">
+                    <img  src="{{asset('img/grey.gif')}}" data-src="{{ asset('/img/svg/happy-birth-day.svg') }}" width="50" alt="" srcset="">
                     <span style="padding-right: 0;">Order Details</span> #{{ date_format($order->created_at,"Y-mdHis").'-'.$order->id }}
                 </div>
             </div>
@@ -215,7 +215,7 @@
                             <div class="col-md-2">
                                 <a href="{{route('product-index', $item->product->id)}}" target="_blank">
                                     <div class="wish-product-image-container">
-                                        <img src="{{asset('storage/images/products/'.$item->image->image)}}" alt="">
+                                        <img src="{{asset('img/grey.gif')}}" data-src="{{asset('storage/images/products/'.$item->image->image)}}" alt="">
                                     </div>
                                 </a>
                             </div>
