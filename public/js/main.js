@@ -27,6 +27,7 @@ $("img").lazyload({
 });
 
 
+
 if ($('#dp_uploader').length) {
   window.addEventListener('DOMContentLoaded', function () {
     var avatar = document.getElementById('avatar');

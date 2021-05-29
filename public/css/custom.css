@@ -545,6 +545,13 @@ Buy now button Custom
     border-bottom: 1px solid #f0f0f0;
     width: 100%;
 }
+/* .account-menu-break-vert::after {
+    content: "";
+    display: block;
+    height: 2px;
+    background: #f0f0f0;
+    width: 100%;
+} */
 
 .account-menu-items-container{
     padding: 12px;
@@ -1216,4 +1223,24 @@ Buy now button Custom
 
     .no-after::after {
         content: unset !important;
+    }
+    .categories-subtitle{
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+    }
+    .category-dropdown-style ul li {
+        padding: 0 0 9px !important;
+    }
+    .category-common4 {
+        width: 25%;
+    }
+
+    .category-menu-dropdown.shop-menu {
+        width: 100% !important;
+        max-height: 600px;
+        overflow: auto;
+    }
+
+    .categories-subtitle, .shop-menu .category-dropdown-style ul li a {
+        font-size: 13px;
     }

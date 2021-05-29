@@ -2569,7 +2569,7 @@ a.banner-book-style-btn:hover {
 }
 .menu-style-3 nav > ul > li {
     display: inline-block;
-    position: relative;
+    /* position: relative; */
     margin: 0 45px;
 }
 .menu-style-3 nav > ul > li > a {
