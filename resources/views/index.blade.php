@@ -27,21 +27,21 @@
         gtag('config', 'G-STJZ4CTNF7');
     </script>
     <!-- all css here -->
-    <link rel="stylesheet" href="{{ asset('ezone/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/magnific-popup.css')}}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/animate.css')}}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/owl.carousel.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/themify-icons.css')}}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/pe-icon-7-stroke.css')}}">
-    <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css')}}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/icofont.css')}}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/meanmenu.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/bundle.css')}}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/style.css')}}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/responsive.css')}}">
-    <link rel="stylesheet" href="{{ asset('css/collapse-bs4.css')}}">
-    <link rel="stylesheet" href="{{ asset('css/custom.css')}}">
-    <script src="{{ asset('ezone/js/vendor/modernizr-2.8.3.min.js')}}"></script>
+    <link rel="stylesheet" href="{{ asset('ezone/css/bootstrap.min.css')}}?{{ $assetVer }}">
+    <link rel="stylesheet" href="{{ asset('ezone/css/magnific-popup.css')}}?{{ $assetVer }}">
+    <link rel="stylesheet" href="{{ asset('ezone/css/animate.css')}}?{{ $assetVer }}">
+    <link rel="stylesheet" href="{{ asset('ezone/css/owl.carousel.min.css')}}?{{ $assetVer }}">
+    <link rel="stylesheet" href="{{ asset('ezone/css/themify-icons.css')}}?{{ $assetVer }}">
+    <link rel="stylesheet" href="{{ asset('ezone/css/pe-icon-7-stroke.css')}}?{{ $assetVer }}">
+    <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css')}}?{{ $assetVer }}">
+    <link rel="stylesheet" href="{{ asset('ezone/css/icofont.css')}}?{{ $assetVer }}">
+    <link rel="stylesheet" href="{{ asset('ezone/css/meanmenu.min.css')}}?{{ $assetVer }}">
+    <link rel="stylesheet" href="{{ asset('ezone/css/bundle.css')}}?{{ $assetVer }}">
+    <link rel="stylesheet" href="{{ asset('ezone/css/style.css')}}?{{ $assetVer }}">
+    <link rel="stylesheet" href="{{ asset('ezone/css/responsive.css')}}?{{ $assetVer }}">
+    <link rel="stylesheet" href="{{ asset('css/collapse-bs4.css')}}?{{ $assetVer }}">
+    <link rel="stylesheet" href="{{ asset('css/custom.css')}}?{{ $assetVer }}">
+    <script src="{{ asset('ezone/js/vendor/modernizr-2.8.3.min.js')}}?{{ $assetVer }}"></script>
 
 
 </head>
@@ -1521,21 +1521,21 @@
 
 
     <!-- all js here -->
-    <script src="{{ asset('ezone/js/vendor/jquery-1.12.0.min.js')}}"></script>
-    <script src="{{ asset('ezone/js/popper.js')}}"></script>
-    <script src="{{ asset('ezone/js/bootstrap.min.js')}}"></script>
-    <script src="{{ asset('ezone/js/jquery.magnific-popup.min.js')}}"></script>
-    <script src="{{ asset('ezone/js/isotope.pkgd.min.js')}}"></script>
-    <script src="{{ asset('ezone/js/imagesloaded.pkgd.min.js')}}"></script>
-    <script src="{{ asset('ezone/js/jquery.counterup.min.js')}}"></script>
-    <script src="{{ asset('ezone/js/waypoints.min.js')}}"></script>
-    <script src="{{ asset('ezone/js/ajax-mail.js')}}"></script>
-    <script src="{{ asset('ezone/js/owl.carousel.min.js')}}"></script>
-    <script src="{{ asset('js/lazyload.min.js')}}?{{ $assetVer }}"></script>
-    <script src="{{ asset('js/jquery.bootstrap-growl.min.js')}}"></script>
-    <script src="{{ asset('ezone/js/plugins.js')}}"></script>
-    <script src="{{ asset('ezone/js/main.js')}}"></script>
-    <script src="{{ asset('js/main.js')}}"></script>
+    <script src="{{ asset('ezone/js/vendor/jquery-1.12.0.min.js')}}?{{ $assetVer }}"></script>
+    <script src="{{ asset('ezone/js/popper.js')}}?{{ $assetVer }}"></script>
+    <script src="{{ asset('ezone/js/bootstrap.min.js')}}?{{ $assetVer }}"></script>
+    <script src="{{ asset('ezone/js/jquery.magnific-popup.min.js')}}?{{ $assetVer }}"></script>
+    <script src="{{ asset('ezone/js/isotope.pkgd.min.js')}}?{{ $assetVer }}"></script>
+    <script src="{{ asset('ezone/js/imagesloaded.pkgd.min.js')}}?{{ $assetVer }}"></script>
+    <script src="{{ asset('ezone/js/jquery.counterup.min.js')}}?{{ $assetVer }}"></script>
+    <script src="{{ asset('ezone/js/waypoints.min.js')}}?{{ $assetVer }}"></script>
+    <script src="{{ asset('ezone/js/ajax-mail.js')}}?{{ $assetVer }}"></script>
+    <script src="{{ asset('ezone/js/owl.carousel.min.js')}}?{{ $assetVer }}"></script>
+    <script src="{{ asset('js/lazyload.min.js')}}?{{ $assetVer }}?{{ $assetVer }}"></script>
+    <script src="{{ asset('js/jquery.bootstrap-growl.min.js')}}?{{ $assetVer }}"></script>
+    <script src="{{ asset('ezone/js/plugins.js')}}?{{ $assetVer }}"></script>
+    <script src="{{ asset('ezone/js/main.js')}}?{{ $assetVer }}"></script>
+    <script src="{{ asset('js/main.js')}}?{{ $assetVer }}"></script>
 
 <script>
 
