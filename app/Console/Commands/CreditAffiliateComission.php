@@ -99,6 +99,13 @@ class CreditAffiliateComission extends Command
                             ];
 
                             Mail::to($user->email)->send(new AffiliateComissionCreditedMail($data));
+                        } 
+                        
+                        else {
+                            // Mark the Affiliate Purchase as comission credited
+                            AffiliateOrderItem::where('order_item_id', $orderItem->id)->update([
+                                'status' => 'Not Eligible',
+                            ]);
                         }
                     }
                 }

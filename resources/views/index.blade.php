@@ -471,7 +471,9 @@
                             <li><a href="{{ url('/') }}">home</a></li>
 
 
-                            <li><a href="shop.html">For Gamers <i class="pe-7s-angle-down"></i> </a>
+                            <li><a href="shop.html">For Gamers <i class="pe-7s-angle-down"></i> 
+                                    <span class="sticker-new">hot</span> 
+                                </a>
                                 <div class="category-menu-dropdown shop-menu">
                                     
                                     

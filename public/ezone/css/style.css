@@ -2594,10 +2594,10 @@ a.banner-book-style-btn:hover {
     font-weight: bold;
     line-height: 1;
     padding: 4px 4px 3px;
-    position: absolute;
-    right: 36px;
+    position: relative;
     text-transform: uppercase;
-    top: -10px;
+    left: -50%;
+    top: -30px;
 }
 .menu-style-3 ul > li > a > span::after {
     border-left: 7px solid transparent;

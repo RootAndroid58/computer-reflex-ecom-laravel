@@ -153,6 +153,7 @@ class SupportController extends Controller
             'body'      => $body,
             'footer'    => $footer,
         ];
+        
         Mail::to($ticket->user->email)->send(new AdminSupportTicketReplyMail($data));
 
         return redirect()->back();

@@ -235,8 +235,8 @@ class CheckoutController extends Controller
     public function AfterPayment($order_id)
     {
 
-        $order = Order::where('id', $order_id)->where('user_id', Auth()->user()->id)->with('OrderItems.product.comission')->with('Address')->with('Address')->first();
-
+        $order = Order::with('voucher')->where('id', $order_id)->where('user_id', Auth()->user()->id)->with('OrderItems.product.comission')->with('Address')->with('Address')->first();
+        
         if (!isset($order)) {
             abort(500);
         }
@@ -250,19 +250,22 @@ class CheckoutController extends Controller
         if ($order->status == 'order_placed') {
            
         // Add item to Affiliate Order Items table if eligible for Affiliate Comission 
-        foreach ($order->OrderItems as $key => $OrderItem) {
-            $prod = $OrderItem->product;
-            if (isset($prod->comission->comission) && isset(Auth()->user()->affiliate->associate_id)) {
-                if ($prod->comission->comission > 0) {
-                    $affiliateOrderItem = new AffiliateOrderItem;
-                    $affiliateOrderItem->associate_id = Auth()->user()->affiliate->associate_id;
-                    $affiliateOrderItem->order_item_id = $OrderItem->id;
-                    $affiliateOrderItem->comission = CalcPerc($prod->comission->comission, $prod->product_price) * $OrderItem->qty;
-                    $affiliateOrderItem->status = 'pending';
-                    $affiliateOrderItem->save();
+        if (!isset($order->voucher)) {
+            foreach ($order->OrderItems as $key => $OrderItem) {
+                $prod = $OrderItem->product;
+                if (isset($prod->comission->comission) && isset(Auth()->user()->affiliate->associate_id)) {
+                    if ($prod->comission->comission > 0) {
+                        $affiliateOrderItem = new AffiliateOrderItem;
+                        $affiliateOrderItem->associate_id = Auth()->user()->affiliate->associate_id;
+                        $affiliateOrderItem->order_item_id = $OrderItem->id;
+                        $affiliateOrderItem->comission = CalcPerc($prod->comission->comission, $OrderItem->total_price);
+                        $affiliateOrderItem->status = 'pending';
+                        $affiliateOrderItem->save();
+                    }
                 }
             }
         }
+       
           
             mail::to(Auth()->user()->email)->send(new OrderPlacedMail($data)); 
         }
