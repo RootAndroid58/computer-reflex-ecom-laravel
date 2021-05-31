@@ -65,7 +65,7 @@
 
 
             <li>
-                <a href="#"><img loading=lazy alt="" src="{{asset('ezone/img/icon-img/processor.png')}}"> Processor <i class="pe-7s-angle-right"></i></a>
+                <a href="#"><img src="{{ asset('img/grey.gif') }}" alt="" data-src="{{asset('ezone/img/icon-img/processor.png')}}"> Processor <i class="pe-7s-angle-right"></i></a>
                 <div class="category-menu-dropdown">
                     <div class="category-dropdown-style category-common4">
                         <h4 class="categories-subtitle"> Desktop</h4>
@@ -118,7 +118,7 @@
                 </div>
             </li>
             <li>
-                <a href="#"><img loading=lazy alt="" src="{{asset('ezone/img/icon-img/cooling-system.png')}}"> Cooling System<i class="pe-7s-angle-right"></i></a>
+                <a href="#"><img src="{{ asset('img/grey.gif') }}" alt="" data-src="{{asset('ezone/img/icon-img/cooling-system.png')}}"> Cooling System<i class="pe-7s-angle-right"></i></a>
                 <div class="category-menu-dropdown">
                     <div class="category-dropdown-style category-common3">
                         <h4 class="categories-subtitle"> Desktop</h4>
@@ -159,22 +159,22 @@
                 </div>
             </li>
             <li>
-                <a href="#"><img loading=lazy alt="" src="{{asset('ezone/img/icon-img/motherboard.png')}}"> Motherboard </a>
+                <a href="#"><img src="{{ asset('img/grey.gif') }}" alt="" data-src="{{asset('ezone/img/icon-img/motherboard.png')}}"> Motherboard </a>
             </li>
             <li>
-                <a href="#"><img loading=lazy alt="" src="ezone/img/icon-img/computer-ram.png"> Memory (RAM)</a>
+                <a href="#"><img src="{{ asset('img/grey.gif') }}" alt="" data-src="{{asset('ezone/img/icon-img/computer-ram.png')}}"> Memory (RAM)</a>
             </li>
             <li>
-                <a href="#"><img loading=lazy alt="" src="{{asset('ezone/img/icon-img/hard-disk.png')}}"> Storage </a>
+                <a href="#"><img src="{{ asset('img/grey.gif') }}" alt="" data-src="{{asset('ezone/img/icon-img/hard-disk.png')}}"> Storage </a>
             </li>
             <li>
-                <a href="#"><img loading=lazy alt="" src="{{asset('ezone/img/icon-img/graphics-card.png')}}"> Graphics Card </a>
+                <a href="#"><img src="{{ asset('img/grey.gif') }}" alt="" data-src="{{asset('ezone/img/icon-img/graphics-card.png')}}"> Graphics Card </a>
             </li>
             <li>
-                <a href="#"><img loading=lazy alt="" src="{{asset('ezone/img/icon-img/power-supply.png')}}"> Power Supply</a>
+                <a href="#"><img src="{{ asset('img/grey.gif') }}" alt="" data-src="{{asset('ezone/img/icon-img/power-supply.png')}}"> Power Supply</a>
             </li>
             <li>
-                <a href="#"><img loading=lazy alt="" src="{{asset('ezone/img/icon-img/cabinet-case.png')}}"> Cabinet (Case)</a>
+                <a href="#"><img src="{{ asset('img/grey.gif') }}" alt="" data-src="{{asset('ezone/img/icon-img/cabinet-case.png')}}"> Cabinet (Case)</a>
             </li>
         </ul>
     </div>
