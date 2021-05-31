@@ -1244,3 +1244,9 @@ Buy now button Custom
     .categories-subtitle, .shop-menu .category-dropdown-style ul li a {
         font-size: 13px;
     }
+
+
+    .category-menu-list > ul > li > a > img {
+        width: 20px !important;
+        height: 20px !important;
+    }
