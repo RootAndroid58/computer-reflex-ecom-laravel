@@ -19,11 +19,9 @@
                                 </div>
 
                                 <div class="w-100" style="padding-bottom: 12px;">
-                                    @if (Auth::check())
+                                  
                                     <a style="width: 100%;" href="{{route('support.raise-support-ticket')}}"><div class="account-menu-item @yield('nav-raise-support-ticket')">Raise Support Ticket</div></a>
                                     <a style="width: 100%;" href="{{route('support.support-tickets')}}"><div class="account-menu-item @yield('nav-support-tickets')">Support Tickets</div></a>
-                                    @endif
-                                   
                                     
                                     <a style="width: 100%;" href="{{route('support.contact-us')}}"><div class="account-menu-item @yield('nav-contact-us')">Contact Us</div></a>
                                 </div>

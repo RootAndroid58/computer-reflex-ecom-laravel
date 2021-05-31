@@ -726,11 +726,6 @@ $('#QuestionSubmitForm').on('submit', function (e) {
 
 
 
-
-
-
-
-
 $('#multi-item-carousel').carousel({
     interval: 10000
   })
@@ -752,6 +747,33 @@ $('#multi-item-carousel').carousel({
           next.children(':first-child').clone().appendTo($(this));
         }
   });
+
+
+
+  function ToggleCompare(product_id) {
+    $.ajax({
+      url: $('input[name="toggle-compare-btn"]').val(),
+      method: 'POST',
+      data: {
+          'product_id' : product_id,
+      },
+      success: function (data) {
+          if (typeof AfterToggleCompare == 'function') { 
+            AfterToggleCompare(data); 
+          }
+          if (data.status == 500 || data.status == 200) {
+              $(".bootstrap-growl").remove();
+              $.bootstrapGrowl(data.msg, {
+                  type: data.type,
+                  offset: {from:"bottom", amount: 100},
+                  align: 'center',
+                  allow_dismis: true,
+                  stack_spacing: 10,
+              })
+          }
+      }
+    })
+  }
   
 
 

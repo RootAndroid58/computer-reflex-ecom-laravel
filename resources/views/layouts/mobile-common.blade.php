@@ -62,7 +62,7 @@
 
 
 <body>
-
+    <input type="hidden" name="toggle-compare-btn" value="{{ route('toggle-compare-btn') }}">
 @yield('modals')
     
 <div id="SearchScreen" class="search-screen d-none" style="height: 100vh; width: 100%; position: fixed; z-index: 19" >

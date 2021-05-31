@@ -730,33 +730,6 @@
    </script>
 
 
-
-
-<script>
-   function ToggleCompare(product_id) {
-   
-   $.ajax({
-       url: "{{route('toggle-compare-btn')}}",
-       method: 'POST',
-       data: {
-           'product_id' : product_id,
-       },
-       success: function (data) {
-           if (data.status == 500 || data.status == 200) {
-               $(".bootstrap-growl").remove();
-               $.bootstrapGrowl(data.msg, {
-                   type: data.type,
-                   offset: {from:"bottom", amount: 100},
-                   align: 'center',
-                   allow_dismis: true,
-                   stack_spacing: 10,
-               })
-           }
-       }
-   })
-   
-   }
-</script>
    
 
 <script>

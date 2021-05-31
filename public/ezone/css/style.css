@@ -2240,7 +2240,7 @@ a.banner-book-style-btn:hover {
     padding: 0 0 0px 12px;
     text-transform: capitalize;
     width: 169px;
-    background: rgba(0, 0, 0, 0) url("../../assets/img/icon-img/4.png") no-repeat scroll right 40px center;
+    background: rgba(0, 0, 0, 0) url("../../ezone/img/icon-img/4.png") no-repeat scroll right 40px center;
 }
 
 .select-wrapper select option {
@@ -3312,7 +3312,7 @@ a.banner-book-style-btn:hover {
     position: relative;
 }
 .subscribe-form-3 .mc-form .clear {
-    background: rgb(56, 56, 56) url("../../assets/img/icon-img/14.png") no-repeat scroll right 15px center;
+    background: rgb(56, 56, 56) no-repeat scroll right 15px center;
     border-radius: 5px;
     bottom: 0;
     display: inline-block;
@@ -3323,7 +3323,7 @@ a.banner-book-style-btn:hover {
     transition: all .3s ease 0s;
 }
 .subscribe-form-3 .mc-form .clear:hover {
-    background: rgb(0, 0, 0) url("../../assets/img/icon-img/14.png") no-repeat scroll right 15px center;
+    background: rgb(0, 0, 0) no-repeat scroll right 15px center;
 }
 .subscribe-form-3 .clear input {
     border: medium none;
@@ -4201,7 +4201,7 @@ a.banner-book-style-btn:hover {
     position: relative;
 }
 .subscribe-form-4 .mc-form .clear {
-    background: rgba(0, 0, 0, 0) url("../../assets/img/icon-img/24.png") no-repeat scroll right 0 center;
+    background: rgba(0, 0, 0, 0) url("../../ezone/img/icon-img/24.png") no-repeat scroll right 0 center;
     bottom: 0;
     display: inline-block;
     position: absolute;
@@ -4289,7 +4289,7 @@ a.banner-book-style-btn:hover {
     transition: all 0.3s ease 0s;
 }
 .footer-widget-content-4 li::before {
-    background: url("../../assets/img/icon-img/25.png") no-repeat scroll left 0px center;
+    background: url("../../ezone/img/icon-img/25.png") no-repeat scroll left 0px center;
     bottom: 0;
     content: "";
     height: 100%;
@@ -4840,7 +4840,7 @@ a.icon-cart-furniture span.green {
     position: relative;
 }
 .subscribe-form-5 .mc-form .clear {
-    background: rgba(0, 0, 0, 0) url("../../assets/img/icon-img/24.png") no-repeat scroll right 0 center;
+    background: rgba(0, 0, 0, 0) url("../../ezone/img/icon-img/24.png") no-repeat scroll right 0 center;
     bottom: 0;
     display: inline-block;
     position: absolute;
@@ -5117,7 +5117,7 @@ a.icon-cart-furniture span.green {
 }
 
 .power-feathers-area {
-    background: rgba(0, 0, 0, 0) url("../../assets/img/banner/5.png") no-repeat scroll 95.5% 46% / 25% auto;
+    background: rgba(0, 0, 0, 0) url("../../ezone/img/banner/5.png") no-repeat scroll 95.5% 46% / 25% auto;
 }
 .smart-watch-product-wrapper {
     position: relative;
@@ -5839,7 +5839,7 @@ a.icon-cart-furniture.food-cart span {
     padding: 0 15px 0 72px;
 }
 .food-services-padding1::before {
-    background: rgba(0, 0, 0, 0) url("../../assets/img/bg/1.png") no-repeat scroll left 0 center;
+    background: rgba(0, 0, 0, 0) url("../../ezone/img/bg/1.png") no-repeat scroll left 0 center;
     content: "";
     height: 100%;
     opacity: 1;
@@ -5851,7 +5851,7 @@ a.icon-cart-furniture.food-cart span {
     z-index: 9;
 }
 .food-services-padding2::after {
-    background: rgba(0, 0, 0, 0) url("../../assets/img/bg/2.png") no-repeat scroll left 0 center;
+    background: rgba(0, 0, 0, 0) url("../../ezone/img/bg/2.png") no-repeat scroll left 0 center;
     content: "";
     height: 100%;
     opacity: 1;
@@ -6472,7 +6472,7 @@ a.icon-cart-furniture.food-cart span {
     position: relative;
 }
 .text-bg::before {
-    background: rgba(0, 0, 0, 0) url("../../assets/img/icon-img/44.png") no-repeat scroll left 0 center;
+    background: rgba(0, 0, 0, 0) url("../../ezone/img/icon-img/44.png") no-repeat scroll left 0 center;
     content: "";
     height: 75px;
     left: 8px;
@@ -7351,7 +7351,7 @@ h5.panel-title {
 .shop-selector select {
     -moz-appearance: none;
     -webkit-appearance: none;
-    background: rgba(0, 0, 0, 0) url("../../assets/img/icon-img/4.png") no-repeat scroll right 0 center;
+    background: rgba(0, 0, 0, 0) url("../../ezone/img/icon-img/4.png") no-repeat scroll right 0 center;
     border: medium none;
     box-shadow: none;
     color: #090909;
@@ -7531,7 +7531,7 @@ h5.panel-title {
 }
 .select-option-part select {
     -moz-appearance: none;
-    background: rgba(0, 0, 0, 0) url("../../assets/img/icon-img/4.png") no-repeat scroll right 20px center;
+    background: rgba(0, 0, 0, 0) url("../../ezone/img/icon-img/4.png") no-repeat scroll right 20px center;
     border: 1px solid #dcdcdc;
     box-shadow: none;
     color: #828282;
@@ -8409,19 +8409,19 @@ a.bundle-btn {
 
 /* notification */
 .notification-img {
-    background-image: url("../../assets/img/bg/4.jpg");
+    background-image: url("../../ezone/img/bg/4.jpg");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 .notification-img-2 {
-    background-image: url("../../assets/img/bg/5.jpg");
+    background-image: url("../../ezone/img/bg/5.jpg");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 .notification-img-3 {
-    background-image: url("../../assets/img/bg/6.jpg");
+    background-image: url("../../ezone/img/bg/6.jpg");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -8912,7 +8912,7 @@ a.bundle-btn {
     padding: 0 100px;
 }
 .section-title-furits.bg-shape:before {
-    content: url(../../assets/img/banner/title-shape.png);
+    content: url(../../ezone/img/banner/title-shape.png);
     position: absolute;
     left: 50%;
     top: 6px;
@@ -8930,7 +8930,7 @@ a.bundle-btn {
     margin-top: 94px;
 }
 .fruits-choose-serial {
-    background: rgba(0, 0, 0, 0) url("../../assets/img/icon-img/50.png") no-repeat scroll center center / cover;
+    background: rgba(0, 0, 0, 0) url("../../ezone/img/icon-img/50.png") no-repeat scroll center center / cover;
     height: 104px;
     margin-right: 30px;
     text-align: center;
@@ -9184,7 +9184,7 @@ a.bundle-btn {
     position: relative;
 }
 .fruits-top-seller-area:before {
-    content: url(../../assets/img/banner/12.png);
+    content: url(../../ezone/img/banner/12.png);
     position: absolute;
     left: 0;
     top: 0px;
@@ -9192,7 +9192,7 @@ a.bundle-btn {
     z-index: -1;
 }
 .fruits-top-seller-area:after {
-    content: url(../../assets/img/banner/13.png);
+    content: url(../../ezone/img/banner/13.png);
     position: absolute;
     right: 0;
     bottom: 0;
@@ -9475,7 +9475,7 @@ a.bundle-btn {
     padding-left: 20px;
     position: relative;
     width: 100%;
-    background: rgba(0, 0, 0, 0) url("../../assets/img/icon-img/4.png") no-repeat scroll right 20px center;
+    background: rgba(0, 0, 0, 0) url("../../ezone/img/icon-img/4.png") no-repeat scroll right 20px center;
     text-transform: capitalize;
 }
 .qtybutton {

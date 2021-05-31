@@ -72,6 +72,7 @@ class CompareController extends Controller
          }
 
         return [
+            'product_id'    => $req->product_id,
             'status'        => $status,
             'type'          => $type,
             'msg'           => $msg,
