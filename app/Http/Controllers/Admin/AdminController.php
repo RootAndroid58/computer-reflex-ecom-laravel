@@ -31,18 +31,6 @@ use App\Mail\AdminUserCreatedMail;
 
 class AdminController extends Controller
 {
-    public function Console()
-    {
-        return view('admin.console');
-    }
-
-    public function ConsoleSubmit(Request $req)
-    {
-        \Artisan::call($req->artisan);
-        return view('admin.console', [
-            'output' => \Artisan::output(),
-        ]);
-    }
 
     public function IndexDashboard()
     {
