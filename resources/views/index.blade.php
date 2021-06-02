@@ -27,15 +27,19 @@
         gtag('config', 'G-STJZ4CTNF7');
     </script>
     <!-- all css here -->
-    <link rel="stylesheet" href="{{ asset('ezone/css/bootstrap.min.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/magnific-popup.css')}}?{{ $assetVer }}">
+    <link rel="stylesheet" href="{{ asset('ezone/css/bootstrap.min.css') }}?{{ $assetVer }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="{{ asset('ezone/css/magnific-popup.css') }}?{{ $assetVer }}">
     <link rel="stylesheet" href="{{ asset('ezone/css/animate.css')}}?{{ $assetVer }}">
     <link rel="stylesheet" href="{{ asset('ezone/css/owl.carousel.min.css')}}?{{ $assetVer }}">
     <link rel="stylesheet" href="{{ asset('ezone/css/themify-icons.css')}}?{{ $assetVer }}">
     <link rel="stylesheet" href="{{ asset('ezone/css/pe-icon-7-stroke.css')}}?{{ $assetVer }}">
     <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css')}}?{{ $assetVer }}">
+    <link rel="stylesheet" href="{{ asset('css/star-rating.css')}}?{{ $assetVer }}">
+    <link rel="stylesheet" href="{{ asset('css/cropper.css')}}?{{ $assetVer }}">
     <link rel="stylesheet" href="{{ asset('ezone/css/icofont.css')}}?{{ $assetVer }}">
     <link rel="stylesheet" href="{{ asset('ezone/css/meanmenu.min.css')}}?{{ $assetVer }}">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('ezone/css/bundle.css')}}?{{ $assetVer }}">
     <link rel="stylesheet" href="{{ asset('ezone/css/style.css')}}?{{ $assetVer }}">
     <link rel="stylesheet" href="{{ asset('ezone/css/responsive.css')}}?{{ $assetVer }}">
