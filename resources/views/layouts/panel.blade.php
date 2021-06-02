@@ -39,8 +39,8 @@
 
     @yield('css-js')
 
-    @livewireStyles()
-    @livewireScripts()
+    @livewireStyles
+    @livewireScripts
 
 <body id="page-top">
     

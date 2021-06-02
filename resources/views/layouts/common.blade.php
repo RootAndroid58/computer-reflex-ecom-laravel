@@ -39,8 +39,8 @@
         <link rel="stylesheet" href="{{ asset('css/custom.css')}}?{{ $assetVer }}">
         <script src="{{ asset('ezone/js/vendor/modernizr-2.8.3.min.js')}}?{{ $assetVer }}"></script>
 
-        @livewireStyles()
-        @livewireScripts()
+        @livewireStyles
+        @livewireScripts
         
         @yield('css-js')
         <style>
