@@ -33,7 +33,7 @@ class CompareController extends Controller
         ]);
     }
 
-    public function ToggleCompare(Request $req)
+    static function ToggleCompare(Request $req)
     {
         $req->validate([
             'product_id' => 'required|exists:products,id'

@@ -5,6 +5,7 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box
 } */
+
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -1249,4 +1250,8 @@ Buy now button Custom
     .category-menu-list > ul > li > a > img {
         width: 20px !important;
         height: 20px !important;
+    }
+    .home-slider-menu-ul {
+        display: flex;
+        justify-content: space-around;
     }

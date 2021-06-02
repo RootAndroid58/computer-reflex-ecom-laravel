@@ -1,6 +1,6 @@
 <div class="menu-style-3 menu-hover text-center">
     <nav>
-        <ul>
+        <ul class="home-slider-menu-ul">
             <li><a href="{{ url('/') }}">home</a></li>
 
 

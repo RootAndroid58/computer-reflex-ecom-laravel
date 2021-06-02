@@ -22,9 +22,7 @@ $(".lazyimgContainer").each(function() {
   });
 });
 
-$("img").lazyload({
-  effect : "fadeIn",
-});
+$("img").lazyload();
 
 
 
@@ -205,6 +203,7 @@ if ($('#dp_uploader').length) {
               loop:true,
               margin:30,
               autoplay:true,
+              autoplayHoverPause: true,
               autoplayTimeout:8000,
               nav:false,
               lazyLoad:true,
@@ -711,10 +710,6 @@ $('#QuestionSubmitForm').on('submit', function (e) {
   })
 
 })
-
-
-
-
 
 
 

@@ -24,7 +24,7 @@ class WishlistController extends Controller
 
 
     
-    public function ToggleWishlist(Request $req)
+    public static function ToggleWishlist(Request $req)
     {
         $req->validate([
             'product_id' => 'required|exists:products,id',

@@ -2570,7 +2570,7 @@ a.banner-book-style-btn:hover {
 .menu-style-3 nav > ul > li {
     display: inline-block;
     /* position: relative; */
-    margin: 0 45px;
+    margin: 0 15px;
 }
 .menu-style-3 nav > ul > li > a {
     color: #f3f3f3;

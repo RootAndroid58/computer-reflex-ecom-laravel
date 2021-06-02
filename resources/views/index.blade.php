@@ -42,7 +42,9 @@
     <link rel="stylesheet" href="{{ asset('css/collapse-bs4.css')}}?{{ $assetVer }}">
     <link rel="stylesheet" href="{{ asset('css/custom.css')}}?{{ $assetVer }}">
     <script src="{{ asset('ezone/js/vendor/modernizr-2.8.3.min.js')}}?{{ $assetVer }}"></script>
-
+    
+    @livewireStyles
+    @livewireScripts
 
 </head>
 
@@ -280,82 +282,39 @@
     </header>
     <!-- header end -->
 
-<div class="body-container">
-
-
+<div class="body-container ">
+    
     <div class="pl-200 pr-200  clearfix">
         <div class="categori-menu-slider-wrapper clearfix">
-
-
-            
             @include('includes.home-all-departments')
-            
-            
             <div class="menu-slider-wrapper">
-
-            @include('includes.home-main-drop-down-menu')
-
-            {{-- Banner Slider Area Start --}}
-            <div class="slider-area">
-                <div class="slider-active owl-carousel">
-            @foreach ($banners as $banner)
-                @if (!isset($banner->banner_header) || !isset($banner->banner_header_2) || !isset($banner->banner_btn_txt) || !isset($banner->banner_caption))
-                    <a href="">
-                        <div class="single-slider single-slider-hm3 bg-img pt-170 pb-173" style="background-image: url({{ 'storage/images/banner/'.$banner->banner_img }})">
-                            <div class="slider-animation slider-content-style-3 fadeinup-animated">
-                                <h2 class="animated">&nbsp;<br>&nbsp;</h2>
-                                <h4 class="animated">&nbsp;</h4>
-                                <span style="line-height: 1; padding: 15px 40px 14px; display: inline-block;">&nbsp;</span>
-                            </div>
-                        </div>
-                    </a>
-                @else
-                    <div class="single-slider single-slider-hm3 bg-img pt-170 pb-173" style="background-image: url({{ 'storage/images/banner/'.$banner->banner_img }})">
-                        <div class="slider-animation slider-content-style-3 fadeinup-animated">
-                            <h2 class="animated">{{ $banner->banner_header }}<br>{{ $banner->banner_header_2 }}</h2>
-                            <h4 class="animated">{{ $banner->banner_caption }} </h4>
-                            <a class="electro-slider-btn btn-hover" href="{{ $banner->banner_btn_link }}">{{ $banner->banner_btn_txt }}</a>
+                @include('includes.home-main-drop-down-menu')
+                    {{-- Home Slider Banner Area Start --}}
+                    <div class="slider-area">
+                        <div class="slider-active owl-carousel">
+                            
+                            @foreach ($banners as $banner)
+                                @livewire('home-slider-banner', ['banner' => $banner], key($banner->id))
+                            @endforeach
                         </div>
                     </div>
-                @endif
-            @endforeach
-                </div>
-            </div>
-            {{-- Banner Slider Area End --}}
-
-
+                    {{-- Home Slider Banner Area End --}}
             </div>
         </div>
     </div>
 
 
-        <div class="electronic-banner-area">
-            <div class="custom-row-2">
-                @foreach ($SmallBanners as $key => $SmallBanner)
-                    @if ($key < 3)
-                    <div class="custom-col-style-2 electronic-banner-col-3 mb-30">
-                        <div class="div-shadow">
-                            <a href="{{ $SmallBanner->link }}">
-                                <div class="electronic-banner-wrapper">
-                                    <img loading="lazy" style="height: 100%; width: 100%;" src="{{ $SmallBanner->image }}" alt="Small Banner Image">
-                                </div>
-                            </a>
+    
 
-                            @canany(['Manage UI', 'Master Admin'])
-                            <div>
-                                <span class="cursor-pointer static-blue float-right "  onclick="EditSmallBanner({{ $SmallBanner->id }})">Edit</span>
-                            </div>
-                            @endcanany
-                        </div>
-                    </div>
-                    @endif
-                @endforeach
-            </div>
+    <div class="electronic-banner-area">
+        <div class="custom-row-2">
+            @foreach ($SmallBanners as $key => $SmallBanner)
+                @if ($key < 3)
+                    @livewire('home-small-banner', ['SmallBanner' => $SmallBanner], key($SmallBanner->id))
+                @endif
+            @endforeach
         </div>
-
-
-
-
+    </div>
 
 
     @foreach ($sections as $key => $section)
@@ -366,30 +325,8 @@
 
 
 
-
-
-
-
+    @livewire('home-wide-banner', ['SmallBanner' => $SmallBanners[3]], key($user->id))
     
-    <div class="banner-area wrapper-padding pt-30 pb-50">
-        <div class="container-fluid">
-            <a href="{{  $SmallBanners[4]->link  }}">
-                <img loading=lazy src="{{  $SmallBanners[4]->image  }}" alt="Oops... Banner Image Not Loaded" width="100%">
-            </a>
-
-            @canany(['Manage UI', 'Master Admin'])
-            <div>
-                <span class="cursor-pointer static-blue float-right"  onclick="EditSmallBanner({{  $SmallBanners[4]->id  }})">Edit</span>
-            </div>
-            @endcanany
-        </div>
-    </div>
-    
-
-
-
-
-
 
 
     @foreach ($sections as $key => $section)
@@ -579,18 +516,10 @@
 
 
 
-<div class="banner-area wrapper-padding pt-30 pb-50">
-    <div class="container-fluid">
-        <a href="{{  $SmallBanners[3]->link  }}">
-            <img loading=lazy src="{{  $SmallBanners[3]->image  }}" alt="Oops... Banner Image Not Loaded" width="100%">
-        </a>
-        @canany(['Manage UI', 'Master Admin'])
-        <div>
-            <span class="cursor-pointer static-blue  float-right"  onclick="EditSmallBanner({{  $SmallBanners[3]->id  }})">Edit</span>
-        </div>
-        @endcanany
-    </div>
-</div>
+
+@livewire('home-wide-banner', ['SmallBanner' => $SmallBanners[4]], key($user->id))
+    
+
 
 
 

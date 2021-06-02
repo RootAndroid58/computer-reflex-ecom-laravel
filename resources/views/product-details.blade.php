@@ -275,18 +275,7 @@
                     
 
                     {{-- Quick actions --}}           
-                    <div class="quickview-plus-minus">
-                        <div class="quickview-btn-cart" style="margin-left: 0; margin-right: 5px;">
-                            <a title="Cart" class="btn-hover-black" id="ToggleCartBtn" href="#">@if($carted == 1) Remove from cart @else Add to cart @endif</a>
-                        </div>
-                        
-                        <div class="quickview-btn-wishlist">
-                            @if (Auth::check())
-                            <a title="Wishlist" id="ToggleWishlistBtn" class="btn-hover cursor-pointer @if($wishlisted == 1) btn-wishlisted @else btn-not-wishlisted @endif ">&nbsp;<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;</a>
-                            @endif
-                            <a title="Compare" style="vertical-align: unset" id="ToggleCompareBtn" class="btn cursor-pointer @if($compared == 1) btn-danger @else btn-info @endif ">&nbsp;<i class="fas fa-repeat"></i>&nbsp;</a>
-                        </div>
-                    </div>
+                    @livewire('product-quick-actions', ['product' => $product, 'wishlisted' => $wishlisted, 'carted' => $carted, 'compared' => $compared], key($user->id))
 
                     {{--  Category --}}
                     <div class="product-details-cati-tag mt-35">
@@ -861,11 +850,7 @@ $(document).ready(function() {
 
 <script>
 
-
-
-
-
-    function ToggleWishlist(product_id) {
+function ToggleWishlist(product_id) {
 
 $.ajax({
     url: "{{route('toggle-wishlist-btn')}}",
@@ -940,120 +925,6 @@ function ToggleCart(product_id) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-    {{-- Toggle Cart --}}
-    <script>
-        $(document).ready(function() {
-
-            $('#ToggleCartBtn').click(function (e) {
-
-                e.preventDefault()
-
-                var product_id  = $('input[name="product_id"]').val()
-
-                console.log(product_id)
-
-                $.ajax({
-                    url: "{{route('toggle-cart-btn')}}",
-                    method: 'POST',
-                    data: {
-                        'product_id' : product_id,
-                    },
-                    success: function (data) {
-
-                        if (data == 200) {
-                            console.log('Added to cart')
-                            $('#ToggleCartBtn').html('remove from cart')
-                            $('#CartCount').load("{{ route('cart') }} #CartCount")
-                        } else if(data == 500) {
-                            $('#ToggleCartBtn').html('add to cart')
-                            $('#CartCount').load("{{ route('cart') }} #CartCount")
-                        }
-                    }
-                });
-            });
-
-
-
-            $('#ToggleCompareBtn').click(function (e) {
-
-                e.preventDefault()
-
-                var product_id  = $('input[name="product_id"]').val()
-
-                $.ajax({
-                    url: "{{route('toggle-compare-btn')}}",
-                    method: 'POST',
-                    data: {
-                        'product_id' : product_id,
-                    },
-                    success: function (data) {
-                        if (data.status == 500 || data.status == 200) {
-                            $(".bootstrap-growl").remove();
-                            $.bootstrapGrowl(data.msg, {
-                                type: data.type,
-                                offset: {from:"bottom", amount: 100},
-                                align: 'center',
-                                allow_dismis: true,
-                                stack_spacing: 10,
-                            });
-                        }
-
-                        if (data.status == 200) {
-                            console.log(200);
-                            $('#ToggleCompareBtn').addClass('btn-danger').removeClass('btn-info')
-                            // $('#CartCount').load("{{ route('cart') }} #CartCount")
-                        } else if(data.status == 500) {
-                            console.log(500);
-                            $('#ToggleCompareBtn').addClass('btn-info').removeClass('btn-danger')
-                            // $('#CartCount').load("{{ route('cart') }} #CartCount")
-                        }
-                    }
-                });
-            });
-        });
-    </script>
-
-
-    {{-- Toggle Wishlist --}}
-    <script>
-        $(document).ready(function() {
-
-            $('#ToggleWishlistBtn').click(function (e) {
-
-                e.preventDefault()
-
-                var product_id  = $('input[name="product_id"]').val()
-
-                console.log(product_id)
-
-                $.ajax({
-                    url: "{{route('toggle-wishlist-btn')}}",
-                    method: 'POST',
-                    data: {
-                        'product_id' : product_id,
-                    },
-                    success: function (data) {
-
-                        if (data == 200) {
-                            $('#ToggleWishlistBtn').addClass('btn-wishlisted').removeClass('btn-not-wishlisted')
-                        } else if(data == 500) {
-                            $('#ToggleWishlistBtn').addClass('btn-not-wishlisted').removeClass('btn-wishlisted')
-                        }
-                    }
-                });
-            });
-        });
-    </script>
 
 
 

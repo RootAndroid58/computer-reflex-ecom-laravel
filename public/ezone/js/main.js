@@ -38,21 +38,18 @@
     
     /* slider active */
     $('.slider-active').owlCarousel({
-        loop: true,
-        nav: false,
         autoplay: true,
+        rewind: true,
+        loop: false,
+        nav: false,
+        autoplayHoverPause: true,
+        lazyLoad: true,
         autoplayTimeout: 5000,
         animateOut: 'fadeOut',
         animateIn: 'fadeIn',
         item: 1,
         responsive: {
             0: {
-                items: 1
-            },
-            768: {
-                items: 1
-            },
-            1000: {
                 items: 1
             }
         }

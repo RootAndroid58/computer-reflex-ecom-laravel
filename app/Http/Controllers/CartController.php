@@ -11,7 +11,6 @@ use Auth;
 class CartController extends Controller
 {
 
-
     public function ShowCart()
     {
         if (Auth::check()) 
@@ -49,7 +48,7 @@ class CartController extends Controller
     }
 
 
-    public function ToggleCart(Request $req)
+    static function ToggleCart(Request $req)
     {
         $req->validate([
             'product_id' => 'required|exists:products,id',
