@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('CartTest', 'App\Http\Controllers\CartController@Test');
-
 
 // Authentication Routes Start...
     Route::get('login', 'App\Http\Controllers\Auth\LoginController@showLoginForm')->name('login');

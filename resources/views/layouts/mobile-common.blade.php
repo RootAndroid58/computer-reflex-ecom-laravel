@@ -77,7 +77,7 @@
                     </div>
                     <div class="col-8" style="padding: 0;">
                         <div class="form-group" style="margin: 0;">
-                            <input type="text" style="height: 100%; border-radius: 0;"
+                            <input type="text" style="height: 100%; border-radius: 0;" autocomplete="off"
                             class="form-control" name="search" id="SearchMobileInput" aria-describedby="helpId" placeholder="Search Here...">
                         </div>
                     </div>
