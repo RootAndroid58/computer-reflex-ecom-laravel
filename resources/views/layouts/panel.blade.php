@@ -18,7 +18,7 @@
     </script>
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <!-- Scripts -->
-
+    
     <link rel="stylesheet" href="{{ asset('SB-Admin/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css')}}?{{ $assetVer }}">
@@ -28,11 +28,8 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/collapse-bs4.css') }}">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    
 
     <script src="{{ asset('SB-Admin/js/jquery.min.js')}}"></script>
-
-   
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
@@ -40,12 +37,10 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="{{ asset('js/tag-it.js')}}"></script>
 
-
-    {{-- MDB --}}
-
     @yield('css-js')
 
-
+    @livewireStyles()
+    @livewireScripts()
 
 <body id="page-top">
     
