@@ -151,7 +151,7 @@ Livewire.on('cartAdded', product_name => {
 })
 
 Livewire.on('cartRemoved', product_name => {
-  Toast.create(`Removed To Cart`, product_name, TOAST_STATUS.DANGER, 5000);
+  Toast.create(`Removed From Cart`, product_name, TOAST_STATUS.DANGER, 5000);
 })
 
 
@@ -160,7 +160,7 @@ Livewire.on('wishlistAdded', product_name => {
 })
 
 Livewire.on('wishlistRemoved', product_name => {
-  Toast.create("Removed To Wishlist", product_name, TOAST_STATUS.DANGER, 5000);
+  Toast.create("Removed From Wishlist", product_name, TOAST_STATUS.DANGER, 5000);
 })
 
 

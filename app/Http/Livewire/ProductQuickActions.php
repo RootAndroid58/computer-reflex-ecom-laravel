@@ -40,9 +40,9 @@ class ProductQuickActions extends Component
             $this->wishlisted = 1;
             $this->emit('wishlistAdded', WordLimit($ToggleWishlist['product_name'] ?? '', 18));
         } 
-        elseif ($ToggleWishlist == 500) {
-            $this->wishlisted['status'] = 0;
-            $this->emit('wishlistAdded', WordLimit($ToggleWishlist['product_name'] ?? '', 18));
+        elseif ($ToggleWishlist['status'] == 500) {
+            $this->wishlisted = 0;
+            $this->emit('wishlistRemoved', WordLimit($ToggleWishlist['product_name'] ?? '', 18));
         }
     }
 
