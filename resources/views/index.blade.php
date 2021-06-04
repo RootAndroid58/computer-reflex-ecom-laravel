@@ -35,6 +35,8 @@
     <link rel="stylesheet" href="{{ asset('ezone/css/themify-icons.css')}}?{{ $assetVer }}">
     <link rel="stylesheet" href="{{ asset('ezone/css/pe-icon-7-stroke.css')}}?{{ $assetVer }}">
     <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css')}}?{{ $assetVer }}">
+    <link rel="stylesheet" href="{{ asset('ezone/bootstrap-icons/bootstrap-icons.css')}}?{{ $assetVer }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap-toaster/css/bootstrap-toaster.css')}}?{{ $assetVer }}">
     <link rel="stylesheet" href="{{ asset('css/star-rating.css')}}?{{ $assetVer }}">
     <link rel="stylesheet" href="{{ asset('css/cropper.css')}}?{{ $assetVer }}">
     <link rel="stylesheet" href="{{ asset('ezone/css/icofont.css')}}?{{ $assetVer }}">
@@ -49,6 +51,7 @@
     
     @livewireStyles
     @livewireScripts
+
 
 </head>
 
@@ -1001,8 +1004,9 @@
 
     <!-- all js here -->
     <script src="{{ asset('ezone/js/vendor/jquery-1.12.0.min.js')}}?{{ $assetVer }}"></script>
-    <script src="{{ asset('ezone/js/popper.js')}}?{{ $assetVer }}"></script>
     <script src="{{ asset('ezone/js/bootstrap.min.js')}}?{{ $assetVer }}"></script>
+    <script src="{{ asset('bootstrap-toaster/js/bootstrap-toaster.js')}}?{{ $assetVer }}"></script>
+    <script src="{{ asset('ezone/js/popper.js')}}?{{ $assetVer }}"></script>
     <script src="{{ asset('ezone/js/jquery.magnific-popup.min.js')}}?{{ $assetVer }}"></script>
     <script src="{{ asset('ezone/js/isotope.pkgd.min.js')}}?{{ $assetVer }}"></script>
     <script src="{{ asset('ezone/js/imagesloaded.pkgd.min.js')}}?{{ $assetVer }}"></script>

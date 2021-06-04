@@ -142,31 +142,31 @@ if ($('#dp_uploader').length) {
 
 
 
+Toast.setTheme(TOAST_THEME.DARK);
+Toast.setPlacement(TOAST_PLACEMENT.TOP_RIGHT);
 
 
+Livewire.on('cartAdded', product_name => {
+  Toast.create(`Added To Cart`, product_name, TOAST_STATUS.SUCCESS, 5000);
+})
+
+Livewire.on('cartRemoved', product_name => {
+  Toast.create(`Removed To Cart`, product_name, TOAST_STATUS.DANGER, 5000);
+})
 
 
+Livewire.on('wishlistAdded', product_name => {
+  Toast.create("Added To Wishlist", product_name, TOAST_STATUS.SUCCESS, 5000);
+})
+
+Livewire.on('wishlistRemoved', product_name => {
+  Toast.create("Removed To Wishlist", product_name, TOAST_STATUS.DANGER, 5000);
+})
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Toast.create(title, message, status = 0, timeout = 0)
+// Toast.setTheme(TOAST_THEME.DARK);
+// Toast.create("Title", "Toast Message", TOAST_STATUS.SUCCESS, 0);
 
 
 

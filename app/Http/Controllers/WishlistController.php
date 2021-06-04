@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Wishlist;
+use App\Models\Product;
 use App\Models\ProductImage;
 
 class WishlistController extends Controller
@@ -30,6 +31,7 @@ class WishlistController extends Controller
             'product_id' => 'required|exists:products,id',
         ]);
 
+        $product = Product::where('id', $req->product_id)->first();
         $wishlistCheck = Wishlist::where('user_id', Auth()->user()->id)->where('product_id', $req->product_id)->first();
 
         if (!isset($wishlistCheck)) {
@@ -38,12 +40,18 @@ class WishlistController extends Controller
             $wishlist->product_id = $req->product_id;
             $wishlist->save();
 
-            return 200;
+            return [
+                'status' => 200,
+                'product_name' => $product->product_name,
+            ];
 
         } else {
             $wishlistCheck->delete();
 
-            return 500;
+            return [
+                'status' => 500,
+                'product_name' => $product->product_name,
+            ];
         }
 
         

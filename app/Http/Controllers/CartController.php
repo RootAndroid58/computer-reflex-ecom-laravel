@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cart;
+use App\Models\Product;
 use App\Models\SessionCart;
 use Session;
 use Auth;
@@ -54,9 +55,11 @@ class CartController extends Controller
             'product_id' => 'required|exists:products,id',
         ]);
 
+        $product = Product::where('id', $req->product_id)->first();
+
         if (Auth::check()) 
         {
-            $CartCheck = Cart::where('user_id', Auth()->user()->id)->where('product_id', $req->product_id)->first();
+            $CartCheck = Cart::with('Products')->where('user_id', Auth()->user()->id)->where('product_id', $req->product_id)->first();
 
             if (!isset($CartCheck)) {
                 $Cart = new Cart;
@@ -65,17 +68,24 @@ class CartController extends Controller
                 $Cart->qty = 1;
                 $Cart->save();
     
-                return 200;
+                return [
+                    'status' => 200,
+                    'product_name' => $product->product_name,
+                ];
     
             } else {
+                
                 $CartCheck->delete();
-    
-                return 500;
+
+                return [
+                    'status' => 500,
+                    'product_name' => $product->product_name,
+                ];
             }
         }
         else 
         {
-            $CartCheck = SessionCart::where('session_id', Session::getId())->where('product_id', $req->product_id)->first();
+            $CartCheck = SessionCart::with('products')->where('session_id', Session::getId())->where('product_id', $req->product_id)->first();
 
             if (!isset($CartCheck)) {
                 $Cart = new SessionCart;
@@ -84,12 +94,19 @@ class CartController extends Controller
                 $Cart->qty = 1;
                 $Cart->save();
     
-                return 200;
+                return [
+                    'status' => 200,
+                    'product_name' => $product->product_name,
+                ];
     
             } else {
                 $CartCheck->delete();
-    
-                return 500;
+
+                return [
+                    'status' => 500,
+                    'product_name' => $product->product_name,
+                ];
+
             }
         }
 

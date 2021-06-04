@@ -54,6 +54,26 @@
             }
         }
     })
+
+    // $('.slider-active').on('changed.owl.carousel', function(e) {
+
+    //     var items     = e.item.count;     // Number of items
+    //     var item      = e.item.index;     // Position of the current item
+    //     var size      = e.page.size;      // Number of items per page
+    
+    //     if (item === 0) {
+    //         console.log('Start')
+    //     }
+    
+    //     if ((items - item) === size) {
+    //         setTimeout(() => {
+    //             $('.slider-active').trigger('to.owl.carousel', 0)
+    //         }, 5000);
+            
+    //     }
+        
+    
+    // });
     
     
     $('.slider-active-2').owlCarousel({

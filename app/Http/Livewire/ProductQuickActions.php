@@ -20,11 +20,13 @@ class ProductQuickActions extends Component
 
         $ToggleCart = CartController::ToggleCart(Request());
 
-        if ($ToggleCart == 200) {
+        if ($ToggleCart['status'] == 200) {
             $this->carted = 1;
+            $this->emit('cartAdded', WordLimit($ToggleCart['product_name'], 18));
         } 
-        elseif ($ToggleCart == 500) {
+        elseif ($ToggleCart['status'] == 500) {
             $this->carted = 0;
+            $this->emit('cartRemoved', WordLimit($ToggleCart['product_name'], 18));
         }
     }
 
@@ -34,11 +36,13 @@ class ProductQuickActions extends Component
 
         $ToggleWishlist = WishlistController::ToggleWishlist(Request());
 
-        if ($ToggleWishlist == 200) {
+        if ($ToggleWishlist['status'] == 200) {
             $this->wishlisted = 1;
+            $this->emit('wishlistAdded', WordLimit($ToggleWishlist['product_name'] ?? '', 18));
         } 
         elseif ($ToggleWishlist == 500) {
-            $this->wishlisted = 0;
+            $this->wishlisted['status'] = 0;
+            $this->emit('wishlistAdded', WordLimit($ToggleWishlist['product_name'] ?? '', 18));
         }
     }
 
