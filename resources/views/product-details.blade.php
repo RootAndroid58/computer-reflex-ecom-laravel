@@ -109,11 +109,9 @@
 
 
 @section('content')
-<div class="product-details ptb-100 pb-90">
-    <div class="container" >
+<div class="product-details pt-20 pb-90">
+    <div class="electronic-banner-area" >
         <div class="row">
-
-
             {{-- Images section Start --}}
             <div class="col-md-12 col-lg-7 col-12">
 
@@ -683,7 +681,7 @@
 
 <!-- Related products area start -->
 <div class="product-area pb-95">
-    <div class="container">
+    <div class="electronic-banner-area">
         <div class="section-title-3 text-center mb-50">
             <h2>Related products</h2>
         </div>

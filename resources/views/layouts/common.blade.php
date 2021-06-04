@@ -127,22 +127,9 @@
 
 
                         {{-- Header Cart Button --}}
-                        <div id="CartCount">
-                            <div class="header-cart">
-                                <a class="icon-cart-furniture" href="{{ route('cart') }}">
-                                    <i class="ti-shopping-cart"></i>
-                                    <span class="shop-count-furniture green">
-                                        @if (Auth::check())
-                                            {{ App\Models\Cart::where('user_id', Auth()->user()->id)->get()->count() }} 
-                                        @elseif(!Auth::check())
-                                            {{ App\Models\SessionCart::where('session_id', Session::getId())->get()->count() }} 
-                                        @else
-                                            0
-                                        @endif
-                                    </span>
-                                </a>
-                            </div>                         
-                        </div>
+                        @livewire('cart-count')
+
+
                     </div>
 
                     {{-- Mobile Menu --}}

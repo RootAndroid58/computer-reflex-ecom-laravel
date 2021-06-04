@@ -198,27 +198,8 @@
                     </div>
                 </div>
 
+                @livewire('cart-count', ['page' => 'home'])
 
-
-
-                <div class="trace-cart-wrapper">
-                    <div class="categories-cart same-style">
-                        <div class="same-style-icon">
-                            <a href="{{ route('cart') }}"><i class="pe-7s-cart"></i></a>
-                        </div>
-                        <div class="same-style-text">
-                            <a href="{{ route('cart') }}">My Cart <br>
-                                @if (Auth::check())
-                                {{ App\Models\Cart::where('user_id', Auth()->user()->id)->get()->count() }} 
-                                @else
-                                {{ App\Models\SessionCart::where('session_id', Session::getId())->get()->count() }}
-                                @endif
-                                
-                                
-                                Item</a>
-                        </div>
-                    </div>
-                </div>
                 <div class="mobile-menu-area electro-menu d-md-block col-md-12 col-lg-12 col-12 d-lg-none d-xl-none">
                     <div class="mobile-menu">
                         <nav id="mobile-menu-active">
