@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Compare;
 use App\Models\Specification;
 use App\Models\SessionCompare;
+use App\Models\Product;
 use Session;
 use Auth;
 
@@ -38,6 +39,8 @@ class CompareController extends Controller
         $req->validate([
             'product_id' => 'required|exists:products,id'
         ]);
+
+        $product = Product::where('id', $req->product_id)->first();
 
         if (Auth::check()) {
             $compareCheck = Compare::where('user_id', Auth()->user()->id)->where('product_id', $req->product_id)->first();
@@ -73,6 +76,7 @@ class CompareController extends Controller
 
         return [
             'product_id'    => $req->product_id,
+            'product_name'  => $product->product_name,
             'status'        => $status,
             'type'          => $type,
             'msg'           => $msg,

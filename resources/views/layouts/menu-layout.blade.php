@@ -2,30 +2,30 @@
 
 @section('content') <div class="body-container">
 
-    @yield('modals')
-                <!-- Modal -->
-                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="modalLabel">Crop the image</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                            <input type="hidden" id="updateDpURL" value="{{ route('dp-update') }}">
-                          <div class="img-container">
-                            <img id="image" src="https://avatars0.githubusercontent.com/u/3456749">
-                          </div>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                          <button type="button" class="btn btn-primary" id="crop">Upload</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+@yield('modals')
+    <!-- Modal -->
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Crop the image</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="updateDpURL" value="{{ route('dp-update') }}">
+                <div class="img-container">
+                <img id="image" src="https://avatars0.githubusercontent.com/u/3456749">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="crop">Upload</button>
+            </div>
+            </div>
+        </div>
+        </div>
 
 
 
@@ -80,7 +80,7 @@
                     <div class="w-100" style="padding-bottom: 12px;">
                         <a style="width: 100%;" href="{{ route('my-account') }}"><div class="account-menu-item @yield('profile-information-nav')">Profile Information</div></a>
                         <a style="width: 100%;" href="{{ route('addresses') }}"><div class="account-menu-item @yield('manage-addresses-nav')">Manage Addresses</div></a>
-                        <a style="width: 100%;" href="/account/pancard"><div class="account-menu-item">PAN Card Information</div></a>
+                        {{-- <a style="width: 100%;" href="/account/pancard"><div class="account-menu-item">PAN Card Information</div></a> --}}
                     </div>
 
 

@@ -6,6 +6,7 @@ use Livewire\Component;
 
 use App\Models\Cart;
 use App\Models\SessionCart;
+use Session;
 
 class CartCount extends Component
 {

@@ -8,6 +8,12 @@ use App\Models\ProductImage;
 use App\Models\ProductTag;
 use App\Models\Category;
 use App\Models\Specification;
+use App\Models\Wishlist;
+use App\Models\Compare;
+use App\Models\SessionCompare;
+use App\Models\Cart;
+use App\Models\SessionCart;
+use Session;
 
 use Nicolaslopezj\Searchable\SearchableTrait;
 
@@ -68,6 +74,7 @@ class Product extends Model
     {
         return $this->hasOne(ProductComission::class, 'product_id', 'id')->orderBy('id', 'desc');
     }
+
     public function questions()
     {
         return $this->hasMany(ProductQuestion::class, 'product_id', 'id')->orderBy('id', 'desc');
@@ -76,4 +83,30 @@ class Product extends Model
     {
         return $this->hasMany(Specification::class, 'product_id', 'id');
     }
+
+
+    public function carted()
+    {
+        if (Auth()->check()) {
+            return $this->hasOne(Cart::class, 'product_id', 'id')->where('user_id', Auth()->user()->id);
+        } else {
+            return $this->hasOne(SessionCart::class, 'product_id', 'id')->where('session_id', Session::getId());
+        }
+    }
+    public function wishlisted()
+    {
+        if (Auth()->check()) {
+            return $this->hasOne(Wishlist::class, 'product_id', 'id')->where('user_id', Auth()->user()->id);
+        }
+    }
+    public function compared()
+    {
+        if (Auth()->check()) {
+            return $this->hasOne(Compare::class, 'product_id', 'id')->where('user_id', Auth()->user()->id);
+        } else {
+            return $this->hasOne(SessionCompare::class, 'product_id', 'id')->where('session_id', Session::getId());
+        }
+    }
+
+
 }

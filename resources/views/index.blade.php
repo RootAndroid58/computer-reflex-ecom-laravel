@@ -84,6 +84,9 @@
         </div>
     </div>
     @endif --}}
+
+    @livewire('basic-helper')
+    
     <input type="hidden" name="toggle-compare-btn" value="{{ route('toggle-compare-btn') }}">
     
     <!-- Modal -->
@@ -280,7 +283,6 @@
                     {{-- Home Slider Banner Area Start --}}
                     <div class="slider-area">
                         <div class="slider-active owl-carousel">
-                            
                             @foreach ($banners as $banner)
                                 @livewire('home-slider-banner', ['banner' => $banner], key($banner->id))
                             @endforeach
@@ -311,12 +313,8 @@
         @endif
     @endforeach
 
-
-
     @livewire('home-wide-banner', ['SmallBanner' => $SmallBanners[3]], key($user->id))
     
-
-
     @foreach ($sections as $key => $section)
         @if ($sections->count()/2 <= $key)
             @include('includes.home-page-products-carousel')
@@ -344,151 +342,35 @@
                     <h4>Motherboards</h4>
                 </a>
             </div>
-            <div class="tab-content">
 
+
+
+            <div class="tab-content">
                 {{-- topProducts1 section --}}
                 <div class="tab-pane fade" id="topProducts1" role="tabpanel">
                     <div class="custom-row-2">
                         @foreach ($topProducts1 as $product)
-                        <div class="custom-col-style-2 custom-col-4">
-                            <div class="product-wrapper product-border mb-24">
-                                <div class="product-img-3">
-                                    <a href="{{ route('product-index', $product->id) }}" >
-                                        <div class="prod-back-div" style="width: 100%; height: 175px; background-image: url('{{asset('storage/images/products/'.$product->images[0]->image)}}');"></div>
-                                    </a>
-                                    <div class="product-action-right">
-                                        <a class="animate-right cursor-pointer" title="Quick View" onclick="ToggleCompare({{ $product->id }})">
-                                            <i class="pe-7s-repeat"></i>
-                                        </a>
-                                        <a class="animate-top cursor-pointer" title="Add To Cart" onclick="ToggleCart({{ $product->id }})">
-                                            <i class="pe-7s-cart"></i>
-                                        </a>
-                                        <a class="animate-left cursor-pointer" title="Wishlist" onclick="ToggleWishlist({{ $product->id }})">
-                                            <i class="pe-7s-like"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="product-content-4 text-center">
-                                    <div class="product-rating-4">
-                                        <i class="icofont icofont-star @if (isset($product->stars->stars) && $product->stars->stars >= 1) yellow @endif "></i>
-                                        <i class="icofont icofont-star @if (isset($product->stars->stars) && $product->stars->stars >= 2) yellow @endif "></i>
-                                        <i class="icofont icofont-star @if (isset($product->stars->stars) && $product->stars->stars >= 3) yellow @endif "></i>
-                                        <i class="icofont icofont-star @if (isset($product->stars->stars) && $product->stars->stars >= 4) yellow @endif "></i>
-                                        <i class="icofont icofont-star @if (isset($product->stars->stars) && $product->stars->stars >= 5) yellow @endif "></i>
-                                    </div>
-                                    <h4><a href="{{ route('product-index', $product->id) }}" class="line-limit-2">{{$product->product_name}}</a></h4>
-                                    <span>
-                                        <span class="text-muted" style="font-size: 15px;"><font class="rupees"><s>₹</s></font><s> 35,799</s></span> <b style="font-size: 17px; color: #388e3c; font-weight: 500;">{{ round((($product->product_mrp - $product->product_price) / $product->product_mrp)*100) }}% off</b>
-                                    </span>
-                                    <h5><font class="rupees">₹</font>{{ moneyFormatIndia($product->product_price) }}</h5>
-                                </div>
-                            </div>
-                        </div>
+                            @livewire('top-products-section', ['product' => $product], key($product->id))
                         @endforeach
                     </div>
                 </div>
-
                 {{-- topProducts2 section --}}
                 <div class="tab-pane fade active show" id="topProducts2" role="tabpanel">
                     <div class="custom-row-2">
                         @foreach ($topProducts2 as $product)
-                        <div class="custom-col-style-2 custom-col-4">
-                            <div class="product-wrapper product-border mb-24">
-                                <div class="product-img-3">
-                                    <a href="{{ route('product-index', $product->id) }}" >
-                                        <div class="prod-back-div" style="width: 100%; height: 175px; background-image: url('{{asset('storage/images/products/'.$product->images[0]->image)}}');"></div>
-                                    </a>
-                                    <div class="product-action-right">
-                                        <a class="animate-right cursor-pointer" title="Quick View" onclick="ToggleCompare({{ $product->id }})">
-                                            <i class="pe-7s-repeat"></i>
-                                        </a>
-                                        <a class="animate-top cursor-pointer" title="Add To Cart" onclick="ToggleCart({{ $product->id }})">
-                                            <i class="pe-7s-cart"></i>
-                                        </a>
-                                        <a class="animate-left cursor-pointer" title="Wishlist" onclick="ToggleWishlist({{ $product->id }})">
-                                            <i class="pe-7s-like"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="product-content-4 text-center">
-                                    <div class="product-rating-4">
-                                        
-                                  
-                                        <i class="icofont icofont-star @if (isset($product->stars->stars) && $product->stars->stars >= 1) yellow @endif "></i>
-                                        <i class="icofont icofont-star @if (isset($product->stars->stars) && $product->stars->stars >= 2) yellow @endif "></i>
-                                        <i class="icofont icofont-star @if (isset($product->stars->stars) && $product->stars->stars >= 3) yellow @endif "></i>
-                                        <i class="icofont icofont-star @if (isset($product->stars->stars) && $product->stars->stars >= 4) yellow @endif "></i>
-                                        <i class="icofont icofont-star @if (isset($product->stars->stars) && $product->stars->stars >= 5) yellow @endif "></i>
-                                        
-
-                                        
-
-                                    </div>
-                                    <h4><a href="{{ route('product-index', $product->id) }}" class="line-limit-2">{{$product->product_name}}</a></h4>
-                                    <span>
-                                        <span class="text-muted" style="font-size: 15px;"><font class="rupees"><s>₹</s></font><s> 35,799</s></span> <b style="font-size: 17px; color: #388e3c; font-weight: 500;">{{ round((($product->product_mrp - $product->product_price) / $product->product_mrp)*100) }}% off</b>
-                                    </span>
-                                    <h5><font class="rupees">₹</font>{{ moneyFormatIndia($product->product_price) }}</h5>
-                                </div>
-                            </div>
-                        </div>
+                            @livewire('top-products-section', ['product' => $product], key($product->id))
                         @endforeach
-
-
                     </div>
                 </div>
-                
-
                 {{-- topProducts3 section --}}
                 <div class="tab-pane fade" id="topProducts3" role="tabpanel">
                     <div class="custom-row-2">
-
                         @foreach ($topProducts3 as $product)
-                        <div class="custom-col-style-2 custom-col-4">
-                            <div class="product-wrapper product-border mb-24">
-                                <div class="product-img-3">
-                                    <a href="{{ route('product-index', $product->id) }}" >
-                                        <div class="prod-back-div" style="width: 100%; height: 175px; background-image: url('{{asset('storage/images/products/'.$product->images[0]->image)}}');"></div>
-                                    </a>
-                                    <div class="product-action-right">
-                                        <a class="animate-right cursor-pointer" title="Quick View" onclick="ToggleCompare({{ $product->id }})">
-                                            <i class="pe-7s-repeat"></i>
-                                        </a>
-                                        <a class="animate-top" title="Add To Cart" href="#">
-                                            <i class="pe-7s-cart"></i>
-                                        </a>
-                                        <a class="animate-left" title="Wishlist" href="#">
-                                            <i class="pe-7s-like"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="product-content-4 text-center">
-                                    <div class="product-rating-4">
-                                        
-                                  
-                                        <i class="icofont icofont-star @if (isset($product->stars->stars) && $product->stars->stars >= 1) yellow @endif "></i>
-                                        <i class="icofont icofont-star @if (isset($product->stars->stars) && $product->stars->stars >= 2) yellow @endif "></i>
-                                        <i class="icofont icofont-star @if (isset($product->stars->stars) && $product->stars->stars >= 3) yellow @endif "></i>
-                                        <i class="icofont icofont-star @if (isset($product->stars->stars) && $product->stars->stars >= 4) yellow @endif "></i>
-                                        <i class="icofont icofont-star @if (isset($product->stars->stars) && $product->stars->stars >= 5) yellow @endif "></i>
-                                        
-
-                                        
-
-                                    </div>
-                                    <h4><a href="{{ route('product-index', $product->id) }}" class="line-limit-2">{{$product->product_name}}</a></h4>
-                                    <span>
-                                        <span class="text-muted" style="font-size: 15px;"><font class="rupees"><s>₹</s></font><s> 35,799</s></span> <b style="font-size: 17px; color: #388e3c; font-weight: 500;">{{ round((($product->product_mrp - $product->product_price) / $product->product_mrp)*100) }}% off</b>
-                                    </span>
-                                    <h5><font class="rupees">₹</font>{{ moneyFormatIndia($product->product_price) }}</h5>
-                                </div>
-                            </div>
-                        </div>
+                            @livewire('top-products-section', ['product' => $product], key($product->id))
                         @endforeach
-
                     </div>
                 </div>
-
+                
 
 
             </div>
@@ -497,86 +379,24 @@
 </div>
 
 
-
-
-
-
-
-
-
-
 @livewire('home-wide-banner', ['SmallBanner' => $SmallBanners[4]], key($user->id))
     
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
-    <div class="product-area-2 wrapper-padding pb-70">
-        <div class="container-fluid">
-            <div class="section-title-4 text-center mb-60">
-                <h2>Best Selling</h2>
-            </div>
-            <div class="row">
-                @foreach ($BestSellingProducts as $BestSellingProduct)
-                <div class="col-lg-6 col-xl-4">
-                    <div class="product-wrapper product-wrapper-border mb-30">
-                        <div class="product-img-5">
-                            <a href="{{route('product-index', $BestSellingProduct->id)}}">
-                              
-                                    <img style="width: 100%; max-height: 100%;" src="{{ asset('img/grey.gif')  }}" data-src="{{ asset('storage/images/products/'.$BestSellingProduct->images[0]->image) }}">
-                           
-                            </a>
-                        </div>
-
-                        <div class="product-content-7">
-                            <h4><a href="{{route('product-index', $BestSellingProduct->id)}}" class="line-limit-2">{{$BestSellingProduct->product_name}}</a></h4>
-                            <div class="product-rating-4">
-                                <i class="icofont icofont-star @if (isset($BestSellingProduct->stars->stars) && $BestSellingProduct->stars->stars >= 1) yellow @endif "></i>
-                                <i class="icofont icofont-star @if (isset($BestSellingProduct->stars->stars) && $BestSellingProduct->stars->stars >= 2) yellow @endif "></i>
-                                <i class="icofont icofont-star @if (isset($BestSellingProduct->stars->stars) && $BestSellingProduct->stars->stars >= 3) yellow @endif "></i>
-                                <i class="icofont icofont-star @if (isset($BestSellingProduct->stars->stars) && $BestSellingProduct->stars->stars >= 4) yellow @endif "></i>
-                                <i class="icofont icofont-star @if (isset($BestSellingProduct->stars->stars) && $BestSellingProduct->stars->stars >= 5) yellow @endif "></i>
-                            </div>
-                            <h5><font class="rupees">₹</font>{{moneyFormatIndia($BestSellingProduct->product_price)}}</h5>
-                            <div class="product-action-electro">
-                                <a class="animate-top cursor-pointer" title="Add To Cart" onclick="ToggleCart({{ $BestSellingProduct->id }})">
-                                    <i class="pe-7s-cart"></i>
-                                </a>
-                                <a class="animate-left cursor-pointer" title="Wishlist" onclick="ToggleWishlist({{ $BestSellingProduct->id }})">
-                                    <i class="pe-7s-like"></i>
-                                </a>
-                                <a class="animate-right cursor-pointer" title="Compare" onclick="ToggleCompare({{ $BestSellingProduct->id }})">
-                                    <i class="pe-7s-repeat"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
+<div class="product-area-2 wrapper-padding pb-70">
+    <div class="container-fluid">
+        <div class="section-title-4 text-center mb-60">
+            <h2>Best Selling</h2>
+        </div>
+        <div class="row">
+            @foreach ($BestSellingProducts as $product)
+                @livewire('best-selling-section', ['product' => $product], key($product->id))
+            @endforeach
         </div>
     </div>
+</div>
+
+
 
     
     <div class="brand-logo-area-2 wrapper-padding ptb-80">
@@ -982,7 +802,6 @@
     </div>
 
 
-
     <!-- all js here -->
     <script src="{{ asset('ezone/js/vendor/jquery-1.12.0.min.js')}}?{{ $assetVer }}"></script>
     <script src="{{ asset('ezone/js/bootstrap.min.js')}}?{{ $assetVer }}"></script>
@@ -1002,9 +821,7 @@
     <script src="{{ asset('js/main.js')}}?{{ $assetVer }}"></script>
 
 <script>
-
 function EditSmallBanner(banner_id) {
-
 $.ajax({
   url: "{{ route('get-small-banner-data') }}",
   method: 'POST',
@@ -1022,81 +839,6 @@ $.ajax({
   }
 })
 }
-
-
-
-function ToggleWishlist(product_id) {
-
-$.ajax({
-    url: "{{route('toggle-wishlist-btn')}}",
-    method: 'POST',
-    data: {
-        'product_id' : product_id,
-    },
-    success: function (data) {
-
-        if (data == 500) {
-            $(".bootstrap-growl").remove();
-            $.bootstrapGrowl("Removed from wishlist.", {
-                type: "danger",
-                offset: {from:"bottom", amount: 100},
-                align: 'center',
-                allow_dismis: true,
-                stack_spacing: 10,
-            })
-        } else if(data == 200) {
-            $(".bootstrap-growl").remove();
-            $.bootstrapGrowl("Added to wishlist.", {
-                type: "success",
-                offset: {from:"bottom", amount: 100},
-                align: 'center',
-                allow_dismis: true,
-                stack_spacing: 10,
-            })
-        }
-    }
-})
-
-}
-
-function ToggleCart(product_id) {
-
-    $.ajax({
-    url: "{{route('toggle-cart-btn')}}",
-    method: 'POST',
-    data: {
-        'product_id' : product_id,
-    },
-    success: function (data) {
-
-        if (data == 200) {
-            $('#CartCount').load("{{ route('cart') }} #CartCount")
-            $(".bootstrap-growl").remove();
-            $.bootstrapGrowl("Added To Cart.", {
-                type: "success",
-                offset: {from:"bottom", amount: 100},
-                align: 'center',
-                allow_dismis: true,
-                stack_spacing: 10,
-            })
-        } else if(data == 500) {
-            $('#CartCount').load("{{ route('cart') }} #CartCount")
-            $(".bootstrap-growl").remove();
-            $.bootstrapGrowl("Removed From Cart.", {
-                type: "danger",
-                offset: {from:"bottom", amount: 100},
-                align: 'center',
-                allow_dismis: true,
-                stack_spacing: 10,
-            })
-        }
-    }
-})
-
-}
-
-
-
 </script>
 
 </body>

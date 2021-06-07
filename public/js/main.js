@@ -6,6 +6,10 @@ $( document ).ready(function( $ ) {
 
 
 $(document).on('ajaxStop', function() {
+  initLazyImg();
+});
+
+function initLazyImg() {
   $("img").lazyload();
   $(".lazyimgContainer").each(function() {
     var tthis = $(this);
@@ -13,7 +17,7 @@ $(document).on('ajaxStop', function() {
         container: tthis
     });
   });
-});
+}
 
 $(".lazyimgContainer").each(function() {
   var tthis = $(this);
@@ -143,17 +147,18 @@ if ($('#dp_uploader').length) {
 
 
 Toast.setTheme(TOAST_THEME.DARK);
-Toast.setPlacement(TOAST_PLACEMENT.TOP_RIGHT);
-
+Toast.setPlacement(TOAST_PLACEMENT.BOTTOM_RIGHT);
+Toast.setMaxCount(10);
 
 Livewire.on('cartAdded', product_name => {
+  console.log(`Added To Cart: ${product_name}`);
   Toast.create(`Added To Cart`, product_name, TOAST_STATUS.SUCCESS, 5000);
 })
 
 Livewire.on('cartRemoved', product_name => {
+  console.log(`Removed From Cart: ${product_name}`);
   Toast.create(`Removed From Cart`, product_name, TOAST_STATUS.DANGER, 5000);
 })
-
 
 Livewire.on('wishlistAdded', product_name => {
   Toast.create("Added To Wishlist", product_name, TOAST_STATUS.SUCCESS, 5000);
@@ -161,6 +166,14 @@ Livewire.on('wishlistAdded', product_name => {
 
 Livewire.on('wishlistRemoved', product_name => {
   Toast.create("Removed From Wishlist", product_name, TOAST_STATUS.DANGER, 5000);
+})
+
+Livewire.on('compareAdded', product_name => {
+  Toast.create("Added To Compare", product_name, TOAST_STATUS.SUCCESS, 5000);
+})
+
+Livewire.on('compareRemoved', product_name => {
+  Toast.create("Removed From Compare", product_name, TOAST_STATUS.DANGER, 5000);
 })
 
 
@@ -200,13 +213,14 @@ Livewire.on('wishlistRemoved', product_name => {
       var viewedSlider = $('.bbb_viewed_slider');
       viewedSlider.owlCarousel(
           {
-              loop:true,
+              loop:false,
+              rewind:true,
               margin:30,
               autoplay:true,
               autoplayHoverPause: true,
               autoplayTimeout:8000,
               nav:false,
-              lazyLoad:true,
+              lazyLoad:false,
               dots:false,
               responsive:
               {

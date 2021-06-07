@@ -109,11 +109,14 @@
 
 
 @section('content')
+
+@livewire('basic-helper')
+
 <div class="product-details pt-20 pb-90">
-    <div class="electronic-banner-area" >
+    <div class="container" >
         <div class="row">
             {{-- Images section Start --}}
-            <div class="col-md-12 col-lg-7 col-12">
+            <div class="col-md-12 col-lg-6 col-12">
 
                 <div class="product_img_slider">
                     <!-- All Images list -->
@@ -168,7 +171,7 @@
 
 
             {{-- Product details start --}}
-            <div class="col-md-12 col-lg-5 col-12">
+            <div class="col-md-12 col-lg-6 col-12">
                 <div class="product-details-content">
 
 
@@ -206,12 +209,7 @@
                     <div class="est-delivery-date">
                         <span>Est. Delivery Date: <b>{{ $est_dt->format( 'dS M, Y (D)' ) }}</b></span>
                     </div>
-                    
 
-                    {{-- Top product description --}}
-                    <section class="top-description">
-                        <p class="top-description">{!! $product->product_description !!}</p>
-                    </section>
 
                     @can('Admin') 
                     <div class="row">
@@ -273,7 +271,15 @@
                     
 
                     {{-- Quick actions --}}           
-                    @livewire('product-quick-actions', ['product' => $product, 'wishlisted' => $wishlisted, 'carted' => $carted, 'compared' => $compared], key($user->id))
+                    @livewire('product-quick-actions', ['product' => $product, 'wishlisted' => $wishlisted, 'carted' => $carted, 'compared' => $compared], key($product->id))
+                    
+
+                    {{-- Top product description --}}
+                    <section class="top-description">
+                        <p class="top-description">{!! $product->product_description !!}</p>
+                    </section>
+
+                    
 
                     {{--  Category --}}
                     <div class="product-details-cati-tag mt-35">
@@ -545,29 +551,24 @@
                     </div>
                     </form>
 
+
+
                     @foreach ($reviews as $review)
                        @if ($review->message != '' || $review->title != '')
-                        <div class="wishlist-basic-padding" style="border: 1px solid #dddddd; border-radius: 2px; border-top: 0;">
-                            <div class="row">
-                                <button type="button" class="btn btn-dark btn-sm">
-                                    {{-- 6969696 --}}
-                                    {{$review->stars}} <span><i class="fa fa-star" aria-hidden="true"></i></span>
-                                </button>
-                                <span style="padding-left: 12px; padding-top: 3px; font-size: 14px; color: #212121; font-weight: 500;">{{ $review->title ?? '' }}</span>
-                            </div>
-                            <div class="row">
-                                <span style="margin: 12px 0;">
-                                    {{ $review->message }}
-                                </span>
-                            </div>
-
-                            <div class="row">
-                                <span style="margin: 12px 0;">
-                                    {{ $review->user->name }} <img width="14" src="{{asset('img/svg/verified-tick.svg')}}" alt=""> (Buyer), {{ HowMuchOldDate($review->created_at, 'days') }} ago
-                                </span>
-                            </div>
-                        </div>        
-                           
+                            <div class="wishlist-basic-padding" style="border: 1px solid #dddddd; border-radius: 2px; border-top: 0;">
+                                <div class="row">
+                                    <button type="button" class="btn btn-dark btn-sm">{{$review->stars}} <span><i class="fa fa-star" aria-hidden="true"></i></span></button>
+                                    <span style="padding-left: 12px; padding-top: 3px; font-size: 14px; color: #212121; font-weight: 500;">{{ $review->title ?? '' }}</span>
+                                </div>
+                                <div class="row">
+                                    <span style="margin: 12px 0;">{{ $review->message }}</span>
+                                </div>
+                                <div class="row">
+                                    <span style="margin: 12px 0;">
+                                        {{ $review->user->name }} <img loading="lazy" width="14" src="{{asset('img/svg/verified-tick.svg')}}" alt=""> (Buyer), {{ HowMuchOldDate($review->created_at, 'days') }} ago
+                                    </span>
+                                </div>
+                            </div>        
                         @endif
                     @endforeach
 
@@ -654,24 +655,12 @@
                                                 </div>
                                         </div>
                                     </div>
-
-
-
                         </div> 
-                
-
                     </div>
-
-
-
             </div>
         </div>
     </div>
 </div> {{-- Description & Specification Area container end --}}
-
-
-
-
 
 
 
@@ -687,50 +676,18 @@
         </div>
         <div class="product-style">
             <div class="related-product-active owl-carousel">
-
                 @if (isset($RelatedProducts))
-                @foreach ($RelatedProducts as $RelatedProduct)
-                @if ($RelatedProduct->id != $product->id)
-                <div class="product-wrapper">
-                    <div class="product-img">
-                        <a href="{{route('product-index', $RelatedProduct->id)}}">
-                            <div class="sm-prod-img-container" style="background-image: url('{{ asset('storage/images/products/'.$RelatedProduct->images[0]->image) }}');"></div>
-                        </a>
-                        <div class="product-action">
-                            <a class="animate-left" title="Wishlist" onclick="ToggleWishlist({{$RelatedProduct->id}})" style="cursor: pointer;">
-                                <i class="pe-7s-like"></i>
-                            </a>
-                            <a class="animate-right" title="Add To Cart" onclick="ToggleCart({{$RelatedProduct->id}})" style="cursor: pointer;">
-                                <i class="pe-7s-cart"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="product-content">
-                        <h4><a href="{{route('product-index', $RelatedProduct->id)}}" target="_blank" class="line-limit-2" title="{{$RelatedProduct->product_name}}"> {{$RelatedProduct->product_name}} </a></h4>
-                        <span><font class="rupees">₹</font> 
-                            {{ moneyFormatIndia($RelatedProduct->product_price) }}
-                            <b style="font-size: 17px; color: #388e3c; font-weight: 500;">{{ round((($RelatedProduct->product_mrp - $RelatedProduct->product_price) / $RelatedProduct->product_mrp)*100) }}% off</b>
-                        </span>
-                    </div>
-                </div>
+                    @foreach ($RelatedProducts as $RelatedProduct)
+                        @if ($RelatedProduct->id != $product->id)
+                            @livewire('related-product', ['product' => $RelatedProduct], key($RelatedProduct->id))
+                        @endif
+                    @endforeach
                 @endif
-                @endforeach
-                @endif
-
             </div>
         </div>
     </div>
 </div>
 <!-- Related products area end -->
-
-
-
-{{-- Data for ajax requests --}}
-<div class="d-none">
-    <form>
-        <input name="product_id" value="{{ $product->id }}">
-    </form> 
-</div>
 
 @endsection
 
@@ -842,88 +799,5 @@ $(document).ready(function() {
   });
 });
 </script>
-
-
-
-
-<script>
-
-function ToggleWishlist(product_id) {
-
-$.ajax({
-    url: "{{route('toggle-wishlist-btn')}}",
-    method: 'POST',
-    data: {
-        'product_id' : product_id,
-    },
-    success: function (data) {
-
-        if (data == 500) {
-            $(".bootstrap-growl").remove();
-            $.bootstrapGrowl("Removed from wishlist.", {
-                type: "danger",
-                offset: {from:"bottom", amount: 50},
-                align: 'center',
-                allow_dismis: true,
-                stack_spacing: 10,
-            })
-        } else if(data == 200) {
-            $(".bootstrap-growl").remove();
-            $.bootstrapGrowl("Added to wishlist.", {
-                type: "success",
-                offset: {from:"bottom", amount: 50},
-                align: 'center',
-                allow_dismis: true,
-                stack_spacing: 10,
-            })
-        }
-    }
-})
-
-}
-
-function ToggleCart(product_id) {
-
-    $.ajax({
-    url: "{{route('toggle-cart-btn')}}",
-    method: 'POST',
-    data: {
-        'product_id' : product_id,
-    },
-    success: function (data) {
-
-        if (data == 200) {
-            $('#CartCount').load("{{ route('cart') }} #CartCount")
-            $(".bootstrap-growl").remove();
-            $.bootstrapGrowl("Added To Cart.", {
-                type: "success",
-                offset: {from:"top", amount: 100},
-                align: 'center',
-                allow_dismis: true,
-                stack_spacing: 10,
-            })
-        } else if(data == 500) {
-            $('#CartCount').load("{{ route('cart') }} #CartCount")
-            $(".bootstrap-growl").remove();
-            $.bootstrapGrowl("Removed From Cart.", {
-                type: "danger",
-                offset: {from:"top", amount: 100},
-                align: 'center',
-                allow_dismis: true,
-                stack_spacing: 10,
-            })
-        }
-    }
-})
-
-}
-</script>
-
-
-
-
-
-
-
 
 @endsection
