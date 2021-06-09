@@ -1,8 +1,15 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
 
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+// Plugings
+@import '~jquery-ui/themes/base/all.css';
+@import '~magnific-popup/dist/magnific-popup.css';
+@import 'summernote/dist/summernote-bs4.css';
+@import '~bootstrap-icons/font/bootstrap-icons.css';
+@import '../fontawesome/css/all.min.css';

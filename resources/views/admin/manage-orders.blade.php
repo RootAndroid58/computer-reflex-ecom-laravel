@@ -4,11 +4,7 @@
 @section('title','Manage Orders')
 
 @section('css-js')
-    <style>
-        #AdminOrdersTable td{
-            font-weight: 600;
-        }
-    </style>
+
 @endsection
 
 

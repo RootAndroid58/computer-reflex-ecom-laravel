@@ -4,40 +4,13 @@
     <meta charset="utf-8">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') - {{ config('app.name') }}</title>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-STJZ4CTNF7"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
 
-        gtag('config', 'G-STJZ4CTNF7');
-    </script>
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
-    <!-- Scripts -->
+    @include('includes.top-includes')
     
-    <link rel="stylesheet" href="{{ asset('SB-Admin/bootstrap/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-    <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('ezone/bootstrap-icons/bootstrap-icons.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="{{ asset('css/jquery.tagit.css')}}">
-    <link rel="stylesheet" href="{{ asset('css/tagit.ui-zendesk.css')}}">
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/collapse-bs4.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-
-    <script src="{{ asset('SB-Admin/js/jquery.min.js')}}"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
-    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="{{ asset('js/tag-it.js')}}"></script>
-
     @yield('css-js')
 
     @livewireStyles
@@ -48,7 +21,7 @@
     @yield('modals')
 
     <div id="wrapper">
-    <nav class="toggled navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-dark p-0" style="transition: 300ms;">
+    <nav class="toggled navbar bg-dark navbar-dark align-items-start sidebar sidebar-dark accordion p-0" style="transition: 300ms;">
         <div class="container-fluid d-flex flex-column p-0">
             <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="/admin">
                 <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
@@ -129,13 +102,11 @@
                 
 
     @yield('content')
-                
-        
+            
 
 
 </div>
 
-       
 
 <footer class="bg-white sticky-footer">
     <div class="container my-auto">
@@ -148,25 +119,8 @@
 </div>
 
 
-<script src="{{ asset('SB-Admin/bootstrap/js/bootstrap.min.js')}}"></script>
-<script src="{{ asset('SB-Admin/js/chart.min.js')}}"></script>
-<script src="{{ asset('SB-Admin/js/bs-init.js')}}"></script>
-<script src="{{ asset('SB-Admin/js/theme.js')}}"></script>
-<script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
-<script src="{{ asset('js/summernote-bs4.js')}}"></script>
-<script src="{{ asset('js/jquery.bootstrap-growl.min.js')}}"></script>
+@include('includes.bottom-includes')
 
-<script>
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
-</script>
-
-
-<script src="{{asset('js/main.js')}}"></script>
 @yield('bottom-js')
-
-
 </body>
-
 </html>

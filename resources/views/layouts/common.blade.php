@@ -9,41 +9,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico')}}">
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-STJZ4CTNF7"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
 
-            gtag('config', 'G-STJZ4CTNF7');
-        </script>
-		<!-- all css here -->
-        <link rel="stylesheet" href="{{ asset('ezone/css/bootstrap.min.css') }}?{{ $assetVer }}">
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
-        <link rel="stylesheet" href="{{ asset('ezone/css/magnific-popup.css') }}?{{ $assetVer }}">
-        <link rel="stylesheet" href="{{ asset('ezone/css/animate.css')}}?{{ $assetVer }}">
-        <link rel="stylesheet" href="{{ asset('ezone/css/owl.carousel.min.css')}}?{{ $assetVer }}">
-        <link rel="stylesheet" href="{{ asset('ezone/css/themify-icons.css')}}?{{ $assetVer }}">
-        <link rel="stylesheet" href="{{ asset('ezone/css/pe-icon-7-stroke.css')}}?{{ $assetVer }}">
-        <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css')}}?{{ $assetVer }}">
-        <link rel="stylesheet" href="{{ asset('ezone/bootstrap-icons/bootstrap-icons.css')}}?{{ $assetVer }}">
-        <link rel="stylesheet" href="{{ asset('bootstrap-toaster/css/bootstrap-toaster.css')}}?{{ $assetVer }}">
-        <link rel="stylesheet" href="{{ asset('css/star-rating.css')}}?{{ $assetVer }}">
-        <link rel="stylesheet" href="{{ asset('css/cropper.css')}}?{{ $assetVer }}">
-        <link rel="stylesheet" href="{{ asset('ezone/css/icofont.css')}}?{{ $assetVer }}">
-        <link rel="stylesheet" href="{{ asset('ezone/css/meanmenu.min.css')}}?{{ $assetVer }}">
-        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset('ezone/css/bundle.css')}}?{{ $assetVer }}">
-        <link rel="stylesheet" href="{{ asset('ezone/css/style.css')}}?{{ $assetVer }}">
-        <link rel="stylesheet" href="{{ asset('ezone/css/responsive.css')}}?{{ $assetVer }}">
-        <link rel="stylesheet" href="{{ asset('css/collapse-bs4.css')}}?{{ $assetVer }}">
-        <link rel="stylesheet" href="{{ asset('css/custom.css')}}?{{ $assetVer }}">
-        <script src="{{ asset('ezone/js/vendor/modernizr-2.8.3.min.js')}}?{{ $assetVer }}"></script>
+        @include('includes.top-includes')
 
         @livewireStyles
         @livewireScripts
-        
+
         @yield('css-js')
         <style>
             .body-container{
@@ -53,19 +24,19 @@
             .rupees{
                 font-family: Arial, Helvetica, sans-serif;
             }
-
         </style>
 
     </head>
     <body>
-        <input type="hidden" name="toggle-compare-btn" value="{{ route('toggle-compare-btn') }}">
+    
         @yield('modals')
+
         <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <!-- header start -->
 
-        @if (!Auth::check())
+        @if (!Auth::check() && isset($page) && $page == 'home')
         <div class="notification-section notification-section-padding  notification-img ptb-10">
             <div class="container-fluid">
                 <div class="notification-wrapper">
@@ -86,6 +57,148 @@
         @endif
 
 
+
+        {{-- Home Page header --}}
+        @if (isset($page) && $page == 'home') 
+        <header>
+            <div class="header-top-wrapper-2 border-bottom-2">
+                <div class="header-info-wrapper pl-200 pr-200">
+                    <div class="header-contact-info">
+                        <ul>
+                            <li><i class="pe-7s-call"></i><a href="tel:+91 7003373754">+91 7003 373 754</a></li>
+                            <li><i class="pe-7s-mail"></i><a href="mailto:contact@computer-reflex.tk">contact@computer-reflex.tk</a></li>
+                        </ul>
+                    </div>
+                    <div class="electronics-login-register">
+                        <ul>
+                            @if (!Auth::check())
+                                <li><a href="{{ route('login') }}"><i class="fa fa-sign-in"></i>Login</a></li>
+                            @else
+
+                            @can('Admin')
+                                <li><a href="{{route('admin-dashboard')}}"><i class="fal fa-desktop-alt"></i> Admin</a>
+                            @endcan
+                                <li><a href="{{route('my-account')}}"><i class="pe-7s-users"></i>My Account</a>
+                                <ul>
+                                    <li><a href="{{route('my-account')}}">My Account</a></li>
+                                    <li><a href="{{route('orders')}}">My Orders</a></li>
+                                    <li><a href="{{route('wishlist')}}">My Wishlist</a></li>
+                                    <li><a href="{{ route('logout')}}">Logout</a></li>
+                                </ul>
+                                </li>
+                            @endif
+                            <li><a href="{{route('support')}}"><i class="pe-7s-headphones"></i>Support</a></li>
+                            <li><a href="{{ route('wishlist') }}"><i class="pe-7s-like"></i>Wishlist</a></li>
+                            <li><a href="{{ route('compare') }}"><i class="pe-7s-repeat"></i>Compare</a></li>
+                            <li><a href="#"><i class="pe-7s-flag"></i>IN</a></li>
+                            <li><a class="border-none" href="#"><span><font class="rupees">₹</font> </span>INR</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="header-bottom pt-40 pb-30 clearfix">
+                <div class="header-bottom-wrapper pr-200 pl-200">
+                    <div class="logo-3">
+                        <a href="{{ url('/') }}">
+                            <img src="{{ asset('img/grey.gif') }}" data-src="{{ asset('ezone/img/logo/logo.png')}}" alt="">
+                        </a>
+                    </div>
+
+
+
+                    <div class="categories-search-wrapper ">
+                        <div class="all-categories">
+                            <div class="select-wrapper">
+                                <select class="select" id="CategorySelect">
+                                    <option value="all">All Categories</option>
+                                    @foreach ($categories as $category)
+                                    <option value="{{$category->category}}">{{$category->category}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="categories-wrapper">
+                            <form action="{{route('search')}}" method="GET">
+                                <input name="category" id="CategoryInput" type="hidden" value="all">
+                                <input name="search" type="text" placeholder="Enter Your key word" maxlength="120">
+                                <button type="submit"> Search </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    @livewire('cart-count', ['page' => 'home'])
+
+                    <div class="mobile-menu-area electro-menu d-md-block col-md-12 col-lg-12 col-12 d-lg-none d-xl-none">
+                        <div class="mobile-menu">
+                            <nav id="mobile-menu-active">
+                                <ul class="menu-overflow">
+                                    <li><a href="#">HOME</a>
+                                        <ul>
+                                            <li><a href="{{ url('/') }}">Fashion</a></li>
+                                            <li><a href="index-fashion-2.html">Fashion style 2</a></li>
+                                            <li><a href="index-fruits.html">Fruits</a></li>
+                                            <li><a href="index-book.html">book</a></li>
+                                            <li><a href="index-electronics.html">electronics</a></li>
+                                            <li><a href="index-electronics-2.html">electronics style 2</a></li>
+                                            <li><a href="index-food.html">food & drink</a></li>
+                                            <li><a href="index-furniture.html">furniture</a></li>
+                                            <li><a href="index-handicraft.html">handicraft</a></li>
+                                            <li><a href="index-smart-watch.html">smart watch</a></li>
+                                            <li><a href="index-sports.html">sports</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">pages</a>
+                                        <ul>
+                                            <li><a href="about-us.html">about us</a></li>
+                                            <li><a href="menu-list.html">menu list</a></li>
+                                            <li><a href="login.html">login</a></li>
+                                            <li><a href="register.html">register</a></li>
+                                            <li><a href="{{ route('cart') }}">cart page</a></li>
+                                            <li><a href="checkout.html">checkout</a></li>
+                                            <li><a href="{{ route('wishlist') }}">wishlist</a></li>
+                                            <li><a href="{{route('support')}}">contact</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">shop</a>
+                                        <ul>
+                                            <li><a href="shop-grid-2-col.html"> grid 2 column</a></li>
+                                            <li><a href="shop-grid-3-col.html"> grid 3 column</a></li>
+                                            <li><a href="shop.html">grid 4 column</a></li>
+                                            <li><a href="shop-grid-box.html">grid box style</a></li>
+                                            <li><a href="shop-list-1-col.html"> list 1 column</a></li>
+                                            <li><a href="shop-list-2-col.html">list 2 column</a></li>
+                                            <li><a href="shop-list-box.html">list box style</a></li>
+                                            <li><a href="product-details.html">tab style 1</a></li>
+                                            <li><a href="product-details-2.html">tab style 2</a></li>
+                                            <li><a href="product-details-3.html"> tab style 3</a></li>
+                                            <li><a href="product-details-4.html">sticky style</a></li>
+                                            <li><a href="product-details-5.html">sticky style 2</a></li>
+                                            <li><a href="product-details-6.html">gallery style</a></li>
+                                            <li><a href="product-details-7.html">gallery style 2</a></li>
+                                            <li><a href="product-details-8.html">fixed image style</a></li>
+                                            <li><a href="product-details-9.html">fixed image style 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">BLOG</a>
+                                        <ul>
+                                            <li><a href="blog.html">blog 3 colunm</a></li>
+                                            <li><a href="blog-2-col.html">blog 2 colunm</a></li>
+                                            <li><a href="blog-sidebar.html">blog sidebar</a></li>
+                                            <li><a href="blog-details.html">blog details</a></li>
+                                            <li><a href="blog-details-sidebar.html">blog details 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="{{route('support')}}"> Contact  </a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        {{-- Others Page Header --}}
+        @else
         <header>
             <div class="header-top-furniture wrapper-padding-2 res-header-sm">
                 <div class="container-fluid">
@@ -263,20 +376,21 @@
                 </div>
             </div>
         </header>
-        <!-- header end -->
+        <!-- header end --> 
+
+        @endif
+    
+
         
-        
 
-
-
-@yield('content')
+        @yield('content')
 
 
 
 
         {{-- Footer --}}
 		<footer class="footer-area">
-            <div class="footer-top-area bg-img pt-105 pb-65" style="background-image: url(ezone/img/bg/1.jpg)" data-overlay="9">
+            <div class="footer-top-area bg-img pt-105 pb-65" style="background-image: url({{ asset('ezone/img/bg/1.jpg') }})" data-overlay="9">
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-4 col-md-3">
@@ -355,36 +469,8 @@
         </footer>
 
 		
-        
-		
-		
-		<!-- all js here -->
-        <script src="{{ asset('ezone/js/vendor/jquery-1.12.0.min.js') }}?{{ $assetVer }}"></script>
-        <script src="{{ asset('ezone/js/popper.js') }}?{{ $assetVer }}"></script>
-        <script src="{{ asset('ezone/js/bootstrap.min.js') }}?{{ $assetVer }}"></script>
-        <script src="{{ asset('bootstrap-toaster/js/bootstrap-toaster.js')}}?{{ $assetVer }}"></script>
-        <script src="{{ asset('ezone/js/jquery.magnific-popup.min.js') }}?{{ $assetVer }}"></script>
-        <script src="{{ asset('ezone/js/isotope.pkgd.min.js') }}?{{ $assetVer }}"></script>
-        <script src="{{ asset('ezone/js/imagesloaded.pkgd.min.js') }}?{{ $assetVer }}"></script>
-        <script src="{{ asset('ezone/js/jquery.counterup.min.js') }}?{{ $assetVer }}"></script>
-        <script src="{{ asset('ezone/js/waypoints.min.js') }}?{{ $assetVer }}"></script>
-        <script src="{{ asset('ezone/js/ajax-mail.js') }}?{{ $assetVer }}"></script>
-        <script src="{{ asset('ezone/js/owl.carousel.min.js') }}?{{ $assetVer }}"></script>
-        <script src="{{ asset('ezone/js/plugins.js') }}?{{ $assetVer }}"></script>
-        <script src="{{ asset('ezone/js/main.js') }}?{{ $assetVer }}"></script>
-        <script src="{{ asset('js/zoomsl.min.js') }}?{{ $assetVer }}"></script>
-        <script src="{{ asset('js/summernote-bs4.js') }}?{{ $assetVer }}"></script>
-        <script src="{{ asset('js/cropper.js?ver=4.1.2')}}?{{ $assetVer }}"></script>
-        <script src="{{ asset('js/jquery.bootstrap-growl.min.js')}}?{{ $assetVer }}"></script>
-        <script src="{{ asset('ezone/js/owl.carousel.min.js')}}?{{ $assetVer }}"></script>
-        <script src="{{ asset('js/star-rating.js?ver=4.1.2')}}?{{ $assetVer }}"></script>
-        <script src="{{ asset('js/lazyload.min.js')}}?{{ $assetVer }}"></script>
-        <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
-        <script src="{{ asset('js/main.js') }}?{{ $assetVer }}"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    
+    @include('includes.bottom-includes')
 
     @yield('bottom-js')
 

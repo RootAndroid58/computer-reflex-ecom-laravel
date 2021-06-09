@@ -87,7 +87,7 @@
                     @canany(['Manage Orders', 'Admin'])
                     <div class="col-lg-6 mb-4">
                         <div class="card text-white bg-primary shadow">
-                            <a href="{{route('admin-manage-orders')}}" class="btn btn-dark btn-lg pt-3 pb-3"><b>MANAGE ORDERS</b></a>
+                            <a href="{{route('admin-manage-orders')}}" class="btn btn-dark btn-lg pt-3 pb-3"><span>MANAGE ORDERS</span></a>
                         </div>
                     </div>
                     @endcanany
@@ -95,7 +95,7 @@
                     @canany(['Manage Products', 'Admin'])
                     <div class="col-lg-6 mb-4">
                         <div class="card text-white bg-primary shadow">
-                            <a href="{{route('admin-manage-products')}}" class="btn btn-dark btn-lg pt-3 pb-3"><b>MANAGE PRODUCTS</b></a>
+                            <a href="{{route('admin-manage-products')}}" class="btn btn-dark btn-lg pt-3 pb-3"><span>MANAGE PRODUCTS</span></a>
                         </div>
                     </div>
                     @endcanany
@@ -103,7 +103,7 @@
                     @canany(['Manage Orders', 'Admin'])
                     <div class="col-lg-6 mb-4">
                         <div class="card text-white bg-primary shadow">
-                            <a href="{{route('admin-user-management')}}" class="btn btn-dark btn-lg pt-3 pb-3"><b>USER MANAGEMENT</b></a>
+                            <a href="{{route('admin-user-management')}}" class="btn btn-dark btn-lg pt-3 pb-3"><span>USER MANAGEMENT</span></a>
                         </div>
                     </div>
                     @endcanany
@@ -111,7 +111,7 @@
                     @canany(['Support Staff', 'Admin'])
                     <div class="col-lg-6 mb-4">
                         <div class="card text-white bg-primary shadow">
-                            <a href="{{route('admin-support-tickets')}}" class="btn btn-dark btn-lg pt-3 pb-3"><b>TICKETS</b></a>
+                            <a href="{{route('admin-support-tickets')}}" class="btn btn-dark btn-lg pt-3 pb-3"><span>TICKETS</span></a>
                         </div>
                     </div>
                     @endcanany

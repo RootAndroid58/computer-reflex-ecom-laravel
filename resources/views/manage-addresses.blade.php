@@ -25,7 +25,7 @@
 
            <div class="modal-body">
                <form id="AddAddressForm" style="width: 100%"> @csrf
-                    <div class="row w-100">
+                    <div class="row ">
                         <div class="col-12">
                             <div class="form-group">
                             <label for="NewAddressName">Receiver's Name <font color="red">*</font></label>
@@ -34,7 +34,7 @@
                         </div>
                     </div>
 
-                    <div class="row w-100">
+                    <div class="row ">
                         <div class="col-6">
                             <div class="form-group">
                             <label for="NewAddressHouse">House No. / Apt. <font color="red">*</font></label>
@@ -51,7 +51,7 @@
 
                     </div>
 
-                    <div class="row w-100">
+                    <div class="row ">
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="NewAddressCity">City/Town <font color="red">*</font></label>
@@ -66,7 +66,7 @@
                         </div>
                     </div>
 
-                    <div class="row w-100">
+                    <div class="row ">
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="NewAddressState">State <font color="red">*</font></label>
@@ -81,7 +81,7 @@
                         </div>
                     </div>
 
-                    <div class="row w-100">
+                    <div class="row ">
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="NewAddressMobile">Mobile Number <font color="red">*</font></label>

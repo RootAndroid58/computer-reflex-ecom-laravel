@@ -11,17 +11,25 @@
     },
     "devDependencies": {
         "axios": "^0.21",
-        "bootstrap": "^4.0.0",
-        "jquery": "^3.2",
+        "bootstrap": "^4.6.0",
+        "jquery": "^3.6",
+        "jquery-ui": "^1.12.1",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
-        "popper.js": "^1.12",
+        "popper.js": "^1.16.1",
         "postcss": "^8.1.14",
         "resolve-url-loader": "^3.1.2",
-        "sass": "^1.15.2",
-        "sass-loader": "^8.0.0"
+        "sass": "^1.32.11",
+        "sass-loader": "^11.0.1"
     },
     "dependencies": {
-        "clipboard": "^2.0.8"
+        "bootstrap-icons": "^1.5.0",
+        "imagesloaded": "^4.1.4",
+        "isotope-layout": "^3.0.6",
+        "jquery-waypoints": "^2.0.5",
+        "jquery.counterup": "^2.1.0",
+        "lazyload": "^2.0.0-rc.2",
+        "magnific-popup": "^1.1.0",
+        "summernote": "^0.8.18"
     }
 }

@@ -1,300 +1,69 @@
-@if (isMobile())
+@extends('layouts.common', ['page' => 'home'])
 
-    @include('mobile.index')
+@section('title', 'Home')
 
-{{ die }}
-@endif
-
-
-
-<!doctype html>
-<html class="no-js" lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Computer Reflex - Online Shopping</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('favicon.ico')}}">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-STJZ4CTNF7"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-STJZ4CTNF7');
-    </script>
-    <!-- all css here -->
-    <link rel="stylesheet" href="{{ asset('ezone/css/bootstrap.min.css') }}?{{ $assetVer }}">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="{{ asset('ezone/css/magnific-popup.css') }}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/animate.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/owl.carousel.min.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/themify-icons.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/pe-icon-7-stroke.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('ezone/bootstrap-icons/bootstrap-icons.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('bootstrap-toaster/css/bootstrap-toaster.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('css/star-rating.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('css/cropper.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/icofont.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/meanmenu.min.css')}}?{{ $assetVer }}">
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('ezone/css/bundle.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/style.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/responsive.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('css/collapse-bs4.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('css/custom.css')}}?{{ $assetVer }}">
-    <script src="{{ asset('ezone/js/vendor/modernizr-2.8.3.min.js')}}?{{ $assetVer }}"></script>
-    
-    @livewireStyles
-    @livewireScripts
-
-
-</head>
-
-<body>
-
-<!-- Button trigger modal -->
-
-
-    <!--[if lt IE 8]>
-        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-    <!-- header start -->
-    <!--Notification Section-->
-    {{-- @if (!Auth::check())
-    <div class="notification-section notification-section-padding  notification-img ptb-10">
-        <div class="container-fluid">
-            <div class="notification-wrapper">
-                <div class="notification-pera-graph">
-                    <p>Please login first for best browsing experience.</p>
-                </div>
-                <div class="notification-btn-close">
-                    <div class="notification-btn">
-                        <a href="{{ route('login') }}">Login Now</a>
+@section('modals')
+        <!-- Modal -->
+        <div class="modal fade" id="SmallBannerEditModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Small Banner</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                     </div>
-                    <div class="notification-close notification-icon">
-                        <button><i class="pe-7s-close"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    @endif --}}
-
-    @livewire('basic-helper')
+                    <form class="w-100" action="{{ route('admin-edit-small-banner-submit') }}" method="post"> @csrf
+                        <div class="modal-body">
+                            <div class="w-100">
+                                <input required type="hidden" name="id" id="small_banner_id">
+                                
     
-    <input type="hidden" name="toggle-compare-btn" value="{{ route('toggle-compare-btn') }}">
-    
-    <!-- Modal -->
-    <div class="modal fade" id="SmallBannerEditModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Edit Small Banner</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                </div>
-                <form class="w-100" action="{{ route('admin-edit-small-banner-submit') }}" method="post"> @csrf
-                    <div class="modal-body">
-                        <div class="w-100">
-                            <input required type="hidden" name="id" id="small_banner_id">
-                            
-
-                            <div class="form-group">
-                            <label for="small_banner_url">Banner Link</label>
-                            <input required type="url" class="form-control" name="link" id="small_banner_link" aria-describedby="helpId" placeholder="">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="small_banner_image">Image URL</label>
-                                <input required type="url" class="form-control" name="image" id="small_banner_img" aria-describedby="helpId" placeholder="">
-                                    <small class="text-muted">Get URL from <a href="https://imgbb.com" target="_blank">(https://imgbb.com)</a></small>
+                                <div class="form-group">
+                                <label for="small_banner_url">Banner Link</label>
+                                <input required type="url" class="form-control" name="link" id="small_banner_link" aria-describedby="helpId" placeholder="">
                                 </div>
-
-                            <div class="mt-3">
-                                <p>Suggested Image Size: <span style="font-weight: 600" id="small_banner_suggested_size"></span></p>
+    
+                                <div class="form-group">
+                                    <label for="small_banner_image">Image URL</label>
+                                    <input required type="url" class="form-control" name="image" id="small_banner_img" aria-describedby="helpId" placeholder="">
+                                        <small class="text-muted">Get URL from <a href="https://imgbb.com" target="_blank">(https://imgbb.com)</a></small>
+                                    </div>
+    
+                                <div class="mt-3">
+                                    <p>Suggested Image Size: <span style="font-weight: 600" id="small_banner_suggested_size"></span></p>
+                                </div>
+                               
                             </div>
-                           
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    
-
-
-    <header>
-        <div class="header-top-wrapper-2 border-bottom-2">
-            <div class="header-info-wrapper pl-200 pr-200">
-                <div class="header-contact-info">
-                    <ul>
-                        <li><i class="pe-7s-call"></i><a href="tel:+91 7003373754">+91 7003 373 754</a></li>
-                        <li><i class="pe-7s-mail"></i><a href="mailto:contact@computer-reflex.tk">contact@computer-reflex.tk</a></li>
-                    </ul>
-                </div>
-                <div class="electronics-login-register">
-                    <ul>
-                        @if (!Auth::check())
-                            <li><a href="{{ route('login') }}"><i class="fa fa-sign-in"></i>Login</a></li>
-                        @else
-
-                        @can('Admin')
-                            <li><a href="{{route('admin-dashboard')}}"><i class="fal fa-desktop-alt"></i> Admin</a>
-                        @endcan
-                            <li><a href="{{route('my-account')}}"><i class="pe-7s-users"></i>My Account</a>
-                            <ul>
-                                <li><a href="{{route('my-account')}}">My Account</a></li>
-                                <li><a href="{{route('orders')}}">My Orders</a></li>
-                                <li><a href="{{route('wishlist')}}">My Wishlist</a></li>
-                                <li><a href="{{ route('logout')}}">Logout</a></li>
-                            </ul>
-                            </li>
-                        @endif
-                        
-                        
-                        <li><a href="{{route('support')}}"><i class="pe-7s-headphones"></i>Support</a></li>
-                        <li><a href="{{ route('wishlist') }}"><i class="pe-7s-like"></i>Wishlist</a></li>
-                        <li><a href="{{ route('compare') }}"><i class="pe-7s-repeat"></i>Compare</a></li>
-                        <li><a href="#"><i class="pe-7s-flag"></i>IN</a></li>
-                        <li><a class="border-none" href="#"><span><font class="rupees">₹</font> </span>INR</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="header-bottom pt-40 pb-30 clearfix">
-            <div class="header-bottom-wrapper pr-200 pl-200">
-                <div class="logo-3">
-                    <a href="{{ url('/') }}">
-                        <img src="{{ asset('img/grey.gif') }}" data-src="{{ asset('ezone/img/logo/logo.png')}}" alt="">
-                    </a>
-                </div>
-
-
-
-                <div class="categories-search-wrapper ">
-                    <div class="all-categories">
-                        <div class="select-wrapper">
-                            <select class="select" id="CategorySelect">
-                                <option value="all">All Categories</option>
-                                @foreach ($categories as $category)
-                                <option value="{{$category->category}}">{{$category->category}}</option>
-                                @endforeach
-                            </select>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
                         </div>
-                    </div>
-                    <div class="categories-wrapper">
-                        <form action="{{route('search')}}" method="GET">
-                            <input name="category" id="CategoryInput" type="hidden" value="all">
-                            <input name="search" type="text" placeholder="Enter Your key word" maxlength="120">
-                            <button type="submit"> Search </button>
-                        </form>
-                    </div>
-                </div>
-
-                @livewire('cart-count', ['page' => 'home'])
-
-                <div class="mobile-menu-area electro-menu d-md-block col-md-12 col-lg-12 col-12 d-lg-none d-xl-none">
-                    <div class="mobile-menu">
-                        <nav id="mobile-menu-active">
-                            <ul class="menu-overflow">
-                                <li><a href="#">HOME</a>
-                                    <ul>
-                                        <li><a href="{{ url('/') }}">Fashion</a></li>
-                                        <li><a href="index-fashion-2.html">Fashion style 2</a></li>
-                                        <li><a href="index-fruits.html">Fruits</a></li>
-                                        <li><a href="index-book.html">book</a></li>
-                                        <li><a href="index-electronics.html">electronics</a></li>
-                                        <li><a href="index-electronics-2.html">electronics style 2</a></li>
-                                        <li><a href="index-food.html">food & drink</a></li>
-                                        <li><a href="index-furniture.html">furniture</a></li>
-                                        <li><a href="index-handicraft.html">handicraft</a></li>
-                                        <li><a href="index-smart-watch.html">smart watch</a></li>
-                                        <li><a href="index-sports.html">sports</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">pages</a>
-                                    <ul>
-                                        <li><a href="about-us.html">about us</a></li>
-                                        <li><a href="menu-list.html">menu list</a></li>
-                                        <li><a href="login.html">login</a></li>
-                                        <li><a href="register.html">register</a></li>
-                                        <li><a href="{{ route('cart') }}">cart page</a></li>
-                                        <li><a href="checkout.html">checkout</a></li>
-                                        <li><a href="{{ route('wishlist') }}">wishlist</a></li>
-                                        <li><a href="{{route('support')}}">contact</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">shop</a>
-                                    <ul>
-                                        <li><a href="shop-grid-2-col.html"> grid 2 column</a></li>
-                                        <li><a href="shop-grid-3-col.html"> grid 3 column</a></li>
-                                        <li><a href="shop.html">grid 4 column</a></li>
-                                        <li><a href="shop-grid-box.html">grid box style</a></li>
-                                        <li><a href="shop-list-1-col.html"> list 1 column</a></li>
-                                        <li><a href="shop-list-2-col.html">list 2 column</a></li>
-                                        <li><a href="shop-list-box.html">list box style</a></li>
-                                        <li><a href="product-details.html">tab style 1</a></li>
-                                        <li><a href="product-details-2.html">tab style 2</a></li>
-                                        <li><a href="product-details-3.html"> tab style 3</a></li>
-                                        <li><a href="product-details-4.html">sticky style</a></li>
-                                        <li><a href="product-details-5.html">sticky style 2</a></li>
-                                        <li><a href="product-details-6.html">gallery style</a></li>
-                                        <li><a href="product-details-7.html">gallery style 2</a></li>
-                                        <li><a href="product-details-8.html">fixed image style</a></li>
-                                        <li><a href="product-details-9.html">fixed image style 2</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">BLOG</a>
-                                    <ul>
-                                        <li><a href="blog.html">blog 3 colunm</a></li>
-                                        <li><a href="blog-2-col.html">blog 2 colunm</a></li>
-                                        <li><a href="blog-sidebar.html">blog sidebar</a></li>
-                                        <li><a href="blog-details.html">blog details</a></li>
-                                        <li><a href="blog-details-sidebar.html">blog details 2</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="{{route('support')}}"> Contact  </a></li>
-                            </ul>
-                        </nav>
-                    </div>
+                    </form>
                 </div>
             </div>
-        </div>
-    </header>
-    <!-- header end -->
+        </div>    
+@endsection
 
-<div class="body-container ">
-    
+@section('content')
+<div class="">
+
     <div class="pl-200 pr-200  clearfix">
         <div class="categori-menu-slider-wrapper clearfix">
             @include('includes.home-all-departments')
             <div class="menu-slider-wrapper">
                 @include('includes.home-main-drop-down-menu')
-                    {{-- Home Slider Banner Area Start --}}
-                    <div class="slider-area">
-                        <div class="slider-active owl-carousel">
-                            @foreach ($banners as $banner)
-                                @livewire('home-slider-banner', ['banner' => $banner], key($banner->id))
-                            @endforeach
-                        </div>
+                <div class="slider-area">
+                    <div class="slider-active owl-carousel">
+                        @foreach ($banners as $banner)
+                            @livewire('home-slider-banner', ['banner' => $banner], key($banner->id))
+                        @endforeach
                     </div>
-                    {{-- Home Slider Banner Area End --}}
+                </div>
             </div>
         </div>
     </div>
-
-
-    
 
     <div class="electronic-banner-area">
         <div class="custom-row-2">
@@ -305,7 +74,6 @@
             @endforeach
         </div>
     </div>
-
 
     @foreach ($sections as $key => $section)
         @if ($sections->count()/2 > $key)
@@ -321,84 +89,71 @@
         @endif
     @endforeach
 
-
-
-
-
-<div class="electro-product-wrapper wrapper-padding pt-30 pb-45">
-    <div class="container-fluid">
-        <div class="section-title-4 text-center mb-40">
-            <h2>Top Products</h2>
-        </div>
-        <div class="top-product-style">
-            <div class="product-tab-list3 text-center mb-80 nav product-menu-mrg" role="tablist">
-                <a class="" href="#topProducts1" data-toggle="tab" role="tab" aria-selected="false">
-                    <h4>Graphics Cards </h4>
-                </a>
-                <a href="#topProducts2" data-toggle="tab" role="tab" class="active" aria-selected="true">
-                    <h4>Processors </h4>
-                </a>
-                <a href="#topProducts3" data-toggle="tab" role="tab" class="" aria-selected="false">
-                    <h4>Motherboards</h4>
-                </a>
+    <div class="electro-product-wrapper wrapper-padding pt-30 pb-45">
+        <div class="container-fluid">
+            <div class="section-title-4 text-center mb-40">
+                <h2>Top Products</h2>
             </div>
-
-
-
-            <div class="tab-content">
-                {{-- topProducts1 section --}}
-                <div class="tab-pane fade" id="topProducts1" role="tabpanel">
-                    <div class="custom-row-2">
-                        @foreach ($topProducts1 as $product)
-                            @livewire('top-products-section', ['product' => $product], key($product->id))
-                        @endforeach
-                    </div>
+            <div class="top-product-style">
+                <div class="product-tab-list3 text-center mb-80 nav product-menu-mrg" role="tablist">
+                    <a class="" href="#topProducts1" data-toggle="tab" role="tab" aria-selected="false">
+                        <h4>Graphics Cards </h4>
+                    </a>
+                    <a href="#topProducts2" data-toggle="tab" role="tab" class="active" aria-selected="true">
+                        <h4>Processors </h4>
+                    </a>
+                    <a href="#topProducts3" data-toggle="tab" role="tab" class="" aria-selected="false">
+                        <h4>Motherboards</h4>
+                    </a>
                 </div>
-                {{-- topProducts2 section --}}
-                <div class="tab-pane fade active show" id="topProducts2" role="tabpanel">
-                    <div class="custom-row-2">
-                        @foreach ($topProducts2 as $product)
-                            @livewire('top-products-section', ['product' => $product], key($product->id))
-                        @endforeach
+
+                <div class="tab-content">
+                    {{-- topProducts1 section --}}
+                    <div class="tab-pane fade" id="topProducts1" role="tabpanel">
+                        <div class="custom-row-2">
+                            @foreach ($topProducts1 as $product)
+                                @livewire('top-products-section', ['product' => $product], key($product->id))
+                            @endforeach
+                        </div>
                     </div>
-                </div>
-                {{-- topProducts3 section --}}
-                <div class="tab-pane fade" id="topProducts3" role="tabpanel">
-                    <div class="custom-row-2">
-                        @foreach ($topProducts3 as $product)
-                            @livewire('top-products-section', ['product' => $product], key($product->id))
-                        @endforeach
+                    {{-- topProducts2 section --}}
+                    <div class="tab-pane fade active show" id="topProducts2" role="tabpanel">
+                        <div class="custom-row-2">
+                            @foreach ($topProducts2 as $product)
+                                @livewire('top-products-section', ['product' => $product], key($product->id))
+                            @endforeach
+                        </div>
                     </div>
-                </div>
+                    {{-- topProducts3 section --}}
+                    <div class="tab-pane fade" id="topProducts3" role="tabpanel">
+                        <div class="custom-row-2">
+                            @foreach ($topProducts3 as $product)
+                                @livewire('top-products-section', ['product' => $product], key($product->id))
+                            @endforeach
+                        </div>
+                    </div>
                 
-
-
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
-@livewire('home-wide-banner', ['SmallBanner' => $SmallBanners[4]], key($user->id))
+    @livewire('home-wide-banner', ['SmallBanner' => $SmallBanners[4]], key($user->id))
     
-
-    
-<div class="product-area-2 wrapper-padding pb-70">
-    <div class="container-fluid">
-        <div class="section-title-4 text-center mb-60">
-            <h2>Best Selling</h2>
-        </div>
-        <div class="row">
-            @foreach ($BestSellingProducts as $product)
-                @livewire('best-selling-section', ['product' => $product], key($product->id))
-            @endforeach
+    <div class="product-area-2 wrapper-padding pb-70">
+        <div class="container-fluid">
+            <div class="section-title-4 text-center mb-60">
+                <h2>Best Selling</h2>
+            </div>
+            <div class="row">
+                @foreach ($BestSellingProducts as $product)
+                    @livewire('best-selling-section', ['product' => $product], key($product->id))
+                @endforeach
+            </div>
         </div>
     </div>
-</div>
 
-
-
-    
     <div class="brand-logo-area-2 wrapper-padding ptb-80">
         <div class="container-fluid">
             <div class="brand-logo-active2 owl-carousel">
@@ -432,415 +187,32 @@
             </div>
         </div>
     </div>
-    <div class="newsletter-area ptb-60">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 col-lg-6">
-                    <div class="section-title-5">
-                        <h2>Newsletter</h2>
-                        <p>Sign Up for get all update news & Get <span>Exciting Discounts</span></p>
-                    </div>
-                </div>
-                <div class="col-md-12 col-lg-6">
-                    <div class="newsletter-style-3">
-                        <div id="mc_embed_signup" class="subscribe-form-3 pr-50">
-                            <form action="http://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-                                <div id="mc_embed_signup_scroll" class="mc-form">
-                                    <input type="email" value="" name="EMAIL" class="email" placeholder="Enter Your E-mail" required>
-                                    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                                    <div class="mc-news" aria-hidden="true">
-                                        <input type="text" name="b_6bbb9b6f5827bd842d9640c82_05d85f18ef" tabindex="-1" value="">
-                                    </div>
-                                    <div class="clear">
-                                        <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
 
 
 </div>
+@endsection
 
 
-    <footer class="footer-area">
-        <div class="footer-top-3 black-bg pt-75 pb-25">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 col-xl-4">
-                        <div class="footer-widget mb-40">
-                            <h3 class="footer-widget-title-3">Contact Us</h3>
-                            <div class="footer-info-wrapper-2">
-                                <div class="footer-address-electro">
-                                    <div class="footer-info-icon2">
-                                        <span>Address:</span>
-                                    </div>
-                                    <div class="footer-info-content2">
-                                        <p>77 Seventh Streeth Banasree
-                                            <br>Road Rampura -2100 Dhaka</p>
-                                    </div>
-                                </div>
-                                <div class="footer-address-electro">
-                                    <div class="footer-info-icon2">
-                                        <span>Phone:</span>
-                                    </div>
-                                    <div class="footer-info-content2">
-                                        <p>+11 (019) 2518 4203
-                                            <br>+11 (251) 2223 3353</p>
-                                    </div>
-                                </div>
-                                <div class="footer-address-electro">
-                                    <div class="footer-info-icon2">
-                                        <span>Email:</span>
-                                    </div>
-                                    <div class="footer-info-content2">
-                                        <p><a href="#">domain@mail.com</a>
-                                            <br><a href="#">company@domain.info</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-xl-3">
-                        <div class="footer-widget mb-40">
-                            <h3 class="footer-widget-title-3">My Account</h3>
-                            <div class="footer-widget-content-3">
-                                <ul>
-                                    <li><a href="login.html">Login Hare</a></li>
-                                    <li><a href="{{ route('cart') }}">Cart History</a></li>
-                                    <li><a href="checkout.html"> Payment History</a></li>
-                                    <li><a href="shop.html">Product Tracking</a></li>
-                                    <li><a href="register.html">Register</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-6 col-xl-2">
-                        <div class="footer-widget mb-40">
-                            <h3 class="footer-widget-title-3">Information</h3>
-                            <div class="footer-widget-content-3">
-                                <ul>
-                                    <li><a href="about-us.html">About Us</a></li>
-                                    <li><a href="#">Our Service</a></li>
-                                    <li><a href="#">Pricing Plan</a></li>
-                                    <li><a href="#"> Vendor Detail</a></li>
-                                    <li><a href="#">Affiliate</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-xl-3">
-                        <div class="footer-widget widget-right mb-40">
-                            <h3 class="footer-widget-title-3">Service</h3>
-                            <div class="footer-widget-content-3">
-                                <ul>
-                                    <li><a href="#">Product Service</a></li>
-                                    <li><a href="#">Payment Service</a></li>
-                                    <li><a href="#"> Discount Service</a></li>
-                                    <li><a href="#">Shopping Service</a></li>
-                                    <li><a href="#">Promotional Add</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-middle black-bg-2 pt-35 pb-40">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-4">
-                        <div class="footer-services-wrapper mb-30">
-                            <div class="footer-services-icon">
-                                <i class="pe-7s-car"></i>
-                            </div>
-                            <div class="footer-services-content">
-                                <h3>Free Shipping</h3>
-                                <p>Free Shipping on Bangladesh</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <div class="footer-services-wrapper mb-30">
-                            <div class="footer-services-icon">
-                                <i class="pe-7s-shield"></i>
-                            </div>
-                            <div class="footer-services-content">
-                                <h3>Money Guarentee</h3>
-                                <p>Free Shipping on Bangladesh</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <div class="footer-services-wrapper mb-30">
-                            <div class="footer-services-icon">
-                                <i class="pe-7s-headphones"></i>
-                            </div>
-                            <div class="footer-services-content">
-                                <h3>Online Support</h3>
-                                <p>Free Shipping on Bangladesh</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom  black-bg pt-25 pb-30">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-5">
-                        <div class="footer-menu">
-                            <nav>
-                                <ul>
-                                    <li><a href="#">Privacy Policy </a></li>
-                                    <li><a href="blog.html"> Blog</a></li>
-                                    <li><a href="#">Help Center</a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-7">
-                        <div class="copyright f-right mrg-5">
-                            <p>
-                                Copyright ©
-                                <a href="https://hastech.company/">HasTech</a> 2018 . All Right Reserved.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- modal -->
-    <div class="modal fade" id="exampleCompare" tabindex="-1" role="dialog" aria-hidden="true">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="pe-7s-close" aria-hidden="true"></span>
-        </button>
-        <div class="modal-dialog modal-compare-width" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <form action="#">
-                        <div class="table-content compare-style table-responsive">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>
-                                            <a href="#">Remove <span>x</span></a>
-                                            <img loading=lazy src="ezone/img/cart/4.jpg" alt="">
-                                            <p>Blush Sequin Top </p>
-                                            <span>$75.99</span>
-                                            <a class="compare-btn" href="#">Add to cart</a>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="compare-title">
-                                            <h4>Description </h4></td>
-                                        <td class="compare-dec compare-common">
-                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has beenin the stand ard dummy text ever since the 1500s, when an unknown printer took a galley</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="compare-title">
-                                            <h4>Sku </h4></td>
-                                        <td class="product-none compare-common">
-                                            <p>-</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="compare-title">
-                                            <h4>Availability  </h4></td>
-                                        <td class="compare-stock compare-common">
-                                            <p>In stock</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="compare-title">
-                                            <h4>Weight   </h4></td>
-                                        <td class="compare-none compare-common">
-                                            <p>-</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="compare-title">
-                                            <h4>Dimensions   </h4></td>
-                                        <td class="compare-stock compare-common">
-                                            <p>N/A</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="compare-title">
-                                            <h4>brand   </h4></td>
-                                        <td class="compare-brand compare-common">
-                                            <p>HasTech</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="compare-title">
-                                            <h4>color   </h4></td>
-                                        <td class="compare-color compare-common">
-                                            <p>Grey, Light Yellow, Green, Blue, Purple, Black </p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="compare-title">
-                                            <h4>size    </h4></td>
-                                        <td class="compare-size compare-common">
-                                            <p>XS, S, M, L, XL, XXL </p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="compare-title"></td>
-                                        <td class="compare-price compare-common">
-                                            <p>$75.99 </p>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="pe-7s-close" aria-hidden="true"></span>
-        </button>
-        <div class="modal-dialog modal-quickview-width" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="qwick-view-left">
-                        <div class="quick-view-learg-img">
-                            <div class="quick-view-tab-content tab-content">
-                                <div class="tab-pane active show fade" id="modal1" role="tabpanel">
-                                    <img loading=lazy src="ezone/img/quick-view/l1.jpg" alt="">
-                                </div>
-                                <div class="tab-pane fade" id="modal2" role="tabpanel">
-                                    <img loading=lazy src="ezone/img/quick-view/l2.jpg" alt="">
-                                </div>
-                                <div class="tab-pane fade" id="modal3" role="tabpanel">
-                                    <img loading=lazy src="ezone/img/quick-view/l3.jpg" alt="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="quick-view-list nav" role="tablist">
-                            <a class="active" href="#modal1" data-toggle="tab" role="tab">
-                                <img loading=lazy src="ezone/img/quick-view/s1.jpg" alt="">
-                            </a>
-                            <a href="#modal2" data-toggle="tab" role="tab">
-                                <img loading=lazy src="ezone/img/quick-view/s2.jpg" alt="">
-                            </a>
-                            <a href="#modal3" data-toggle="tab" role="tab">
-                                <img loading=lazy src="ezone/img/quick-view/s3.jpg" alt="">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="qwick-view-right">
-                        <div class="qwick-view-content">
-                            <h3>Handcrafted Supper Mug</h3>
-                            <div class="price">
-                                <span class="new">$90.00</span>
-                                <span class="old">$120.00  </span>
-                            </div>
-                            <div class="rating-number">
-                                <div class="quick-view-rating">
-                                    <i class="pe-7s-star"></i>
-                                    <i class="pe-7s-star"></i>
-                                    <i class="pe-7s-star"></i>
-                                    <i class="pe-7s-star"></i>
-                                    <i class="pe-7s-star"></i>
-                                </div>
-                                <div class="quick-view-number">
-                                    <span>2 Ratting (S)</span>
-                                </div>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do tempor incididun ut labore et dolore magna aliqua. Ut enim ad mi , quis nostrud veniam exercitation .</p>
-                            <div class="quick-view-select">
-                                <div class="select-option-part">
-                                    <label>Size*</label>
-                                    <select class="select">
-                                        <option value="">- Please Select -</option>
-                                        <option value="">900</option>
-                                        <option value="">700</option>
-                                    </select>
-                                </div>
-                                <div class="select-option-part">
-                                    <label>Color*</label>
-                                    <select class="select">
-                                        <option value="">- Please Select -</option>
-                                        <option value="">orange</option>
-                                        <option value="">pink</option>
-                                        <option value="">yellow</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="quickview-plus-minus">
-                                <div class="cart-plus-minus">
-                                    <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
-                                </div>
-                                <div class="quickview-btn-cart">
-                                    <a class="btn-hover-black" href="#">add to cart</a>
-                                </div>
-                                <div class="quickview-btn-wishlist">
-                                    <a class="btn-hover" href="#"><i class="pe-7s-like"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- all js here -->
-    <script src="{{ asset('ezone/js/vendor/jquery-1.12.0.min.js')}}?{{ $assetVer }}"></script>
-    <script src="{{ asset('ezone/js/bootstrap.min.js')}}?{{ $assetVer }}"></script>
-    <script src="{{ asset('bootstrap-toaster/js/bootstrap-toaster.js')}}?{{ $assetVer }}"></script>
-    <script src="{{ asset('ezone/js/popper.js')}}?{{ $assetVer }}"></script>
-    <script src="{{ asset('ezone/js/jquery.magnific-popup.min.js')}}?{{ $assetVer }}"></script>
-    <script src="{{ asset('ezone/js/isotope.pkgd.min.js')}}?{{ $assetVer }}"></script>
-    <script src="{{ asset('ezone/js/imagesloaded.pkgd.min.js')}}?{{ $assetVer }}"></script>
-    <script src="{{ asset('ezone/js/jquery.counterup.min.js')}}?{{ $assetVer }}"></script>
-    <script src="{{ asset('ezone/js/waypoints.min.js')}}?{{ $assetVer }}"></script>
-    <script src="{{ asset('ezone/js/ajax-mail.js')}}?{{ $assetVer }}"></script>
-    <script src="{{ asset('ezone/js/owl.carousel.min.js')}}?{{ $assetVer }}"></script>
-    <script src="{{ asset('js/lazyload.min.js')}}?{{ $assetVer }}?{{ $assetVer }}"></script>
-    <script src="{{ asset('js/jquery.bootstrap-growl.min.js')}}?{{ $assetVer }}"></script>
-    <script src="{{ asset('ezone/js/plugins.js')}}?{{ $assetVer }}"></script>
-    <script src="{{ asset('ezone/js/main.js')}}?{{ $assetVer }}"></script>
-    <script src="{{ asset('js/main.js')}}?{{ $assetVer }}"></script>
-
+@section('bottom-js')
 <script>
-function EditSmallBanner(banner_id) {
-$.ajax({
-  url: "{{ route('get-small-banner-data') }}",
-  method: 'POST',
-  data: {
-      'banner_id' : banner_id,
-  },
-  success: function (data) {
-    if (data.status != 500) {
-        $('#small_banner_id').val(banner_id);
-        $('#small_banner_img').val(data.SmallBanner.image);
-        $('#small_banner_link').val(data.SmallBanner.link);
-        $('#small_banner_suggested_size').html(data.size);
-        $('#SmallBannerEditModal').modal('toggle');
+    function EditSmallBanner(banner_id) {
+        $.ajax({
+            url: "{{ route('get-small-banner-data') }}",
+            method: 'POST',
+            data: {
+                'banner_id' : banner_id,
+            },
+            success: function (data) {
+                if (data.status != 500) {
+                    $('#small_banner_id').val(banner_id);
+                    $('#small_banner_img').val(data.SmallBanner.image);
+                    $('#small_banner_link').val(data.SmallBanner.link);
+                    $('#small_banner_suggested_size').html(data.size);
+                    $('#SmallBannerEditModal').modal('toggle');
+                }
+            }
+        });
     }
-  }
-})
-}
-</script>
-
-</body>
-
-</html>
+    </script>
+@endsection

@@ -93,12 +93,12 @@ class Product extends Model
             return $this->hasOne(SessionCart::class, 'product_id', 'id')->where('session_id', Session::getId());
         }
     }
+
     public function wishlisted()
     {
-        if (Auth()->check()) {
-            return $this->hasOne(Wishlist::class, 'product_id', 'id')->where('user_id', Auth()->user()->id);
-        }
+        return $this->hasOne(Wishlist::class, 'product_id', 'id')->where('user_id', Auth()->user()->id ?? '');
     }
+
     public function compared()
     {
         if (Auth()->check()) {

@@ -6,6 +6,7 @@
     box-sizing: border-box
 } */
 
+
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -23,6 +24,10 @@
     box-shadow: inset 7px 10px 12px #f0f0f0;
    }
 
+   body {
+       background-color: #fff;
+   }
+
 .bbb_viewed_nav_container {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -32,10 +37,10 @@
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
-
+/* 
 .modal-open .container-fluid, .modal-open  .container {
     -webkit-filter: blur(2px) grayscale(40%);
-}
+} */
 
 .fa {
     font-family: Font Awesome\ 5 Pro;

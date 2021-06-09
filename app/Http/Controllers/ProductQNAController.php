@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\ProductReview;
 use App\Models\ProductQuestion;
 use App\Models\ProductAnswer;
+use App\Models\Order;
 use Auth;
 
 class ProductQNAController extends Controller

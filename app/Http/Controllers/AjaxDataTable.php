@@ -598,7 +598,7 @@ class AjaxDataTable extends Controller
                 elseif ($data->payment_method == 'cod') {
                     $payment_method = 'Cash On Delivery';
                 }
-                elseif ($data->order->payment_method == 'voucher') {
+                elseif ($data->payment_method == 'voucher') {
                     $payment_method = 'Voucher';
                 }
                     
@@ -721,7 +721,7 @@ class AjaxDataTable extends Controller
                 elseif ($data->payment_method == 'cod') {
                     $payment_method = 'Cash On Delivery';
                 }
-                elseif ($data->order->payment_method == 'voucher') {
+                elseif ($data->payment_method == 'voucher') {
                     $payment_method = 'Voucher';
                 }
                     

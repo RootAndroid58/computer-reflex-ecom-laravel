@@ -1,8 +1,7 @@
-$( document ).ready(function( $ ) {
-  $(window).on('popstate', function() {
+$(window).on('popstate', function() {
   location.reload(true);
-  });
 });
+
 
 
 $(document).on('ajaxStop', function() {
@@ -208,30 +207,30 @@ Livewire.on('compareRemoved', product_name => {
       $('#review_comment').attr('required', false);
     }
   })
+  
 
-  if($('.bbb_viewed_slider').length) {
-      var viewedSlider = $('.bbb_viewed_slider');
-      viewedSlider.owlCarousel(
-          {
-              loop:false,
-              rewind:true,
-              margin:30,
-              autoplay:true,
-              autoplayHoverPause: true,
-              autoplayTimeout:8000,
-              nav:false,
-              lazyLoad:false,
-              dots:false,
-              responsive:
-              {
-                  0:{items:2},
-                  575:{items:2},
-                  768:{items:3},
-                  991:{items:4},
-                  1199:{items:6}
-              }
-          });
-    }
+
+  $('.bbb_viewed_slider').owlCarousel(
+    {
+        loop:false,
+        rewind:true,
+        margin:30,
+        autoplay:true,
+        autoplayHoverPause: true,
+        autoplayTimeout:8000,
+        nav:false,
+        lazyLoad:false,
+        dots:false,
+        responsive:
+        {
+            0:{items:2},
+            575:{items:2},
+            768:{items:3},
+            991:{items:4},
+            1199:{items:6}
+        }
+    });
+
 
 function PrevCarousel(section_id) {
   $('.owl-carousel-'+section_id).trigger('prev.owl.carousel')
@@ -759,30 +758,6 @@ $('#multi-item-carousel').carousel({
 
 
 
-  function ToggleCompare(product_id) {
-    $.ajax({
-      url: $('input[name="toggle-compare-btn"]').val(),
-      method: 'POST',
-      data: {
-          'product_id' : product_id,
-      },
-      success: function (data) {
-          if (typeof AfterToggleCompare == 'function') { 
-            AfterToggleCompare(data); 
-          }
-          if (data.status == 500 || data.status == 200) {
-              $(".bootstrap-growl").remove();
-              $.bootstrapGrowl(data.msg, {
-                  type: data.type,
-                  offset: {from:"bottom", amount: 100},
-                  align: 'center',
-                  allow_dismis: true,
-                  stack_spacing: 10,
-              })
-          }
-      }
-    })
-  }
-  
+
 
 
