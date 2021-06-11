@@ -10,9 +10,11 @@ class WishlistProduct extends Component
 
     protected function getListeners()
     {
-        return ['refreshProduct:'.$this->product->id => '$refresh'];
+        return [
+            'refreshProduct:'.$this->product->id => '$refresh',
+        ];
     }
-    
+
     public function render()
     {
         return view('livewire.wishlist-product');

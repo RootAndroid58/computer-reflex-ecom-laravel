@@ -70,7 +70,7 @@ class CheckoutController extends Controller
         if (isset($req->voucher_code)) {
             
             $voucher = Voucher::where('code', $req->voucher_code)->first();
-            if (!isset($voucher) || $voucher->status != 'active') {
+            if (!isset($voucher) && $voucher->status != 'active') {
                 abort(500);
             }
             $VoucherProducts = VoucherProduct::where('voucher_id', $voucher->id)->get(); 
@@ -89,7 +89,6 @@ class CheckoutController extends Controller
             }
         }
         
-
         $address = Address::where('user_id', Auth()->user()->id)->where('id', $req->address_id)->first();
            
         if (!isset($address)) {  // Check if address is invalid then abort 
@@ -100,6 +99,7 @@ class CheckoutController extends Controller
         $mrp        = 0; // Default MRP
         $price      = 0; // Default Price
         $itemCount  = 0; // Default Item Count
+
         foreach ($req->product_id as $i => $pid) {
             $product = Product::where('id', $pid)->first();
             if ($product->product_stock >= $req->product_qty[$i]) {
@@ -116,7 +116,7 @@ class CheckoutController extends Controller
             }
         }
        
-
+        
         if (isset($req->voucher_code) && $price == 0)  {
             $req->payment_method = 'voucher';
         } 
@@ -234,9 +234,8 @@ class CheckoutController extends Controller
 
     public function AfterPayment($order_id)
     {
+        $order = Order::where('id', $order_id)->where('user_id', Auth()->user()->id)->with('OrderItems.product.comission')->with('Address')->with('Address')->first();
 
-        $order = Order::with('voucher')->where('id', $order_id)->where('user_id', Auth()->user()->id)->with('OrderItems.product.comission')->with('Address')->with('Address')->first();
-        
         if (!isset($order)) {
             abort(500);
         }
@@ -250,7 +249,7 @@ class CheckoutController extends Controller
         if ($order->status == 'order_placed') {
            
         // Add item to Affiliate Order Items table if eligible for Affiliate Comission 
-        if (!isset($order->voucher)) {
+        if (!isset($OrderHasVoucher)) {
             foreach ($order->OrderItems as $key => $OrderItem) {
                 $prod = $OrderItem->product;
                 if (isset($prod->comission->comission) && isset(Auth()->user()->affiliate->associate_id)) {

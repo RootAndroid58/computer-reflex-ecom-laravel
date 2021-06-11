@@ -9,5 +9,6 @@
   'product-quick-actions' => 'App\\Http\\Livewire\\ProductQuickActions',
   'related-product' => 'App\\Http\\Livewire\\RelatedProduct',
   'top-products-section' => 'App\\Http\\Livewire\\TopProductsSection',
+  'wishlist-container' => 'App\\Http\\Livewire\\WishlistContainer',
   'wishlist-product' => 'App\\Http\\Livewire\\WishlistProduct',
 );

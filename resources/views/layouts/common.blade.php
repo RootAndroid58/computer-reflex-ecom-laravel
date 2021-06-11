@@ -27,8 +27,8 @@
         </style>
 
     </head>
-    <body>
-    
+    <body >
+
         @yield('modals')
 
         <!--[if lt IE 8]>
@@ -60,7 +60,7 @@
 
         {{-- Home Page header --}}
         @if (isset($page) && $page == 'home') 
-        <header>
+        <header class="main-header-home">
             <div class="header-top-wrapper-2 border-bottom-2">
                 <div class="header-info-wrapper pl-200 pr-200">
                     <div class="header-contact-info">

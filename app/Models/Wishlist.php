@@ -22,6 +22,11 @@ class Wishlist extends Model
         return $this->hasMany(Product::class, 'id', 'product_id');
     }
 
+    public function Product()
+    {
+        return $this->hasOne(Product::class, 'id', 'product_id');
+    }
+
     public function Images()
     {
         return $this->hasOne(ProductImage::class, 'product_id', 'product_id')->orderBy('id', 'desc');

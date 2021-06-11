@@ -71,7 +71,7 @@
                                 <div class="col-md-3">
                                     <a href="{{route('product-index', $Product->id)}}" target="_blank">
                                         <div class="wish-product-image-container">
-                                            <img src="{{ asset('img/grey.gif') }}" data-src="{{ asset('storage/images/products/'.$cart->Images->image) }}" alt="">
+                                            <img loading="lazy" src="{{ asset('storage/images/products/'.$cart->Images->image) }}" alt="">
                                         </div>
 
                                     </a>
@@ -191,8 +191,8 @@
     function ChangeQty(product_id) {
         var cart_qty = $('#product-quantity-'+product_id).val()
         
-        $('#CartItem'+product_id).fadeOut()
-        $('#CartBreak'+product_id).fadeOut()
+        // $('#CartItem'+product_id).fadeOut()
+        // $('#CartBreak'+product_id).fadeOut()
 
         $.ajax({
             url: "{{route('change-qty')}}",
@@ -205,8 +205,8 @@
 
                 if (data == 200) {
                     $('#CartContainer').load("{{ route('cart') }} #CartContainer")
-                    $('#CartItem'+product_id).fadeIn()
-                    $('#CartBreak'+product_id).fadeIn()
+                    // $('#CartItem'+product_id).fadeIn()
+                    // $('#CartBreak'+product_id).fadeIn()
 
                 } else {
                    console.log('Error');

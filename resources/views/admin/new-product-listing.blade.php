@@ -74,15 +74,26 @@
                 <small class="text-muted" id="sHelpText">Discount auto calculated.</small>
                 <div class="invalid-feedback">Selling price can't be greater than MRP!</div>
             </div>
-        <hr>
 
-            <div class="form-group">
+            <label>Delivery Option</label>
+            <span class="text-danger"></span>
+            <div class="form-check">
+                <input class="form-check-input cursor-pointer" type="radio" name="delivery_type" id="exampleRadios1" value="electronic" checked>
+                <label class="form-check-label cursor-pointer" for="exampleRadios1">e-Delivery (Email)</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input cursor-pointer" type="radio" name="delivery_type" id="exampleRadios2" value="physical">
+                <label class="form-check-label cursor-pointer" for="exampleRadios2">Physical Delivery</label>
+            </div>
+
+            <div class="form-group mt-3">
                 <label class="text-dark">Description</label>
                 <textarea name="product_description" id="description" class="form-control @error('product_description') is-invalid @enderror" placeholder="Product description." rows="7"></textarea>
                 @error('product_description')
                 <div class="invalid-feedback">{{$message}}</div>
                 @enderror
             </div>
+
             <div class="form-group">
                 <button class="btn btn-success btn-block">Create Listing</button>
             </div>

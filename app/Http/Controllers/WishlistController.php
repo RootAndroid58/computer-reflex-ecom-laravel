@@ -10,17 +10,8 @@ use App\Models\ProductImage;
 class WishlistController extends Controller
 {
     public function ShowWishlist()
-    {
-        $wishlist = Wishlist::where('user_id', Auth()->user()->id)->with(['Products','Images', 'Cart'])->orderBy('id', 'asc')->get();
-        
-        $wishlistCount = $wishlist->count();
-        // dd($wishlist);
-        // dd( $wishlist->Products );
-
-        return view('wishlist', [
-            'wishlist'      => $wishlist,
-            'wishlistCount' => $wishlistCount,
-        ]);
+    {   
+        return view('wishlist');
     }
 
 

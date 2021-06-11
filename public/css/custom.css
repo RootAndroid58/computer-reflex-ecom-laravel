@@ -707,7 +707,8 @@ Buy now button Custom
     margin: auto;
 }
 .wish-product-image-container img{
-    width: 100%;
+    max-width: 100%;
+    max-height: 175px;
 }
 .wishlist-product-container{
     margin-bottom: 10px;
@@ -1259,4 +1260,8 @@ Buy now button Custom
     .home-slider-menu-ul {
         display: flex;
         justify-content: space-around;
+    }
+    .main-header-home {
+        background-repeat: no-repeat;
+        background-size: cover;
     }

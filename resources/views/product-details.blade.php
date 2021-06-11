@@ -207,7 +207,15 @@
                     </div>
 
                     <div class="est-delivery-date">
-                        <span>Est. Delivery Date: <b>{{ $est_dt->format( 'dS M, Y (D)' ) }}</b></span>
+                        @if ($product->delivery_type == 'electronic')
+                        <span>Email Delivery: 
+                            <b>@if (isset($product->license) && count($product->license) > 0) Instant. @else Within 30 Mins. @endif</b>
+                        </span>
+                        @else
+                        <span>Est. Delivery Date: 
+                            <b>{{ $est_dt->format( 'dS M, Y (D)' ) }}</b>
+                        </span>
+                        @endif
                     </div>
 
 

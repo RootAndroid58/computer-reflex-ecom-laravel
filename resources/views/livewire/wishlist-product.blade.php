@@ -1,4 +1,3 @@
-                        
 <div class="row wishlist-basic-padding" id="WishItem{{ $product->id }}">
     <div class="col-md-3">
         <a href="{{ url('product/'.$product->id) }}" target="_blank">
@@ -35,7 +34,7 @@
     <div class="col-md-1">
         <div class="wishlist-remove-btn-container">
             <div>
-                <a id="WishlistRemoveBtn" onClick="ToggleWishlist('{{$product->id}}')" target="_blank">
+                <a class="cursor-pointer" wire:click="$emit('ToggleWishlist', {{$product->id}})" target="_blank">
                     <span>
                         <i class="fa fa-trash" aria-hidden="true"></i>
                     </span>

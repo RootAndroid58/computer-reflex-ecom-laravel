@@ -24,6 +24,7 @@ class ManageProductsController extends Controller
     public function NewProductListingSubmit(Request $req)
     {
         $req->validate([
+            'delivery_type'         => 'required|in:electronic,physical',
             'product_name'          => 'required|max:120|',
             'product_brand'         => 'required|max:255|',
             'category'              => 'required|numeric|exists:categories,id',
@@ -34,6 +35,7 @@ class ManageProductsController extends Controller
 
         $product = new Product;
 
+        $product->delivery_type         = $req->delivery_type;
         $product->product_name          = $req->product_name;
         $product->product_brand         = $req->product_brand;
         $product->product_category_id   = $req->category;
