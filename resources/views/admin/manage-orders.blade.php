@@ -17,13 +17,13 @@
 
     <div class="row">
         <div class="col-md-4">
-            <a href="{{route('admin-ship-orders')}}" class="btn btn-block btn-lg btn-primary">Ship Orders</a>
+            <a href="{{route('admin-ship-orders')}}" class="btn btn-block btn-lg btn-dark">Ship Orders</a>
         </div>
         <div class="col-md-4">
-            <a href="{{route('admin-delivery-confirmation')}}" class="btn btn-block btn-lg btn-primary">Delivery Confirmation</a>
+            <a href="{{route('admin-delivery-confirmation')}}" class="btn btn-block btn-lg btn-dark">Delivery Confirmation</a>
         </div>
         <div class="col-md-4">
-            <a href="{{route('admin-delivery-confirmation')}}" class="btn btn-block btn-lg btn-primary">Cancel Requests</a>
+            <a href="{{route('admin-delivery-confirmation')}}" class="btn btn-block btn-lg btn-dark">Cancel Requests</a>
         </div>
     </div>
 
@@ -33,7 +33,7 @@
     
 <!--Products Table Start-->
 <table id="AdminOrdersTable" class="table table-striped table-bordered table-fluid">
-    <thead class="bg-primary text-white">
+    <thead class="bg-dark text-white">
     <tr>
         <th style="width: 5%">#</th>
         <th style="width: 10%">Order Date</th>

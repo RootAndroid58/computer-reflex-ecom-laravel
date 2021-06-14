@@ -16,7 +16,6 @@ class CreateProductLicensesTable extends Migration
         Schema::create('product_licenses', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('product_id')->foreign('id')->on('products')->onDelete('cascade');
-            $table->bigInteger('order_id')->foreign('id')->on('orders')->onDelete('cascade')->nullable();
             $table->string('key');
             $table->string('status');
             $table->timestamps();

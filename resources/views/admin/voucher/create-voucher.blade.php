@@ -35,7 +35,7 @@
         </div>
 
         <table id="AdminProductsTable" class="table table-striped table-bordered w-100">
-            <thead class="bg-primary text-white">
+            <thead class="bg-dark text-white">
             <tr>
                 <th style="width: 5%">#</th>
                 <th style="width: 20%">Product Name</th>

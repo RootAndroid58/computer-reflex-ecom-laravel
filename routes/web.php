@@ -253,6 +253,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:Admin', 'verifie
     
     Route::post('/manage-order/create-shipment/submit','App\Http\Controllers\Admin\ManageOrdersController@CreateShipmentSubmit')->middleware('permission:Manage Orders|Master Admin')->name('admin-create-shipment-submit');
     
+    Route::post('/manage-order/send-license-Key/submit','App\Http\Controllers\Admin\ManageOrdersController@SendLicenseKey')->middleware('permission:Manage Orders|Master Admin')->name('admin-send-license-key');
+    
     Route::post('/cancel-order/review/submit','App\Http\Controllers\Admin\ManageOrdersController@CancelReviewSubmit')->middleware('permission:Manage Orders|Master Admin')->name('admin-cancel-review-submit');
     
     // Route::get('/manage-order/{order_item_id}/pickup-done','App\Http\Controllers\Admin\ManageOrdersController@PickupDone')->middleware('permission:Manage Orders|Master Admin')->name('admin-order-pickup-done');

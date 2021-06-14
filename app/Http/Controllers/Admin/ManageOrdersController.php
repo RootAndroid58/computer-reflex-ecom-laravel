@@ -10,6 +10,8 @@ use App\Models\Shipment;
 use App\Models\OrderItem;
 use App\Models\OrderAddress;
 use App\Models\OrderCancelRequest;
+use App\Models\ProductLicense;
+use App\Models\OrderItemLicense;
 use Softon\Indipay\Facades\Indipay;
 use App\Http\Helpers\PaytmHelper;
 use App\Http\Helpers\PayuHelper;
@@ -61,14 +63,27 @@ class ManageOrdersController extends Controller
        
     }
 
+    public function CheckAndMarkDelivered($order_id)
+    {
+        $a = OrderItem::where('order_id', $order_id)->get();
+        $b = OrderItem::where('order_id', $order_id)->where('status', 'item_delivered')->get();
+            
+            if ($a->count() == $b->count()) {
+                Order::where('id', $order_id)->update([
+                    'status' => 'order_delivered',
+                ]);
+                // admin-delivery-confirmation
+            } 
+    }
+
     public function ShipOrder ($order_id)
     {
-        $order = Order::with('OrderItems')->where('id', $order_id)->first();
+        $order = Order::with('OrderItems.OrderItemLicense.ProductLicense')->where('id', $order_id)->first();
 
         return view('admin.shipping.process-order',[
             'order' => $order,
         ]);
-
+        
     }
 
     public function StartPacking($order_item_id)
@@ -201,6 +216,43 @@ class ManageOrdersController extends Controller
             ]);
         }
         
+        return redirect()->back();
+    }
+
+    public function SendLicenseKey(Request $req)
+    {
+        $req->validate([
+            'order_item_id' => 'required',
+            'license_key' => 'required',
+        ]);
+
+        $OrderItem = OrderItem::where('id', $req->order_item_id)->first();
+        
+        if (!isset($OrderItem)) {
+           abort(500);
+        }
+
+        if ($OrderItem->status != 'order_placed') {
+            return 'License key already sent!';
+        }
+
+        OrderItem::where('id', $req->order_item_id)->update([
+            'status' => 'item_delivered',
+        ]);
+        
+        $ProductLicense = new ProductLicense;
+        $ProductLicense->product_id = $OrderItem->product_id;
+        $ProductLicense->key = $req->license_key;
+        $ProductLicense->status = 'used';
+        $ProductLicense->save();
+
+        $OrderItemLicense = new OrderItemLicense;
+        $OrderItemLicense->order_item_id = $OrderItem->id;
+        $OrderItemLicense->product_license_id = $ProductLicense->id;
+        $OrderItemLicense->save();
+
+        $this->CheckAndMarkDelivered($OrderItem->order_id);
+
         return redirect()->back();
     }
 

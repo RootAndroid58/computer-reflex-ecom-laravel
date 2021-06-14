@@ -172,7 +172,14 @@ $UserName=str_word_count(Auth()->user()->name, 1);
                                             <span style="">
                                                 <i class="fa fa-circle" aria-hidden="true"></i>
                                             </span>
-                                            Delivered On: <b>{{date_format(new DateTime($item->shipment->delivery_date), "dS M,(D)")}}</b>
+                                            Delivered On: <b>
+                                                @if ($item->order->delivery_type == 'electronic')
+                                                {{date_format(new DateTime($item->OrderItemLicense->created_at), "dS M,(D)")}}
+                                                @elseif ($item->order->delivery_type == 'physical')
+                                                {{date_format(new DateTime($item->shipment->delivery_date), "dS M,(D)")}}
+                                                @endif
+                                                
+                                            </b>
                                         </span>
                                         @endif
                                     </div>

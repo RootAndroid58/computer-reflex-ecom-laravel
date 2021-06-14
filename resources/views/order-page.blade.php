@@ -149,9 +149,12 @@
                                         </div>
                                         @endif
 
+                                        @if ($order->delivery_type != 'electronic')
                                         <div style="padding-top: 10px; text-align: right;">
                                             <button class="btn btn-dark btn-block" data-toggle="modal" data-target="#OrderCancelModal">CANCEL ORDER</button>
-                                        </div>
+                                        </div> 
+                                        @endif
+                                       
                                         
                                       
                                                                        
@@ -205,9 +208,7 @@
 
 
 
-                
-
-                           
+    
                 @foreach ($order->OrderItems as $item)
                 <div class="account-details-container" style="margin-bottom: 0;" >
                     <div class="wishlist-basic-padding" >
@@ -224,6 +225,22 @@
                                 <a href="{{route('product-index', $item->product->id)}}" target="_blank">
                                     <span class="wish-product-title font-weight-500 color-0066c0">{{$item->product->product_name}}</span>
                                 </a>
+
+
+                                @if ($item->status == 'item_delivered')
+                                <div class="input-group mt-3">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-outline-dark"><i class="fa fa-key" aria-hidden="true"></i></button>
+                                        
+                                    </div>
+                                    <input readonly type="text" value="{{ $item->OrderItemLicense->ProductLicense->key }}" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-dark"><i class="fas fa-copy"></i></button>
+                                    </div>
+                                </div>
+                                @endif
+                               
+
                             </div>
     
                             <div class="col-3">
@@ -301,7 +318,14 @@
                                     <span style="">
                                         <i class="fa fa-circle" aria-hidden="true"></i>
                                     </span>
-                                    Delivered On: <b>{{date_format(new DateTime($item->shipment->delivery_date), "dS M,(D)")}}</b>
+                                    Delivered On: 
+                                    <b>
+                                        @if ($item->order->delivery_type == 'electronic')
+                                            {{date_format(new DateTime($item->OrderItemLicense->created_at), "dS M,(D)")}}
+                                        @elseif ($item->order->delivery_type == 'physical')
+                                            {{date_format(new DateTime($item->shipment->delivery_date), "dS M,(D)")}}
+                                        @endif
+                                    </b>
                                 </span>
                                 @endif
                             </div>

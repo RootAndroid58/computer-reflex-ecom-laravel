@@ -339,10 +339,6 @@
 
 
 
-
-
-
-
     <div class="container">
         <div class="row">
         <div class="col-md-12">
@@ -378,7 +374,7 @@
                                         <p>
                                             <div class="details-price" style="margin-bottom: 0;">
                                                     <div class="row">
-                                                        <div class="col-7">
+                                                        <div class="col-5">
                                                             <span style="font-weight: normal; font-size: 15px;">Unit Price: <span style="font-weight: 500;"><font class="rupees">₹</font> {{moneyFormatIndia($item->unit_price)}}</span></span><br>
                                                             <span style="font-weight: normal; font-size: 15px;">Qty: <span style="font-weight: 500;"> {{$item->qty}}</span></span><br>
                                                             <span style="font-weight: normal; font-size: 15px;">Total Price: <span style="font-weight: 500;"><font class="rupees">₹</font> {{moneyFormatIndia($item->total_price)}}</span></span><br>
@@ -417,18 +413,51 @@
                                                                 </span>
                                                                 Shipment #{{ $item->shipment->tracking_id }} Created, Waiting For Pickup.
                                                             </span>
+                                                            @elseif($item->status == 'item_shipped')
+                                                            <span style="color: #2874f0">
+                                                                <span style="">
+                                                                    <i class="fa fa-circle" aria-hidden="true"></i>
+                                                                </span>
+                                                                Shipment <strong>#{{ $item->shipment->tracking_id }}</strong> Shipped via <strong>{{ $item->shipment->courier_name }}</strong>.
+                                                            </span>
+                                                            @elseif($item->status == 'item_delivered')
+                                                            <span class="text-success">
+                                                                <span style="">
+                                                                    <i class="fa fa-circle" aria-hidden="true"></i>
+                                                                </span>
+                                                                Item Delivered
+                                                            </span>
                                                             @endif
                                                         </div>
 
-                                                        <div class="col-5" style="text-align: right;">
-                                                            @if ($item->status == 'order_placed')
-                                                                <a data-toggle="modal" data-target="#StartPackingModal{{$item->id}}" class="btn btn-dark">START PACKING</a>
-                                                            @elseif($item->status == 'packing_started')
-                                                                <a data-toggle="modal" data-target="#PackingCompletedModal{{$item->id}}" class="btn btn-dark">PACKING COMPLETED</a>
-                                                            @elseif($item->status == 'packing_completed')
-                                                                {{-- <a href="{{ route('admin-create-shipment-view', $item->id) }}" class="btn btn-dark">CREATE SHIPMENT</a> --}}
-                                                            
+                                                        <div class="col-7" style="text-align: right;">
+
+
+                                                            @if ($order->delivery_type == 'physical')
+                                                                @if ($item->status == 'order_placed')
+                                                                    <a data-toggle="modal" data-target="#StartPackingModal{{$item->id}}" class="btn btn-dark">START PACKING</a>
+                                                                @elseif($item->status == 'packing_started')
+                                                                    <a data-toggle="modal" data-target="#PackingCompletedModal{{$item->id}}" class="btn btn-dark">PACKING COMPLETED</a>
+                                                                @elseif($item->status == 'packing_completed')
+                                                                    {{-- <a href="{{ route('admin-create-shipment-view', $item->id) }}" class="btn btn-dark">CREATE SHIPMENT</a> --}}
+                                                                @endif
+
+                                                            @elseif($order->delivery_type == 'electronic')
+                                                            <form action="{{ route('admin-send-license-key') }}" method="post" class="w-100">
+                                                                <div class="input-group mb-3">
+                                                                    @csrf
+                                                                    <input type="hidden" name="order_item_id" value="{{ $item->id }}">
+                                                                    <input type="text" class="form-control" name="license_key" value="{{ $item->OrderItemLicense->ProductLicense->key ?? '' }}" placeholder="License Key" @if (isset($item->OrderItemLicense->ProductLicense->key)) disabled @endif>
+                                                                    @if ($item->status == 'order_placed')
+                                                                    <div class="input-group-append">
+                                                                        <button class="btn btn-success">SEND</button>
+                                                                    </div>
+                                                                    @endif
+                                                                </div>
+                                                            </form>
                                                             @endif
+
+                                                            
                                                         </div>
                                                     </div>
                                                     

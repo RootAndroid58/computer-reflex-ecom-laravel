@@ -22,8 +22,9 @@ class CheckoutController extends Controller
 
     public function CheckoutView(Request $req)
     {
+        $physicalItems = false;
+        $electroniclItems = false;
         $addresses = Address::where('user_id', Auth()->user()->id)->get();
-
 
         if (isset($req->voucher_code)) 
         {
@@ -34,6 +35,13 @@ class CheckoutController extends Controller
             if (isset($voucher) && $voucher->status == 'active') {
                 foreach ($voucher->products as $VoucherProduct) {
                     $prod = Product::with('images')->where('id', $VoucherProduct->product_id)->first();
+
+                    if ($prod->delivery_type == 'physical') {
+                        $physicalItems = true;
+                    } else if ($prod->delivery_type == 'electronic') {
+                        $electroniclItems = true;
+                    }
+
                     $data[] = $prod;
                     $qty[] = $VoucherProduct->qty;
 
@@ -50,11 +58,28 @@ class CheckoutController extends Controller
         {
             $type = 'normal';
             foreach ($req->product_id as $key => $value) {
-                $data[] = Product::with('images')->where('id', $value)->first();
+                $product = Product::with('images')->where('id', $value)->first();
+
+                if ($product->delivery_type == 'physical') {
+                    $physicalItems = true;
+                } else if ($product->delivery_type == 'electronic') {
+                    $electroniclItems = true;
+                }
+
+                $data[] = $product;
                 $qty[] = $req->product_qty[$key];
             }
         }
-        
+
+        if ($physicalItems && $electroniclItems) {
+            return 'Order contains both e-Products and Physical Products, Please place sperate orders.';
+        }
+
+        if ($physicalItems && !$electroniclItems) {
+            $deliveryType = 'physical';
+        } elseif (!$physicalItems && $electroniclItems) {
+            $deliveryType = 'electronic';
+        }
 
         return view('checkout-form', [
             'data'          => $data,
@@ -62,11 +87,16 @@ class CheckoutController extends Controller
             'type'          => $type,
             'qty'           => $qty,
             'addresses'     => $addresses,
+            'deliveryType'  => $deliveryType,
         ]);
     }
 
     public function CheckoutSubmit(Request $req)
     {   
+
+        $physicalItems = false;
+        $electroniclItems = false;
+
         if (isset($req->voucher_code)) {
             
             $voucher = Voucher::where('code', $req->voucher_code)->first();
@@ -102,6 +132,13 @@ class CheckoutController extends Controller
 
         foreach ($req->product_id as $i => $pid) {
             $product = Product::where('id', $pid)->first();
+
+            if ($product->delivery_type == 'physical') {
+                $physicalItems = true;
+            } else if ($product->delivery_type == 'electronic') {
+                $electroniclItems = true;
+            }
+
             if ($product->product_stock >= $req->product_qty[$i]) {
                 
                 if (isset($req->voucher_code)) {
@@ -115,7 +152,20 @@ class CheckoutController extends Controller
                 return redirect()->route('cart');
             }
         }
-       
+
+        if ($physicalItems && $electroniclItems) {
+            return 'Order contains both e-Products and Physical Products, Please place sperate orders.';
+        }
+
+        if ($physicalItems && !$electroniclItems) {
+            $deliveryType = 'physical';
+        } elseif (!$physicalItems && $electroniclItems) {
+            $deliveryType = 'electronic';
+        }
+
+        if ($deliveryType == 'electronic' && $req->payment_method == 'cod') {
+            return 'Payment method can not be COD while plaing an e-Order.';
+        }
         
         if (isset($req->voucher_code) && $price == 0)  {
             $req->payment_method = 'voucher';
@@ -125,7 +175,6 @@ class CheckoutController extends Controller
         if ($itemCount <= 0) {
             abort(500);
         }
-      
 
         // Create new order entry
         $order = new Order;
@@ -133,6 +182,7 @@ class CheckoutController extends Controller
         $order->address_id      = $req->address_id;
         $order->mrp             = $mrp;
         $order->price           = $price;
+        $order->delivery_type   = $deliveryType;
         $order->payment_method  = $req->payment_method;
         $order->status          = 'checkout_pending';
         $order->save();
@@ -265,7 +315,6 @@ class CheckoutController extends Controller
             }
         }
        
-          
             mail::to(Auth()->user()->email)->send(new OrderPlacedMail($data)); 
         }
     

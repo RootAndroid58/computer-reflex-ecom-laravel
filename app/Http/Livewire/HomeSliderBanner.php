@@ -8,12 +8,6 @@ class HomeSliderBanner extends Component
 {
     public $banner;
     
-    public $isReady = false;
-
-    public function DocReady()
-    {
-        $this->isReady = true;
-    }
 
     public function render()
     {

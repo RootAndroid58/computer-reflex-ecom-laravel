@@ -13,6 +13,10 @@ class OrderItem extends Model
     {
         return $this->hasOne(Product::class, 'id', 'product_id');
     }
+    public function OrderItemLicense()
+    {
+        return $this->hasOne(OrderItemLicense::class, 'order_item_id', 'id');
+    }
     public function image()
     {
         return $this->hasOne(ProductImage::class, 'product_id', 'product_id')->orderBy('id', 'desc');

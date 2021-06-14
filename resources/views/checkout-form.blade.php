@@ -5,9 +5,6 @@
 {{ die }}
 @endif
 
-
-
-
 @extends('layouts.common')
 
 @section('title', 'Checkout')
@@ -454,11 +451,12 @@
                                         </div>
                                     @endif
 
-                                    @if (App\Models\SystemSetting::where('key', 'CODCheckout')->first()->value == 'active')
+                                    @if ($deliveryType != 'electronic' && App\Models\SystemSetting::where('key', 'CODCheckout')->first()->value == 'active')
                                         <div class="payment-option-container cod_btn" style="cursor: pointer;">
                                             <span>Cash On Delivery (COD)</span>
                                         </div>
                                     @endif
+
                                 </div>
                         </div>
                     </div>

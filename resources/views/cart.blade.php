@@ -61,12 +61,24 @@
                     @else
                             
                 <div class="wishlist-container">   
+
+                    @php
+                        $physicalItems = false;
+                        $electroniclItems = false;
+                    @endphp
+                     
                     <form action="{{ route('checkout-post') }}" method="post" id="CartCheckOutForm"> @csrf
                     @foreach ($cart as $cart)
                     @foreach ($cart->Products as $Product) 
     
-                    @php $StockCounter = 1; @endphp
-
+                    @php $StockCounter = 1; 
+                    if ($Product->delivery_type == 'physical') {
+                        $physicalItems = true;
+                    } else if ($Product->delivery_type == 'electronic') {
+                        $electroniclItems = true;
+                    }
+                    @endphp
+                      
                             <div class="row wishlist-basic-padding" id="CartItem{{ $Product->id }}" style="padding-bottom: 0;">
                                 <div class="col-md-3">
                                     <a href="{{route('product-index', $Product->id)}}" target="_blank">
@@ -98,22 +110,34 @@
                                         }
                                         @endphp
 
-                                        @if($Product->product_stock <= 0)
-                                            <p class="text-danger" style="font-weight: 500;"></i>Out of stock!</p>
-                                        @else
-                                        <input type="hidden" name="product_id[]" value="{{ $Product->id }}">
-                                            <div class="input-group input-group-sm" style="max-width: 160px;">
-                                                <div class="input-group-prepend">
-                                                <label class="input-group-text" for="product-quantity">Qty</label>
-                                                </div>
-                                                <select class="custom-select" id="product-quantity-{{ $Product->id }}" name="product_qty[]" onchange="ChangeQty('{{ $Product->id }}')">
-                                                @while ($StockCounter <= $Product->product_stock)
-                                                    <option @if ($cart->qty == $StockCounter) selected @endif value="{{$StockCounter}}">{{$StockCounter}}</option>
-                                                    {{ $StockCounter++ }}
-                                                @endwhile
-                                                </select>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                @if($Product->product_stock <= 0)
+                                                <p class="text-danger" style="font-weight: 500;"></i>Out of stock!</p>
+                                                @else
+                                                <input type="hidden" name="product_id[]" value="{{ $Product->id }}">
+                                                    <div class="input-group input-group-sm" style="max-width: 160px;">
+                                                        <div class="input-group-prepend">
+                                                        <label class="input-group-text" for="product-quantity">Qty</label>
+                                                        </div>
+                                                        <select class="custom-select" id="product-quantity-{{ $Product->id }}" name="product_qty[]" onchange="ChangeQty('{{ $Product->id }}')">
+                                                        @while ($StockCounter <= $Product->product_stock)
+                                                            <option @if ($cart->qty == $StockCounter) selected @endif value="{{$StockCounter}}">{{$StockCounter}}</option>
+                                                            {{ $StockCounter++ }}
+                                                        @endwhile
+                                                        </select>
+                                                    </div>
+                                                @endif
                                             </div>
-                                        @endif
+
+                                            <div class="col-8">
+                                                @if ($Product->delivery_type == 'electronic')
+                                                    <span class="text-success font-weight-bold">e-Delivery</span>
+                                                @endif
+                                            </div>
+                                        </div>
+
+                                       
                                         
 
                                     </div>
@@ -168,12 +192,20 @@
                         <span>Total Amount</span>
                         <span class="float-right"><font class="rupees">&#8377;</font>{{ moneyFormatIndia($ProductPriceTotal) }}</span>
                     </div>
-                        {{-- <a href="{{ route('cart-checkout-view') }}" class="w-100"> --}}
-                            <div class="w-100 cart-checkout-btn-container">
-                                <button type="submit" form="CartCheckOutForm" class="">CHECKOUT &nbsp;<i class="fa fa-credit-card" aria-hidden="true"></i></button>
-                            </div>
-                        {{-- </a> --}}
-
+                
+                    <div id="errorContainer" class="w-100">
+                        @if ($physicalItems && $electroniclItems)
+                        <div class="alert alert-danger mb-0" role="alert" style="font-size: 12px;">
+                            <strong>Products with email delivery and physical delivery can't be clubbed together, Place separate orders. </strong>
+                        </div>
+                        @else
+                        <div class="w-100 cart-checkout-btn-container">
+                            <button type="submit" form="CartCheckOutForm" class="">CHECKOUT &nbsp;<i class="fa fa-credit-card" aria-hidden="true"></i></button>
+                        </div>
+                        @endif
+                    </div>
+                   
+                    
                     <div class="account-menu-break"></div> 
 
                 </div>
@@ -205,6 +237,7 @@
 
                 if (data == 200) {
                     $('#CartContainer').load("{{ route('cart') }} #CartContainer")
+                    $('#errorContainer').load("{{ route('cart') }} #errorContainer")
                     // $('#CartItem'+product_id).fadeIn()
                     // $('#CartBreak'+product_id).fadeIn()
 
@@ -230,12 +263,10 @@
                 'product_id' : product_id,
             },
             success: function (data) {
-
-                if (data == 500) {
+                if (data.status == 500) {
                     $('#CartContainer').load("{{ route('cart') }} #CartContainer")
                     $('#CartCount').load("{{ route('cart') }} #CartCount")
-                } else if(data == 200) {
-                    console.log('Error removing product from cart.')
+                    $('#errorContainer').load("{{ route('cart') }} #errorContainer")
                 }
             }
         })
