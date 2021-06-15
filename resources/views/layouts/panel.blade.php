@@ -13,8 +13,6 @@
     
     @yield('css-js')
 
-    @livewireStyles
-    @livewireScripts
 
 <body id="page-top">
     

@@ -341,6 +341,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:Admin', 'verifie
 
 Route::group(['prefix' => 'ajax/data-table'], function() {
 
+    Route::resource('datatable/products-licenses-table','App\Http\Controllers\Datatables\ProductLicensesTableController')->names('datatable-product-licenses-table');
+
     Route::get('admin-featured-catalogs-table', 'App\Http\Controllers\AjaxDataTable@AdminFeaturedCatalogsTable')->name('ajax-datatable.AdminFeaturedCatalogsTable');
     Route::get('admin-products-table', 'App\Http\Controllers\AjaxDataTable@AdminProductsTable')->name('ajax-datatable.AdminProductsTable');
     Route::get('admin-products-publish-table', 'App\Http\Controllers\AjaxDataTable@AdminProductsPublishTable')->name('ajax-datatable.AdminProductsPublishTable');

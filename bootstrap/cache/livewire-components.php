@@ -3,6 +3,7 @@
   'best-selling-section' => 'App\\Http\\Livewire\\BestSellingSection',
   'carousel-products' => 'App\\Http\\Livewire\\CarouselProducts',
   'cart-count' => 'App\\Http\\Livewire\\CartCount',
+  'create-license-key-modal' => 'App\\Http\\Livewire\\CreateLicenseKeyModal',
   'home-slider-banner' => 'App\\Http\\Livewire\\HomeSliderBanner',
   'home-small-banner' => 'App\\Http\\Livewire\\HomeSmallBanner',
   'home-wide-banner' => 'App\\Http\\Livewire\\HomeWideBanner',

@@ -7,6 +7,7 @@
     gtag('config', 'G-STJZ4CTNF7');
 </script>
 
+
 <!-- all css here -->
 <link rel="stylesheet" href="{{ asset('SB-Admin/bootstrap/css/bootstrap.min.css')}}">
 <link rel="stylesheet" href="{{ asset('css/app.css') }}?{{ $assetVer }}">
@@ -28,3 +29,6 @@
 <link rel="stylesheet" href="{{ asset('css/collapse-bs4.css')}}?{{ $assetVer }}">
 <link rel="stylesheet" href="{{ asset('css/custom.css')}}?{{ $assetVer }}">
 <script src="{{ asset('ezone/js/vendor/modernizr-2.8.3.min.js')}}?{{ $assetVer }}"></script>
+
+@livewireStyles
+@livewireScripts

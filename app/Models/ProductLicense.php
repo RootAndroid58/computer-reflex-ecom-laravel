@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class ProductLicense extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'key',
+        'product_id',
+        'status',
+    ];
 }

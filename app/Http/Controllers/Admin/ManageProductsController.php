@@ -168,7 +168,7 @@ class ManageProductsController extends Controller
             'product_name'                  => 'required',
             'product_status'                => 'required|numeric|in:0,1',
             'product_stock'                 => 'required|numeric',
-            'product_mrp'                   => 'required|numeric|gt:product_price',
+            'product_mrp'                   => 'required|numeric|gte:product_price',
             'product_price'                 => 'required|numeric',
             'product_description'           => 'required',
             'product_long_description'      => 'nullable',
@@ -178,17 +178,20 @@ class ManageProductsController extends Controller
 
         $comission = ProductComission::where('product_id', $req->product_id)->first();
 
-        if (!isset($comission)) {
-            $ProductComission = new ProductComission;
-            $ProductComission->product_id   = $req->product_id;
-            $ProductComission->comission    = $req->comission;
-            $ProductComission->save();
-        } else {
-            $comission->update([
-                'comission' => $req->comission,
-            ]);
+        if (isset($req->comission)) {
+            if (!isset($comission)) {
+                $ProductComission = new ProductComission;
+                $ProductComission->product_id   = $req->product_id;
+                $ProductComission->comission    = $req->comission;
+                $ProductComission->save();
+            } else {
+                $comission->update([
+                    'comission' => $req->comission,
+                ]);
+            }
+    
         }
-
+        
         
         Product::where('id', $req->product_id)->update([
             'product_name'              => $req->product_name,
@@ -294,7 +297,15 @@ class ManageProductsController extends Controller
 
     public function EditProductLicenses($pid)
     {
-        return view('admin.edit-product-licenses');
+        $product = Product::where('id', $pid)->first();
+        
+        if ($product->delivery_type != 'electronic') {
+            abort(500);
+        }
+
+        return view('admin.edit-product-licenses', [
+            'product' => $product,
+        ]);
     }
 
 }

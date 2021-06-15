@@ -11,12 +11,11 @@ use App\Models\AffiliateWalletTxn;
 use App\Models\SupportTicket;
 use App\Models\Catalog;
 use App\Models\Voucher;
+use App\Models\ProductLicense;
 use DateTime;
 
 class AjaxDataTable extends Controller
 {
-
-
     public function AdminFeaturedCatalogsTable(Request $req)
     {
         if (Request()->ajax()) {

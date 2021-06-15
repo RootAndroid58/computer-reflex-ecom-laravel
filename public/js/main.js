@@ -732,8 +732,6 @@ $('#QuestionSubmitForm').on('submit', function (e) {
 
 
 
-
-
 $('#multi-item-carousel').carousel({
     interval: 10000
   })

@@ -12,9 +12,6 @@
 
         @include('includes.top-includes')
 
-        @livewireStyles
-        @livewireScripts
-
         @yield('css-js')
         <style>
             .body-container{

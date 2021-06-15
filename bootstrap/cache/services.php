@@ -47,6 +47,7 @@
     43 => 'Intervention\\Image\\ImageServiceProvider',
     44 => 'Jenssegers\\Agent\\AgentServiceProvider',
     45 => 'Laravel\\Socialite\\SocialiteServiceProvider',
+    46 => 'Yajra\\Datatables\\DatatablesServiceProvider',
   ),
   'eager' => 
   array (
@@ -80,6 +81,7 @@
     27 => 'App\\Providers\\RouteServiceProvider',
     28 => 'Intervention\\Image\\ImageServiceProvider',
     29 => 'Jenssegers\\Agent\\AgentServiceProvider',
+    30 => 'Yajra\\Datatables\\DatatablesServiceProvider',
   ),
   'deferred' => 
   array (
