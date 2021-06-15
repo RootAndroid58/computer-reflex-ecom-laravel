@@ -43,7 +43,7 @@ class CreditAffiliateComission extends Command
      */
     public function handle()
     {    
-        $orderItems = OrderItem::with('shipment')->whereHas('AffiliateOrderItem', function($q){
+        $orderItems = OrderItem::with('OrderItemLicenses')->with('shipment')->with('order')->whereHas('AffiliateOrderItem', function($q){
             $q->where('status', 'pending');
         })
         ->where('status', 'item_delivered')
@@ -57,13 +57,20 @@ class CreditAffiliateComission extends Command
 
                     if ($orderItem->AffiliateOrderItem->status == 'pending') {
 
-                        $deliveryDate = new \DateTime($orderItem->shipment->delivery_date);
-                        $returnDate = $deliveryDate->modify('+20 days');
+                        if ($orderItem->order->delivery_type == 'physical') {
+                            $deliveryDate = new \DateTime($orderItem->shipment->delivery_date);
+                            $returnDate = $deliveryDate->modify('+20 days');
+                        } 
+                        else if ($orderItem->order->delivery_type == 'electronic') {
+                            $deliveryDate = new \DateTime($orderItem->OrderItemLicenses[0]->delivery_date);
+                            $returnDate = $deliveryDate;
+                        }
+                        
                         $today = new \DateTime();
-
+                        
                         // Process if return date is over for the Affiliate Purchase
                         if ($today > $returnDate) {
-                            
+
                             // Mark the Affiliate Purchase as comission credited
                             AffiliateOrderItem::where('order_item_id', $orderItem->id)->update([
                                 'status' => 'comission_credited',
@@ -100,13 +107,7 @@ class CreditAffiliateComission extends Command
 
                             Mail::to($user->email)->send(new AffiliateComissionCreditedMail($data));
                         } 
-                        
-                        else {
-                            // Mark the Affiliate Purchase as comission credited
-                            AffiliateOrderItem::where('order_item_id', $orderItem->id)->update([
-                                'status' => 'Not Eligible',
-                            ]);
-                        }
+
                     }
                 }
             }

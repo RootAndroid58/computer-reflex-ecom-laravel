@@ -13,9 +13,9 @@ class OrderItem extends Model
     {
         return $this->hasOne(Product::class, 'id', 'product_id');
     }
-    public function OrderItemLicense()
+    public function OrderItemLicenses()
     {
-        return $this->hasOne(OrderItemLicense::class, 'order_item_id', 'id');
+        return $this->hasMany(OrderItemLicense::class, 'order_item_id', 'id');
     }
     public function image()
     {

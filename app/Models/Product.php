@@ -58,6 +58,10 @@ class Product extends Model
     {
         return $this->hasMany(ProductImage::class, 'product_id', 'id')->orderBy('id', 'desc');
     }
+    public function licenses()
+    {
+        return $this->hasMany(ProductLicense::class, 'product_id', 'id')->orderBy('id', 'desc');
+    }
     public function stars()
     {
         return $this->hasOne(ProductReview::class, 'product_id', 'id')->orderBy('id', 'desc');

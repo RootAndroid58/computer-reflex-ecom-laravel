@@ -20,7 +20,7 @@ class OrdersController extends Controller
 
     public function OrderPage($order_id)
     {
-        $order = Order::with('Address')->with('PendingCancelRequest')->with('CancelRequest')->with('OrderItems.OrderItemLicense.ProductLicense')->with('OrderItems.shipment')->where('id', $order_id)->where('user_id', Auth()->user()->id)->first();
+        $order = Order::with('Address')->with('PendingCancelRequest')->with('CancelRequest')->with('OrderItems.OrderItemLicenses.ProductLicense')->with('OrderItems.shipment')->where('id', $order_id)->where('user_id', Auth()->user()->id)->first();
 
         if (!isset($order)) {
             abort(404);

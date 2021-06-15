@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Product;
@@ -78,7 +79,7 @@ class ManageOrdersController extends Controller
 
     public function ShipOrder ($order_id)
     {
-        $order = Order::with('OrderItems.OrderItemLicense.ProductLicense')->where('id', $order_id)->first();
+        $order = Order::with('OrderItems.OrderItemLicenses.ProductLicense')->where('id', $order_id)->first();
 
         return view('admin.shipping.process-order',[
             'order' => $order,
@@ -223,7 +224,6 @@ class ManageOrdersController extends Controller
     {
         $req->validate([
             'order_item_id' => 'required',
-            'license_key' => 'required',
         ]);
 
         $OrderItem = OrderItem::where('id', $req->order_item_id)->first();
@@ -236,20 +236,34 @@ class ManageOrdersController extends Controller
             return 'License key already sent!';
         }
 
+        $req->validate([
+            'license_keys.*' => 'distinct|required',
+            'license_keys' => ['required', 'max:255', Rule::unique('product_licenses', 'key')->where(function ($q) use ($OrderItem) {
+                return $q->where('product_id', $OrderItem->product_id);
+            })],
+        ]);
+
+        if ($OrderItem->qty != count($req->license_keys)) {
+            abort(500);
+        }
+
         OrderItem::where('id', $req->order_item_id)->update([
             'status' => 'item_delivered',
         ]);
-        
-        $ProductLicense = new ProductLicense;
-        $ProductLicense->product_id = $OrderItem->product_id;
-        $ProductLicense->key = $req->license_key;
-        $ProductLicense->status = 'used';
-        $ProductLicense->save();
 
-        $OrderItemLicense = new OrderItemLicense;
-        $OrderItemLicense->order_item_id = $OrderItem->id;
-        $OrderItemLicense->product_license_id = $ProductLicense->id;
-        $OrderItemLicense->save();
+        foreach ($req->license_keys as $key => $license_key) {
+            $ProductLicense = new ProductLicense;
+            $ProductLicense->product_id = $OrderItem->product_id;
+            $ProductLicense->key = $license_key;
+            $ProductLicense->status = 'used';
+            $ProductLicense->save();
+
+            $OrderItemLicense = new OrderItemLicense;
+            $OrderItemLicense->order_item_id = $OrderItem->id;
+            $OrderItemLicense->product_license_id = $ProductLicense->id;
+            $OrderItemLicense->delivery_date = new \DateTime();
+            $OrderItemLicense->save();
+        }
 
         $this->CheckAndMarkDelivered($OrderItem->order_id);
 

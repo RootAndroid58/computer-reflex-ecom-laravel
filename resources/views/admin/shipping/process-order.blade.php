@@ -185,51 +185,51 @@
 
 
 
-                @if ($order->CancelRequest->count() > 0)
-                <div class="container">
-                    <div class="account-details-container">
-                        <div class="wishlist-basic-padding" style="padding-bottom: 0;">
-                            @foreach ($order->CancelRequest as $cancelReq)
-                                <div class="collapse-item mb-4">
-                                    <div class="collapse-btn" style="padding: 7px 10px; transition: all 200ms; background-color: rgba(212, 212, 212, 0.781);">
-                                        <span style="font-weight: 600">Cancel Request #{{ $cancelReq->id }} - 
-                                            @if ($cancelReq->status == 'requested')
-                                            <span class="btn btn-sm btn-warning">Requested</span>
-                                            @elseif ($cancelReq->status == 'approved')
-                                            <span class="btn btn-sm btn-success">Approved</span>
-                                            @endif
-                                        </span>
-                                    </div>
-                                    <div class="collapse-content bg-light" style="">
-                                        <div style="padding-top: 6px; padding-bottom: 6px;">
-                                            <p>
-                                                @if ($cancelReq->status == 'requested')
-                                                    <span>
-                                                        <span style="font-weight: 700;">Reason:</span>
-                                                        {{ $cancelReq->reason }}
-                                                    </span>
-                                                @endif
-                                                @if ($cancelReq->status == 'approved')
-                                                    <span>
-                                                        Approved and order cancelled.
-                                                    </span>
-                                                @endif
-                                            </p>
-                                            @if ($cancelReq->status == 'requested')
-                                            <div>
-                                                <button class="btn btn-dark btn-block" type="button" data-target="#CancelReqRespondModal" data-toggle="modal">Respond To The Request</button>
-                                            </div>
-                                            @endif
-                                        </div>
-                                        <div class="account-menu-break"></div>  
-                                    </div>
-                                </div>
-                            @endforeach
+@if ($order->CancelRequest->count() > 0)
+<div class="container">
+    <div class="account-details-container">
+        <div class="wishlist-basic-padding" style="padding-bottom: 0;">
+            @foreach ($order->CancelRequest as $cancelReq)
+                <div class="collapse-item mb-4">
+                    <div class="collapse-btn" style="padding: 7px 10px; transition: all 200ms; background-color: rgba(212, 212, 212, 0.781);">
+                        <span style="font-weight: 600">Cancel Request #{{ $cancelReq->id }} - 
+                            @if ($cancelReq->status == 'requested')
+                            <span class="btn btn-sm btn-warning">Requested</span>
+                            @elseif ($cancelReq->status == 'approved')
+                            <span class="btn btn-sm btn-success">Approved</span>
+                            @endif
+                        </span>
+                    </div>
+                    <div class="collapse-content bg-light" style="">
+                        <div style="padding-top: 6px; padding-bottom: 6px;">
+                            <p>
+                                @if ($cancelReq->status == 'requested')
+                                    <span>
+                                        <span style="font-weight: 700;">Reason:</span>
+                                        {{ $cancelReq->reason }}
+                                    </span>
+                                @endif
+                                @if ($cancelReq->status == 'approved')
+                                    <span>
+                                        Approved and order cancelled.
+                                    </span>
+                                @endif
+                            </p>
+                            @if ($cancelReq->status == 'requested')
+                            <div>
+                                <button class="btn btn-dark btn-block" type="button" data-target="#CancelReqRespondModal" data-toggle="modal">Respond To The Request</button>
+                            </div>
+                            @endif
                         </div>
-                        <div class="account-menu-break"></div> 
-                    </div>   
-                </div>    
-                @endif
+                        <div class="account-menu-break"></div>  
+                    </div>
+                </div>
+            @endforeach
+        </div>
+        <div class="account-menu-break"></div> 
+    </div>   
+</div>    
+@endif
 
 
 
@@ -345,125 +345,164 @@
         <div class="account-details-container">
             <div class="right-wishlist-container" style="min-height: unset;">
         
-                <div class="wishlist-basic-padding">
-                    <div class="account-details-title" style="padding-bottom: 0px;">
-                        <span style="font-weight: 600; color: black;">Items Ordered ({{ $order->OrderItems->count() }})</span>
-                    </div>
-                </div>
-        
-                <div class="account-menu-break"></div>   
+        <div class="wishlist-basic-padding">
+            <div class="account-details-title" style="padding-bottom: 0px;">
+                <span style="font-weight: 600; color: black;">Items Ordered ({{ $order->OrderItems->count() }})</span>
+            </div>
+        </div>
 
-                    <div class="wishlist-container">   
-                        @php $shipmentEligible = true; @endphp
-                        @foreach ($order->OrderItems as $item)
-                            @if ($item->status != 'packing_completed') @php $shipmentEligible = false; @endphp @endif
-                            <div class="account-menu-break"></div>     
-                                <div class="row wishlist-basic-padding" style="padding-bottom: 0;">
-                                    <div class="col-md-3">
-                                        <a href="{{route('product-index', $item->product_id)}}" target="_blank">
-                                            <div class="wish-product-image-container">
-                                                <img src="{{asset('storage/images/products/'.$item->image->image)}}" alt="">
-                                            </div>
-                                        </a>
+        <div class="account-menu-break"></div>   
+
+            <div class="wishlist-container">   
+                @php $shipmentEligible = true; @endphp
+
+                @if($errors->any())
+                
+                    {!! implode('', $errors->all('<div class="alert alert-danger" role="alert"><strong>:message</strong></div>')) !!}
+                @endif
+
+                
+
+
+                @foreach ($order->OrderItems as $item)
+                    @if ($item->status != 'packing_completed') @php $shipmentEligible = false; @endphp @endif
+                    <div class="account-menu-break"></div>     
+                        <div class="row wishlist-basic-padding" style="padding-bottom: 0;">
+                            <div class="col-md-3">
+                                <a href="{{route('product-index', $item->product_id)}}" target="_blank">
+                                    <div class="wish-product-image-container">
+                                        <img src="{{asset('storage/images/products/'.$item->image->image)}}" alt="">
                                     </div>
-        
-                                    <div class="col-md-8">
-                                        <a href="{{route('product-index', $item->product_id)}}" target="_blank">
-                                            <span class="wish-product-title font-weight-500 color-0066c0">{{$item->product->product_name}}</span>
-                                        </a>
-                                        <p>
-                                            <div class="details-price" style="margin-bottom: 0;">
-                                                    <div class="row">
-                                                        <div class="col-5">
-                                                            <span style="font-weight: normal; font-size: 15px;">Unit Price: <span style="font-weight: 500;"><font class="rupees">₹</font> {{moneyFormatIndia($item->unit_price)}}</span></span><br>
-                                                            <span style="font-weight: normal; font-size: 15px;">Qty: <span style="font-weight: 500;"> {{$item->qty}}</span></span><br>
-                                                            <span style="font-weight: normal; font-size: 15px;">Total Price: <span style="font-weight: 500;"><font class="rupees">₹</font> {{moneyFormatIndia($item->total_price)}}</span></span><br>
-                                                            @if ($item->status == 'order_placed')
-                                                            <span style="color: #2874f0">
-                                                                <span style="">
-                                                                    <i class="fa fa-circle" aria-hidden="true"></i>
-                                                                </span>
-                                                                Order Placed.
-                                                            </span>
-                                                            @elseif($item->status == 'packing_started')
-                                                            <span style="color: #2874f0">
-                                                                <span style="">
-                                                                    <i class="fa fa-circle" aria-hidden="true"></i>
-                                                                </span>
-                                                                Packing Started.
-                                                            </span>
-                                                            @elseif($item->status == 'order_cancelled')
-                                                            <span class="text-danger">
-                                                                <span style="">
-                                                                    <i class="fa fa-circle" aria-hidden="true"></i>
-                                                                </span>
-                                                                Order Cancelled.
-                                                            </span>
-                                                            @elseif($item->status == 'packing_completed')
-                                                            <span style="color: #2874f0">
-                                                                <span style="">
-                                                                    <i class="fa fa-circle" aria-hidden="true"></i>
-                                                                </span>
-                                                                Packing Completed.
-                                                            </span>
-                                                            @elseif($item->status == 'shipment_created')
-                                                            <span style="color: #2874f0">
-                                                                <span style="">
-                                                                    <i class="fa fa-circle" aria-hidden="true"></i>
-                                                                </span>
-                                                                Shipment #{{ $item->shipment->tracking_id }} Created, Waiting For Pickup.
-                                                            </span>
-                                                            @elseif($item->status == 'item_shipped')
-                                                            <span style="color: #2874f0">
-                                                                <span style="">
-                                                                    <i class="fa fa-circle" aria-hidden="true"></i>
-                                                                </span>
-                                                                Shipment <strong>#{{ $item->shipment->tracking_id }}</strong> Shipped via <strong>{{ $item->shipment->courier_name }}</strong>.
-                                                            </span>
-                                                            @elseif($item->status == 'item_delivered')
-                                                            <span class="text-success">
-                                                                <span style="">
-                                                                    <i class="fa fa-circle" aria-hidden="true"></i>
-                                                                </span>
-                                                                Item Delivered
-                                                            </span>
+                                </a>
+                            </div>
+
+                            <div class="col-md-8">
+                                <a href="{{route('product-index', $item->product_id)}}" target="_blank">
+                                    <span class="wish-product-title font-weight-500 color-0066c0">{{$item->product->product_name}}</span>
+                                </a>
+                                <p>
+                                    <div class="details-price" style="margin-bottom: 0;">
+                                            <div class="row">
+                                                <div class="col-5">
+                                                    <span style="font-weight: normal; font-size: 15px;">Unit Price: <span style="font-weight: 500;"><font class="rupees">₹</font> {{moneyFormatIndia($item->unit_price)}}</span></span><br>
+                                                    <span style="font-weight: normal; font-size: 15px;">Qty: <span style="font-weight: 500;"> {{$item->qty}}</span></span><br>
+                                                    <span style="font-weight: normal; font-size: 15px;">Total Price: <span style="font-weight: 500;"><font class="rupees">₹</font> {{moneyFormatIndia($item->total_price)}}</span></span><br>
+                                                    @if ($item->status == 'order_placed')
+                                                    <span style="color: #2874f0">
+                                                        <span style="">
+                                                            <i class="fa fa-circle" aria-hidden="true"></i>
+                                                        </span>
+                                                        Order Placed.
+                                                    </span>
+                                                    @elseif($item->status == 'packing_started')
+                                                    <span style="color: #2874f0">
+                                                        <span style="">
+                                                            <i class="fa fa-circle" aria-hidden="true"></i>
+                                                        </span>
+                                                        Packing Started.
+                                                    </span>
+                                                    @elseif($item->status == 'order_cancelled')
+                                                    <span class="text-danger">
+                                                        <span style="">
+                                                            <i class="fa fa-circle" aria-hidden="true"></i>
+                                                        </span>
+                                                        Order Cancelled.
+                                                    </span>
+                                                    @elseif($item->status == 'packing_completed')
+                                                    <span style="color: #2874f0">
+                                                        <span style="">
+                                                            <i class="fa fa-circle" aria-hidden="true"></i>
+                                                        </span>
+                                                        Packing Completed.
+                                                    </span>
+                                                    @elseif($item->status == 'shipment_created')
+                                                    <span style="color: #2874f0">
+                                                        <span style="">
+                                                            <i class="fa fa-circle" aria-hidden="true"></i>
+                                                        </span>
+                                                        Shipment #{{ $item->shipment->tracking_id }} Created, Waiting For Pickup.
+                                                    </span>
+                                                    @elseif($item->status == 'item_shipped')
+                                                    <span style="color: #2874f0">
+                                                        <span style="">
+                                                            <i class="fa fa-circle" aria-hidden="true"></i>
+                                                        </span>
+                                                        Shipment <strong>#{{ $item->shipment->tracking_id }}</strong> Shipped via <strong>{{ $item->shipment->courier_name }}</strong>.
+                                                    </span>
+                                                    @elseif($item->status == 'item_delivered')
+                                                    <span class="text-success">
+                                                        <span style="">
+                                                            <i class="fa fa-circle" aria-hidden="true"></i>
+                                                        </span>
+                                                        Delivered On: 
+                                                        <b>
+                                                            @if ($item->order->delivery_type == 'electronic')
+                                                                {{date_format(new DateTime($item->OrderItemLicenses[0]->delivery_date), "dS M,(D)")}}
+                                                            @elseif ($item->order->delivery_type == 'physical')
+                                                                {{date_format(new DateTime($item->shipment->delivery_date), "dS M,(D)")}}
+                                                            @endif
+                                                        </b>
+                                                    </span>
+                                                    @endif
+                                                </div>
+
+                                                <div class="col-7" style="text-align: right;">
+
+
+                                                    @if ($order->delivery_type == 'physical')
+                                                        @if ($item->status == 'order_placed')
+                                                            <a data-toggle="modal" data-target="#StartPackingModal{{$item->id}}" class="btn btn-dark">START PACKING</a>
+                                                        @elseif($item->status == 'packing_started')
+                                                            <a data-toggle="modal" data-target="#PackingCompletedModal{{$item->id}}" class="btn btn-dark">PACKING COMPLETED</a>
+                                                        @elseif($item->status == 'packing_completed')
+                                                            {{-- <a href="{{ route('admin-create-shipment-view', $item->id) }}" class="btn btn-dark">CREATE SHIPMENT</a> --}}
+                                                        @endif
+
+                                                    @elseif($order->delivery_type == 'electronic')
+                                                   
+                                                    <form action="{{ route('admin-send-license-key') }}" method="post" class="w-100">@csrf
+                                                        <input type="hidden" name="order_item_id" value="{{ $item->id }}">
+                                                        @php
+                                                            $x = 0;
+                                                
+                                                        @endphp
+                                                        @while ($item->qty > $x)
+                                                        <div class="input-group mb-3">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i class="fa fa-key" aria-hidden="true"></i></span> 
+                                                            </div>
+
+                                                            <input type="text" class="form-control" name="license_keys[]" value="{{ $item->OrderItemLicenses[$x]->ProductLicense->key ?? '' }}" placeholder="License Key" @if (isset($item->OrderItemLicenses[$x]->ProductLicense->key)) disabled @endif>
+
+                                                            @if($item->status == 'item_delivered')
+                                                            <div class="input-group-append">
+                                                                <button class="btn btn-dark btn-copy js-tooltip js-copy" type="button"
+                                                                data-toggle="tooltip" 
+                                                                data-placement="top" 
+                                                                data-copy="{{ $item->OrderItemLicenses[$x]->ProductLicense->key ?? '' }}" 
+                                                                data-original-title="Copy to clipboard"
+                                                                ><i class="fas fa-copy"></i></button>
+                                                            </div>
                                                             @endif
                                                         </div>
+                                                        @php $x++; @endphp
 
-                                                        <div class="col-7" style="text-align: right;">
+                                                        @endwhile
 
+                                                        @if ($item->status == 'order_placed')
+                                                            <button class="btn btn-success btn-block " type="submit">SEND</button>
+                                                        @endif
+                                            
+                                                    </form>
+                                                    @endif
 
-                                                            @if ($order->delivery_type == 'physical')
-                                                                @if ($item->status == 'order_placed')
-                                                                    <a data-toggle="modal" data-target="#StartPackingModal{{$item->id}}" class="btn btn-dark">START PACKING</a>
-                                                                @elseif($item->status == 'packing_started')
-                                                                    <a data-toggle="modal" data-target="#PackingCompletedModal{{$item->id}}" class="btn btn-dark">PACKING COMPLETED</a>
-                                                                @elseif($item->status == 'packing_completed')
-                                                                    {{-- <a href="{{ route('admin-create-shipment-view', $item->id) }}" class="btn btn-dark">CREATE SHIPMENT</a> --}}
-                                                                @endif
-
-                                                            @elseif($order->delivery_type == 'electronic')
-                                                            <form action="{{ route('admin-send-license-key') }}" method="post" class="w-100">
-                                                                <div class="input-group mb-3">
-                                                                    @csrf
-                                                                    <input type="hidden" name="order_item_id" value="{{ $item->id }}">
-                                                                    <input type="text" class="form-control" name="license_key" value="{{ $item->OrderItemLicense->ProductLicense->key ?? '' }}" placeholder="License Key" @if (isset($item->OrderItemLicense->ProductLicense->key)) disabled @endif>
-                                                                    @if ($item->status == 'order_placed')
-                                                                    <div class="input-group-append">
-                                                                        <button class="btn btn-success">SEND</button>
-                                                                    </div>
-                                                                    @endif
-                                                                </div>
-                                                            </form>
-                                                            @endif
-
-                                                            
-                                                        </div>
-                                                    </div>
                                                     
+                                                </div>
                                             </div>
-                                        </p>
+                                            
                                     </div>
+                                </p>
+                            </div>
     
                                 </div>
     

@@ -19,7 +19,17 @@
 
 <div class="container-fluid">
 
-<h3>Edit Product &nbsp;<a class="btn btn-primary btn-sm float-right" href="{{ route('edit-product-images', $product->id)}}">Edit Images</a></h3>
+<h3>Edit Product &nbsp;
+    
+    <div class="float-right">
+        @if ($product->delivery_type == 'electronic')
+        <a class="btn btn-outline-dark btn-sm" href="{{ route('edit-product-licenses', $product->id)}}">License Keys ({{count($product->licenses)}})</a>
+        @endif
+        <a class="btn btn-primary btn-sm" href="{{ route('edit-product-images', $product->id)}}">Edit Images</a>
+    </div>
+    
+
+</h3>
 
 @if(Session::has('ProductEdited'))
     <div class="alert alert-success" id="admin_user_created_alert" role="alert">
@@ -103,7 +113,7 @@
             </div>
 
 
-
+            
 
             <table  class="table table-hover small-text" id="tb2">
                 <tr class="tr-header">
@@ -129,7 +139,7 @@
                     <td>
                         <a class="btn btn-danger btn-sm remove">&nbsp;<i class="fa fa-times"></i>&nbsp;</a>
                     </td>
-                    <hr>
+                    
                 </tr>
                 @endif
 
@@ -150,7 +160,6 @@
                     <td>
                         <a class="btn btn-danger btn-sm remove">&nbsp;<i class="fa fa-times"></i>&nbsp;</a>
                     </td>
-                    <hr>
                 </tr>
                 @endforeach
 
@@ -182,11 +191,10 @@
 
 
 
-            <hr>
 
 
 
-
+            <label>Tags</label>
             <ul id="myTags">
                 @foreach ($tags as $tag)
                     <li>{{ $tag->product_tag }}</li>

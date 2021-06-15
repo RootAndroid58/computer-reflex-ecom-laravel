@@ -53,10 +53,6 @@ class ManageProductsController extends Controller
 
 
 
-
-
-
-
     public function ProductPublish()
     {
         return view('admin.product-publish');
@@ -151,21 +147,6 @@ class ManageProductsController extends Controller
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function EditProduct($product_id)
     {
         $product = Product::where('id', $product_id)->first();
@@ -175,9 +156,9 @@ class ManageProductsController extends Controller
         $specifications = Specification::where('product_id', $product_id)->get();
 
         return view('admin.edit-product', [
-            'product'           => $product, 
-            'tags'              => $tags, 
-            'specifications'    => $specifications,
+                'product'           => $product, 
+                'tags'              => $tags, 
+                'specifications'    => $specifications,
             ]);
     }
 
@@ -309,6 +290,11 @@ class ManageProductsController extends Controller
         ProductImage::where('id', $image_id)->delete();
 
         return back()->with(['ImageRemoved' => 200]);
+    }
+
+    public function EditProductLicenses($pid)
+    {
+        return view('admin.edit-product-licenses');
     }
 
 }

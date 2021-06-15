@@ -228,16 +228,22 @@
 
 
                                 @if ($item->status == 'item_delivered')
+                                @foreach ($item->OrderItemLicenses as $OrderItemLicense)
                                 <div class="input-group mt-3">
                                     <div class="input-group-prepend">
-                                        <button class="btn btn-outline-dark"><i class="fa fa-key" aria-hidden="true"></i></button>
-                                        
+                                      <span class="input-group-text"><i class="fa fa-key" aria-hidden="true"></i></span> 
                                     </div>
-                                    <input readonly type="text" value="{{ $item->OrderItemLicense->ProductLicense->key }}" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                    <input readonly type="text" value="{{ $OrderItemLicense->ProductLicense->key }}" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-dark"><i class="fas fa-copy"></i></button>
+                                        <button class="btn btn-dark btn-copy js-tooltip js-copy"
+                                        data-toggle="tooltip" 
+                                        data-placement="top" 
+                                        data-copy="{{ $OrderItemLicense->ProductLicense->key }}" 
+                                        data-original-title="Copy to clipboard"
+                                        ><i class="fas fa-copy"></i></button>
                                     </div>
                                 </div>
+                                @endforeach
                                 @endif
                                
 
@@ -321,7 +327,7 @@
                                     Delivered On: 
                                     <b>
                                         @if ($item->order->delivery_type == 'electronic')
-                                            {{date_format(new DateTime($item->OrderItemLicense->created_at), "dS M,(D)")}}
+                                            {{date_format(new DateTime($item->OrderItemLicenses[0]->delivery_date), "dS M,(D)")}}
                                         @elseif ($item->order->delivery_type == 'physical')
                                             {{date_format(new DateTime($item->shipment->delivery_date), "dS M,(D)")}}
                                         @endif

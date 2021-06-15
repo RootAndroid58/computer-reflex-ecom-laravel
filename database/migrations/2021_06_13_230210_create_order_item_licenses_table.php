@@ -17,6 +17,7 @@ class CreateOrderItemLicensesTable extends Migration
             $table->id();
             $table->bigInteger('order_item_id')->foreign('id')->on('order_items')->onDelete('cascade');
             $table->bigInteger('product_license_id')->foreign('id')->on('product_licenses')->onDelete('cascade');
+            $table->dateTime('delivery_date')->nullable();
             $table->timestamps();
         });
     }

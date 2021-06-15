@@ -38,9 +38,9 @@
     
     /* slider active */
     $('.slider-active').owlCarousel({
-        autoplay: false,
+        autoplay: true,
         rewind: true,
-        loop: false,
+        loop: true,
         nav: false,
         autoplayHoverPause: true,
         lazyLoad: false,

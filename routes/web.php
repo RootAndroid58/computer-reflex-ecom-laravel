@@ -282,6 +282,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:Admin', 'verifie
     Route::post('/manage-products/publish-product/tag/submit', 'App\Http\Controllers\Admin\ManageProductsController@ProductPublishFormTag')->middleware('permission:Manage Products|Master Admin')->name('admin-publish-product-tag-submit');
 
     Route::get('/manage-product/pid/{product_id}/edit','App\Http\Controllers\Admin\ManageProductsController@EditProduct')->middleware('permission:Manage Products|Master Admin')->name('edit-product');
+    
+    Route::get('/manage-product/pid/{product_id}/licenses','App\Http\Controllers\Admin\ManageProductsController@EditProductLicenses')->middleware('permission:Manage Products|Master Admin')->name('edit-product-licenses');
 
     Route::post('/manage-products/pid/edit/submit', 'App\Http\Controllers\Admin\ManageProductsController@EditProductSubmit')->middleware('permission:Manage Products|Master Admin')->name('edit-product-submit');
 
