@@ -9,6 +9,12 @@ class OrderItemLicense extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'order_item_id',
+        'product_license_id',
+        'delivery_date',
+    ];
+
     public function ProductLicense()
     {
         return $this->hasOne(ProductLicense::class, 'id', 'product_license_id')->orderBy('id', 'desc');

@@ -137,6 +137,10 @@ class ProductLicensesTableController extends Controller
      */
     public function destroy($id)
     {
-        ProductLicense::where('id', $id)->where('status', 'unused')->delete();
+        $ProductLicense = ProductLicense::where('id', $id)->where('status', 'unused')->first();
+        $ProductLicense->delete();
+        return [
+            'license_key' => $ProductLicense->key,
+        ];
     }
 }

@@ -16,6 +16,9 @@ use App\Models\OrderItemLicense;
 use Softon\Indipay\Facades\Indipay;
 use App\Http\Helpers\PaytmHelper;
 use App\Http\Helpers\PayuHelper;
+
+use App\Mail\ItemDeliveredMail;
+
 use DateTime;
 use Mail;
 
@@ -57,11 +60,11 @@ class ManageOrdersController extends Controller
                 ]);
                 // admin-delivery-confirmation
             } 
-                return redirect()->route('admin-delivery-confirmation')->with([
-                    'ItemDelivered' => $OrderItem->order_id,
-                ]);
+
+            return redirect()->route('admin-delivery-confirmation')->with([
+                'ItemDelivered' => $OrderItem->order_id,
+            ]);
         }
-       
     }
 
     public function CheckAndMarkDelivered($order_id)
@@ -264,6 +267,12 @@ class ManageOrdersController extends Controller
             $OrderItemLicense->delivery_date = new \DateTime();
             $OrderItemLicense->save();
         }
+
+        $data = [
+            'OrderItem' => $OrderItem,
+        ];
+
+        Mail::to($OrderItem->order->User->email)->send(new ItemDeliveredMail($data));
 
         $this->CheckAndMarkDelivered($OrderItem->order_id);
 

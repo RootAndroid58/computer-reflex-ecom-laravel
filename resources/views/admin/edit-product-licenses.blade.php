@@ -6,6 +6,9 @@
 <div class="modal fade" id="newKeyModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     @livewire('create-license-key-modal', ['product' => $product])
 </div>
+<div class="modal fade" id="bulkModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    @livewire('bulk-license-key-modal', ['product' => $product])
+</div>
 @endsection
 
 @section('content')
@@ -18,11 +21,12 @@
 </div>
 
 <div class="w-100 text-right mb-3">
-    <button class="btn btn-success" data-toggle="modal" data-target="#newKeyModal" id="newKeyBtn">New License Key</button>
+    <button class="btn btn-sm btn-dark" data-toggle="modal" data-target="#bulkModal">Bulk Upload <i class="fas fa-cloud-upload-alt"></i></button>
+    <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#newKeyModal" id="newKeyBtn">New License Key <i class="fas fa-plus"></i></button>
 </div>
 
 <table id="AdminProductLicensesTable" class="table table-striped table-bordered table-fluid w-100">
-    <thead class="bg-dark text-white">
+    <thead class="bg-secondary text-white">
     <tr>
         <th style="width: 5%">#</th>
         <th style="width: 35%">Liecnse Key</th>
@@ -55,7 +59,17 @@
 
 
 @section('bottom-js')
+
+
+
+
 <script>
+
+    $('body').on('keyup', '#bulkKeysTextarea', function () {
+        var newVal = $(this).val().split(" ").join("\n").replace(/^\s*[\r\n]/gm, '');
+        $(this).val(newVal);
+    });
+
     var table = $('#AdminProductLicensesTable').DataTable({
         processing: true,
         serverSide: true,
@@ -100,6 +114,12 @@
         table.ajax.reload();
     });
 
+    Livewire.on('BulkUploaded', function () {
+        $('#bulkModal').modal('toggle');
+        $('#bulkModal').find('form').trigger("reset");
+        table.ajax.reload();
+    })
+
         
     /* Delete customer */
     $('body').on('click', '#delete-key', function () {
@@ -118,7 +138,7 @@
             "_token": token,
             },
             success: function (data) {
-                console.log(data);
+                Toast.create(`License Key Deleted`, data.license_key, TOAST_STATUS.DANGER, 5000);
                 table.ajax.reload();
             },
             error: function (data) {

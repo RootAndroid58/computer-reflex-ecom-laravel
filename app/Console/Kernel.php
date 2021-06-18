@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
         'App\Console\Commands\ShippingStatusUpdate',
         'App\Console\Commands\DeliveredStatusUpdate',
         'App\Console\Commands\AfterShippedStatusUpdates',
+        'App\Console\Commands\SendProductLicenseKeys',
     ];
 
     /**
@@ -31,6 +32,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('command:ShippingStatusUpdate')->everyMinute();
         $schedule->command('command:DeliveredStatusUpdate')->everyMinute();
         $schedule->command('command:AfterShippedStatusUpdates')->everyMinute();
+        $schedule->command('command:SendProductLicenseKeys')->everyMinute();
         // $schedule->command('command:CronTest')->everyMinute();
     }
 

@@ -61,10 +61,10 @@
 
     <div class="row">
         <div class="col-md-4">
-            <a href="{{route('admin-new-product-listing')}}" class="btn btn-block btn-lg btn-primary">New Product Listing</a>
+            <a href="{{route('admin-new-product-listing')}}" class="btn btn-block btn-lg btn-secondary">New Product Listing</a>
         </div>
         <div class="col-md-4">
-            <a href="{{route('admin-product-publish')}}" class="btn btn-block btn-lg btn-primary">Publish Products</a>
+            <a href="{{route('admin-product-publish')}}" class="btn btn-block btn-lg btn-secondary">Publish Products</a>
         </div>
 
     </div>
@@ -76,8 +76,8 @@
 
     
 <!--Products Table Start-->
-<table id="AdminProductsTable" class="table table-striped table-bordered table-fluid">
-    <thead class="bg-primary text-white">
+<table id="AdminProductsTable" class="table table-striped table-bordered table-fluid w-100">
+    <thead class="bg-secondary text-white">
     <tr>
         <th style="width: 3%">#</th>
         <th style="width: 20%">Product Name</th>

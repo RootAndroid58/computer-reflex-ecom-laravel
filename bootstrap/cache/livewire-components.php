@@ -1,6 +1,7 @@
 <?php return array (
   'basic-helper' => 'App\\Http\\Livewire\\BasicHelper',
   'best-selling-section' => 'App\\Http\\Livewire\\BestSellingSection',
+  'bulk-license-key-modal' => 'App\\Http\\Livewire\\BulkLicenseKeyModal',
   'carousel-products' => 'App\\Http\\Livewire\\CarouselProducts',
   'cart-count' => 'App\\Http\\Livewire\\CartCount',
   'create-license-key-modal' => 'App\\Http\\Livewire\\CreateLicenseKeyModal',

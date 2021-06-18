@@ -27,6 +27,7 @@
         "bootstrap-icons": "^1.5.0",
         "imagesloaded": "^4.1.4",
         "isotope-layout": "^3.0.6",
+        "jquery-confirm": "^3.3.4",
         "jquery-waypoints": "^2.0.5",
         "jquery.counterup": "^2.1.0",
         "lazyload": "^2.0.0-rc.2",

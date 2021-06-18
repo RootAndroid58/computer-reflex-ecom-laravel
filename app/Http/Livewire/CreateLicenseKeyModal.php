@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use Illuminate\Contracts\Validation\Rule;
 
+use App\Models\Product;
 use App\Models\ProductLicense;
 
 class CreateLicenseKeyModal extends Component
@@ -17,7 +18,7 @@ class CreateLicenseKeyModal extends Component
     protected function rules()
     {
         return [
-            'form.license_key' => ['required', 'min:2', 'unique:product_licenses,key,NULL,id,product_id,'.$this->product->id],
+            'form.license_key' => ['required', 'unique:product_licenses,key,NULL,id,product_id,'.$this->product->id],
         ];
     }
     

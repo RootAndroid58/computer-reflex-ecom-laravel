@@ -60,6 +60,7 @@ class ShippingStatusUpdate extends Command
                 $data = [
                     'OrderItem' => $OrderItem,
                 ];
+                
                 Mail::to($OrderItem->order->User->email)->send(new ItemShippedMail($data));
             }
 

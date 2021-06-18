@@ -325,6 +325,7 @@
                                         <i class="fa fa-circle" aria-hidden="true"></i>
                                     </span>
                                     Delivered On: 
+                                        
                                     <b>
                                         @if ($item->order->delivery_type == 'electronic')
                                             {{date_format(new DateTime($item->OrderItemLicenses[0]->delivery_date), "dS M,(D)")}}
