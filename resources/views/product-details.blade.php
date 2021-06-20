@@ -209,7 +209,7 @@
                     <div class="est-delivery-date">
                         @if ($product->delivery_type == 'electronic')
                         <span>Email Delivery: 
-                            <b>@if (isset($product->license) && count($product->license) > 0) Instant. @else Within 30 Mins. @endif</b>
+                            <b>@if (isset($product->licenses) && count($product->licenses) > 0) Instant. @else Within 30 Mins. @endif</b>
                         </span>
                         @else
                         <span>Est. Delivery Date: 

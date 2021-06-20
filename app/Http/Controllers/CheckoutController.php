@@ -379,8 +379,9 @@ class CheckoutController extends Controller
 
     public function PaytmResponse(Request $req)
     {
+      
         $response = Indipay::gateway('Paytm')->response($req);
-
+       
         $OrderHasVoucher = OrderHasVoucher::where('order_id', $response['ORDERID'])->first();
 
         if (isset($OrderHasVoucher) && $OrderHasVoucher->voucher->status != 'active') {
@@ -414,7 +415,7 @@ class CheckoutController extends Controller
 
         }
 
-        else if ($response->STATUS == 'TXN_FAILURE') {
+        else if ($response['STATUS'] == 'TXN_FAILURE') {
             Order::where('id', $response['ORDERID'])->update([
                 'status' => 'payment_failed'
             ]);

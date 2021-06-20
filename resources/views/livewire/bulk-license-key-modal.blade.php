@@ -1,4 +1,4 @@
-<div class="modal-dialog" role="document">
+<div class="modal-dialog modal-lg" role="document">
     <form class="w-100" wire:submit.prevent="submit" action="{{ route('datatable-product-licenses-table.store') }}" method="post">
         <div class="modal-content">
             <div class="modal-header">
@@ -10,7 +10,7 @@
 
 
             <div class="modal-body">
-                <form wire:submit.prevent="submit" class="w-100">
+                <form wire:submit.prevent="submit" class="w-100" >
                     <div class="form-group">
                       <label for="upload_type">Upload Type</label>
                       <select class="form-control" id="uploadType" wire:model="form.upload_type" id="upload_type">
@@ -35,20 +35,53 @@
                             </div>
                         </div>
                     @elseif($form['upload_type'] == 'csv')
-                        <div class="alert alert-info" role="alert">
-                            <strong>Upload CSV file as provided in below Template file.</strong>
+                        
+                    <div class="w-100">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" wire:model="form.header" value="checked" >
+                            File contains header row?
+                          </label>
                         </div>
-                        <div class="w-100 text-right">
-                            <button class="btn btn-sm btn-dark">Download Template <i class="fas fa-download"></i></button>
-                        </div>
-
-                        <div class="input-group mb-3 mt-3">
-                            <div class="custom-file">
-                              <input type="file" class="custom-file-input" wire:modal="csv" id="csv" aria-describedby="inputGroupFileAddon01">
-                              <label class="custom-file-label" for="csv">Choose file</label>
-                            </div>
-                          </div>
+                    </div>
                        
+                    
+                    <div class="mt-3 mb-3">
+                        <input type="file" wire:model="form.csv" style="height: unset;"  class="cursor-pointer form-control @error('form.csv') is-invalid @enderror " >
+                        <div class="invalid-feedback">
+                            @error('form.csv')
+                            {{ $message }}
+                            @enderror 
+                        </div>
+                    </div>
+
+
+                    <div>
+                        @if (is_array($parse_data))
+                        <table class="table">
+                            @foreach ($parse_data as $key => $parse)
+                                @if ($key == 0 && $form['header'] == 'checked')
+                                    <tr>
+                                        @foreach ($parse as $item)
+                                            <th>{{ $item }}</th>
+                                        @endforeach
+                                    </tr>
+                                @else 
+                                <tr>
+                                    @foreach ($parse as $item)
+                                        <td>{{ $item }}</td>
+                                    @endforeach
+                                </tr>
+                                @endif
+                            @endforeach
+                         
+                        </table>
+                        @endif
+                        
+                    </div>
+
+    
+                         
                     @endif
 
                 </form>

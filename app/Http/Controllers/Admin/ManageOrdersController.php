@@ -234,18 +234,16 @@ class ManageOrdersController extends Controller
         if (!isset($OrderItem)) {
            abort(500);
         }
-
+        
         if ($OrderItem->status != 'order_placed') {
             return 'License key already sent!';
         }
-
+       
         $req->validate([
-            'license_keys.*' => 'distinct|required',
-            'license_keys' => ['required', 'max:255', Rule::unique('product_licenses', 'key')->where(function ($q) use ($OrderItem) {
-                return $q->where('product_id', $OrderItem->product_id);
-            })],
+            'license_keys.*'    => 'distinct|required',
+            'license_keys'      => 'unique:product_licenses,key,NULL,id,product_id,'.$OrderItem->product_id,
         ]);
-
+        
         if ($OrderItem->qty != count($req->license_keys)) {
             abort(500);
         }

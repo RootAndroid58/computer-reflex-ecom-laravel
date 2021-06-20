@@ -778,7 +778,7 @@ class AjaxDataTable extends Controller
                         </div>
                             <strong>@'.moneyFormatIndia($product->special_price).'</strong>
                     </div>
-                    <hr>'
+                    <div class="mt-3"></div>'
                     ; 
                 }
 

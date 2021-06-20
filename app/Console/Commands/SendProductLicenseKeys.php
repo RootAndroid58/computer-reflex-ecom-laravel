@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminated\Console\WithoutOverlapping;
 
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -14,6 +15,8 @@ use Mail;
 
 class SendProductLicenseKeys extends Command
 {
+    use WithoutOverlapping;
+
     /**
      * The name and signature of the console command.
      *
@@ -45,44 +48,53 @@ class SendProductLicenseKeys extends Command
      */
     public function handle()
     {
-
-
-        $OrderItems = OrderItem::with('order')->where('status', 'order_placed')->whereHas('order', function ($q){
+        $OrderItems = OrderItem::with('order.User')->where('status', 'order_placed')->whereHas('order', function ($q){
             $q->where('delivery_type', 'electronic');
         })->get();
         
         foreach ($OrderItems as $key => $OrderItem) {
             
-            $ProductLicenses = ProductLicense::where('product_id', $OrderItem->product_id)->where('status', 'unused')->take($OrderItem->qty)->get();
-           
-            if ($ProductLicenses->count() == $OrderItem->qty) {
+            $OrderItemLicenses = OrderItemLicense::where('order_item_id', $OrderItem->id)->get();
+
+            if ($OrderItemLicenses->count() == 0) {
+
+                $ProductLicenses = ProductLicense::where('product_id', $OrderItem->product_id)
+                ->where('status', 'unused')
+                ->take($OrderItem->qty)
+                ->get();
                 
-                OrderItem::where('id', $OrderItem->id)->update([
-                    'status' => 'item_delivered',
-                ]);
+                if ($ProductLicenses->count() == $OrderItem->qty) {
 
-                $i = 0;
-                while ($OrderItem->qty > $i) {
-
-                    OrderItemLicense::create([
-                        'order_item_id'         => $OrderItem->id,
-                        'product_license_id'    => $ProductLicenses[$i]->id,
-                        'delivery_date'         => new \DateTime(),
-                    ]);
-
-                    ProductLicense::where('id', $ProductLicenses[$i]->id)->update([
+                    ProductLicense::whereIn('id', $ProductLicenses->pluck('id'))->update([
                         'status' => 'used',
                     ]);
 
-                    $i++;
-                }
+                    OrderItem::where('id', $OrderItem->id)->update([
+                        'status' => 'item_delivered',
+                    ]);
+    
+                    $i = 0;
+                    
+                    while ($OrderItem->qty > $i) {
 
-                $data = [
-                    'OrderItem' => $OrderItem,
-                ];
-                
-                Mail::to($OrderItem->order->User->email)->send(new ItemDeliveredMail($data));
-            }
+                        OrderItemLicense::create([
+                            'order_item_id'         => $OrderItem->id,
+                            'product_license_id'    => $ProductLicenses[$i]->id,
+                            'delivery_date'         => new \DateTime(),
+                        ]);
+    
+                        
+    
+                        $i++;
+                    }
+    
+                    $data = [
+                        'OrderItem' => $OrderItem,
+                    ];
+                    
+                    Mail::to($OrderItem->order->User->email)->send(new ItemDeliveredMail($data));
+                }
+            }   
 
             $a = OrderItem::where('order_id', $OrderItem->order->id)->get();
             $b = OrderItem::where('order_id', $OrderItem->order->id)->where('status', 'item_delivered')->get();
