@@ -106,6 +106,10 @@ class CheckoutController extends Controller
     public function CheckoutSubmit(Request $req)
     {   
 
+        $req->validate([
+            'address_id' => 'required',
+        ]);
+
         $physicalItems = false;
         $electroniclItems = false;
 
@@ -143,6 +147,9 @@ class CheckoutController extends Controller
         $itemCount  = 0; // Default Item Count
 
         foreach ($req->product_id as $i => $pid) {
+            if ($req->product_qty[$i] < 1) {
+                abort(500);
+            }
             $product = Product::where('id', $pid)->first();
 
             if ($product->delivery_type == 'physical') {
@@ -182,6 +189,10 @@ class CheckoutController extends Controller
         if (isset($req->voucher_code) && $price == 0)  {
             $req->payment_method = 'voucher';
         } 
+
+        $req->validate([
+            'payment_method' => 'required|in:paytm,payu,cod',
+        ]);
 
         // Abort if no items for checkout 
         if ($itemCount <= 0) {

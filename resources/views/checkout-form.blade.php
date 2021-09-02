@@ -520,7 +520,7 @@
             <div class="w-100 cart-checkout-btn-container">
                 <button type="submit" class="OrderSummaryBtn">Next &nbsp;<i class="fa fa-credit-card" aria-hidden="true"></i></button>
                 <button type="submit" class="PaymentBtn d-none">Proceed To Pay &nbsp;<i class="fa fa-credit-card" aria-hidden="true"></i></button>
-                <button type="submit" class="PayNowBtn d-none" form="CheckoutForm">Pay Now &nbsp;<i class="fa fa-credit-card" aria-hidden="true"></i></button>
+                <button type="submit" class="PayNowBtn d-none">Pay Now &nbsp;<i class="fa fa-credit-card" aria-hidden="true"></i></button>
             </div>
         
         <div class="account-menu-break"></div> 
@@ -614,6 +614,22 @@
         $('#PaymentSection').removeClass('d-none')
         $('.PaymentBtn').addClass('d-none')
         $('.PayNowBtn').removeClass('d-none')
+    });
+
+    $('.PayNowBtn').on('click', function () {
+        var pay_method = $('#CheckoutForm').find("input[name='payment_method']").val();
+        if (pay_method == 'cod' || pay_method == 'payu' || pay_method == 'paytm' || pay_method == 'voucher') {
+            $('#CheckoutForm').submit();
+        } else {
+            $(".bootstrap-growl").remove();
+            $.bootstrapGrowl("Please Select Payment Method.", {
+                type: "danger",
+                offset: {from:"bottom", amount: 50},
+                align: 'center',
+                allow_dismis: true,
+                stack_spacing: 10,
+            })
+        }
     });
 </script>
 
