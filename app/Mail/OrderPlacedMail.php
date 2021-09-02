@@ -34,4 +34,4 @@ class OrderPlacedMail extends Mailable
         ->subject('Order Placed :) #'.$this->data['order']->id.' - '.config('app.name'))
         ->view('mails.order-placed-mail');
     }
-}
+} 

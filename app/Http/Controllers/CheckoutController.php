@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Models\Cart;
 use App\Models\Product;
 use App\Models\Order;
@@ -16,6 +17,10 @@ use App\Models\OrderHasVoucher;
 use App\Mail\OrderPlacedMail;
 use Softon\Indipay\Facades\Indipay;
 use Illuminate\Support\Facades\Mail;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
+use App\Jobs\SendEmailJob;
+
+
 
 class CheckoutController extends Controller
 {
@@ -90,6 +95,13 @@ class CheckoutController extends Controller
             'deliveryType'  => $deliveryType,
         ]);
     }
+
+
+
+
+
+
+
 
     public function CheckoutSubmit(Request $req)
     {   
@@ -178,6 +190,13 @@ class CheckoutController extends Controller
 
         // Create new order entry
         $order = new Order;
+        $order->id = IdGenerator::generate([
+            'table' => 'orders', 
+            'length' => 20, 
+            'prefix' => 'OD'.date('Ymd-His').'-',
+            'prefix' => 'OD'.date('Ymd-His').'-',
+            'reset_on_prefix_change' => true
+        ]);
         $order->user_id         = Auth()->user()->id;
         $order->address_id      = $req->address_id;
         $order->mrp             = $mrp;
@@ -186,7 +205,7 @@ class CheckoutController extends Controller
         $order->payment_method  = $req->payment_method;
         $order->status          = 'checkout_pending';
         $order->save();
-
+        
         // Save User Address For Order Address
         $OrderAddress = new OrderAddress;
         $OrderAddress->order_id     = $order->id;
@@ -304,6 +323,7 @@ class CheckoutController extends Controller
                 $prod = $OrderItem->product;
                 if (isset($prod->comission->comission) && isset(Auth()->user()->affiliate->associate_id)) {
                     if ($prod->comission->comission > 0) {
+                        
                         $affiliateOrderItem = new AffiliateOrderItem;
                         $affiliateOrderItem->associate_id = Auth()->user()->affiliate->associate_id;
                         $affiliateOrderItem->order_item_id = $OrderItem->id;
@@ -314,8 +334,9 @@ class CheckoutController extends Controller
                 }
             }
         }
-       
-            mail::to(Auth()->user()->email)->send(new OrderPlacedMail($data)); 
+
+            //Send the Order Confirmation Mail To The User (Queue)
+            dispatch(new SendEmailJob('order_placed_email', Auth()->user()->email, $data));
         }
     
         return redirect()->route('checkout-order-confirmation', $order->id);
@@ -375,13 +396,10 @@ class CheckoutController extends Controller
 
 
 
-
-
     public function PaytmResponse(Request $req)
     {
-      
         $response = Indipay::gateway('Paytm')->response($req);
-       
+
         $OrderHasVoucher = OrderHasVoucher::where('order_id', $response['ORDERID'])->first();
 
         if (isset($OrderHasVoucher) && $OrderHasVoucher->voucher->status != 'active') {

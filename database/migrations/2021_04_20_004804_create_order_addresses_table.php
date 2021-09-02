@@ -15,7 +15,7 @@ class CreateOrderAddressesTable extends Migration
     {
         Schema::create('order_addresses', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('order_id')->foreign('id')->on('orders')->onDelete('cascade');
+            $table->string('order_id')->foreign('id')->on('orders')->onDelete('cascade');
             $table->string('name');
             $table->string('house_no');
             $table->string('locality');

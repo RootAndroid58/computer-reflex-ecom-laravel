@@ -34,7 +34,7 @@
                 <div class="wishlist-basic-padding" style="padding: 10px 32px;">
                     <div class="account-details-title" style="padding-bottom: 0px;">
                         <img src="{{ asset('/img/svg/packages.svg') }}" width="50" alt="" srcset="">
-                        <span style="padding-right: 0;"><font style="font-weight: 600; color: black;">Process Order</font></span> #{{ date_format($order->created_at,"Y-mdHis").'-'.$order->id }}
+                        <span style="padding-right: 0;"><font style="font-weight: 600; color: black;">Process Order</font></span> #{{ $order->id }}
                     </div>
                 </div>
         
@@ -106,46 +106,74 @@
                                 <div class="col-6">
                                         <div class="form-group">
                                             <label for="">Buyer Name</label>
-                                            <input type="text" name="buyer_name" value="{{ $order->address->name ?? '' }}" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                                            <input type="text" name="buyer_name" value="{{ $order->address->name ?? '' }}" id="" class="form-control @error('buyer_name') is-invalid @enderror"  >
+                                            @error('buyer_name')
+                                                <span class="invalid-feedback">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     <div class="row">
                                         <div class="form-group col-6">
                                             <label for="">House No. / Apt.</label>
-                                            <input type="text" name="house_no" value="{{ $order->address->house_no ?? '' }}"  id="" class="form-control" placeholder="" aria-describedby="helpId">
+                                            <input type="text" name="house_no" value="{{ $order->address->house_no ?? '' }}"  id="" class="form-control @error('house_no') is-invalid @enderror" >
+                                            @error('house_no')
+                                                <span class="invalid-feedback">{{ $message }}</span>
+                                            @enderror
+                                            
                                         </div>
                                         <div class="form-group col-6">
                                             <label for="">Locality</label>
-                                            <input type="text" name="locality" value="{{ $order->address->locality ?? '' }}" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                                            <input type="text" name="locality" value="{{ $order->address->locality ?? '' }}" id="" class="form-control @error('locality') is-invalid @enderror" >
+                                            @error('locality')
+                                                <span class="invalid-feedback">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-6">
                                             <label for="">City/Town</label>
-                                            <input type="text" name="city" value="{{ $order->address->city ?? '' }}" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                                            <input type="text" name="city" value="{{ $order->address->city ?? '' }}" id="" class="form-control @error('city') is-invalid @enderror" >
+                                            @error('city')
+                                                <span class="invalid-feedback">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="form-group col-6">
                                             <label for="">District </label>
-                                            <input type="text" name="district" value="{{ $order->address->district ?? '' }}" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                                            <input type="text" name="district" value="{{ $order->address->district ?? '' }}" id="" class="form-control @error('district') is-invalid @enderror" >
+                                            @error('district')
+                                                <span class="invalid-feedback">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-6">
                                             <label for="">State  </label>
-                                            <input type="text" name="state" value="{{ $order->address->state ?? '' }}" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                                            <input type="text" name="state" value="{{ $order->address->state ?? '' }}" id="" class="form-control @error('state') is-invalid @enderror" >
+                                            @error('state')
+                                                <span class="invalid-feedback">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="form-group col-6">
                                             <label for="">Postal PIN Code</label>
-                                            <input type="text" name="pin_code" value="{{ $order->address->pin_code ?? '' }}" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                                            <input type="text" name="pin_code" value="{{ $order->address->pin_code ?? '' }}" id="" class="form-control @error('pin_code') is-invalid @enderror" >
+                                            @error('pin_code')
+                                                <span class="invalid-feedback">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-6">
                                             <label for="">Mobile Number</label>
-                                            <input type="text" name="mobile" value="{{ $order->address->mobile ?? '' }}" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                                            <input type="text" name="mobile" value="{{ $order->address->mobile ?? '' }}" id="" class="form-control @error('mobile') is-invalid @enderror" >
+                                            @error('mobile')
+                                                <span class="invalid-feedback">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="form-group col-6">
                                             <label for="">Alternate Mobile</label>
-                                            <input type="text" name="alt_mobile" value="{{ $order->address->alt_mobile ?? '' }}" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                                            <input type="text" name="alt_mobile" value="{{ $order->address->alt_mobile ?? '' }}" id="" class="form-control @error('alt_mobile') is-invalid @enderror" >
+                                            @error('alt_mobile')
+                                                <span class="invalid-feedback">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -306,7 +334,7 @@
                     <div class="form-group col-3">
                         <label for="">Length</label>
                         <div class="input-group">
-                            <input required type="text" name="length" placeholder="Length" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                            <input required type="text" name="length" placeholder="Length" id="" class="form-control" >
                             <div class="input-group-append">
                               <span class="input-group-text" id="basic-addon1">CM</span>
                             </div>
@@ -317,7 +345,7 @@
                     <div class="form-group col-3">
                         <label for="">Width</label>
                         <div class="input-group">
-                            <input required type="text" name="width" placeholder="Width" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                            <input required type="text" name="width" placeholder="Width" id="" class="form-control" >
                             <div class="input-group-append">
                               <span class="input-group-text" id="basic-addon1">CM</span>
                             </div>
@@ -327,7 +355,7 @@
                     <div class="form-group col-3">
                         <label for="">Height</label>
                         <div class="input-group">
-                            <input required type="text" name="height" placeholder="Height" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                            <input required type="text" name="height" placeholder="Height" id="" class="form-control" >
                             <div class="input-group-append">
                               <span class="input-group-text" id="basic-addon1">CM</span>
                             </div>
@@ -337,7 +365,7 @@
                     <div class="form-group col-3">
                         <label for="">Weight</label>
                         <div class="input-group">
-                            <input required type="text" name="weight" placeholder="Weight"  id="" class="form-control" placeholder="" aria-describedby="helpId">
+                            <input required type="text" name="weight" placeholder="Weight"  id="" class="form-control" >
                             <div class="input-group-append">
                               <span class="input-group-text" id="basic-addon1">KG</span>
                             </div>

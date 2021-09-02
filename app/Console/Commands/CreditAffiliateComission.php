@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminated\Console\WithoutOverlapping;
+
 use App\Models\OrderItem;
 use App\Models\AffiliateOrderItem;
 use App\Models\AffiliateWalletTxn;
@@ -12,6 +14,8 @@ use Mail;
 
 class CreditAffiliateComission extends Command
 {
+    use WithoutOverlapping;
+    
     /**
      * The name and signature of the console command.
      *
@@ -43,7 +47,7 @@ class CreditAffiliateComission extends Command
      */
     public function handle()
     {    
-        $orderItems = OrderItem::with('OrderItemLicenses')->with('shipment')->with('order')->whereHas('AffiliateOrderItem', function($q){
+        $orderItems = OrderItem::with('OrderItemLicenses')->with('shipment')->with('order')->whereNotNull('delivered_on')->whereHas('AffiliateOrderItem', function($q){
             $q->where('status', 'pending');
         })
         ->where('status', 'item_delivered')
@@ -58,8 +62,8 @@ class CreditAffiliateComission extends Command
                     if ($orderItem->AffiliateOrderItem->status == 'pending') {
 
                         if ($orderItem->order->delivery_type == 'physical') {
-                            $deliveryDate = new \DateTime($orderItem->shipment->delivery_date);
-                            $returnDate = $deliveryDate->modify('+20 days');
+                            $deliveryDate = new \DateTime($orderItem->delivery_date);
+                            $returnDate = $deliveryDate->modify('+30 days');
                         } 
                         else if ($orderItem->order->delivery_type == 'electronic') {
                             $deliveryDate = new \DateTime($orderItem->OrderItemLicenses[0]->delivery_date);
@@ -105,7 +109,8 @@ class CreditAffiliateComission extends Command
                                'walletTxn'  => $walletTxn,
                             ];
 
-                            Mail::to($user->email)->send(new AffiliateComissionCreditedMail($data));
+                            //Send the Affiliate Comission Credited Mail To The User (Queue)
+                            dispatch(new SendEmailJob('affiliate_comission_credited', Auth()->user()->email, $data));
                         } 
 
                     }

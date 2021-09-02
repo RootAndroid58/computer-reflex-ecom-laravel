@@ -17,7 +17,7 @@ class BulkLicenseKeyModal extends Component
 
 
     public $form = [
-        'upload_type'   => 'csv',
+        'upload_type'   => 'raw',
         'license_keys'  => '',
         'csv'           => '',
         'header'        => '',

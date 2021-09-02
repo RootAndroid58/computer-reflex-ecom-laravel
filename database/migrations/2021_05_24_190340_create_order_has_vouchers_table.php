@@ -15,7 +15,7 @@ class CreateOrderHasVouchersTable extends Migration
     {
         Schema::create('order_has_vouchers', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('order_id')->foreign('id')->on('orders')->onDelete('cascade')->unique();
+            $table->string('order_id')->foreign('id')->on('orders')->onDelete('cascade')->unique();
             $table->bigInteger('voucher_id')->foreign('id')->on('vouchers')->onDelete('cascade');
             $table->timestamps();
         });

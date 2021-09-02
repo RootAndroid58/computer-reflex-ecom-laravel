@@ -58,9 +58,9 @@ $UserName=str_word_count(Auth()->user()->name, 1);
                             <div class="wishlist-basic-padding orders-header" >
                                 <div class="row " style="color: black;">
                                     <div class="col-5 ">
-                                        <span>Order <a style="color: #0066c0;" href="{{ route('order-page', $order->id) }}">#{{date_format($order->created_at,"Y-mdHis").'-'.$order->id}}</a></span>
+                                        <span>Order <a style="color: #0066c0;" href="{{ route('order-page', $order->id) }}">#{{ $order->id }}</a></span>
 
-                                    @if ($order->status == 'payment_pending') 
+                                    @if ($order->status == 'payment_pending')   
                                         <span style="color: #f6c23e">
                                             (Payment Pending.)
                                         </span>

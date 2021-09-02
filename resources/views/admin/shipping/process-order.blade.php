@@ -140,7 +140,7 @@
             <div class="wishlist-basic-padding" style="padding: 10px 32px;">
                 <div class="account-details-title" style="padding-bottom: 0px;">
                     <img src="{{ asset('/img/svg/packages.svg') }}" width="50" alt="" srcset="">
-                    <span style="padding-right: 0;"><font style="font-weight: 600; color: black;">Manage Order</font></span> #{{ date_format($order->created_at,"Y-mdHis").'-'.$order->id }}
+                    <span style="padding-right: 0;"><font style="font-weight: 600; color: black;">Manage Order</font></span> #{{ $order->id }}
                 </div>
             </div>
     
@@ -197,6 +197,8 @@
                             <span class="btn btn-sm btn-warning">Requested</span>
                             @elseif ($cancelReq->status == 'approved')
                             <span class="btn btn-sm btn-success">Approved</span>
+                            @elseif ($cancelReq->status == 'rejected')
+                            <span class="btn btn-sm btn-danger">Rejected</span>
                             @endif
                         </span>
                     </div>
@@ -212,6 +214,11 @@
                                 @if ($cancelReq->status == 'approved')
                                     <span>
                                         Approved and order cancelled.
+                                    </span>
+                                @endif
+                                @if ($cancelReq->status == 'rejected')
+                                    <span>
+                                        {{ $cancelReq->remarks }}
                                     </span>
                                 @endif
                             </p>

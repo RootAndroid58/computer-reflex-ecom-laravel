@@ -16,7 +16,7 @@ class CreateShipmentsTable extends Migration
         Schema::create('shipments', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('order_item_id')->foreign('id')->on('order_items')->onDelete('cascade');
-            $table->bigInteger('order_id')->foreign('id')->on('orders')->onDelete('cascade');
+            $table->string('order_id')->foreign('id')->on('orders')->onDelete('cascade');
             $table->string('type');
             $table->boolean('active')->default(0);
             $table->string('courier_name');

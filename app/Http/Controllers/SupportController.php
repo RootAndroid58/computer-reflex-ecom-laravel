@@ -57,10 +57,10 @@ class SupportController extends Controller
             $order = Order::where('id', $req->order_id)->where('user_id', Auth()->user()->id)->first();
 
             if ($req->ticket_topic == 'Order Related') {
-                $subject = 'Order#'.date_format($order->created_at,"Y-mdHis").'-'.$order->id.' Related';
+                $subject = 'Order#'.$order->id.' Related';
             }
             elseif ($req->ticket_topic == 'Return/Refund') {
-                $subject = 'Return/Refund Related - Order#'.date_format($order->created_at,"Y-mdHis").'-'.$order->id;
+                $subject = 'Return/Refund Related - Order#'.$order->id;
             }
         } 
         else {

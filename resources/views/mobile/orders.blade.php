@@ -44,7 +44,7 @@
 <div class="container-fluid " style="background-color: #f1f1f1;">
     <div class="pt-2 pb-2"  style="font-weight: 600;">
         <span>Order #</span> 
-        <span class="static-blue"><a class="static-blue" href="{{ route('order-page', $order->id) }}">{{date_format($order->created_at,"Y-mdHis").'-'.$order->id}}</a></span> 
+        <span class="static-blue"><a class="static-blue" href="{{ route('order-page', $order->id) }}">{{ $order->id }}</a></span> 
     </div>
     <div class="pb-2" style="font-weight: 600;">
         @if ($order->status == 'payment_pending') 

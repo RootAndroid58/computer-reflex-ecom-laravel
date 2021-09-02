@@ -70,7 +70,7 @@
             <div style="padding: 10px 32px;">
                 <div class="account-details-title" style="padding-bottom: 0px;">
                     <img  src="{{asset('img/grey.gif')}}" data-src="{{ asset('/img/svg/happy-birth-day.svg') }}" width="50" alt="" srcset="">
-                    <span style="padding-right: 0;">Order Details</span> #{{ date_format($order->created_at,"Y-mdHis").'-'.$order->id }}
+                    <span style="padding-right: 0;">Order Details</span> #{{ $order->id }}
                 </div>
             </div>
         </div>
@@ -101,7 +101,7 @@
     
         
                                     <div class="col-6">
-                                        <p>
+                                        <p>              
                                             <span style="font-weight: 500;">{{$order->Address->name}}</span> <br>
                                             {{$order->Address->house_no}}, <br>
                                             {{$order->Address->locality}}, <br>
@@ -149,7 +149,7 @@
                                         </div>
                                         @endif
 
-                                        @if ($order->delivery_type != 'electronic')
+                                        @if ($order->delivery_type != 'electronic' && $order->status == 'order_placed')
                                         <div style="padding-top: 10px; text-align: right;">
                                             <button class="btn btn-dark btn-block" data-toggle="modal" data-target="#OrderCancelModal">CANCEL ORDER</button>
                                         </div> 
@@ -186,6 +186,10 @@
                                     <span style="font-weight: 600">Cancel Request #{{ $cancelReq->id }} - 
                                         @if ($cancelReq->status == 'requested')
                                         <span class="btn btn-sm btn-warning">Requested</span>
+                                        @elseif ($cancelReq->status == 'approved')
+                                        <span class="btn btn-sm btn-success">Approved</span>
+                                        @elseif ($cancelReq->status == 'rejected')
+                                        <span class="btn btn-sm btn-danger">Rejected</span>
                                         @endif
                                     </span>
                                 </div>
@@ -194,6 +198,16 @@
                                         <p>
                                             @if ($cancelReq->status == 'requested')
                                                 <span>We have received your cancellation request, our team will verify your request shortly, and update the status accordingly. <br> Reference #{{ $cancelReq->id }} <br> Thank you for your patience. </span>
+                                            @endif
+                                            @if ($cancelReq->status == 'approved')
+                                            <span>
+                                                Approved and order cancelled.
+                                            </span>
+                                            @endif
+                                            @if ($cancelReq->status == 'rejected')
+                                            <span>
+                                                {{ $cancelReq->remarks }}
+                                            </span>
                                             @endif
                                         </p>
                                     </div>
@@ -325,7 +339,6 @@
                                         <i class="fa fa-circle" aria-hidden="true"></i>
                                     </span>
                                     Delivered On: 
-                                        
                                     <b>
                                         @if ($item->order->delivery_type == 'electronic')
                                             {{date_format(new DateTime($item->OrderItemLicenses[0]->delivery_date), "dS M,(D)")}}

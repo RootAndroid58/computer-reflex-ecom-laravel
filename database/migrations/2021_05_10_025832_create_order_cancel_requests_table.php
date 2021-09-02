@@ -15,7 +15,7 @@ class CreateOrderCancelRequestsTable extends Migration
     {
         Schema::create('order_cancel_requests', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('order_id')->foreign('id')->on('orders')->onDelete('cascade');
+            $table->string('order_id')->foreign('id')->on('orders')->onDelete('cascade');
             $table->longText('reason');
             $table->longText('remarks')->nullable();
             $table->string('status');

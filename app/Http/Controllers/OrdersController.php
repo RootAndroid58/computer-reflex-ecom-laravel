@@ -40,7 +40,7 @@ class OrdersController extends Controller
 
         $order = Order::with('PendingCancelRequest')->where('id', $req->order_id)->where('user_id', Auth()->user()->id)->first();
            
-        if (!isset($order) || isset($order->PendingCancelRequest) || $order->delivery_type == 'electronic') {
+        if (!isset($order) || isset($order->PendingCancelRequest) || $order->status != 'order_placed'  || $order->delivery_type == 'electronic') {
             abort(500);
         }
 

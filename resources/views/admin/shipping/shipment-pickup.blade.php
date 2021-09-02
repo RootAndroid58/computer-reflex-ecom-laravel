@@ -22,7 +22,7 @@
         </div>
     <form action="{{ route('admin-order-pickup-done') }}" method="POST">@csrf
         <div class="modal-body">
-            Are you sure, that courier pickup completed for <br><span style="color: black;">Order #{{ date_format($order->created_at,"Y-mdHis").'-'.$order->id }}</span> 
+            Are you sure, that courier pickup completed for <br><span style="color: black;">Order #{{ $order->id }}</span> 
             <input type="hidden" name="order_id" value="{{ $order->id }}">
         </div>
         <div class="modal-footer">
@@ -55,7 +55,7 @@
             <div class="wishlist-basic-padding" style="padding: 10px 32px;">
                 <div class="account-details-title" style="padding-bottom: 0px;">
                     <img src="{{ asset('/img/svg/packages.svg') }}" width="50" alt="" srcset="">
-                    <span style="padding-right: 0;"><font style="font-weight: 600; color: black;">Order Picked Up Confirmation</font></span> #{{ date_format($order->created_at,"Y-mdHis").'-'.$order->id }}
+                    <span style="padding-right: 0;"><font style="font-weight: 600; color: black;">Order Picked Up Confirmation</font></span> #{{ $order->id }}
                 </div>
             </div>
     

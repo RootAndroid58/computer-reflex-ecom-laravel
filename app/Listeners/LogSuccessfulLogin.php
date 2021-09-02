@@ -7,10 +7,12 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Http\Request;
 
+use App\Models\User;
 use App\Models\SessionCart;
 use App\Models\Cart;
 use App\Models\SessionCompare;
 use App\Models\Compare;
+use App\Models\Affiliate;
 
 use Session;
 use URL;
@@ -48,14 +50,14 @@ class LogSuccessfulLogin
                     if (!isset($Aff)) {
                         $Affiliate                  = new Affiliate;
                         $Affiliate->user_id         = Auth()->user()->id;
-                        $Affiliate->associate_id    = request()->aff;
+                        $Affiliate->associate_id    = $aff;
                         $Affiliate->exp_date        = date_create(date('y-m-d h:m:s', strtotime ('+30 day')));
                         $Affiliate->save();
                     }
             
                     if (isset($Aff) && !isset($sameAff)) {
                         Affiliate::where('id', $Aff->id)->update([
-                            'associate_id'  => request()->aff,
+                            'associate_id'  => $aff,
                             'exp_date'      => date_create(date('y-m-d h:m:s', strtotime ('+30 day'))),
                         ]);
                     }

@@ -8,9 +8,17 @@ use App\Models\OrderItem;
 use App\Models\User;
 use App\Models\OrderAddress;
 
+
 class Order extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = "id";
+    public $incrementing = false;
+
+
+    
+ 
 
     // public function Products()
     // {
@@ -23,7 +31,7 @@ class Order extends Model
     }
     public function Address()
     {
-        return $this->hasOne(OrderAddress::class, 'id', 'address_id');
+        return $this->hasOne(OrderAddress::class, 'order_id', 'id');
     }
     public function User()
     {

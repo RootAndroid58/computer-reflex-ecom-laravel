@@ -11,6 +11,7 @@
 
             <div class="modal-body">
                 <form wire:submit.prevent="submit" class="w-100" >
+                    
                     <div class="form-group">
                       <label for="upload_type">Upload Type</label>
                       <select class="form-control" id="uploadType" wire:model="form.upload_type" id="upload_type">

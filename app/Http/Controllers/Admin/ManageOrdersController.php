@@ -174,26 +174,9 @@ class ManageOrdersController extends Controller
             if (isset($order->ForwardShipment->shiprocket_order_id)) {
                 $shiprocketCancel =  Shiprocket::order(Shiprocket::getToken())->cancel(['ids' => [$order->ForwardShipment->shiprocket_order_id]]);
             }
-            
-            // Initiate refund via Paytm
-            if ($order->payment_method == 'paytm') {
-                $txnStatus = PaytmHelper::status([
-                    'orderId' => $req->order_id,
-                ]);
-                $refund = PaytmHelper::refund([
-                    'txnType' => 'REFUND',
-                    'orderId' => $req->order_id,
-                    'txnId' => $txnStatus->txnId,
-                    'refId' => 'ORDER_REVERSAL_'.$req->order_id,
-                    'refundAmount' => $order->price,
-                ]);
-            } 
 
-            // Initiate refund via PayU
-            if ($order->payment_method == 'payu') {
-                
-            }
-            
+            $this->FullOrderRefund($order);
+
             // Update Order Cancellation Request
             OrderCancelRequest::where('id', $order->PendingCancelRequest->id)->update([
                 'status' => 'approved',
@@ -206,6 +189,9 @@ class ManageOrdersController extends Controller
             OrderItem::where('order_id', $order->id)->update([
                 'status' => 'order_cancelled',
             ]);
+
+            
+
         }
 
         if ($req->cancel_review == 'decline') {
@@ -215,12 +201,36 @@ class ManageOrdersController extends Controller
             ]);
 
             OrderCancelRequest::where('id', $order->PendingCancelRequest->id)->update([
-                'status' => 'rejected',
-                'reason' => $req->review_comment,
+                'status'    => 'rejected',
+                'remarks'   => $req->review_comment,
             ]);
         }
         
         return redirect()->back();
+    }
+
+    public function FullOrderRefund($order)
+    {
+
+        // Initiate refund via Paytm
+        if ($order->payment_method == 'paytm') {
+            $txnStatus = PaytmHelper::status([
+                'orderId' => $order->id,
+            ]);
+            $refund = PaytmHelper::refund([
+                'txnType' => 'REFUND',
+                'orderId' => $order->id,
+                'txnId' => $txnStatus->txnId,
+                'refId' => 'REVERSAL-'.$order->id,
+                'refundAmount' => $order->price,
+                'comments' => 'Order Amount Refund From'.config('app.name'),
+            ]);
+        } 
+
+        // Initiate refund via PayU
+        if ($order->payment_method == 'payu') {
+            
+        }
     }
 
     public function SendLicenseKey(Request $req)
@@ -281,7 +291,7 @@ class ManageOrdersController extends Controller
     public function CreateShipmentSubmit(Request $req)
     {
         Shipment::where('active', 0)->delete();
-
+        
         $req->validate([
             'order_id'      => 'required|exists:orders,id',
             'buyer_name'    => 'required',
@@ -291,15 +301,15 @@ class ManageOrdersController extends Controller
             'district'      => 'required',
             'state'         => 'required',
             'pin_code'      => 'required',
-            'mobile'        => 'required',
-            'alt_mobile'    => 'nullable',
+            'mobile'        => 'required|digits:10',
+            'alt_mobile'    => 'nullable|digits:10',
             'length'        => 'required',
             'height'        => 'required',
             'weight'        => 'required',
         ]);
          
         $order = Order::with('Address')->with('OrderItems.shipment')->with('User')->where('id', $req->order_id)->first();
-
+    
             if (!isset($order) && $order->status != 'order_placed') {
                 abort(500);
             } 
@@ -321,7 +331,7 @@ class ManageOrdersController extends Controller
                 'mobile' => $req->mobile,
                 'alt_mobile' => $req->alt_mobile,
             ]);
-
+           
             $order = Order::with('Address')->with('OrderItems')->with('User')->where('id', $req->order_id)->first();
 
             foreach ($order->OrderItems as $key => $OrderItem) { 
@@ -364,7 +374,7 @@ class ManageOrdersController extends Controller
                 'billing_country'           => 'India',
                 'billing_email'             => $order->User->email,
                 'billing_phone'             => $order->Address->mobile,
-                'billing_alternate_phone'   => $order->Address->alt_mobile,
+                'billing_alternate_phone'   => $order->Address->alt_mobile ?? '',
                 'shipping_is_billing'       => true,
                 'order_items'               => $shippingItems,
                 'payment_method'            => $payment_method,
@@ -374,7 +384,7 @@ class ManageOrdersController extends Controller
                 'weight'                    => $req->weight, 
                 'height'                    => $req->height, 
             ];
-        
+          
             $token =  Shiprocket::getToken();
          
             $response =  Shiprocket::order($token)->create($ShiprocketParams);

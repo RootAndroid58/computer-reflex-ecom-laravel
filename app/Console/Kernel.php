@@ -15,10 +15,11 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         'App\Console\Commands\CreditAffiliateComission',
         'App\Console\Commands\ShippingStatusUpdate',
-        'App\Console\Commands\DeliveredStatusUpdate',
         'App\Console\Commands\AfterShippedStatusUpdates',
         'App\Console\Commands\SendProductLicenseKeys',
+        'App\Console\Commands\RemoveAffiliates',
     ];
+
 
     /**
      * Define the application's command schedule.
@@ -30,9 +31,9 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('command:CreditAffiliateComission')->everyMinute();
         $schedule->command('command:ShippingStatusUpdate')->everyMinute();
-        $schedule->command('command:DeliveredStatusUpdate')->everyMinute();
         $schedule->command('command:AfterShippedStatusUpdates')->everyMinute();
         $schedule->command('command:SendProductLicenseKeys')->everyMinute();
+        $schedule->command('command:RemoveAffiliates')->everySixHours();
         // $schedule->command('command:CronTest')->everyMinute();
     }
 

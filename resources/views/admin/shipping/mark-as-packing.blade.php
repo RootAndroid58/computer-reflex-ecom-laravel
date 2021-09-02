@@ -25,7 +25,7 @@
                 <div class="modal-body">
                         @csrf
                         <input type="hidden" name="order_id" value="{{ $order->id }}">
-                        Are you sure, that you currently want to start the packaging of Order #{{ date_format($order->created_at,"Y-mdHis").'-'.$order->id }} 
+                        Are you sure, that you currently want to start the packaging of Order #{{ $order->id }} 
                     
                 </div>
                 <div class="modal-footer">
@@ -58,7 +58,7 @@
             <div class="wishlist-basic-padding" style="padding: 10px 32px;">
                 <div class="account-details-title" style="padding-bottom: 0px;">
                     <img src="{{ asset('/img/svg/packages.svg') }}" width="50" alt="" srcset="">
-                    <span style="padding-right: 0;"><font style="font-weight: 600; color: black;">Start Packing</font></span> #{{ date_format($order->created_at,"Y-mdHis").'-'.$order->id }}
+                    <span style="padding-right: 0;"><font style="font-weight: 600; color: black;">Start Packing</font></span> #{{ $order->id }}
                 </div>
             </div>
     

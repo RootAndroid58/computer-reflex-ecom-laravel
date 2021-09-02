@@ -22,6 +22,10 @@
 
 @section('content')
 
+@php
+    $physicalItems = false;
+    $electroniclItems = false;
+@endphp
 
 <div class="body-container" id="CartContainer">
     
@@ -62,11 +66,7 @@
                             
                 <div class="wishlist-container">   
 
-                    @php
-                        $physicalItems = false;
-                        $electroniclItems = false;
-                    @endphp
-                     
+                  
                     <form action="{{ route('checkout-post') }}" method="post" id="CartCheckOutForm"> @csrf
                     @foreach ($cart as $cart)
                     @foreach ($cart->Products as $Product) 
@@ -77,6 +77,7 @@
                     } else if ($Product->delivery_type == 'electronic') {
                         $electroniclItems = true;
                     }
+                    
                     @endphp
                       
                             <div class="row wishlist-basic-padding" id="CartItem{{ $Product->id }}" style="padding-bottom: 0;">
@@ -194,7 +195,7 @@
                     </div>
                 
                     <div id="errorContainer" class="w-100">
-                        @if ($physicalItems && $electroniclItems)
+                        @if ($physicalItems == true && $electroniclItems == true)
                         <div class="alert alert-danger mb-0" role="alert" style="font-size: 12px;">
                             <strong>Products with email delivery and physical delivery can't be clubbed together, Place separate orders. </strong>
                         </div>

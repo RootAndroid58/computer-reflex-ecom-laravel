@@ -42,7 +42,7 @@
         <label for="order_id_select">Order ID: <font style="color: red;">*</font></label>
         <select class="form-control" name="order_id" id="order_id_select" required>
           @foreach ($orders as $order)
-          <option value="{{$order->id}}">#{{ date_format($order->created_at,"Y-mdHis").'-'.$order->id }}</option>
+          <option value="{{$order->id}}">#{{ $order->id }}</option>
           @endforeach
         </select>
       </div>

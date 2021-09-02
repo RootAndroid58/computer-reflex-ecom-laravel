@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Wishlist;
 use App\Models\Product;
 use App\Models\ProductImage;
+use Carbon\Carbon;
+
+use App\Http\Controllers\Admin\ManageOrdersController;
 
 class WishlistController extends Controller
 {
@@ -13,8 +16,6 @@ class WishlistController extends Controller
     {   
         return view('wishlist');
     }
-
-
     
     public static function ToggleWishlist(Request $req)
     {

@@ -35,6 +35,13 @@
       0 => 'Fruitcake\\Cors\\CorsServiceProvider',
     ),
   ),
+  'haruncpi/laravel-id-generator' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Haruncpi\\LaravelIdGenerator\\IdGeneratorServiceProvider',
+    ),
+  ),
   'intervention/image' => 
   array (
     'providers' => 
