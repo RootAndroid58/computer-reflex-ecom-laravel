@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\OrderItem;
 use App\Models\User;
 use App\Models\OrderAddress;
+use App\Models\ReturnOrder;
 
 
 class Order extends Model
@@ -28,6 +29,10 @@ class Order extends Model
     public function OrderItems()
     {
         return $this->hasMany(OrderItem::class, 'order_id', 'id');
+    }
+    public function ReturnOrders()
+    {
+        return $this->hasMany(ReturnOrder::class, 'order_id', 'id');
     }
     public function Address()
     {

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3a662041e743fab18c488b31ee434d8f",
+    "content-hash": "4f6a6ea889006170d74ddd74a1217a63",
     "packages": [
         {
             "name": "arvenil/ninja-mutex",
@@ -2184,61 +2184,6 @@
                 }
             ],
             "time": "2021-07-13T05:03:28+00:00"
-        },
-        {
-            "name": "messaged/php-mime-mail-parser",
-            "version": "v1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/message/php-mime-mail-parser.git",
-                "reference": "694e00365123d10e2c8a2065e21279f7f2846ae5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/message/php-mime-mail-parser/zipball/694e00365123d10e2c8a2065e21279f7f2846ae5",
-                "reference": "694e00365123d10e2c8a2065e21279f7f2846ae5",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "MimeMailParser": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "CC BY-SA 3.0"
-            ],
-            "authors": [
-                {
-                    "name": "bucabay",
-                    "email": "gabe@fijiwebdesign.com",
-                    "homepage": "http://www.fijiwebdesign.com",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Dmitry Polovka",
-                    "email": "messaged@messaged.lv",
-                    "homepage": "http://messaged.lv"
-                }
-            ],
-            "description": "Mailparse extension wrapper for PHP 5.3+",
-            "homepage": "http://github.com/message/php-mime-mail-parser",
-            "keywords": [
-                "MimeMailParser",
-                "mail",
-                "mailparse",
-                "mime"
-            ],
-            "support": {
-                "issues": "https://github.com/message/php-mime-mail-parser/issues",
-                "source": "https://github.com/message/php-mime-mail-parser/tree/master"
-            },
-            "abandoned": "php-mime-mail-parser/php-mime-mail-parser",
-            "time": "2014-02-26T11:32:50+00:00"
         },
         {
             "name": "mobiledetect/mobiledetectlib",
@@ -8910,6 +8855,7 @@
                     "type": "github"
                 }
             ],
+            "abandoned": true,
             "time": "2020-09-28T06:45:17+00:00"
         },
         {
