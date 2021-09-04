@@ -5,13 +5,13 @@
                 <div class="prod-back-div" style="width: 100%; height: 175px; background-image: url('{{asset('storage/images/products/'.$product->images[0]->image)}}');"></div>
             </a>
             <div class="product-action-right">
-                <a class="animate-right cursor-pointer @if(isset($product->compared)) text-white bg-secondary bg-gradient @endif " title="Quick View" wire:click="$emit('ToggleCompare', {{ $product->id }})">
+                <a class="animate-right cursor-pointer compare-btn-b compare-btn-b{{ $product->id }} @if(isset($product->compared)) compare-btn-active @endif " title="Quick View" wire:click="$emit('ToggleCompare', {{ $product->id }})">
                     <i class="pe-7s-repeat"></i>
                 </a>
-                <a class="animate-top cursor-pointer @if(isset($product->carted)) text-white bg-secondary bg-gradient @endif" title="Add To Cart" wire:click="$emit('ToggleCart', {{ $product->id }})">
+                <a class="animate-top cursor-pointer cart-btn-b cart-btn-b{{ $product->id }} @if(isset($product->carted)) cart-btn-active @endif" title="Add To Cart" wire:click="$emit('ToggleCart', {{ $product->id }})">
                     <i class="pe-7s-cart"></i>
                 </a>
-                <a class="animate-left cursor-pointer @if(isset($product->wishlisted)) text-white bg-secondary bg-gradient @endif" title="Wishlist" wire:click="$emit('ToggleWishlist', {{ $product->id }})">
+                <a class="animate-left cursor-pointer wishlist-btn-b wishlist-btn-b{{ $product->id }} @if(isset($product->wishlisted)) wishlist-btn-active @endif" title="Wishlist" wire:click="$emit('ToggleWishlist', {{ $product->id }})">
                     <i class="pe-7s-like"></i>
                 </a>
             </div>

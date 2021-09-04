@@ -2,7 +2,9 @@ $(window).on('popstate', function() {
   location.reload(true);
 });
 
-
+function clickEl(el) {
+  $(el).click();
+}
 
 $(document).on('ajaxStop', function() {
   initLazyImg();
@@ -144,43 +146,63 @@ if ($('#dp_uploader').length) {
 
 
 
+
 Toast.setTheme(TOAST_THEME.DARK);
 Toast.setPlacement(TOAST_PLACEMENT.BOTTOM_RIGHT);
 Toast.setMaxCount(10);
 
-Livewire.on('cartAdded', product_name => {
-  console.log(`Added To Cart: ${product_name}`);
-  Toast.create(`Added To Cart`, product_name, TOAST_STATUS.SUCCESS, 5000);
-})
 
-Livewire.on('cartRemoved', product_name => {
-  console.log(`Removed From Cart: ${product_name}`);
-  Toast.create(`Removed From Cart`, product_name, TOAST_STATUS.DANGER, 5000);
-})
+// Cart Toggle Alert And Change Btn
+Livewire.on('cartAdded', data => {
+  $('.cart-btn-a'+data['product_id']).addClass('cart-btn-active');
+  $('.cart-btn-b'+data['product_id']).addClass('cart-btn-active');
+  $('.cart-btn-c'+data['product_id']).addClass('cart-btn-active').html(`REMOVE FROM CART`);
+  Toast.create(`Added To Cart`, data['product_name'], TOAST_STATUS.SUCCESS, 5000);
+});
 
-Livewire.on('wishlistAdded', product_name => {
-  Toast.create("Added To Wishlist", product_name, TOAST_STATUS.SUCCESS, 5000);
-})
+Livewire.on('cartRemoved', data => {
+  $('.cart-btn-a'+data['product_id']).removeClass('cart-btn-active');
+  $('.cart-btn-b'+data['product_id']).removeClass('cart-btn-active');
+  $('.cart-btn-c'+data['product_id']).removeClass('cart-btn-active').html(`ADD FROM CART`);
+  Toast.create(`Removed From Cart`, data['product_name'], TOAST_STATUS.DANGER, 5000);
+});
 
-Livewire.on('wishlistRemoved', product_name => {
-  Toast.create("Removed From Wishlist", product_name, TOAST_STATUS.DANGER, 5000);
-})
 
-Livewire.on('compareAdded', product_name => {
-  Toast.create("Added To Compare", product_name, TOAST_STATUS.SUCCESS, 5000);
-})
+// Wishlist Toggle Alert And Change Btn
+Livewire.on('wishlistAdded', data => {
+  $('.wishlist-btn-a'+data['product_id']).addClass('wishlist-btn-active');
+  $('.wishlist-btn-b'+data['product_id']).addClass('wishlist-btn-active');
+  $('.wishlist-btn-c'+data['product_id']).addClass('btn-wishlisted').removeClass('btn-not-wishlisted');
+  Toast.create("Added To Wishlist", data['product_name'], TOAST_STATUS.SUCCESS, 5000);
+});
 
-Livewire.on('compareRemoved', product_name => {
-  Toast.create("Removed From Compare", product_name, TOAST_STATUS.DANGER, 5000);
-})
+Livewire.on('wishlistRemoved', data => {
+  $('.wishlist-btn-a'+data['product_id']).removeClass('wishlist-btn-active');
+  $('.wishlist-btn-b'+data['product_id']).removeClass('wishlist-btn-active');
+  $('.wishlist-btn-c'+data['product_id']).removeClass('btn-wishlisted').addClass('btn-not-wishlisted');
+  Toast.create("Removed From Wishlist", data['product_name'], TOAST_STATUS.DANGER, 5000);
+});
+
+
+// Compare Toggle Alert And Change Btn
+Livewire.on('compareAdded', data => {
+  $('.compare-btn-a'+data['product_id']).addClass('compare-btn-active');
+  $('.compare-btn-b'+data['product_id']).addClass('compare-btn-active');
+  $('.compare-btn-c'+data['product_id']).addClass('btn-danger').removeClass('btn-info');
+  Toast.create("Added To Compare", data['product_name'], TOAST_STATUS.SUCCESS, 5000);
+});
+
+Livewire.on('compareRemoved', data => {
+  $('.compare-btn-a'+data['product_id']).removeClass('compare-btn-active');
+  $('.compare-btn-b'+data['product_id']).removeClass('compare-btn-active');
+  $('.compare-btn-c'+data['product_id']).removeClass('btn-danger').addClass('btn-info');
+  Toast.create("Removed From Compare", data['product_name'], TOAST_STATUS.DANGER, 5000);
+});
 
 
 // Toast.create(title, message, status = 0, timeout = 0)
 // Toast.setTheme(TOAST_THEME.DARK);
 // Toast.create("Title", "Toast Message", TOAST_STATUS.SUCCESS, 0);
-
-
-
 
 
 

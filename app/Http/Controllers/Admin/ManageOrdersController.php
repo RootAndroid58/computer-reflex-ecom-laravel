@@ -153,11 +153,12 @@ class ManageOrdersController extends Controller
         ]);
     }
 
+    
     public function CancelReviewSubmit(Request $req)
     {
         $req->validate([
             'cancel_review'     => 'required',
-        ]);
+        ]); 
 
         $order = Order::with('ForwardShipment')->where('id', $req->order_id)->with('PendingCancelRequest')->first();
        

@@ -7,9 +7,9 @@
                 </div>
             </a>
             <div class="product-action">
-                <a class="animate-left cursor-pointer  @if(isset($product->wishlisted)) text-white bg-info bg-gradient @endif " wire:click="$emit('ToggleWishlist', {{ $product->id }})" title="Wishlist"><i class="pe-7s-like"></i></a>
-                <a class="animate-top cursor-pointer   @if(isset($product->carted)) text-white bg-info bg-gradient @endif" wire:click="$emit('ToggleCart', {{ $product->id }})" title="Add To Cart"><i class="pe-7s-cart"></i></a>
-                <a class="animate-right cursor-pointer @if(isset($product->compared)) text-white bg-info bg-gradient @endif" wire:click="$emit('ToggleCompare', {{ $product->id }})" title="Compare"><i class="pe-7s-repeat"></i></a>
+                <a class="animate-left cursor-pointer wishlist-btn-a wishlist-btn-a{{ $product->id }} @if(isset($product->wishlisted)) wishlist-btn-active @endif " wire:click="$emit('ToggleWishlist', {{ $product->id }})" title="Wishlist"><i class="pe-7s-like"></i></a>
+                <a class="animate-top cursor-pointer cart-btn-a cart-btn-a{{ $product->id }}  @if(isset($product->carted)) cart-btn-active @endif" wire:click="$emit('ToggleCart', {{ $product->id }})" title="Add To Cart"><i class="pe-7s-cart"></i></a>
+                <a class="animate-right cursor-pointer compare-btn-a compare-btn-a{{ $product->id }} @if(isset($product->compared)) compare-btn-active @endif" wire:click="$emit('ToggleCompare', {{ $product->id }})" title="Compare"><i class="pe-7s-repeat"></i></a>
             </div>
         </div>
         <div class="product-rating-4" style="text-align: center">

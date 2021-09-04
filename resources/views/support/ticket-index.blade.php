@@ -30,12 +30,10 @@
                 </div>
             <form action="{{ route('support.support-add-reply') }}" method="post" class="w-100">
               
-                        @csrf
-                        <input type="hidden" name="ticket_id" value="{{ $ticket->id }}">
-                        <textarea name="message" id="msg"></textarea>
+                @csrf
+                <input type="hidden" name="ticket_id" value="{{ $ticket->id }}">
+                <textarea name="message" id="msg"></textarea>
                         
-                    
-               
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-success">Send <i class="far fa-paper-plane"></i></button>
@@ -194,6 +192,20 @@
                     <div style="padding: 12px 16px;">
                        {!! $msg->msg !!}
                     </div>
+                    <div style="padding: 12px 16px; border-top: 1px rgb(224, 224, 224) solid;">
+                        <div>
+                            <div class="" style="font-weight: 600">Attachments({{count(unserialize($msg->attachments))}})</div>
+                                <ul>
+                                    @foreach (unserialize($msg->attachments) as $attachment)
+                                        <li>
+                                            <a class="text-primary" href="{{ Storage::url('attachments/'.$attachment) }}" target="_blank">{{ $attachment }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                        </div>
+                    </div>
+
+                   
                 </div>
             </div>  
         @endforeach

@@ -43,56 +43,66 @@ class SupportController extends Controller
             'orders' => $orders,
         ]);
     }
-    public function RaiseSupportTicketSubmit(Request $req)
-    {
-        $req->validate([
-            'ticket_topic'          => 'required',
-            'ticket_description'    => 'required',
-        ]);
-
-        if ($req->ticket_topic == 'Order Related' || $req->ticket_topic == 'Return/Refund') {
-            $req->validate([
-                'order_id'          => 'required',
-            ]);
-            $order = Order::where('id', $req->order_id)->where('user_id', Auth()->user()->id)->first();
-
-            if ($req->ticket_topic == 'Order Related') {
-                $subject = 'Order#'.$order->id.' Related';
-            }
-            elseif ($req->ticket_topic == 'Return/Refund') {
-                $subject = 'Return/Refund Related - Order#'.$order->id;
-            }
-        } 
-        else {
-            $subject = $req->ticket_topic;
-        }
-
-        $SupportTicket = new SupportTicket;
-        $SupportTicket->user_id = Auth()->user()->id;
-        $SupportTicket->status = 'open';
-        $SupportTicket->subject = $subject;
-        $SupportTicket->save();
-
-        $SupportTicketMsg = new SupportTicketMsg; 
-        $SupportTicketMsg->ticket_id = $SupportTicket->id; 
-        $SupportTicketMsg->user_id = Auth()->user()->id;   
-        $SupportTicketMsg->type = 'user';   
-        $SupportTicketMsg->msg = $req->ticket_description;   
-        $SupportTicketMsg->save();
-
-        $ticket = SupportTicket::with('user')->where('id', $SupportTicket->id)->first();
-
-        // Send Ticket Raised Confirmation Mail To The User
-        $data = [
-            'ticket' => $ticket,
-        ];
-        Mail::to($ticket->user->email)->send(new SupportTicketRaisedMail($data));
 
 
-        return redirect()->route('support.show-ticket', $SupportTicket->id)->with([
-            'ticket_raised' => $SupportTicket->id,
-        ]);
-    }
+    // public function RaiseSupportTicketSubmit(Request $req)
+    // {
+    //     $req->validate([
+    //         'ticket_topic'          => 'required',
+    //         'ticket_description'    => 'required',
+    //     ]);
+
+    //     if ($req->ticket_topic == 'Order Related' || $req->ticket_topic == 'Return/Refund') {
+    //         $req->validate([
+    //             'order_id'          => 'required',
+    //         ]);
+    //         $order = Order::where('id', $req->order_id)->where('user_id', Auth()->user()->id)->first();
+
+    //         if ($req->ticket_topic == 'Order Related') {
+    //             $subject = 'Order#'.$order->id.' Related';
+    //         }
+    //         elseif ($req->ticket_topic == 'Return/Refund') {
+    //             $subject = 'Return/Refund Related - Order#'.$order->id;
+    //         }
+    //     } 
+    //     else {
+    //         $subject = $req->ticket_topic;
+    //     }
+
+    //     $SupportTicket = new SupportTicket;
+    //     $SupportTicket->user_id = Auth()->user()->id;
+    //     $SupportTicket->status = 'open';
+    //     $SupportTicket->subject = $subject;
+    //     $SupportTicket->save();
+
+    //     $SupportTicketMsg = new SupportTicketMsg; 
+    //     $SupportTicketMsg->ticket_id = $SupportTicket->id; 
+    //     $SupportTicketMsg->user_id = Auth()->user()->id;   
+    //     $SupportTicketMsg->type = 'user';   
+    //     $SupportTicketMsg->msg = $req->ticket_description;   
+    //     $SupportTicketMsg->save();
+
+    //     foreach ($req->attachments as $key => $attachment) {
+    //         # code...
+    //     }
+
+    //     SupportTicketMsg::where('id', $SupportTicketMsg->id)->update([
+    //         'attachments' => '',
+    //     ]);
+
+    //     $ticket = SupportTicket::with('user')->where('id', $SupportTicket->id)->first();
+
+    //     // Send Ticket Raised Confirmation Mail To The User
+    //     $data = [
+    //         'ticket' => $ticket,
+    //     ];
+    //     Mail::to($ticket->user->email)->send(new SupportTicketRaisedMail($data));
+
+
+    //     return redirect()->route('support.show-ticket', $SupportTicket->id)->with([
+    //         'ticket_raised' => $SupportTicket->id,
+    //     ]);
+    // }
 
     public function AddReply(Request $req)
     {

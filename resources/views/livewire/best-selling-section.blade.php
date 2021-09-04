@@ -16,13 +16,13 @@
             </div>
             <h5><font class="rupees">₹</font>{{moneyFormatIndia($product->product_price)}}</h5>
             <div class="product-action-electro">
-                <a class="animate-top cursor-pointer @if (isset($product->carted)) bg-secondary bg-gradient text-white @endif " title="Add To Cart" wire:click="$emit('ToggleCart', {{$product->id}})">
+                <a class="animate-top cursor-pointer cart-btn-b cart-btn-b{{$product->id}} @if (isset($product->carted)) cart-btn-active @endif " title="Add To Cart" wire:click="$emit('ToggleCart', {{$product->id}})">
                     <i class="pe-7s-cart"></i>
                 </a>    
-                <a class="animate-left cursor-pointer @if (isset($product->wishlisted)) bg-secondary bg-gradient text-white @endif" title="Wishlist" wire:click="$emit('ToggleWishlist', {{ $product->id }})">
+                <a class="animate-left cursor-pointer wishlist-btn-b wishlist-btn-b{{$product->id}} @if (isset($product->wishlisted)) wishlist-btn-active @endif" title="Wishlist" wire:click="$emit('ToggleWishlist', {{ $product->id }})">
                     <i class="pe-7s-like"></i>
                 </a>
-                <a class="animate-right cursor-pointer @if (isset($product->compared)) bg-secondary bg-gradient text-white @endif" title="Compare" wire:click="$emit('ToggleCompare', {{ $product->id }})">
+                <a class="animate-right cursor-pointer compare-btn-b compare-btn-b{{$product->id}} @if (isset($product->compared)) compare-btn-active @endif" title="Compare" wire:click="$emit('ToggleCompare', {{ $product->id }})">
                     <i class="pe-7s-repeat"></i>
                 </a>
             </div>

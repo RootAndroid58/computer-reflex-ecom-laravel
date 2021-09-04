@@ -94,7 +94,7 @@ Route::group(['middleware' => ['verified', 'auth']], function() {
 
     Route::get('/support/raise-support-ticket', [App\Http\Controllers\SupportController::class, 'RaiseSupportTicket'])->name('support.raise-support-ticket');
     
-    Route::post('/support/raise-support-ticket/submit', [App\Http\Controllers\SupportController::class, 'RaiseSupportTicketSubmit'])->name('support.raise-support-ticket-submit');
+    // Route::post('/support/raise-support-ticket/submit', [App\Http\Controllers\SupportController::class, 'RaiseSupportTicketSubmit'])->name('support.raise-support-ticket-submit');
     
     Route::post('/qna/new-question/submit', [App\Http\Controllers\ProductQNAController::class, 'QuestionSubmit'])->name('qna.new-question-submit');
     

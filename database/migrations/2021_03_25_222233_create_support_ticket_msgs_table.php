@@ -19,6 +19,7 @@ class CreateSupportTicketMsgsTable extends Migration
             $table->bigInteger('user_id')->foreign('id')->on('users')->onDelete('cascade');
             $table->string('type');
             $table->longText('msg');
+            $table->longText('attachments');
             $table->timestamps();
         });
     }

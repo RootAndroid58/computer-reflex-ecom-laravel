@@ -1272,3 +1272,46 @@ Buy now button Custom
         background-repeat: no-repeat;
         background-size: cover;
     }
+
+    
+
+    .compare-btn-a.compare-btn-active{
+        background-color: #6cb2eb !important;
+        color: #fff;
+    }
+    .cart-btn-a.cart-btn-active{
+        background-color: #6cb2eb !important;
+        color: #fff;
+    }
+    .wishlist-btn-a.wishlist-btn-active{
+        background-color: #6cb2eb !important;
+        color: #fff;
+    }
+
+    .compare-btn-b.compare-btn-active{
+        background-color: #6c757d !important;
+        color: #fff;
+    }
+    .cart-btn-b.cart-btn-active{
+        background-color: #6c757d !important;
+        color: #fff;
+    }
+    .wishlist-btn-b.wishlist-btn-active{
+        background-color: #6c757d !important;
+        color: #fff;
+    }
+
+
+
+    /* .compare-btn-c.compare-btn-active{
+        background-color: #6c757d !important;
+        color: #fff;
+    }
+    .cart-btn-c.cart-btn-active{
+        background-color: #6c757d !important;
+        color: #fff;
+    }
+    .wishlist-btn-c.wishlist-btn-active{
+        background-color: #6c757d !important;
+        color: #fff;
+    } */

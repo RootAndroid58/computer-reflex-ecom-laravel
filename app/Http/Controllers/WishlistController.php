@@ -7,6 +7,7 @@ use App\Models\Wishlist;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Carbon\Carbon;
+use Storage;
 
 use App\Http\Controllers\Admin\ManageOrdersController;
 
@@ -14,6 +15,8 @@ class WishlistController extends Controller
 {
     public function ShowWishlist()
     {   
+        Storage::disk('local')->put('attachments.png', 'https://computerreflex.dev/livewire/preview-file/FYMXvpNyzKrduiJn4dmd29KbhiWjfE-metaMS5wbmc=-.png?expires=1630711968&signature=a5150a399ba3aff2da2c96852f1d791853523a664f5f2862e05d7856b4486092');
+
         return view('wishlist');
     }
     

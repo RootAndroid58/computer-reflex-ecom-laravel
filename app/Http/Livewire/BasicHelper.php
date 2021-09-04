@@ -29,13 +29,17 @@ class BasicHelper extends Component
 
         if ($ToggleCart['status'] == 200) {
             $this->carted = 1;
-            $this->emit('refreshProduct:'.$product_id);
-            $this->emit('cartAdded', WordLimit($ToggleCart['product_name'], 18).'...');
+            $this->emit('cartAdded', [
+                'product_id'    => $product_id,
+                'product_name'  => WordLimit($ToggleCart['product_name'], 18).'...',
+            ]);
         }
         elseif ($ToggleCart['status'] == 500) {
             $this->carted = 0;
-            $this->emit('refreshProduct:'.$product_id);
-            $this->emit('cartRemoved', WordLimit($ToggleCart['product_name'], 18).'...');
+            $this->emit('cartRemoved', [
+                'product_id'    => $product_id,
+                'product_name'  => WordLimit($ToggleCart['product_name'], 18).'...',
+            ]);
         }
     }
 
@@ -48,13 +52,17 @@ class BasicHelper extends Component
 
         if ($ToggleCompare['status'] == 200) {
             $this->compared = 1;
-            $this->emit('refreshProduct:'.$product_id);
-            $this->emit('compareAdded', WordLimit($ToggleCompare['product_name'], 18).'...');
+            $this->emit('compareAdded', [
+                'product_id'    => $product_id,
+                'product_name'  => WordLimit($ToggleCompare['product_name'], 18).'...',
+            ]);
         } 
         elseif ($ToggleCompare['status'] == 500) {
             $this->compared = 0;
-            $this->emit('refreshProduct:'.$product_id);
-            $this->emit('compareRemoved', WordLimit($ToggleCompare['product_name'], 18).'...');
+            $this->emit('compareRemoved', [
+                'product_id'    => $product_id,
+                'product_name'  => WordLimit($ToggleCompare['product_name'], 18).'...',
+            ]);
         }
     }
 
@@ -67,13 +75,17 @@ class BasicHelper extends Component
 
         if ($ToggleWishlist['status'] == 200) {
             $this->wishlistd = 1;
-            $this->emit('refreshProduct:'.$product_id);
-            $this->emit('wishlistAdded', WordLimit($ToggleWishlist['product_name'], 18).'...');
+            $this->emit('wishlistAdded', [
+                'product_id' => $product_id,
+                'product_name' => WordLimit($ToggleWishlist['product_name'], 18).'...',
+            ]);
         } 
         elseif ($ToggleWishlist['status'] == 500) {
             $this->wishlistd = 0;
-            $this->emit('refreshProduct:'.$product_id);
-            $this->emit('wishlistRemoved', WordLimit($ToggleWishlist['product_name'], 18).'...');
+            $this->emit('wishlistRemoved', [
+                'product_id' => $product_id,
+                'product_name' => WordLimit($ToggleWishlist['product_name'], 18).'...',
+            ]);
         }
     }
 

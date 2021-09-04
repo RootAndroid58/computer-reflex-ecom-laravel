@@ -10,6 +10,7 @@
   'home-wide-banner' => 'App\\Http\\Livewire\\HomeWideBanner',
   'product-quick-actions' => 'App\\Http\\Livewire\\ProductQuickActions',
   'related-product' => 'App\\Http\\Livewire\\RelatedProduct',
+  'ticket-attachments' => 'App\\Http\\Livewire\\TicketAttachments',
   'top-products-section' => 'App\\Http\\Livewire\\TopProductsSection',
   'wishlist-container' => 'App\\Http\\Livewire\\WishlistContainer',
   'wishlist-product' => 'App\\Http\\Livewire\\WishlistProduct',
