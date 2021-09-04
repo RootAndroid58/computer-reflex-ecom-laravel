@@ -12,9 +12,9 @@
 @section('title', 'Raise Support Ticket')
 
 @section('right-menu-col')
-<div class="right-account-container account-details-container">
+<div class="right-account-container account-details-container ">
                 
-    @livewire('ticket-attachments')
+    @livewire('support.raise-ticket')
 
     
 
@@ -22,11 +22,5 @@
 @endsection
 
 @section('bottom-js')
-    <script>
-        $(document).ready(function() {
-            $('#description').summernote({
-              height: 250,
-            });
-        });
-    </script>
+
 @endsection

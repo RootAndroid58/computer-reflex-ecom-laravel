@@ -146,6 +146,13 @@ if ($('#dp_uploader').length) {
 
 
 
+// Livewire.on('reinitSummernote', () => {
+//   console.log('test');
+//   summnernoteInit();
+// });
+
+
+
 
 Toast.setTheme(TOAST_THEME.DARK);
 Toast.setPlacement(TOAST_PLACEMENT.BOTTOM_RIGHT);
@@ -153,6 +160,7 @@ Toast.setMaxCount(10);
 
 
 // Cart Toggle Alert And Change Btn
+
 Livewire.on('cartAdded', data => {
   $('.cart-btn-a'+data['product_id']).addClass('cart-btn-active');
   $('.cart-btn-b'+data['product_id']).addClass('cart-btn-active');

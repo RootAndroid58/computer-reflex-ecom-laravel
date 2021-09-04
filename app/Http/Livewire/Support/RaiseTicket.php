@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Support;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -8,7 +8,7 @@ use App\Models\Order;
 use App\Models\SupportTicket;
 use App\Models\SupportTicketMsg;
 
-class TicketAttachments extends Component
+class RaiseTicket extends Component
 {
     use WithFileUploads;
 
@@ -41,6 +41,7 @@ class TicketAttachments extends Component
 
     public function submit()
     {
+        $this->validate();
        
         if ($this->help_topic == 'Order Related' || $this->help_topic == 'Return/Refund') {
             $order = Order::where('id', $this->order_id)->where('user_id', Auth()->user()->id)->first();
@@ -95,6 +96,6 @@ class TicketAttachments extends Component
 
     public function render()
     {
-        return view('livewire.ticket-attachments');
+        return view('livewire.support.raise-ticket');
     }
 }

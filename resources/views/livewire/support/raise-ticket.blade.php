@@ -18,32 +18,36 @@
     </div>
 
 
-    @if ($help_topic == 'Order Related' || $help_topic == 'Return/Refund')
+    
     <div class="form-group">
-        <label >Order ID: <font style="color: red;">*</font></label>
-        <select wire:name="order_id" class="form-control @error('order_id') is-invalid @enderror" required>
-          @foreach ($orders as $order)
-            <option value="{{$order->id}}">#{{ $order->id }}</option>
-          @endforeach
-        </select>
-        @error('order_id')
-        <div class="invalid-feedback">
-          {{ $message }}
-        </div>
-        @enderror
+      @if ($help_topic == 'Order Related' || $help_topic == 'Return/Refund')
+          <label >Order ID: <font style="color: red;">*</font></label>
+          <select wire:name="order_id" class="form-control @error('order_id') is-invalid @enderror" required>
+            @foreach ($orders as $order)
+              <option value="{{$order->id}}">#{{ $order->id }}</option>
+            @endforeach
+          </select>
+          @error('order_id')
+          <div class="invalid-feedback">
+            {{ $message }}
+          </div>
+          @enderror
+        @endif
     </div> 
-    @endif
    
 
 
-    <div class="form-group">
+    <div class="form-group " >
       <label class="text-dark">Explain your issue</label>
-      <textarea wire:model="description" required  class="form-control @error('description') is-invalid @enderror" rows="7"></textarea>
-      @error('description')
-      <div class="invalid-feedback">
-        {{ $message }}
-      </div>
-      @enderror
+        <div wire:ignore>
+          <textarea wire:model.lazy="description" required id="description" class="form-control @error('description') is-invalid @enderror" rows="7"></textarea>
+        </div>
+
+        @error('description')
+        <div class="text-danger">
+          {{ $message }}
+        </div>
+        @enderror
     </div>
   
     
@@ -78,3 +82,19 @@
   </div>
     
 </div>
+
+@push('scripts')
+<script>
+  $(document).ready(function () {
+    $('#description').summernote({
+            height: 250,
+            callbacks: {
+              onChange: function(contents, $editable) {
+                  @this.set('description', contents);
+              }
+            }
+        });
+  });
+
+</script>
+@endpush
