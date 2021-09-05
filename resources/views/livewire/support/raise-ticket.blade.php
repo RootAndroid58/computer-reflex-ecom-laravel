@@ -39,9 +39,19 @@
 
     <div class="form-group " >
       <label class="text-dark">Explain your issue</label>
+        
         <div wire:ignore>
-          <textarea wire:model.lazy="description" required id="description" class="form-control @error('description') is-invalid @enderror" rows="7"></textarea>
+          <textarea wire:model="description" required id="description" class="form-control @error('description') is-invalid @enderror" rows="7"></textarea>
         </div>
+        
+        {{-- <div wire:ignore>
+          <trix-editor
+              class="formatted-content"
+              x-ref="trix"
+              wire:model.debounce.999999ms="description"
+              wire:key="uniqueKey"
+          ></trix-editor>
+        </div> --}}
 
         @error('description')
         <div class="text-danger">
@@ -86,11 +96,19 @@
 @push('scripts')
 <script>
   $(document).ready(function () {
+
+
+    // $('#description').focusout(function () {
+    //   console.log('focus out');
+    //   @this.set('description', contents);
+    // });
+
+    
     $('#description').summernote({
             height: 250,
             callbacks: {
-              onChange: function(contents, $editable) {
-                  @this.set('description', contents);
+              onBlur: function(contents, $editable) {
+                  @this.set('description', $('#description').summernote('code'));
               }
             }
         });

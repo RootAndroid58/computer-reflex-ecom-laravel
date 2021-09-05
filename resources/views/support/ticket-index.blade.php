@@ -192,6 +192,8 @@
                     <div style="padding: 12px 16px;">
                        {!! $msg->msg !!}
                     </div>
+
+                    @if (count(unserialize($msg->attachments)) > 0)
                     <div style="padding: 12px 16px; border-top: 1px rgb(224, 224, 224) solid;">
                         <div>
                             <div class="" style="font-weight: 600">Attachments({{count(unserialize($msg->attachments))}})</div>
@@ -204,6 +206,8 @@
                                 </ul>
                         </div>
                     </div>
+                    @endif
+                   
 
                    
                 </div>

@@ -7,6 +7,8 @@ use Livewire\WithFileUploads;
 use App\Models\Order;
 use App\Models\SupportTicket;
 use App\Models\SupportTicketMsg;
+use Str;
+use Storage;
 
 class RaiseTicket extends Component
 {
@@ -54,6 +56,28 @@ class RaiseTicket extends Component
             }
         }
 
+
+
+        $content = $this->description;
+        $dom = new \DomDocument();
+        $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $imageFile = $dom->getElementsByTagName('img');
+  
+        foreach($imageFile as $item => $image) {
+            $data = $image->getAttribute('src');
+            $extension = explode('/', explode(':', substr($data, 0, strpos($data, ';')))[1])[1];   // 
+            list($type, $data) = explode(';', $data);
+            list(, $data)      = explode(',', $data);
+            $imgeData = base64_decode($data);
+            $image_name= Str::random(4). time().$item.'.'.$extension;
+            $path = public_path() . '/storage/attachments/' . $image_name;
+            file_put_contents($path, $imgeData);
+            $image->removeAttribute('src');
+            $image->setAttribute('src', asset('storage/attachments/'.$image_name));
+        }
+  
+        $description = $dom->saveHTML();
+        // dd($description);
         $SupportTicket = new SupportTicket;
         $SupportTicket->user_id = $this->user_id;
         $SupportTicket->status = 'open';
@@ -64,7 +88,7 @@ class RaiseTicket extends Component
         $SupportTicketMsg->ticket_id = $SupportTicket->id; 
         $SupportTicketMsg->user_id = $this->user_id;   
         $SupportTicketMsg->type = 'user';   
-        $SupportTicketMsg->msg = $this->description;   
+        $SupportTicketMsg->msg = $description ;   
         $SupportTicketMsg->save();
 
         $attachments=[];

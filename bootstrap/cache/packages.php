@@ -150,6 +150,13 @@
       0 => 'Spatie\\Permission\\PermissionServiceProvider',
     ),
   ),
+  'te7a-houdini/laravel-trix' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Te7aHoudini\\LaravelTrix\\LaravelTrixServiceProvider',
+    ),
+  ),
   'yajra/laravel-datatables-oracle' => 
   array (
     'providers' => 

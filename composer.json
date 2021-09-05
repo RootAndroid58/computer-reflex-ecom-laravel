@@ -25,6 +25,7 @@
         "seshac/laravel-shiprocket-api": "^1.0",
         "softon/indipay": "^1.2",
         "spatie/laravel-permission": "^3.18",
+        "te7a-houdini/laravel-trix": "^2.0",
         "yajra/laravel-datatables-oracle": "^9.15"
     },
     "require-dev": {
