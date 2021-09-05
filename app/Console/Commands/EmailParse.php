@@ -11,7 +11,7 @@ class EmailParse extends Command
      *
      * @var string
      */
-    protected $signature = 'command:EmailParse';
+    protected $signature = 'EmailParse';
 
     /**
      * The console command description.
