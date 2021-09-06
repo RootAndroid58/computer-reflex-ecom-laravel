@@ -45,7 +45,7 @@ class EmailParse extends Command
     public function handle()
     {
         $mailParser = new MailMimeParser();
-        $message = $mailParser->parse(fopen('file.mime', 'r'), true);
+        $message = $mailParser->parse(fopen("php://stdin", "r"), true);
         $subject = $message->getHeaderValue('Subject');
         $text = $message->getTextContent();
         $html = $message->getHtmlContent();
