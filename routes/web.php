@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+    Route::get('php-info', function (){
+        phpinfo();
+    });
+
 
 // Authentication Routes Start...
     Route::get('login', 'App\Http\Controllers\Auth\LoginController@showLoginForm')->name('login');
