@@ -21,13 +21,13 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
         "livewire/livewire": "^2.4",
-        "messaged/php-mime-mail-parser": "^1.0",
         "nicolaslopezj/searchable": "^1.13",
         "seshac/laravel-shiprocket-api": "^1.0",
         "softon/indipay": "^1.2",
         "spatie/laravel-permission": "^3.18",
         "te7a-houdini/laravel-trix": "^2.0",
-        "yajra/laravel-datatables-oracle": "^9.15"
+        "yajra/laravel-datatables-oracle": "^9.15",
+        "zbateson/mail-mime-parser": "^2.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",

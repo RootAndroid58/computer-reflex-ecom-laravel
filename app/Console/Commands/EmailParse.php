@@ -7,6 +7,10 @@ use MimeMailParser\Parser;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
+use ZBateson\MailMimeParser\Message;
+use ZBateson\MailMimeParser\MailMimeParser;
+use ZBateson\MailMimeParser\Header\HeaderConsts;
+
 class EmailParse extends Command
 {
     /**
@@ -40,31 +44,22 @@ class EmailParse extends Command
      */
     public function handle()
     {
-        // read from stdin
-        $fd = fopen("php://stdin", "r");
-        $rawEmail = "";
-        while (!feof($fd)) {
-            $rawEmail .= fread($fd, 1024);
-        }
-        fclose($fd);
+        $mailParser = new MailMimeParser();
+        $message = $mailParser->parse(fopen('file.mime', 'r'), true);
+        $subject = $message->getHeaderValue('Subject');
+        $text = $message->getTextContent();
+        $html = $message->getHtmlContent();
+        $from = $message->getHeader('From');
+        $fromName = $from->getName();
+        $fromEmail = $from->getEmail();
+        $to = $message->getHeader('To');
+        $firstToName = $to->getName();
+        $firstToEmail = $to->getEmail();
 
-        $parser = new Parser;
-        $parser->setText($rawEmail);
-        
-        $to = $parser->getHeader('to');
-        $delivered_to = $parser->getHeader('delivered-to');
-        $from = $parser->getHeader('from');
-        $subject = $parser->getHeader('subject');
-        $text = $parser->getMessageBody('text');
-        $html = $parser->getMessageBody('html');
-        $attachments = $parser->getAttachments();
 
-        $data = $to.'<br><br><br>'.$delivered_to.'<br><br><br>'.'<br><br><br>'.$from.'<br><br><br>'.$subject.'<br><br><br>'.$text.'<br><br><br>'.$html.'<br><br><br>'.$attachments;
-
-        Mail::raw($data , function ($m) {
+        Mail::raw($subject.'<br><br>'.$text.'<br><br>'.$html , function ($m) {
             $m->to('aniket.das.in@gmail.com')->subject('Raw Email');
         });
-       
 
         return 0;
     }
