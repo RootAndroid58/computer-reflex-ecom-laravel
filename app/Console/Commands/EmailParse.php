@@ -2,8 +2,10 @@
 
 namespace App\Console\Commands;
 
+
+use MimeMailParser\Parser;
 use Illuminate\Console\Command;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 
 class EmailParse extends Command
 {
@@ -46,7 +48,7 @@ class EmailParse extends Command
         }
         fclose($fd);
 
-        $parser = new Parser();
+        $parser = new Parser;
         $parser->setText($rawEmail);
         
         $to = $parser->getHeader('to');
@@ -62,6 +64,7 @@ class EmailParse extends Command
         Mail::raw($data , function ($m) {
             $m->to('aniket.das.in@gmail.com')->subject('Raw Email');
         });
+       
 
         return 0;
     }
