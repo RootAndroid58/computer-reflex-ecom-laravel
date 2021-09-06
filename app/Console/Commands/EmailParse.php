@@ -38,17 +38,30 @@ class EmailParse extends Command
      */
     public function handle()
     {
-            // read from stdin
-            $fd = fopen("php://stdin", "r");
-            $rawEmail = "";
-            while (!feof($fd)) {
-                $rawEmail .= fread($fd, 1024);
-            }
-            fclose($fd);
+        // read from stdin
+        $fd = fopen("php://stdin", "r");
+        $rawEmail = "";
+        while (!feof($fd)) {
+            $rawEmail .= fread($fd, 1024);
+        }
+        fclose($fd);
 
-            Mail::raw($rawEmail, function ($m) {
-                $m->to('aniket.das.in@gmail.com')->subject('Raw Email');
-              });
+        $parser = new Parser();
+        $parser->setText($rawEmail);
+        
+        $to = $parser->getHeader('to');
+        $delivered_to = $parser->getHeader('delivered-to');
+        $from = $parser->getHeader('from');
+        $subject = $parser->getHeader('subject');
+        $text = $parser->getMessageBody('text');
+        $html = $parser->getMessageBody('html');
+        $attachments = $parser->getAttachments();
+
+        $data = $to.'<br><br><br>'.$delivered_to.'<br><br><br>'.'<br><br><br>'.$from.'<br><br><br>'.$subject.'<br><br><br>'.$text.'<br><br><br>'.$html.'<br><br><br>'.$attachments;
+
+        Mail::raw($data , function ($m) {
+            $m->to('aniket.das.in@gmail.com')->subject('Raw Email');
+        });
 
         return 0;
     }
