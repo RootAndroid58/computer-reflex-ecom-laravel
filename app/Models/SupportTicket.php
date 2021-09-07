@@ -11,6 +11,10 @@ class SupportTicket extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = "id";
+    public $incrementing = false;
+
+
     public function msgs()
     {
         return $this->hasMany(SupportTicketMsg::class, 'ticket_id', 'id')->orderBy('id', 'desc');

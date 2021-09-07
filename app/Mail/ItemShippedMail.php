@@ -32,6 +32,7 @@ class ItemShippedMail extends Mailable
     {
         return $this
         ->subject('Item Shipped For Order #'.$this->data['OrderItem']->order->id)
+        ->from('no-reply'.config('mail.domain'), config('app.name'))
         ->view('mails.item-shipped');
     }
 }

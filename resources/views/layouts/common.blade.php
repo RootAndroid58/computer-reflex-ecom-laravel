@@ -63,7 +63,7 @@
                     <div class="header-contact-info">
                         <ul>
                             <li><i class="pe-7s-call"></i><a href="tel:+91 7003373754">+91 7003 373 754</a></li>
-                            <li><i class="pe-7s-mail"></i><a href="mailto:contact@computer-reflex.tk">contact@computer-reflex.tk</a></li>
+                            <li><i class="pe-7s-mail"></i><a href="mailto:contact@computerreflex.tk">contact@computerreflex.tk</a></li>
                         </ul>
                     </div>
                     <div class="electronics-login-register">

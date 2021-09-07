@@ -205,7 +205,6 @@ class CheckoutController extends Controller
             'table' => 'orders', 
             'length' => 20, 
             'prefix' => 'OD'.date('Ymd-His').'-',
-            'prefix' => 'OD'.date('Ymd-His').'-',
             'reset_on_prefix_change' => true
         ]);
         $order->user_id         = Auth()->user()->id;

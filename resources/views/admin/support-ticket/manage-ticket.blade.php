@@ -29,7 +29,7 @@
                         <textarea name="message" id="msg"></textarea>
                         
                         <div>
-                            <p><b style="font-size: 1rem;"><br></b></p><p><b style="font-size: 1rem;">Best Regards,</b><br></p><p><span style="font-size: 1rem;"><span style="font-family: Arial;">{{Auth()->user()->name}}</span><br></span><span style="font-size: 1rem;">Computer Reflex Support Team<br></span><a href="tel:+917003373754" target="_blank" style="background-color: rgb(255, 255, 255); font-size: 1rem;">+91 7003 373 754</a><span style="font-size: 1rem;">&nbsp;| </span><a href="mailto:contact@computer-reflex.tk" target="_blank" style="background-color: rgb(255, 255, 255); font-size: 1rem;">contact@computer-reflex.tk</a></p><p><br></p>
+                            <p><b style="font-size: 1rem;"><br></b></p><p><b style="font-size: 1rem;">Best Regards,</b><br></p><p><span style="font-size: 1rem;"><span style="font-family: Arial;">{{Auth()->user()->name}}</span><br></span><span style="font-size: 1rem;">Computer Reflex Support Team<br></span><a href="tel:+917003373754" target="_blank" style="background-color: rgb(255, 255, 255); font-size: 1rem;">+91 7003 373 754</a><span style="font-size: 1rem;">&nbsp;| </span><a href="mailto:contact@computerreflex.tk" target="_blank" style="background-color: rgb(255, 255, 255); font-size: 1rem;">contact@computerreflex.tk</a></p><p><br></p>
                         </div>
                     </div>
                     

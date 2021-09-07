@@ -14,6 +14,7 @@ return [
     */
 
     'default' => env('MAIL_MAILER', 'smtp'),
+    'domain' => env('EMAIL_DOMAIN', '@computerreflex.tk'),
 
     /*
     |--------------------------------------------------------------------------

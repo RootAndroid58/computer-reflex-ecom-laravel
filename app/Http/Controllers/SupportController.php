@@ -146,7 +146,7 @@ class SupportController extends Controller
 
         $header = '<p>Hi <b>'.$ticket->user->name.'</b>,<br><br>This message is regarding the <b>Ticket #'.$ticket->id.' </b>raised by you.&nbsp;</p>';
         $body   = $req->message;    
-        $footer = '<p><b style="font-size: 1rem;"><br></b></p><p><b style="font-size: 1rem;">Best Regards,</b><br></p><p><span style="font-size: 1rem;"><span style="font-family: Arial;">'.Auth()->user()->name.'</span><br></span><span style="font-size: 1rem;">Computer Reflex Support Team<br></span><a href="tel:+917003373754" target="_blank" style="background-color: rgb(255, 255, 255); font-size: 1rem;">+91 7003 373 754</a><span style="font-size: 1rem;">&nbsp;| </span><a href="mailto:contact@computer-reflex.tk" target="_blank" style="background-color: rgb(255, 255, 255); font-size: 1rem;">contact@computer-reflex.tk</a></p><p><br></p>';
+        $footer = '<p><b style="font-size: 1rem;"><br></b></p><p><b style="font-size: 1rem;">Best Regards,</b><br></p><p><span style="font-size: 1rem;"><span style="font-family: Arial;">'.Auth()->user()->name.'</span><br></span><span style="font-size: 1rem;">Computer Reflex Support Team<br></span><a href="tel:+917003373754" target="_blank" style="background-color: rgb(255, 255, 255); font-size: 1rem;">+91 7003 373 754</a><span style="font-size: 1rem;">&nbsp;| </span><a href="mailto:contact@computerreflex.tk" target="_blank" style="background-color: rgb(255, 255, 255); font-size: 1rem;">contact@computerreflex.tk</a></p><p><br></p>';
         $msg = $header.$body.$footer;
 
         $SupportTicketMsg = new SupportTicketMsg;
@@ -172,8 +172,10 @@ class SupportController extends Controller
 
     public function ShowTicket($ticket_id)
     {
-        $SupportTicket = SupportTicket::with('msgs')->with('user')->where('id', $ticket_id)->first();
-        
+        $SupportTicket = SupportTicket::with('msgs')->with('user')->where('id', $ticket_id)->where('user_id', Auth()->user()->id)->first();
+        if (!isset($SupportTicket)) {
+            abort(404);
+        }
         return view('support.ticket-index', [
             'ticket' => $SupportTicket,
         ]);

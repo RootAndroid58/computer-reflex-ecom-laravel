@@ -32,6 +32,7 @@ class SupportTicketRaisedMail extends Mailable
     {
         return $this
         ->subject('Support Ticket Raised #'.$this->data['ticket']->id.' - '.config('app.name'))
+        ->from('support'.config('mail.domain'), config('app.name'))
         ->view('mails.support-ticket-raised');
     }
 }

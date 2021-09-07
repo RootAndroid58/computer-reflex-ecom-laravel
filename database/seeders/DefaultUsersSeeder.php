@@ -18,7 +18,7 @@ class DefaultUsersSeeder extends Seeder
             [
                 'id'                => 1,
                 'name'              => 'Master Admin',
-                'email'             => 'admin@computer-reflex.tk',
+                'email'             => 'admin@computerreflex.tk',
                 'mobile'            => '8902984277',
                 'password'          => bcrypt('Password1234'),
                 'status'            => 'active',

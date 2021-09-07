@@ -32,6 +32,7 @@ class AffiliateComissionCreditedMail extends Mailable
     {
         return $this
         ->subject('Affiliated Comission Credited - Txn #'.$this->data['walletTxn']->id)
+        ->from('no-reply'.config('mail.domain'), config('app.name'))
         ->view('mails.affiliate-comission-credited');
     }
 }

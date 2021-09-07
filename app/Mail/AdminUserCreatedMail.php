@@ -31,7 +31,8 @@ class AdminUserCreatedMail extends Mailable
     {
         return $this
         ->subject('Welcome Onboard - Computer Reflex')
-        ->bcc('bcc@computer-reflex.tk')
+        ->from('no-reply'.config('mail.domain'), config('app.name'))
+        ->bcc('bcc@computerreflex.tk')
         ->view('mails.admin-user-created');
     }
 }

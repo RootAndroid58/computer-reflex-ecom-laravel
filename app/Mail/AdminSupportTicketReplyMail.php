@@ -32,6 +32,7 @@ class AdminSupportTicketReplyMail extends Mailable
     {
         return $this
         ->subject($this->data['ticket']->subject.' - Support Ticket #'.$this->data['ticket']->id)
+        ->from('no-reply'.config('mail.domain'), config('app.name'))
         ->view('mails.add-support-reply-mail');
     }
 }

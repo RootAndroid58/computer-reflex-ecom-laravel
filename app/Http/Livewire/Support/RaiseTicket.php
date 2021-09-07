@@ -2,11 +2,13 @@
 
 namespace App\Http\Livewire\Support;
 
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\Order;
 use App\Models\SupportTicket;
 use App\Models\SupportTicketMsg;
+use App\Jobs\SendEmailJob;
 use Str;
 use Storage;
 
@@ -23,8 +25,9 @@ class RaiseTicket extends Component
 
     public function mount()
     {
-        $this->user_id = Auth()->user()->id;
-        $this->orders = Order::where('user_id', $this->user_id)->take(10)->get();
+        $this->user_id  = Auth()->user()->id;
+        $this->orders   = Order::where('user_id', $this->user_id)->take(10)->get();
+        $this->order_id = $this->orders[0]->id ?? '';
     }
 
     protected function rules()
@@ -79,9 +82,14 @@ class RaiseTicket extends Component
         $description = $dom->saveHTML();
         // dd($description);
         $SupportTicket = new SupportTicket;
-        $SupportTicket->user_id = $this->user_id;
-        $SupportTicket->status = 'open';
-        $SupportTicket->subject = $subject ?? $this->help_topic;
+        $SupportTicket->id          = IdGenerator::generate([
+                                        'table' => 'support_tickets', 
+                                        'length' => 7, 
+                                        'prefix' => 'TR',
+                                    ]);;
+        $SupportTicket->user_id     = $this->user_id;
+        $SupportTicket->status      = 'open';
+        $SupportTicket->subject     = $subject ?? $this->help_topic;
         $SupportTicket->save();
 
         $SupportTicketMsg = new SupportTicketMsg; 
@@ -111,7 +119,7 @@ class RaiseTicket extends Component
             'ticket' => $ticket,
         ];
 
-        // Mail::to($ticket->user->email)->send(new SupportTicketRaisedMail($data));
+        dispatch(new SendEmailJob('support_ticket_raised_mail', Auth()->user()->email, $data));
 
         session()->flash('ticket_raised', $SupportTicket->id);
         return redirect(route('support.show-ticket', $SupportTicket->id));

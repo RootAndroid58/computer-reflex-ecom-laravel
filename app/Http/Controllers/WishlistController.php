@@ -14,7 +14,13 @@ use App\Http\Controllers\Admin\ManageOrdersController;
 class WishlistController extends Controller
 {
     public function ShowWishlist()
-    {   
+    {
+        // $pattern = '/#[TRtr]+0*[1-9][0-9]*/';
+        // $str = 'The quick brown fox jumps over the lazy dog #TR0123456789  - Computer Reflex';
+        // preg_match($pattern, $str, $output);
+
+        // dd($output[0]);
+
         Storage::disk('local')->put('attachments.png', 'https://computerreflex.dev/livewire/preview-file/FYMXvpNyzKrduiJn4dmd29KbhiWjfE-metaMS5wbmc=-.png?expires=1630711968&signature=a5150a399ba3aff2da2c96852f1d791853523a664f5f2862e05d7856b4486092');
 
         return view('wishlist');

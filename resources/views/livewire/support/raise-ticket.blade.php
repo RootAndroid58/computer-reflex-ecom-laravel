@@ -22,7 +22,7 @@
     <div class="form-group">
       @if ($help_topic == 'Order Related' || $help_topic == 'Return/Refund')
           <label >Order ID: <font style="color: red;">*</font></label>
-          <select wire:name="order_id" class="form-control @error('order_id') is-invalid @enderror" required>
+          <select wire:model="order_id" class="form-control @error('order_id') is-invalid @enderror" required>
             @foreach ($orders as $order)
               <option value="{{$order->id}}">#{{ $order->id }}</option>
             @endforeach
@@ -87,7 +87,9 @@
       </div>
       
       <div style="text-align: right;">
-          <button wire:click="submit" class="btn btn-success">Submit Ticket</button>
+          <button wire:click="submit" class="btn btn-success">Submit Ticket &nbsp; 
+            <span wire:loading wire:target="submit" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          </button>
       </div>
   </div>
     

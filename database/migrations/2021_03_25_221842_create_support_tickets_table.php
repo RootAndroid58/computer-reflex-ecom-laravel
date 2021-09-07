@@ -14,7 +14,7 @@ class CreateSupportTicketsTable extends Migration
     public function up()
     {
         Schema::create('support_tickets', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->unique();
             $table->bigInteger('user_id')->foreign('id')->on('users')->onDelete('cascade');
             $table->string('status');
             $table->string('subject');

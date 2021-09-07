@@ -15,7 +15,7 @@ class CreateSupportTicketMsgsTable extends Migration
     {
         Schema::create('support_ticket_msgs', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('ticket_id')->foreign('id')->on('support_tickets')->onDelete('cascade');
+            $table->string('ticket_id')->foreign('id')->on('support_tickets')->onDelete('cascade');
             $table->bigInteger('user_id')->foreign('id')->on('users')->onDelete('cascade');
             $table->string('type');
             $table->longText('msg');

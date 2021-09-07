@@ -197,7 +197,7 @@ You now have Admin Panel access of Computer Reflex. The button given below will 
 <p style="margin: 10px 0;padding: 0;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #757575;font-family: Helvetica;font-size: 16px;line-height: 150%;text-align: left;">Computer Reflex&nbsp;Team<br>
 121/5E/1F Satin Sen Sarani,<br>
 Kolkata West Bengal, 700054, IN<br>
-Telephone: +91 7003 373 754 |&nbsp;<a href="mailto:contact@computer-reflex.tk" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #007C89;font-weight: normal;text-decoration: underline;">contact@computer-reflex.tk</a></p>
+Telephone: +91 7003 373 754 |&nbsp;<a href="mailto:contact@computerreflex.tk" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #007C89;font-weight: normal;text-decoration: underline;">contact@computerreflex.tk</a></p>
 
                         </td>
                     </tr>

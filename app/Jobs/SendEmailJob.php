@@ -10,6 +10,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderPlacedMail;
+use App\Mail\SupportTicketRaisedMail;
 use App\Mail\AffiliateComissionCreditedMail;
 
 class SendEmailJob implements ShouldQueue
@@ -40,11 +41,21 @@ class SendEmailJob implements ShouldQueue
      */
     public function handle()
     {
+        $to = $this->to;
+        
         if ($this->type == 'order_placed_email') {
-            Mail::to($this->to)->send(new OrderPlacedMail($this->data)); 
+            Mail::to($to)
+            ->send(new OrderPlacedMail($this->data)); 
         }
+
         if ($this->type == 'affiliate_comission_credited') {
-            Mail::to($this->to)->send(new AffiliateComissionCreditedMail($this->data));
+            Mail::to($to)
+            ->send(new AffiliateComissionCreditedMail($this->data));
+        }
+        
+        if ($this->type == 'support_ticket_raised_mail') {
+            Mail::to($to)
+            ->send(new SupportTicketRaisedMail($this->data));
         }
         
     }
