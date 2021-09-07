@@ -91,6 +91,7 @@
             <span wire:loading wire:target="submit" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
           </button>
       </div>
+
   </div>
     
 </div>
@@ -98,14 +99,6 @@
 @push('scripts')
 <script>
   $(document).ready(function () {
-
-
-    // $('#description').focusout(function () {
-    //   console.log('focus out');
-    //   @this.set('description', contents);
-    // });
-
-    
     $('#description').summernote({
             height: 250,
             callbacks: {
@@ -114,7 +107,6 @@
               }
             }
         });
-  });
-
+    });
 </script>
 @endpush

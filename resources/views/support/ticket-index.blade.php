@@ -139,7 +139,6 @@
             <div style=" padding: 12px 16px;">
                     <div style="border: 1px rgb(224, 224, 224) solid;">
 
-                
                     <div style="padding: 12px 16px; @if($msg->type == 'staff') background-color: rgb(199, 255, 208); @else background-color: rgb(219, 239, 255); @endif">
                         <div class="ticket-message-container ticket-reply" >
 
@@ -189,18 +188,20 @@
                         </div>
                     </div>
 
-                    <div style="padding: 12px 16px;">
+                    <div style="padding: 12px 16px;" class="ticketHtmlBody">
                        {!! $msg->msg !!}
                     </div>
-
-                    @if (count(unserialize($msg->attachments)) > 0)
+                 
+                    @if (count($msg->attachments) > 0)
+                    
                     <div style="padding: 12px 16px; border-top: 1px rgb(224, 224, 224) solid;">
                         <div>
-                            <div class="" style="font-weight: 600">Attachments({{count(unserialize($msg->attachments))}})</div>
+                            <div class="" style="font-weight: 600">Attachments({{count($msg->attachments_arr)}})</div>
                                 <ul>
-                                    @foreach (unserialize($msg->attachments) as $attachment)
+                                    @foreach ($msg->attachments_arr as $attachment)
+                                
                                         <li>
-                                            <a class="text-primary" href="{{ Storage::url('attachments/'.$attachment) }}" target="_blank">{{ $attachment }}</a>
+                                            <a class="text-primary" href="{{ Storage::url('attachments/'.$attachment->attachment) }}" target="_blank">{{ $attachment->name }}</a>
                                         </li>
                                     @endforeach
                                 </ul>

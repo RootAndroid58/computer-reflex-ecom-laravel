@@ -14,4 +14,10 @@ class SupportTicketMsg extends Model
     {
         return $this->hasOne(User::class, 'id', 'user_id')->orderBy('id', 'desc');
     }
+
+    public function getAttachmentsAttribute($val)
+    {
+        return $this->attributes['attachments_arr'] = unserialize($val);
+    }
+
 }

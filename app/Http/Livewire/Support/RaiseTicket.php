@@ -46,6 +46,7 @@ class RaiseTicket extends Component
 
     public function submit()
     {
+
         $this->validate();
        
         if ($this->help_topic == 'Order Related' || $this->help_topic == 'Return/Refund') {
@@ -103,7 +104,10 @@ class RaiseTicket extends Component
 
         foreach ($this->attachments as $key => $attachment) {
             $attachment->store('attachments', 'public');
-            $attachments[] = $attachment->hashName();
+            $attachments[] = json_decode(json_encode([
+                'name'          => $attachment->getClientOriginalName(),
+                'attachment'    =>  $attachment->hashName()
+            ]));
         }
 
         $attachments = serialize($attachments);

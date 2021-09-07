@@ -1315,3 +1315,7 @@ Buy now button Custom
         background-color: #6c757d !important;
         color: #fff;
     } */
+
+    .ticketHtmlBody p {
+        margin: 0 !important;
+    }
