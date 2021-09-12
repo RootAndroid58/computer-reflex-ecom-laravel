@@ -11,6 +11,7 @@
   'product-quick-actions' => 'App\\Http\\Livewire\\ProductQuickActions',
   'related-product' => 'App\\Http\\Livewire\\RelatedProduct',
   'support.raise-ticket' => 'App\\Http\\Livewire\\Support\\RaiseTicket',
+  'support.user-add-ticket-reply' => 'App\\Http\\Livewire\\Support\\UserAddTicketReply',
   'top-products-section' => 'App\\Http\\Livewire\\TopProductsSection',
   'wishlist-container' => 'App\\Http\\Livewire\\WishlistContainer',
   'wishlist-product' => 'App\\Http\\Livewire\\WishlistProduct',

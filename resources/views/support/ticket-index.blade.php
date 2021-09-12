@@ -1,10 +1,7 @@
 @if (isMobile())
-
     @include('mobile.support.ticket-index')
-
 {{ die }}
 @endif
-
 
 
 @extends('layouts.support-menu-layout')
@@ -18,30 +15,22 @@
 @endsection
 
 @section('modals')    
-    <!-- Modal -->
-    <div class="modal fade" id="AddReplyModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Add Reply</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                </div>
-            <form action="{{ route('support.support-add-reply') }}" method="post" class="w-100">
-              
-                @csrf
-                <input type="hidden" name="ticket_id" value="{{ $ticket->id }}">
-                <textarea name="message" id="msg"></textarea>
-                        
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success">Send <i class="far fa-paper-plane"></i></button>
-                </div>
-            </form>
+<!-- Modal -->
+<div class="modal fade" id="AddReplyModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Reply</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
             </div>
+
+            @livewire('support.user-add-ticket-reply', ['ticket' => $ticket])
+
         </div>
     </div>
+</div>
 @endsection
 
 @section('right-menu-col')
@@ -191,14 +180,14 @@
                     <div style="padding: 12px 16px;" class="ticketHtmlBody">
                        {!! $msg->msg !!}
                     </div>
-                 
+                    {{-- {{dd($msg)}} --}}
                     @if (count($msg->attachments) > 0)
                     
                     <div style="padding: 12px 16px; border-top: 1px rgb(224, 224, 224) solid;">
                         <div>
-                            <div class="" style="font-weight: 600">Attachments({{count($msg->attachments_arr)}})</div>
+                            <div class="" style="font-weight: 600">Attachments({{count($msg->attachments)}})</div>
                                 <ul>
-                                    @foreach ($msg->attachments_arr as $attachment)
+                                    @foreach ($msg->attachments as $attachment)
                                 
                                         <li>
                                             <a class="text-primary" href="{{ Storage::url('attachments/'.$attachment->attachment) }}" target="_blank">{{ $attachment->name }}</a>

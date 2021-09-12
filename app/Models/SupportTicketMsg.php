@@ -17,7 +17,7 @@ class SupportTicketMsg extends Model
 
     public function getAttachmentsAttribute($val)
     {
-        return $this->attributes['attachments_arr'] = unserialize($val);
+        return unserialize($val);
     }
 
 }
