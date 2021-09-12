@@ -1,3 +1,10 @@
+@if (isMobile())
+
+@include('mobile.index')
+
+{{ die }}
+@endif
+
 @extends('layouts.common', ['page' => 'home'])
 
 @section('title', 'Home')

@@ -22,30 +22,8 @@
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico')}}">
 
-    <!-- all css here -->
-    <link rel="stylesheet" href="{{ asset('ezone/css/bootstrap.min.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="{{ asset('ezone/css/magnific-popup.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/animate.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/owl.carousel.min.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/themify-icons.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/pe-icon-7-stroke.css')}}?{{ $assetVer }}">
+    @include('includes.top-includes')
     
-    <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css')}}?{{ $assetVer }}">
-    
-    <link rel="stylesheet" href="{{ asset('css/star-rating.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('css/cropper.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/icofont.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/meanmenu.min.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/easyzoom.css')}}?{{ $assetVer }}">
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('ezone/css/bundle.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/style.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('ezone/css/responsive.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('css/collapse-bs4.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('css/custom.css')}}?{{ $assetVer }}">
-    <link rel="stylesheet" href="{{ asset('css/mobile.css')}}?{{ $assetVer }}">
-    <script src="{{ asset('ezone/js/vendor/modernizr-2.8.3.min.js')}}?{{ $assetVer }}"></script>
     @yield('css-js')
 
     <style>

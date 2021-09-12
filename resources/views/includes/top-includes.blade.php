@@ -27,6 +27,11 @@
 <link rel="stylesheet" href="{{ asset('ezone/css/style.css')}}?{{ $assetVer }}">
 <link rel="stylesheet" href="{{ asset('ezone/css/responsive.css')}}?{{ $assetVer }}">
 <link rel="stylesheet" href="{{ asset('css/collapse-bs4.css')}}?{{ $assetVer }}">
+
+@if (isMobile())
+<link rel="stylesheet" href="{{ asset('css/mobile.css')}}?{{ $assetVer }}">
+@endif
+
 <link rel="stylesheet" href="{{ asset('css/custom.css')}}?{{ $assetVer }}">
 <script src="{{ asset('ezone/js/vendor/modernizr-2.8.3.min.js')}}?{{ $assetVer }}"></script>
 
