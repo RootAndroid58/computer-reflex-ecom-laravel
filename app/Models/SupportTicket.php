@@ -17,8 +17,9 @@ class SupportTicket extends Model
 
     public function msgs()
     {
-        return $this->hasMany(SupportTicketMsg::class, 'ticket_id', 'id')->orderBy('id', 'desc');
+        return $this->hasMany(SupportTicketMsg::class, 'ticket_id', 'id')->orderBy('id', 'asc');
     }
+    
     public function user()
     {
         return $this->hasOne(User::class, 'id', 'user_id');

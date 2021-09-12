@@ -1,10 +1,16 @@
-<form wire:submit.prevent="submit" class="w-100">
+<form wire:submit.prevent="submit" class="w-100 container pt-3" >
     
     <div wire:ignore>
         <textarea id="description"></textarea>
     </div>
+    @error('description')
+    <div class="text-danger ">
+        {{ $message }}
+    </div>
+    @enderror
+   
 
-        <div class="container mt-3">
+        <div class=" mt-3">
             <div class="w-100 mb-2">
                 <div>
                     <span class="text-primary">Attachments ({{count($attachments)}})</span>

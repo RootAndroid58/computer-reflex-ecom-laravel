@@ -125,7 +125,7 @@
                             {!!$data['header']!!}
                             {!!$data['body']!!}
                             
-                            <br>
+                           
 &nbsp;
                         </td>
                     </tr>
@@ -177,7 +177,8 @@
                             <p style="margin: 10px 0;padding: 0;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #757575;font-family: Helvetica;font-size: 16px;line-height: 150%;text-align: left;"><br>
                                 {!! $data['footer'] !!}
                                 <br>
-                                <strong>Note:</strong> Add your reply by clicking the "Add Reply" button provided above. Do not directly reply to this mail this is just a notification email.&nbsp;</p>
+                                <strong>Note:</strong> Add your reply by clicking the "Add Reply" button provided above. Do not directly reply to this mail this is just a notification email.&nbsp;
+                            </p>
 
                         </td>
                     </tr>

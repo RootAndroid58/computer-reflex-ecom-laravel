@@ -116,12 +116,12 @@ class SupportController extends Controller
         if ($ticket->user_id == Auth()->user()->id) 
         {
             
-        $SupportTicketMsg = new SupportTicketMsg;
-        $SupportTicketMsg->ticket_id = $req->ticket_id;
-        $SupportTicketMsg->user_id = Auth()->user()->id;
-        $SupportTicketMsg->type = 'user';
-        $SupportTicketMsg->msg = $req->message; 
-        $SupportTicketMsg->save();
+            $SupportTicketMsg = new SupportTicketMsg;
+            $SupportTicketMsg->ticket_id = $req->ticket_id;
+            $SupportTicketMsg->user_id = Auth()->user()->id;
+            $SupportTicketMsg->type = 'user';
+            $SupportTicketMsg->msg = $req->message; 
+            $SupportTicketMsg->save();
         } 
 
         SupportTicket::where('id', $req->ticket_id)->update([
@@ -173,9 +173,11 @@ class SupportController extends Controller
     public function ShowTicket($ticket_id)
     {
         $SupportTicket = SupportTicket::with('msgs')->with('user')->where('id', $ticket_id)->where('user_id', Auth()->user()->id)->first();
+        
         if (!isset($SupportTicket)) {
             abort(404);
         }
+        
         return view('support.ticket-index', [
             'ticket' => $SupportTicket,
         ]);

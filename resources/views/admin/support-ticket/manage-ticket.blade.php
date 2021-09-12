@@ -10,41 +10,17 @@
 <div class="modal fade" id="AddReplyModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add Reply</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-            </div>
-        <form action="{{ route('admin.support-add-reply') }}" method="post" class="w-100">
-          
-                    @csrf
-                    <input type="hidden" name="ticket_id" value="{{ $ticket->id }}">
-                    
-                    <div style="padding: 23px 23px">
-                        <div>
-                            <p>Hi <b>{{ $ticket->user->name }}</b>,<br><br>This message is regarding the <b>Ticket #{{$ticket->id}} </b>raised by you.&nbsp;</p>
-                        </div>
-                        
-                        <textarea name="message" id="msg"></textarea>
-                        
-                        <div>
-                            <p><b style="font-size: 1rem;"><br></b></p><p><b style="font-size: 1rem;">Best Regards,</b><br></p><p><span style="font-size: 1rem;"><span style="font-family: Arial;">{{Auth()->user()->name}}</span><br></span><span style="font-size: 1rem;">Computer Reflex Support Team<br></span><a href="tel:+917003373754" target="_blank" style="background-color: rgb(255, 255, 255); font-size: 1rem;">+91 7003 373 754</a><span style="font-size: 1rem;">&nbsp;| </span><a href="mailto:contact@computerreflex.tk" target="_blank" style="background-color: rgb(255, 255, 255); font-size: 1rem;">contact@computerreflex.tk</a></p><p><br></p>
-                        </div>
-                    </div>
-                    
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-success">Send <i class="far fa-paper-plane"></i></button>
-            </div>
-        </form>
+            
+        
+            @livewire('support.admin-add-ticket-reply', ['ticket' => $ticket])
+
         </div>
     </div>
 </div>
 @endsection
 
 @section('content')
-    <div class="container" style="background-color: white; padding: 24px 32px;">
+    <div class="container mb-4" style="background-color: white; padding: 24px 32px;">
 
         <div class="wishlist-basic-padding">
             <span style="font-size: 17px; font-weight: 600;">
@@ -192,13 +168,3 @@
     </div>
 @endsection
 
-
-@section('bottom-js')
-    <script>
-        $('document').ready(function () {
-            $('#msg').summernote({
-                height: 250,
-            })
-        })
-    </script>
-@endsection

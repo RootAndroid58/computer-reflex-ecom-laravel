@@ -10,6 +10,7 @@
   'home-wide-banner' => 'App\\Http\\Livewire\\HomeWideBanner',
   'product-quick-actions' => 'App\\Http\\Livewire\\ProductQuickActions',
   'related-product' => 'App\\Http\\Livewire\\RelatedProduct',
+  'support.admin-add-ticket-reply' => 'App\\Http\\Livewire\\Support\\AdminAddTicketReply',
   'support.raise-ticket' => 'App\\Http\\Livewire\\Support\\RaiseTicket',
   'support.user-add-ticket-reply' => 'App\\Http\\Livewire\\Support\\UserAddTicketReply',
   'top-products-section' => 'App\\Http\\Livewire\\TopProductsSection',

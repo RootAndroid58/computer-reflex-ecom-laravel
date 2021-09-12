@@ -7,14 +7,16 @@ use Livewire\WithFileUploads;
 use App\Models\SupportTicket;
 use App\Models\SupportTicketMsg;
 use App\Jobs\SendEmailJob;
+use App\Mail\AdminSupportTicketReplyMail;
 use Str;
 use Storage;
+use Mail;
 
-class UserAddTicketReply extends Component
+class AdminAddTicketReply extends Component
 {
     use WithFileUploads;
-
     public $ticket;
+    public $reply_as='staff';
     public $attachments=[];
     public $attachments_input=[];
     public $description;
@@ -23,6 +25,7 @@ class UserAddTicketReply extends Component
     {
         return [
             'description'   => 'required',
+            'reply_as'      => 'in:staff,user',
         ];
     }
 
@@ -35,7 +38,7 @@ class UserAddTicketReply extends Component
         }
     }
 
-    
+     
     public function addAttachments()
     {
         $this->attachments = array_merge($this->attachments, $this->attachments_input);
@@ -75,10 +78,23 @@ class UserAddTicketReply extends Component
             'status' => 'open',
         ]);
 
+        $header = '<p>Hi <b>'.$this->ticket->user->name.'</b>,<br><br>This message is regarding the <b>Ticket #'.$this->ticket->id.' </b>raised by you.&nbsp;</p>';
+        $body = $description;
+        $footer = '<br><p><b >Best Regards,</b><br></p><p><span ><span style="font-family: Arial;">'.Auth()->user()->name.'</span><br></span><span >Computer Reflex Support Team<br></span><a href="tel:+917003373754" target="_blank" style="background-color: rgb(255, 255, 255); ">+91 7003 373 754</a><span >&nbsp;| </span><a href="mailto:contact@computerreflex.tk" target="_blank" style="background-color: rgb(255, 255, 255); ">contact@computerreflex.tk</a></p><p><br></p>';
+        
+        if ($this->reply_as == 'staff') {
+            $description = $header.$description.$footer;
+        }
+        
+
         $SupportTicketMsg = new SupportTicketMsg; 
         $SupportTicketMsg->ticket_id = $this->ticket->id; 
-        $SupportTicketMsg->user_id = Auth()->user()->id;   
-        $SupportTicketMsg->type = 'user';   
+        if ($this->reply_as == 'staff') {
+            $SupportTicketMsg->user_id = Auth()->user()->id;  
+        } else if ($this->reply_as == 'user') {
+            $SupportTicketMsg->user_id = $this->ticket->user_id;  
+        }
+        $SupportTicketMsg->type = $this->reply_as;   
         $SupportTicketMsg->msg = $description;   
         $SupportTicketMsg->attachments = serialize([]);   
         $SupportTicketMsg->save();
@@ -98,15 +114,25 @@ class UserAddTicketReply extends Component
 
         SupportTicketMsg::where('id', $SupportTicketMsg->id)->update([
             'attachments' => $attachments,
-        ]);
+        ]);       
 
-        return redirect(route('support.show-ticket', $this->ticket->id));
+        $data = [
+            'ticket'    => $this->ticket, 
+            'header'    => $header,
+            'body'      => $body,
+            'footer'    => $footer,
+        ];
+
+        if ($this->reply_as == 'staff') {
+            Mail::to($this->ticket->user->email)->queue(new AdminSupportTicketReplyMail($data));
+        }
+
+        return redirect(route('admin-manage-support-ticket', $this->ticket->id));
 
     }
 
-
     public function render()
     {
-        return view('livewire.support.user-add-ticket-reply');
+        return view('livewire.support.admin-add-ticket-reply');
     }
 }
