@@ -163,8 +163,6 @@ $UserName=str_word_count(Auth()->user()->name, 1);
                                                 <i class="fa fa-circle" aria-hidden="true"></i>
                                             </span>
                                             Product Shipped Via <b>{{ $item->shipment->courier_name }}</b>.
-                                          
-                                        
                                         
                                         </span>
                                         @elseif($item->status == 'item_delivered')
@@ -174,11 +172,7 @@ $UserName=str_word_count(Auth()->user()->name, 1);
                                             </span>
                                             Delivered On: <b>
                                                 
-                                                @if ($item->order->delivery_type == 'electronic')
-                                                {{date_format(new DateTime($item->OrderItemLicenses[0]->created_at), "dS M,(D)")}}
-                                                @elseif ($item->order->delivery_type == 'physical')
-                                                {{date_format(new DateTime($item->shipment->delivery_date), "dS M,(D)")}}
-                                                @endif
+                                                {{date_format(new DateTime($item->delivered_on), "dS M,(D)")}}
                                                 
                                             </b>
                                         </span>

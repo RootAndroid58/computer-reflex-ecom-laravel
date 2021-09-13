@@ -29,10 +29,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('command:CreditAffiliateComission')->daily();
+        $schedule->command('command:CreditAffiliateComission')->everyMinute();
         $schedule->command('command:ShippingStatusUpdate')->everyMinute();
         $schedule->command('command:SendProductLicenseKeys')->everyMinute();
-        $schedule->command('command:RemoveAffiliates')->everySixHours();
+        $schedule->command('command:RemoveAffiliates')->everyMinute();
         // $schedule->command('command:CronTest')->everyMinute();
     }
 

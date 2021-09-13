@@ -340,11 +340,7 @@
                                     </span>
                                     Delivered On: 
                                     <b>
-                                        @if ($item->order->delivery_type == 'electronic')
-                                            {{date_format(new DateTime($item->OrderItemLicenses[0]->delivery_date), "dS M,(D)")}}
-                                        @elseif ($item->order->delivery_type == 'physical')
-                                            {{date_format(new DateTime($item->shipment->delivery_date), "dS M,(D)")}}
-                                        @endif
+                                        {{date_format(new DateTime($item->delivered_on), "dS M,(D)")}}
                                     </b>
                                 </span>
                                 @endif

@@ -5,11 +5,11 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminated\Console\WithoutOverlapping;
 
-use App\Models\OrderItem;
 use App\Models\AffiliateOrderItem;
 use App\Models\AffiliateWalletTxn;
+use App\Jobs\SendEmailJob;
 use App\Models\User;
-use App\Mail\AffiliateComissionCreditedMail;
+use DateTime;
 use Mail;
 
 class CreditAffiliateComission extends Command
@@ -47,77 +47,82 @@ class CreditAffiliateComission extends Command
      */
     public function handle()
     {    
-        $orderItems = OrderItem::with('OrderItemLicenses')->with('shipment')->with('order')->whereNotNull('delivered_on')->whereHas('AffiliateOrderItem', function($q){
-            $q->where('status', 'pending');
-        })
-        ->where('status', 'item_delivered')
+        $AffiliateOrderItems = AffiliateOrderItem::with('OrderItem')
+        ->where('status', 'pending')
         ->get();
 
-        if ($orderItems->count() > 0) {
-            foreach ($orderItems as $key => $orderItem) {
 
-                // Check if the Purchase is affiliated
-                if (isset($orderItem->AffiliateOrderItem)) {
+        foreach ($AffiliateOrderItems as $key => $AffiliateOrderItem) {
+            $OrderItem = $AffiliateOrderItem->OrderItem;
+            
+            if (isset($OrderItem->delivered_on)) {
+                
+                $today = new DateTime();
+                $delivery_date = new DateTime($OrderItem->delivered_on);
+                $return_date = new DateTime($OrderItem->delivered_on); $return_date->modify( '+10 days' );
 
-                    if ($orderItem->AffiliateOrderItem->status == 'pending') {
 
-                        if ($orderItem->order->delivery_type == 'physical') {
-                            $deliveryDate = new \DateTime($orderItem->delivery_date);
-                            $returnDate = $deliveryDate->modify('+30 days');
+                if ($today > $return_date) {
+
+                    if ($OrderItem->status == 'item_delivered') {
+                        $status = 'comission_credited';
+
+                        // Mark as comission_credited
+                        AffiliateOrderItem::where('id', $AffiliateOrderItem->id)->update([
+                            'status' => 'comission_credited',
+                        ]);
+
+                        // Get info of the last Txn of Associate's wallet
+                        $wallet = AffiliateWalletTxn::where('user_id', $AffiliateOrderItem->associate_id)->orderBy('id', 'desc')->first();
+                    
+                        // Credit the comission to Associate's Wallet
+                        $walletTxn = new AffiliateWalletTxn;
+                        $walletTxn->user_id     = $AffiliateOrderItem->associate_id;
+                        $walletTxn->type        = 'credit';
+                        $walletTxn->txn_amount  = $AffiliateOrderItem->comission;
+                        $walletTxn->description = 'Comission for Affiliate Purchase #'.$AffiliateOrderItem->id;
+                        
+                        if (isset($wallet)) {
+                            $walletTxn->ob      = $wallet->cb;
+                            $walletTxn->cb      = $wallet->cb + $AffiliateOrderItem->comission;
                         } 
-                        else if ($orderItem->order->delivery_type == 'electronic') {
-                            $deliveryDate = new \DateTime($orderItem->OrderItemLicenses[0]->delivery_date);
-                            $returnDate = $deliveryDate;
+                        else {
+                            $walletTxn->ob      = 0;
+                            $walletTxn->cb      = $AffiliateOrderItem->comission;
                         }
                         
-                        $today = new \DateTime();
-                        
-                        // Process if return date is over for the Affiliate Purchase
-                        if ($today > $returnDate) {
+                        $walletTxn->save();
 
-                            // Mark the Affiliate Purchase as comission credited
-                            AffiliateOrderItem::where('order_item_id', $orderItem->id)->update([
-                                'status' => 'comission_credited',
-                            ]);
-
-                            // Get info of the last Txn of Associate's wallet
-                            $wallet = AffiliateWalletTxn::where('user_id', $orderItem->AffiliateOrderItem->associate_id)->orderBy('id', 'desc')->first();
-
-                            // Credit the comission to Associate's Wallet
-                            $walletTxn = new AffiliateWalletTxn;
-                            $walletTxn->user_id     = $orderItem->AffiliateOrderItem->associate_id;
-                            $walletTxn->type        = 'credit';
-                            $walletTxn->txn_amount  = $orderItem->AffiliateOrderItem->comission;
-                            $walletTxn->description = 'Comission for Affiliate Purchase #'.$orderItem->AffiliateOrderItem->id;
+                        $user = User::where('id', $walletTxn->user_id)->first();
                             
-                            if (isset($wallet)) {
-                                $walletTxn->ob      = $wallet->cb;
-                                $walletTxn->cb      = $wallet->cb + $orderItem->AffiliateOrderItem->comission;
-                            } else {
-                                $walletTxn->ob      = 0;
-                                $walletTxn->cb      = 0 + $orderItem->AffiliateOrderItem->comission;
-                            }
-                            
-                            $walletTxn->save();
+                        // Send a notification mail to the associate with the Txn info
+                        $data = [
+                           'user'       => $user,
+                           'orderItem'  => $AffiliateOrderItem->OrderItem,
+                           'walletTxn'  => $walletTxn,
+                        ];
 
-                            $user = User::where('id', $walletTxn->user_id)->first();
-                            
-                            // Send a notification mail to the associate with the Txn info
-                            $data = [
-                               'user'       => $user,
-                               'orderItem'  => $orderItem,
-                               'walletTxn'  => $walletTxn,
-                            ];
-
-                            //Send the Affiliate Comission Credited Mail To The User (Queue)
-                            dispatch(new SendEmailJob('affiliate_comission_credited', Auth()->user()->email, $data));
-                        } 
-
+                        //Send the Affiliate Comission Credited Mail To The User (Queue)
+                        dispatch(new SendEmailJob('affiliate_comission_credited', $user->email, $data));
+                    
+                    } 
+                    else {
+                        // Mark as comission_credited
+                        AffiliateOrderItem::where('id', $AffiliateOrderItem->id)->update([
+                            'status' => 'not_eligible',
+                        ]);
                     }
+
+
                 }
+
+
             }
+            
         }
 
+
+        
         return 0;
     }
         

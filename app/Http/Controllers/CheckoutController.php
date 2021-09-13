@@ -30,7 +30,7 @@ class CheckoutController extends Controller
         $physicalItems = false;
         $electroniclItems = false;
         $addresses = Address::where('user_id', Auth()->user()->id)->get();
-
+        
         if (isset($req->voucher_code)) 
         {
             $type = 'voucher';
