@@ -60,7 +60,7 @@ class EmailParse extends Command
         // $str = 'The quick brown fox jumps over the lazy dog #TR0123456789  - Computer Reflex';
         // preg_match($pattern, $str, $output);
 
-        // dd($output[0]);
+        $SupportTicket = SupportTicket::where('id', $output[0])->first();
 
         Mail::raw($subject.'<br><br>'.$text.'<br><br>'.$html , function ($m) {
             $m->to('aniket.das.in@gmail.com')->subject('Raw Email');

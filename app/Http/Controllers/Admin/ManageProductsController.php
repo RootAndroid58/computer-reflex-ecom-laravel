@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\ProductTag;
 use App\Models\ProductImage;
 use App\Models\Specification;
 use App\Models\ProductComission;
@@ -62,15 +61,15 @@ class ManageProductsController extends Controller
     // Product Publish For Handler
     public function ProductPublishFormHandler($product_id)
     {
+        $product = Product::where('id', $product_id)->first();
         $specification = Specification::where('product_id', $product_id)->first();
-        $tag = ProductTag::where('product_id', $product_id)->first();
         $image = ProductImage::where('product_id', $product_id)->first();
 
         if (!isset($specification)) {
             // return 'Specification';
             return $this->SpecificationForm($product_id);
         } 
-        elseif (!isset($tag) || !isset($image)) {
+        elseif (!isset($product->tags) || !isset($image)) {
             return $this->TagForm($product_id);
         } else {
             return redirect()->route('admin-manage-products');
@@ -121,7 +120,6 @@ class ManageProductsController extends Controller
         ]);
 
         foreach ($req->images as $req->image) {
-            // dd($req->image);
             $req->image->store('images/products' , 'public');
 
             $db = new ProductImage;
@@ -129,15 +127,9 @@ class ManageProductsController extends Controller
             $db->image = $req->image->hashName();
             $db->save();
         }
-
-        foreach ($req->tags as $req->tag) {
-            $data = new ProductTag;
-            $data->product_id = $req->product_id;
-            $data->product_tag = $req->tag;
-            $data->save();
-        }
-
+        
         Product::where('id', $req->product_id)->update([
+            'tags' => serialize($req->tags),
             'product_published' => 1,
             'product_stock'     => $req->product_stock,
             'product_status'    => $req->product_status,
@@ -151,13 +143,10 @@ class ManageProductsController extends Controller
     {
         $product = Product::where('id', $product_id)->first();
 
-        $tags = ProductTag::where('product_id', $product_id)->get();
-
         $specifications = Specification::where('product_id', $product_id)->get();
 
         return view('admin.edit-product', [
                 'product'           => $product, 
-                'tags'              => $tags, 
                 'specifications'    => $specifications,
             ]);
     }
@@ -194,6 +183,7 @@ class ManageProductsController extends Controller
         
         
         Product::where('id', $req->product_id)->update([
+            'tags'                      => serialize($req->tags),
             'product_name'              => $req->product_name,
             'product_stock'             => $req->product_stock, 
             'product_mrp'               => $req->product_mrp, 
@@ -203,15 +193,6 @@ class ManageProductsController extends Controller
             'product_long_description'  => $req->product_long_description, 
         ]);
 
-        ProductTag::where('product_id', $req->product_id)->delete();
-
-        foreach ($req->tags as $req->tag) {
-
-            $data = new ProductTag;
-            $data->product_id = $req->product_id;
-            $data->product_tag = $req->tag;
-            $data->save();
-        }
 
         Specification::where('product_id', $req->product_id)->delete();
 
@@ -228,8 +209,9 @@ class ManageProductsController extends Controller
 
     public function RemoveProduct($product_id)
     {
+        
         Product::where('id', $product_id)->delete();
-
+       
         return redirect()->route('admin-manage-products')->with(['ProductRemoved' => 200]);
     }
 

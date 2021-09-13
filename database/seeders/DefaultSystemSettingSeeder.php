@@ -15,7 +15,7 @@ class DefaultSystemSettingSeeder extends Seeder
      */
     public function run()
     {
-        $users = [
+        $settings = [
             [
                 'id'    => 1,
                 'key'   => 'PaytmCheckout',
@@ -38,6 +38,6 @@ class DefaultSystemSettingSeeder extends Seeder
             ],
         ];
 
-        SystemSetting::insert($users);
+        SystemSetting::insert($settings);
     }
 }

@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
     { 
         $AllCategories = Category::get();
         View::share([
-            // 'AllCategories' => $AllCategories,
+            'AllCategories' => $AllCategories,
             'assetVer' => SystemSetting::where('key', 'AssetCache')->first()->value,
             ]);
     }

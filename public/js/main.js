@@ -146,6 +146,8 @@ if ($('#dp_uploader').length) {
 
 
 
+
+
 // Livewire.on('reinitSummernote', () => {
 //   console.log('test');
 //   summnernoteInit();

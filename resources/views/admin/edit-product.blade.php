@@ -196,8 +196,8 @@
 
             <label>Tags</label>
             <ul id="myTags">
-                @foreach ($tags as $tag)
-                    <li>{{ $tag->product_tag }}</li>
+                @foreach ($product->tags as $tag)
+                    <li>{{ $tag }}</li>
                 @endforeach
             </ul>
             @error('tags')

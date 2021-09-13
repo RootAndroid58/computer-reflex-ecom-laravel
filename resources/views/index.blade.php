@@ -91,7 +91,10 @@
         @endif
     @endforeach
 
-    @livewire('home-wide-banner', ['SmallBanner' => $SmallBanners[3]], key($user->id))
+    @if (isset($SmallBanners[3]))
+        @livewire('home-wide-banner', ['SmallBanner' => $SmallBanners[3]], key($user->id))
+    @endif
+    
     
     @foreach ($sections as $key => $section)
         @if ($sections->count()/2 <= $key)
@@ -148,8 +151,10 @@
         </div>
     </div>
 
-
-    @livewire('home-wide-banner', ['SmallBanner' => $SmallBanners[4]], key($user->id))
+    @if (isset($SmallBanners[4]))
+        @livewire('home-wide-banner', ['SmallBanner' => $SmallBanners[4]], key($user->id))
+    @endif
+    
     
     <div class="product-area-2 wrapper-padding pb-70">
         <div class="container-fluid">

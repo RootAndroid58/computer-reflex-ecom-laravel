@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSmallBannerTable extends Migration
+class CreateSmallBannersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreateSmallBannerTable extends Migration
     public function up()
     {
 
-        Schema::connection('custom_sqlite')->create('small_banners', function (Blueprint $table) {
+        Schema::create('small_banners', function (Blueprint $table) {
             $table->id();
             $table->string('image');
             $table->string('link');
@@ -29,6 +29,6 @@ class CreateSmallBannerTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('small_banner');
+        Schema::dropIfExists('small_banners');
     }
 }

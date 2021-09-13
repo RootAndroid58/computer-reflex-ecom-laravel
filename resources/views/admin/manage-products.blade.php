@@ -48,7 +48,7 @@
             Are you sure removing this product from listing? <br><br><b>{{$product->product_name}}</b>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
             <a href="{{ route('remove-product',$product->id) }}" class="btn btn-danger">Remove Product</a>
           </div>
         </div>
@@ -61,10 +61,10 @@
 
     <div class="row">
         <div class="col-md-4">
-            <a href="{{route('admin-new-product-listing')}}" class="btn btn-block btn-lg btn-secondary">New Product Listing</a>
+            <a href="{{route('admin-new-product-listing')}}" class="btn btn-block btn-lg btn-dark">New Product Listing</a>
         </div>
         <div class="col-md-4">
-            <a href="{{route('admin-product-publish')}}" class="btn btn-block btn-lg btn-secondary">Publish Products</a>
+            <a href="{{route('admin-product-publish')}}" class="btn btn-block btn-lg btn-dark">Publish Products</a>
         </div>
 
     </div>
@@ -77,7 +77,7 @@
     
 <!--Products Table Start-->
 <table id="AdminProductsTable" class="table table-striped table-bordered table-fluid w-100">
-    <thead class="bg-secondary text-white">
+    <thead class="bg-dark text-white">
     <tr>
         <th style="width: 3%">#</th>
         <th style="width: 20%">Product Name</th>

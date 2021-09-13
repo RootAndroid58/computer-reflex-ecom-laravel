@@ -13,6 +13,4 @@ class SmallBanner extends Model
         'image',
         'link',
     ];
-
-    protected $connection = 'custom_sqlite';
 }

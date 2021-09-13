@@ -17,7 +17,6 @@ use App\Models\Banner;
 use App\Models\SmallBanner;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\ProductTag;
 use App\Models\ProductImage;
 use App\Models\Specification;
 use App\Models\HomeSection;
@@ -459,11 +458,17 @@ class AdminController extends Controller
     {
         $HomeSection = HomeSection::with('SectionProducts.product.images')->where('id', $slider_id)->first();
         
-        //  For loop lagake make own arr
         return view('admin.edit-home-carousel-slider', 
         [
             'HomeSection' => $HomeSection,
         ]);
+    
+    }
+    public function DeleteHomeCarouselSlider($slider_id)
+    {
+        $HomeSection = HomeSection::where('id', $slider_id)->delete();
+        
+        return redirect()->back();
     
     }
 

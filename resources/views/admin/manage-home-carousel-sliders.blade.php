@@ -53,6 +53,7 @@
             </div>
         </div>
         <div class="col-2">
+            <a href="{{route('admin-delete-home-carousel-slider', $HomeSection->id)}}" class="btn btn-danger">Delete</a>
             <a href="{{route('admin-edit-home-carousel-slider', $HomeSection->id)}}" class="btn btn-dark">Edit</a>
         </div>
     </div>

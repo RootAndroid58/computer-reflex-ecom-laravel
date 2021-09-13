@@ -2,7 +2,7 @@
     <div class="product-wrapper product-border mb-24">
         <div class="product-img-3">
             <a href="{{ route('product-index', $product->id) }}" >
-                <div class="prod-back-div" style="width: 100%; height: 175px; background-image: url('{{asset('storage/images/products/'.$product->images[0]->image)}}');"></div>
+                <div class="prod-back-div" style="width: 100%; height: 175px; background-image: url('{{ asset('storage/images/products/'.$product->images[0]->image) }}');"></div>
             </a>
             <div class="product-action-right">
                 <a class="animate-right cursor-pointer compare-btn-b compare-btn-b{{ $product->id }} @if(isset($product->compared)) compare-btn-active @endif " title="Quick View" wire:click="$emit('ToggleCompare', {{ $product->id }})">

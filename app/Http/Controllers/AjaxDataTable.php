@@ -914,9 +914,11 @@ class AjaxDataTable extends Controller
         })
             ->addColumn('action', function($data){
 
-                $btnURL = url('/admin/manage-products/publish-product/id/'.$data->id);
+                $proceedUrl = url('/admin/manage-products/publish-product/id/'.$data->id);
+                $removeUrl = route('remove-product', $data->id);
 
-                $button = "<a href='$btnURL' class='btn btn-info' target='_blank'><i class='fa fa-check-square'></i></a>";
+                $button = "<a href='$proceedUrl' class='btn btn-info' target='_blank'><i class='fa fa-check-square'></i></a>";
+                $button .= "<a href='$removeUrl' class='btn btn-danger' target='_blank'><i class='fa fa-trash'></i></a>";
                 
                 return $button;
         })

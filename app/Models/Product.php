@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ProductImage;
-use App\Models\ProductTag;
 use App\Models\Category;
 use App\Models\Specification;
 use App\Models\Wishlist;
@@ -40,16 +39,15 @@ class Product extends Model
 
         'columns' => [
             'products.product_name' => 10,
-            'products.product_brand' => 10,
+            'products.tags' => 9,
+            'products.product_brand' => 6,
             'products.product_description' => 3,
             'products.product_long_description' => 2,
             'products.product_price' => 7,
-            'categories.category' => 10,
-            'product_tags.product_tag' => 9,
+            'categories.category' => 8,
         ],
         'joins' => [
             'categories'  => ['categories.id','products.product_category_id'],
-            'product_tags'      => ['product_tags.product_id', 'products.id'],
         ],
     ];
 
@@ -66,9 +64,9 @@ class Product extends Model
     {
         return $this->hasOne(ProductReview::class, 'product_id', 'id')->orderBy('id', 'desc');
     }
-    public function tags()
+    public function getTagsAttribute($val)
     {
-        return $this->hasMany(ProductTag::class, 'product_id', 'id')->orderBy('id', 'desc');
+        return unserialize($val);
     }
     public function category()
     {
