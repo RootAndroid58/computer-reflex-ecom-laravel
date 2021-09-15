@@ -3,15 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use App\Models\HomeSectionProduct;
+use Illuminate\Database\Eloquent\Model; 
+use App\Models\Product;
 
 class HomeSection extends Model
 {
     use HasFactory;
 
-    public function SectionProducts()
+    public function getProductsAttribute($val)
     {
-        return $this->hasMany(HomeSectionProduct::class, 'home_section_id', 'id');
+        return Product::whereIn('id', unserialize($val))->get();
     }
 }

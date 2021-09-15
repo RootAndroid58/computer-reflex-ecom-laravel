@@ -20,7 +20,6 @@ use App\Models\Category;
 use App\Models\ProductImage;
 use App\Models\Specification;
 use App\Models\HomeSection;
-use App\Models\HomeSectionProduct;
 use App\Models\Catalog;
 use App\Models\CatalogProduct;
 use App\Models\SystemSetting;
@@ -401,7 +400,6 @@ class AdminController extends Controller
 
     public function AdminUserCreateSubmit(Request $req)
     {
-
         $user = User::where('id', $req->user_id)->first();
 
         if (isset($user)) {
@@ -415,18 +413,20 @@ class AdminController extends Controller
         } else {
             return 'Failed';
         }
-       
+    }
+
+    public function HomeCarouselCreatePageView()
+    {
+        return view('admin.ui.create-home-carousel');
     }
 
 
 
     public function ManageHomeCarouselSlider()
     {
-        $HomeSections = HomeSection::with(['SectionProducts.product.images', 'SectionProducts.product.category'])->get();
+        // $HomeSections = HomeSection::get();
 
-        return view('admin.manage-home-carousel-sliders', [
-            'HomeSections' => $HomeSections,
-        ]);
+        return view('admin.manage-home-carousel-sliders');
     }
 
     public function CreateHomeCarouselSlider(Request $req)
@@ -451,18 +451,18 @@ class AdminController extends Controller
         
         return redirect()->back()->with([
             'SliderCreated' => 200
-            ]);
+        ]);
     }
 
     public function EditHomeCarouselSlider($slider_id)
     {
-        $HomeSection = HomeSection::with('SectionProducts.product.images')->where('id', $slider_id)->first();
-        
-        return view('admin.edit-home-carousel-slider', 
-        [
+        $HomeSection = HomeSection::where('id', $slider_id)->first();
+        if (!isset($HomeSection)) {
+            abort(404);
+        }
+        return view('admin.edit-home-carousel-slider', [
             'HomeSection' => $HomeSection,
         ]);
-    
     }
     public function DeleteHomeCarouselSlider($slider_id)
     {

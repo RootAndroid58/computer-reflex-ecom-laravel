@@ -22,8 +22,7 @@ class IndexController extends Controller
         $SmallBanners = SmallBanner::get();
         $banners = Banner::where('banner_status', 1)->orderBy('banner_position', 'ASC')->get();
         $categories = Category::get();
-        $sections = HomeSection::with(['SectionProducts.product.images', 'SectionProducts.product.category', 'SectionProducts.product.stars'])
-        ->get();    
+        $sections = HomeSection::orderBy('position', 'asc')->get();    
      
         $BestSellingProducts = Product::with('images')->with('stars')->where('product_status', 1)->whereIn('id', [
                 1,2,3,4,5,6,7,8,9,10

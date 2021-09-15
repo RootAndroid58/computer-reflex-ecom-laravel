@@ -479,7 +479,7 @@ class AjaxDataTable extends Controller
 
                 $EditURL = route('edit-product',$data->id);
                 $image = asset('storage/images/products/'.$data->images[0]->image);
-                $button = '<button type="button" class="btn btn-primary" onclick="AddToSlider(\'' . $data->id . '\',\''.$image.'\',\'' . $data->product_name . '\',\'' . moneyFormatIndia($data->product_mrp) . '\')">Add This Product</button>';
+                $button = '<button type="button" class="btn btn-primary" onclick="addProduct('.$data->id.')">Add This Product</button>';
 
                 
                 return $button;

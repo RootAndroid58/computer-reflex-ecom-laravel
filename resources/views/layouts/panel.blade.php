@@ -1,3 +1,7 @@
+@php
+    $assetVer = App\Models\SystemSetting::where('key', 'AssetCache')->first()->value ?? 0;
+    $AllCategories = App\Models\Category::get() ?? [];
+@endphp
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>

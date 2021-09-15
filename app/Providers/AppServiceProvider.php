@@ -30,10 +30,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     { 
-        $AllCategories = Category::get();
-        View::share([
-            'AllCategories' => $AllCategories,
-            'assetVer' => SystemSetting::where('key', 'AssetCache')->first()->value,
-            ]);
+        // 
     }
 }

@@ -21,9 +21,12 @@
                 
                 <div class="bbb_viewed_slider_container ">
                     <div class=" owl-carousel owl-carousel-{{ $section->id }} owl-theme bbb_viewed_slider">
-                        @foreach ($section->SectionProducts as $SectionProduct)
-                            @if (isset($SectionProduct->product))
-                                @livewire('carousel-products', ['product' => $SectionProduct->product], key($SectionProduct->product->id))
+                      
+                        @foreach ($section->products as $SectionProduct)
+                          
+                        @if (isset($SectionProduct))
+                            
+                                @livewire('carousel-products', ['product' => $SectionProduct], key($SectionProduct->id))
                             @endif
                         @endforeach
                     </div>

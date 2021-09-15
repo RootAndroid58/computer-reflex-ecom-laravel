@@ -17,6 +17,8 @@ class CreateHomeSectionsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('caption');
+            $table->longText('products');
+            $table->boolean('active')->default(true);
             $table->bigInteger('position')->nullable();
             $table->timestamps();
         });

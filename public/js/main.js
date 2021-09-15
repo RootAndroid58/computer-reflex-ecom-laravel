@@ -146,8 +146,6 @@ if ($('#dp_uploader').length) {
 
 
 
-
-
 // Livewire.on('reinitSummernote', () => {
 //   console.log('test');
 //   summnernoteInit();
@@ -210,9 +208,24 @@ Livewire.on('compareRemoved', data => {
 });
 
 
+Livewire.on('toastAlert', data => {
+
+  if (data['type'] == 'SUCCESS') {
+    var type = TOAST_STATUS.SUCCESS;
+  }
+  if (data['type'] == 'DANGER') {
+    var type = TOAST_STATUS.DANGER;
+  }
+
+  Toast.create(data['title'], data['caption'], type, 5000);
+});
+
+
 // Toast.create(title, message, status = 0, timeout = 0)
 // Toast.setTheme(TOAST_THEME.DARK);
 // Toast.create("Title", "Toast Message", TOAST_STATUS.SUCCESS, 0);
+
+
 
 
 

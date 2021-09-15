@@ -1,4 +1,7 @@
 <?php return array (
+  'admin.ui.create-home-carousel-form' => 'App\\Http\\Livewire\\Admin\\Ui\\CreateHomeCarouselForm',
+  'admin.ui.edit-home-carousel' => 'App\\Http\\Livewire\\Admin\\Ui\\EditHomeCarousel',
+  'admin.ui.manage-home-carousel' => 'App\\Http\\Livewire\\Admin\\Ui\\ManageHomeCarousel',
   'basic-helper' => 'App\\Http\\Livewire\\BasicHelper',
   'best-selling-section' => 'App\\Http\\Livewire\\BestSellingSection',
   'bulk-license-key-modal' => 'App\\Http\\Livewire\\BulkLicenseKeyModal',
