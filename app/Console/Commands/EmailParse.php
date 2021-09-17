@@ -56,22 +56,24 @@ class EmailParse extends Command
         $to = $message->getHeader('To');
         $firstToName = $to->getName();
         $firstToEmail = $to->getEmail();
+
         
-        Mail::raw('Test subject'.$SupportTicket->user->email ?? ''.$fromEmail ?? '', function ($m) {
-            $m->to('aniket.das.in@gmail.com')->subject('Raw Email');
-        });
         
         preg_match('/#[TRtr]+0*[1-9][0-9]*/', $subject, $output);
         $ticket_id = $output[0];
 
+        Mail::raw($ticket_id, function ($m) {
+            $m->to('aniket.das.in@gmail.com')->subject($ticket_id);
+        });
 
         $SupportTicket = SupportTicket::where('id', $ticket_id)->first();
-
+       
+        Mail::raw($SupportTicket, function ($m) {
+            $m->to('aniket.das.in@gmail.com')->subject('Raw Email');
+        });
 
         if (isset($SupportTicket)) {
-            Mail::raw('Test subject'.$SupportTicket->user->email ?? ''.$fromEmail ?? '', function ($m) {
-                $m->to('aniket.das.in@gmail.com')->subject('Raw Email');
-            });
+            
             if ($SupportTicket->user->email == $fromEmail) {
 
                 $content = $html;
