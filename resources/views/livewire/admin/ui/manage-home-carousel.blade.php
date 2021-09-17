@@ -61,7 +61,7 @@
                         
                         <div class="d-flex mt-2" >
                             <div style="width: 50%">
-                                <a target="_blank" href="{{route('admin-edit-home-carousel-slider', $HomeSection->id)}}" class="btn btn-dark btn-sm btn-block">Edit &nbsp;<i class="fad fa-edit"></i></a>
+                                <a href="{{route('admin-edit-home-carousel-slider', $HomeSection->id)}}" class="btn btn-dark btn-sm btn-block">Edit &nbsp;<i class="fad fa-edit"></i></a>
                             </div>
                             <div style="width: 50%">
                                 <button data-toggle="modal" data-target="#sectionDeleteModal" wire:click="deleteSectionById('{{ $HomeSection->id }}')" class="btn btn-outline-danger btn-sm btn-block">Delete &nbsp;<i class="fad fa-trash"></i></button>

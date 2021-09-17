@@ -15,16 +15,13 @@
 
 <h3>Home Carousel Sliders</h3>
 
+    {{ Breadcrumbs::render(Request::route()->getName()) }}
 
 <div class="w-100 text-right">
     <a href="{{ route('admin-create-home-carousel-slider') }}" class="btn btn-sm btn-dark">Create New Slider</a>
 </div>
 
-
-
 @livewire('admin.ui.manage-home-carousel')
-
-
 
 </div> <!--Container-Fluid End-->
 

@@ -18,14 +18,5 @@
 
 
 
-
-
-
-
-
-
-
-
-
 </div>
 @endsection

@@ -420,38 +420,9 @@ class AdminController extends Controller
         return view('admin.ui.create-home-carousel');
     }
 
-
-
     public function ManageHomeCarouselSlider()
     {
-        // $HomeSections = HomeSection::get();
-
         return view('admin.manage-home-carousel-sliders');
-    }
-
-    public function CreateHomeCarouselSlider(Request $req)
-    {
-        $req->validate([
-            'title'             => 'required',
-            'caption'           => 'required',
-            'product_ids'       => 'required|exists:products,id',
-        ]);
-
-        $HomeSection            = new HomeSection;
-        $HomeSection->title     = $req->title;
-        $HomeSection->caption   = $req->caption;
-        $HomeSection->save();
-
-        foreach ($req->product_ids as $product_id) {
-            $HomeSectionProduct                     = new HomeSectionProduct;
-            $HomeSectionProduct->home_section_id    = $HomeSection->id;
-            $HomeSectionProduct->product_id         = $product_id;
-            $HomeSectionProduct->save();
-        }
-        
-        return redirect()->back()->with([
-            'SliderCreated' => 200
-        ]);
     }
 
     public function EditHomeCarouselSlider($slider_id)
@@ -464,36 +435,9 @@ class AdminController extends Controller
             'HomeSection' => $HomeSection,
         ]);
     }
-    public function DeleteHomeCarouselSlider($slider_id)
-    {
-        $HomeSection = HomeSection::where('id', $slider_id)->delete();
-        
-        return redirect()->back();
-    
-    }
 
-    public function EditHomeCarouselSliderSubmit(Request $req)
-    {
-        $req->validate([
-            'home_section_id'   => 'required',
-            'title'             => 'required',
-            'caption'           => 'required',
-            'product_ids'     => 'required|exists:products,id',
-        ]);
 
-        HomeSectionProduct::where('home_section_id', $req->home_section_id)->delete();
 
-            foreach ($req->product_ids as $product_id) {
-                $HomeSectionProduct                     = new HomeSectionProduct;
-                $HomeSectionProduct->home_section_id    = $req->home_section_id;
-                $HomeSectionProduct->product_id         = $product_id;
-                $HomeSectionProduct->save();
-            }
-
-            return redirect()->route('admin-manage-home-carousel-sliders')->with([
-                'SliderUpdated' => 200
-            ]);
-    }
 
 
 

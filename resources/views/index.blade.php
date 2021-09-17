@@ -67,7 +67,7 @@
                 <div class="slider-area">
                     <div class="slider-active owl-carousel">
                         @foreach ($banners as $banner)
-                            @livewire('home-slider-banner', ['banner' => $banner], key($banner->id))
+                            @livewire('home-slider-banner', ['banner' => $banner], key('SmallBanner-'.$banner->id))
                         @endforeach
                     </div>
                 </div>
@@ -79,7 +79,7 @@
         <div class="custom-row-2">
             @foreach ($SmallBanners as $key => $SmallBanner)
                 @if ($key < 3)
-                    @livewire('home-small-banner', ['SmallBanner' => $SmallBanner], key($SmallBanner->id))
+                    @livewire('home-small-banner', ['SmallBanner' => $SmallBanner], key('SmallBanner-'.$SmallBanner->id))
                 @endif
             @endforeach
         </div>
@@ -92,7 +92,7 @@
     @endforeach
 
     @if (isset($SmallBanners[3]))
-        @livewire('home-wide-banner', ['SmallBanner' => $SmallBanners[3]], key($user->id))
+        @livewire('home-wide-banner', ['SmallBanner' => $SmallBanners[3]], key('SmallBanner-'.$SmallBanners[3]->id))
     @endif
     
     
@@ -152,7 +152,7 @@
     </div>
 
     @if (isset($SmallBanners[4]))
-        @livewire('home-wide-banner', ['SmallBanner' => $SmallBanners[4]], key($user->id))
+        @livewire('home-wide-banner', ['SmallBanner' => $SmallBanners[4]], key('SmallBanner-'.$SmallBanners[4]->id))
     @endif
     
     

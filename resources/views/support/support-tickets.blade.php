@@ -92,9 +92,6 @@
                 name: 'created_at',
             },
         ]
-
-
-
     });
     </script>
 @endsection

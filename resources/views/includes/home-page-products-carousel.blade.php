@@ -1,4 +1,4 @@
-<div class="electronic-banner-area @if (!isMobile()) mb-5 @else mb-2 @endif  ">
+<div class="electronic-banner-area @if (!isMobile())  @else mb-2 @endif  ">
     <div class="row">
         <div class="col-12" style="padding: 0;">
             <div class="bbb_main_container">

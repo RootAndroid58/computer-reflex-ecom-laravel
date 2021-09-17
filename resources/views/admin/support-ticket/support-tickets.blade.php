@@ -16,7 +16,7 @@
                 <th style="width: 15%">Ticket #</th>
                 <th style="width: 10%">
                     <select name="status" id="search_status" class="form-control">
-                        <option value="all" selected disabled>Status</option>
+                        <option value="all" selected>Status (All)</option>
                         <option value="open">Open</option>
                         <option value="resolved">Resolved</option>
                     </select>
@@ -49,13 +49,13 @@
 <script>
 
     $('document').ready(function () {
-        loadDataTable()
-    })
+        loadDataTable();
+    });
 
     $('#search_status').on('change', function () {
         $('#AdminSupportTickets').DataTable().destroy();
-        loadDataTable()
-    })
+        loadDataTable();
+    });
 
 function loadDataTable() {
 
@@ -91,9 +91,6 @@ function loadDataTable() {
                 name: 'created_at',
             },
         ]
-
-
-
     });
 }
 

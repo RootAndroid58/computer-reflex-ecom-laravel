@@ -13,7 +13,6 @@ class CreateSmallBannersTable extends Migration
      */
     public function up()
     {
-
         Schema::create('small_banners', function (Blueprint $table) {
             $table->id();
             $table->string('image');

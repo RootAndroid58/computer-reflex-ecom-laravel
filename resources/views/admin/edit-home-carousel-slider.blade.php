@@ -15,6 +15,8 @@
 
 <h3>Edit Home Carousel Slider</h3>
 
+    {{ Breadcrumbs::render(Request::route()->getName(), $HomeSection->id) }}
+
     @livewire('admin.ui.edit-home-carousel', ['sectionId' => $HomeSection->id])
 
 </div> <!--Container-Fluid End-->

@@ -209,7 +209,7 @@ Livewire.on('compareRemoved', data => {
 
 
 Livewire.on('toastAlert', data => {
-
+  console.log('Toast notification');
   if (data['type'] == 'SUCCESS') {
     var type = TOAST_STATUS.SUCCESS;
   }

@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Admin\Ui;
 use App\Models\Product;
 use Livewire\Component;
 use App\Models\HomeSection;
+use Illuminate\Support\Facades\Session;
 
 class EditHomeCarousel extends Component
 {
@@ -16,6 +17,14 @@ class EditHomeCarousel extends Component
 
     public function mount()
     {
+        // if (Session::has('createSuccess')) {
+        //     $this->emit('toastAlert', [
+        //         'type'  => 'SUCCESS',
+        //         'title' => 'Created',
+        //         'caption' => Session('createSuccess'),
+        //     ]);
+        // }
+
         $this->section = HomeSection::where('id', $this->sectionId)->first();
         $this->product_ids = $this->section->products->pluck('id')->toArray();
         $this->title = $this->section->title;

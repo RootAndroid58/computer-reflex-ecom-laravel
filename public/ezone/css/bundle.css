@@ -71,7 +71,7 @@ a,
 button,
 input {
     outline: medium none;
-    color: #686868;
+    /* color: #686868; */
 }
 .uppercase { 
     text-transform: uppercase

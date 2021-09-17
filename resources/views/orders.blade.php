@@ -45,7 +45,7 @@ $UserName=str_word_count(Auth()->user()->name, 1);
                                             <span>You have no orders on your account.</span>
                                             
                                         </div>
-                                        <a href="{{ route('home') }}" class="btn btn-dark btn-lg">Start Shopping!</a>
+                                        <a href="{{ route('home') }}" class="btn btn-dark btn-sm">Start Shopping!</a>
                                         
                                     </div>
                                 </div>

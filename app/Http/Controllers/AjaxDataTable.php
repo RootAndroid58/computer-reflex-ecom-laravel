@@ -65,16 +65,17 @@ class AjaxDataTable extends Controller
     public function AdminSupportTicketsTable(Request $req)
     {
         if (Request()->ajax()) {
+            
+            $query = SupportTicket::with('msgs.user');
 
             if ($req->search_status == 'resolved') {
-                $query = SupportTicket::with('msgs.user')->where('status', 'resolved')->orderBy('id', 'desc')->latest()->get();
+                $query = $query->where('status', 'resolved');
             } 
             else if ($req->search_status == 'open') {
-                $query = SupportTicket::with('msgs.user')->where('status', 'open')->orderBy('id', 'desc')->latest()->get();
-            } 
-            else {
-                $query = SupportTicket::with('msgs.user')->orderBy('id', 'desc')->latest()->get();
+                $query = $query->where('status', 'open');
             }
+
+            $query = $query->latest()->get();
 
             return datatables()->of($query)
             

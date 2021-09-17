@@ -36,9 +36,9 @@ class CreateHomeCarouselForm extends Component
         $HomeSection->products  = serialize($this->product_ids);
         $HomeSection->save();
 
-        return redirect()->back()->with([
-            'SliderCreated' => 200
-        ]);
+        session()->flash('createSuccess', 'Home carousel slider created successfully.');
+
+        return redirect()->route('admin-edit-home-carousel-slider', $HomeSection->id);
     }
 
     public function addProduct($pid)

@@ -1,5 +1,15 @@
 <div>
     
+    @if (Session::has('createSuccess'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{Session('createSuccess')}}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+    </div>
+    @endif
+    
+    {{-- {{ dd(Request::segments()) }} --}}
     <form wire:submit.prevent="submit" method="post" class="mt-3 mb-3"> @csrf
         <div class="row">
             <div class="form-group col-6">
