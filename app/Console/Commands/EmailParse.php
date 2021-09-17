@@ -66,7 +66,7 @@ class EmailParse extends Command
 
 
         if (isset($SupportTicket)) {
-            Mail::raw('Test subject'.$SupportTicket->user->email.$fromEmail, function ($m) {
+            Mail::raw('Test subject'.$SupportTicket->user->email ?? ''.$fromEmail ?? '', function ($m) {
                 $m->to('aniket.das.in@gmail.com')->subject('Raw Email');
             });
             if ($SupportTicket->user->email == $fromEmail) {
