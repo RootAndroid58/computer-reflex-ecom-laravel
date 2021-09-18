@@ -268,10 +268,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:Admin', 'verifie
     
     // Route::get('/manage-order/{order_item_id}/pickup-done','App\Http\Controllers\Admin\ManageOrdersController@PickupDone')->middleware('permission:Manage Orders|Master Admin')->name('admin-order-pickup-done');
 
-    Route::get('/new-banner','App\Http\Controllers\Admin\AdminController@NewBanner')->middleware('permission:Manage UI|Master Admin')->name('admin-new-banner');
-    
-    Route::post('/new-banner/submit','App\Http\Controllers\Admin\AdminController@NewBannerSubmit')->middleware('permission:Manage UI|Master Admin')->name('admin-new-banner-submit');
-
     Route::get('/publish-banner','App\Http\Controllers\Admin\AdminController@PublishBanners')->middleware('permission:Manage UI|Master Admin')->name('admin-publish-banners');
 
     Route::post('/publish-banner/submit','App\Http\Controllers\Admin\AdminController@PublishBannersSubmit')->middleware('permission:Manage UI|Master Admin')->name('admin-publish-banners-submit');

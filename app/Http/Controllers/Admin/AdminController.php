@@ -122,8 +122,7 @@ class AdminController extends Controller
         $banner->banner_status      = 0;
         
         $banner->save();
-
-        return back()->with(['BannerCreatedSuccess' => $banner->banner_name]);
+        
     }
 
     public function EditSmallBannerSubmit(Request $req)
@@ -197,48 +196,48 @@ class AdminController extends Controller
 
         Banner::query()->update([
             'banner_status'     => 0,
-            'banner_position'   => null,
+            'position'   => null,
         ]);
 
         // Set All Banner Positions
         Banner::where('id', $req->banner_1)->update([
-            'banner_position'   => 1,
+            'position'   => 1,
             'banner_status'     => 1,
         ]);
         Banner::where('id', $req->banner_2)->update([
-            'banner_position'   => 2,
+            'position'   => 2,
             'banner_status'     => 1,
         ]);
         Banner::where('id', $req->banner_3)->update([
-            'banner_position'   => 3,
+            'position'   => 3,
             'banner_status'     => 1,
         ]);
         Banner::where('id', $req->banner_4)->update([
-            'banner_position'   => 4,
+            'position'   => 4,
             'banner_status'     => 1,
         ]);
         Banner::where('id', $req->banner_5)->update([
-            'banner_position'   => 5,
+            'position'   => 5,
             'banner_status'     => 1,
         ]);
         Banner::where('id', $req->banner_6)->update([
-            'banner_position'   => 6,
+            'position'   => 6,
             'banner_status'     => 1,
         ]);
         Banner::where('id', $req->banner_7)->update([
-            'banner_position'   => 7,
+            'position'   => 7,
             'banner_status'     => 1,
         ]);
         Banner::where('id', $req->banner_8)->update([
-            'banner_position'   => 8,
+            'position'   => 8,
             'banner_status'     => 1,
         ]);
         Banner::where('id', $req->banner_9)->update([
-            'banner_position'   => 9,
+            'position'   => 9,
             'banner_status'     => 1,
         ]);
         Banner::where('id', $req->banner_10)->update([
-            'banner_position'   => 10,
+            'position'   => 10,
             'banner_status'     => 1,
         ]);
 

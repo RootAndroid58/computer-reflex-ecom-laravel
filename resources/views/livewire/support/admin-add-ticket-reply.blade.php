@@ -2,7 +2,7 @@
     <div class="modal-header">
         <h5 class="modal-title">Add Reply As</h5>
             <div class="ml-2">
-                <select class="form-select" wire:model="reply_as" style="height: 100%;">
+                <select class="form-control" wire:model="reply_as" style="height: 100%;">
                     <option value="staff">Staff ({{ Auth()->user()->name }})</option>
                     <option value="user">User ({{ $ticket->user->name }})</option>
                 </select>

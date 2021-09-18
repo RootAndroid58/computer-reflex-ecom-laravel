@@ -16,22 +16,9 @@
 
     <h3>Banners Management</h3>
 
-{{-- Buttons Row Start --}}
-<div class="row">
 
-    <div class="col-md-4">
-        <a class="btn btn-lg btn-block btn-dark" href="{{route('admin-new-banner')}}">New Banner</a>
-    </div>
+@livewire('admin.ui.manage-banners')
 
-    <div class="col-md-4">
-        <a class="btn btn-lg btn-block btn-dark" href="{{ route('admin-edit-banners') }}">Show / Edit Banners</a>
-    </div>
-
-    <div class="col-md-4">
-        <a class="btn btn-lg btn-block btn-dark" href="{{route('admin-publish-banners')}}">Publish Banners</a>
-    </div>
-
-</div>
 {{-- Buttons Row End --}}
 
 

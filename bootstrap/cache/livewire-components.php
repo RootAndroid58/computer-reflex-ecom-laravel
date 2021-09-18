@@ -1,6 +1,7 @@
 <?php return array (
   'admin.ui.create-home-carousel-form' => 'App\\Http\\Livewire\\Admin\\Ui\\CreateHomeCarouselForm',
   'admin.ui.edit-home-carousel' => 'App\\Http\\Livewire\\Admin\\Ui\\EditHomeCarousel',
+  'admin.ui.manage-banners' => 'App\\Http\\Livewire\\Admin\\Ui\\ManageBanners',
   'admin.ui.manage-home-carousel' => 'App\\Http\\Livewire\\Admin\\Ui\\ManageHomeCarousel',
   'basic-helper' => 'App\\Http\\Livewire\\BasicHelper',
   'best-selling-section' => 'App\\Http\\Livewire\\BestSellingSection',

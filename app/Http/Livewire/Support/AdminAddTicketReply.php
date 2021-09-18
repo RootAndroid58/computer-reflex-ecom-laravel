@@ -61,7 +61,7 @@ class AdminAddTicketReply extends Component
   
         foreach($imageFile as $item => $image) {
             $data = $image->getAttribute('src');
-            if (base64_encode(base64_decode($data, true)) === $data) {
+            if (explode(':', substr($data, 0, strpos($data, ';')))[1] ?? false) {
                 $extension = explode('/', explode(':', substr($data, 0, strpos($data, ';')))[1])[1];   // 
                 list($type, $data) = explode(';', $data);
                 list(, $data)      = explode(',', $data);

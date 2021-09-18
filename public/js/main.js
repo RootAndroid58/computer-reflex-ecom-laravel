@@ -207,6 +207,10 @@ Livewire.on('compareRemoved', data => {
   Toast.create("Removed From Compare", data['product_name'], TOAST_STATUS.DANGER, 5000);
 });
 
+Livewire.on('modal', data => {
+  $(data['el']).modal(data['action']);
+});
+
 
 Livewire.on('toastAlert', data => {
   console.log('Toast notification');

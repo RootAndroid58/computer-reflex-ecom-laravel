@@ -29,7 +29,7 @@
                 <option value="">No Banner</option>
                 @foreach ($banners as $banner)
                 
-                <option value="{{ $banner->id }}" @if ($banner->banner_position == 1) selected @endif>{{ $banner->banner_name }}</option>
+                <option value="{{ $banner->id }}" @if ($banner->position == 1) selected @endif>{{ $banner->banner_name }}</option>
                 @endforeach
               </select>
         </div>
@@ -40,7 +40,7 @@
                 <option value="">No Banner</option>
                 @foreach ($banners as $banner)
                 
-                <option value="{{ $banner->id }}" @if ($banner->banner_position == 2) selected @endif>{{ $banner->banner_name }}</option>
+                <option value="{{ $banner->id }}" @if ($banner->position == 2) selected @endif>{{ $banner->banner_name }}</option>
                 @endforeach
               </select>
         </div>
@@ -51,7 +51,7 @@
                 <option value="">No Banner</option>
                 @foreach ($banners as $banner)
                 
-                <option value="{{ $banner->id }}" @if ($banner->banner_position == 3) selected @endif>{{ $banner->banner_name }}</option>
+                <option value="{{ $banner->id }}" @if ($banner->position == 3) selected @endif>{{ $banner->banner_name }}</option>
                 @endforeach
               </select>
         </div>
@@ -62,7 +62,7 @@
                 <option value="">No Banner</option>
                 @foreach ($banners as $banner)
                 
-                <option value="{{ $banner->id }}" @if ($banner->banner_position == 4) selected @endif>{{ $banner->banner_name }}</option>
+                <option value="{{ $banner->id }}" @if ($banner->position == 4) selected @endif>{{ $banner->banner_name }}</option>
                 @endforeach
               </select>
         </div>
@@ -73,7 +73,7 @@
                 <option value="">No Banner</option>
                 @foreach ($banners as $banner)
                 
-                <option value="{{ $banner->id }}" @if ($banner->banner_position == 5) selected @endif>{{ $banner->banner_name }}</option>
+                <option value="{{ $banner->id }}" @if ($banner->position == 5) selected @endif>{{ $banner->banner_name }}</option>
                 @endforeach
               </select>
         </div>
@@ -89,7 +89,7 @@
                 <option value="">No Banner</option>
                 @foreach ($banners as $banner)
                 
-                <option value="{{ $banner->id }}" @if ($banner->banner_position == 6) selected @endif>{{ $banner->banner_name }}</option>
+                <option value="{{ $banner->id }}" @if ($banner->position == 6) selected @endif>{{ $banner->banner_name }}</option>
                 @endforeach
               </select>
         </div>
@@ -100,7 +100,7 @@
                 <option value="">No Banner</option>
                 @foreach ($banners as $banner)
                 
-                <option value="{{ $banner->id }}" @if ($banner->banner_position == 7) selected @endif>{{ $banner->banner_name }}</option>
+                <option value="{{ $banner->id }}" @if ($banner->position == 7) selected @endif>{{ $banner->banner_name }}</option>
                 @endforeach
               </select>
         </div>
@@ -111,7 +111,7 @@
                 <option value="">No Banner</option>
                 @foreach ($banners as $banner)
                 
-                <option value="{{ $banner->id }}" @if ($banner->banner_position == 8) selected @endif>{{ $banner->banner_name }}</option>
+                <option value="{{ $banner->id }}" @if ($banner->position == 8) selected @endif>{{ $banner->banner_name }}</option>
                 @endforeach
               </select>
         </div>
@@ -122,7 +122,7 @@
                 <option value="">No Banner</option>
                 @foreach ($banners as $banner)
                 
-                <option value="{{ $banner->id }}" @if ($banner->banner_position == 9) selected @endif>{{ $banner->banner_name }}</option>
+                <option value="{{ $banner->id }}" @if ($banner->position == 9) selected @endif>{{ $banner->banner_name }}</option>
                 @endforeach
               </select>
         </div>
@@ -133,7 +133,7 @@
                 <option value="">No Banner</option>
                 @foreach ($banners as $banner)
                 
-                <option value="{{ $banner->id }}" @if ($banner->banner_position == 10) selected @endif>{{ $banner->banner_name }}</option>
+                <option value="{{ $banner->id }}" @if ($banner->position == 10) selected @endif>{{ $banner->banner_name }}</option>
                 @endforeach
               </select>
         </div>

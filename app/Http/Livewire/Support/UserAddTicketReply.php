@@ -55,10 +55,12 @@ class UserAddTicketReply extends Component
         $dom = new \DomDocument();
         $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         $imageFile = $dom->getElementsByTagName('img');
-  
+        
         foreach($imageFile as $item => $image) {
             $data = $image->getAttribute('src');
-            if (base64_encode(base64_decode($data, true)) === $data) {
+
+           
+            if (explode(':', substr($data, 0, strpos($data, ';')))[1] ?? false) {
                 $extension = explode('/', explode(':', substr($data, 0, strpos($data, ';')))[1])[1];   // 
                 list($type, $data) = explode(';', $data);
                 list(, $data)      = explode(',', $data);
