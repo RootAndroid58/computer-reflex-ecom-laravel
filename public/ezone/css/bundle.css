@@ -73,11 +73,13 @@ input {
     outline: medium none;
     color: #686868;
 }
-.breadcrumb > a,
-.breadcrumb > button,
-.breadcrumb > input {
-    color: unset !important;
+
+.breadcrumb-item a,
+.breadcrumb-item button,
+.breadcrumb-item input {
+    color: #3490dc !important;
 }
+
 .uppercase { 
     text-transform: uppercase
 }
