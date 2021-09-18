@@ -82,15 +82,17 @@ class RaiseTicket extends Component
   
         foreach($imageFile as $item => $image) {
             $data = $image->getAttribute('src');
-            $extension = explode('/', explode(':', substr($data, 0, strpos($data, ';')))[1])[1];   // 
-            list($type, $data) = explode(';', $data);
-            list(, $data)      = explode(',', $data);
-            $imgeData = base64_decode($data);
-            $image_name= Str::random(4). time().$item.'.'.$extension;
-            $path = public_path() . '/storage/attachments/' . $image_name;
-            file_put_contents($path, $imgeData);
-            $image->removeAttribute('src');
-            $image->setAttribute('src', asset('storage/attachments/'.$image_name));
+            if (base64_encode(base64_decode($data, true)) === $data) {
+                $extension = explode('/', explode(':', substr($data, 0, strpos($data, ';')))[1])[1];   // 
+                list($type, $data) = explode(';', $data);
+                list(, $data)      = explode(',', $data);
+                $imgeData = base64_decode($data);
+                $image_name= Str::random(4). time().$item.'.'.$extension;
+                $path = public_path() . '/storage/attachments/' . $image_name;
+                file_put_contents($path, $imgeData);
+                $image->removeAttribute('src');
+                $image->setAttribute('src', asset('storage/attachments/'.$image_name));
+            }
         }
   
         $description = $dom->saveHTML();
