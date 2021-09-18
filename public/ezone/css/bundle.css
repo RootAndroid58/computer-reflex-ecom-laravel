@@ -73,6 +73,11 @@ input {
     outline: medium none;
     color: #686868;
 }
+.breadcrumb > a,
+.breadcrumb > button,
+.breadcrumb > input {
+    color: unset !important;
+}
 .uppercase { 
     text-transform: uppercase
 }
