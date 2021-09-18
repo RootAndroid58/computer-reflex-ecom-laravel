@@ -17,7 +17,6 @@ class Kernel extends ConsoleKernel
         'App\Console\Commands\ShippingStatusUpdate',
         'App\Console\Commands\SendProductLicenseKeys',
         'App\Console\Commands\RemoveAffiliates',
-        'App\Console\Commands\EmailParse',
     ];
 
 
