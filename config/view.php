@@ -1,13 +1,6 @@
 <?php
 use Jenssegers\Agent\Agent;
 
-$agent = new Agent();
-
-if ($agent->isMobile()) {
-    $view = 'mobile-views';
-} else {
-    $view = 'views';
-}
 
 return [
 

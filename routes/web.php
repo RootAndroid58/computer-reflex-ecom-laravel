@@ -235,13 +235,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:Admin', 'verifie
     Route::post('/manage-ui/edit-small-banner/submit','App\Http\Controllers\Admin\AdminController@EditSmallBannerSubmit')->middleware('permission:Manage UI|Master Admin')->name('admin-edit-small-banner-submit');
 
     Route::get('/manage-banners','App\Http\Controllers\Admin\AdminController@ManageBanners')->middleware('permission:Manage UI|Master Admin')->name('admin-manage-banners');
-    
-    Route::get('/edit-banners','App\Http\Controllers\Admin\AdminController@EditBanners')->middleware('permission:Manage UI|Master Admin')->name('admin-edit-banners');
-    
-    Route::get('/banner/{banner_id}/edit','App\Http\Controllers\Admin\AdminController@EditBannerPage')->middleware('permission:Manage UI|Master Admin')->name('admin-edit-banner-page');
 
-    Route::post('/banner/edit/submit','App\Http\Controllers\Admin\AdminController@EditBannerSubmit')->middleware('permission:Manage UI|Master Admin')->name('admin-edit-banner-submit');
-    
     Route::get('/manage-orders','App\Http\Controllers\Admin\ManageOrdersController@ViewManageOrders')->middleware('permission:Manage Orders|Master Admin')->name('admin-manage-orders');
 
     Route::get('/ship-orders','App\Http\Controllers\Admin\ManageOrdersController@ShipOrdersPage')->middleware('permission:Manage Orders|Master Admin')->name('admin-ship-orders');
@@ -256,8 +250,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:Admin', 'verifie
     
     Route::get('/manage-order/{order_item_id}/packing-completed','App\Http\Controllers\Admin\ManageOrdersController@CompletePacking')->middleware('permission:Manage Orders|Master Admin')->name('admin-complete-packing-order');
     
-    // Route::get('/manage-order/{order_item_id}/create-shipment','App\Http\Controllers\Admin\ManageOrdersController@CreateShipmentView')->middleware('permission:Manage Orders|Master Admin')->name('admin-create-shipment-view');
-    
     Route::get('/manage-order/{order_id}/create-shipment','App\Http\Controllers\Admin\ManageOrdersController@CreateShipment')->middleware('permission:Manage Orders|Master Admin')->name('admin-create-shipment');
     
     Route::post('/manage-order/create-shipment/submit','App\Http\Controllers\Admin\ManageOrdersController@CreateShipmentSubmit')->middleware('permission:Manage Orders|Master Admin')->name('admin-create-shipment-submit');
@@ -266,11 +258,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:Admin', 'verifie
     
     Route::post('/cancel-order/review/submit','App\Http\Controllers\Admin\ManageOrdersController@CancelReviewSubmit')->middleware('permission:Manage Orders|Master Admin')->name('admin-cancel-review-submit');
     
-    // Route::get('/manage-order/{order_item_id}/pickup-done','App\Http\Controllers\Admin\ManageOrdersController@PickupDone')->middleware('permission:Manage Orders|Master Admin')->name('admin-order-pickup-done');
-
-    Route::get('/publish-banner','App\Http\Controllers\Admin\AdminController@PublishBanners')->middleware('permission:Manage UI|Master Admin')->name('admin-publish-banners');
-
-    Route::post('/publish-banner/submit','App\Http\Controllers\Admin\AdminController@PublishBannersSubmit')->middleware('permission:Manage UI|Master Admin')->name('admin-publish-banners-submit');
 
     Route::get('/manage-products/new-product-listing', 'App\Http\Controllers\Admin\ManageProductsController@NewProductListing')->middleware('permission:Manage Products|Master Admin')->name('admin-new-product-listing');
 

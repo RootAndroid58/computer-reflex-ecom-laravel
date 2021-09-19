@@ -9,6 +9,9 @@
 
 <div class="container-fluid">
     
+    <h3>Support Tickets</h3>
+
+    {{ Breadcrumbs::render() }}
         <!--Products Table Start-->
         <table id="AdminSupportTickets" class="table table-hover table-striped table-bordered table-fluid">
             <thead  class="bg-primary text-white">

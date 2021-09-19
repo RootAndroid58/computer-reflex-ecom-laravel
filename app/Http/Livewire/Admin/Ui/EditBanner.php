@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Ui;
 
 use App\Models\Banner;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class EditBanner extends Component
 {
@@ -25,8 +26,8 @@ class EditBanner extends Component
     {
         return [
             "bannerType"    => 'required|in:imageOnly,imageText',
-            "bannerName"    => 'required|max:255|unique:banners,banner_name',
-            "bannerImage"   => 'required_if:editBannerImage,true|mimes:jpeg,jpg,png',
+            "bannerName"    => 'required|max:255|unique:banners,banner_name,'.$this->bannerId,
+            "bannerImage"   => 'required_if:editImage,true|nullable|mimes:jpeg,jpg,png,webp',
             "buttonLink"    => 'required',
             "header"        => 'required_if:bannerType,imageText|max:50',
             "header2"       => 'required_if:bannerType,imageText|max:50',
@@ -34,12 +35,15 @@ class EditBanner extends Component
             "buttonText"    => 'required_if:bannerType,imageText|max:255',
         ]; 
     }
-
+    
     public function mount()
     {
-        $this->resetErrorBag();
-        $this->resetValidation();
         $this->banner = Banner::where('id', $this->bannerId)->first();
+
+        if ($this->banner->banner_header) {
+            $this->bannerType = 'imageText';
+        }
+
         $this->bannerName = $this->banner->banner_name;
         $this->header = $this->banner->banner_header;
         $this->header2 = $this->banner->banner_header_2;
@@ -56,6 +60,39 @@ class EditBanner extends Component
     public function editBanner()
     {
         $this->validate();
+        
+        Banner::where('id', $this->bannerId)->update([
+            'banner_name' => $this->bannerName,
+            'banner_header' => $this->header,
+            'banner_header_2' => $this->header2,
+            'banner_caption' => $this->caption,
+            'banner_btn_txt' => $this->buttonText,
+            'banner_btn_link' => $this->buttonLink,
+        ]);
+
+        if ($this->editImage == true) {
+            $imageName = md5_file($this->bannerImage->getRealPath()).'.'.$this->bannerImage->getClientOriginalExtension();
+            $this->bannerImage->storeAs('images/banner', $imageName, 'public');
+            Banner::where('id', $this->bannerId)->update([
+                'banner_img' => $imageName,
+            ]);
+        }
+
+        
+
+        // After update
+        $this->emit('toastAlert', [
+            'type'      => 'SUCCESS',
+            'title'     => 'Banner Updated',
+            'caption'   => 'Banner ('.$this->bannerName.') Updated Successfully',
+        ]);
+        $this->emit('modal', [
+            'el'        => '#editBannerModal',
+            'action'    => 'hide',
+        ]);
+
+        $this->emitUp('refresh');
+
     }
 
     public function render()

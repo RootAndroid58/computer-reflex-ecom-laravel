@@ -22,12 +22,14 @@ class ManageBanners extends Component
     public $buttonLink;
     public $deleteBannerId;
 
+    protected $listeners = ['refresh' => '$refresh'];
+
     protected function rules()
     {
         $rules = [
             "bannerType"    => 'required|in:imageOnly,imageText',
             "bannerName"    => 'required|max:255|unique:banners,banner_name',
-            "bannerImage"   => 'required|mimes:jpeg,jpg,png',
+            "bannerImage"   => 'required|mimes:jpeg,jpg,png,webp',
             "buttonLink"    => 'required',
             "header"        => 'required_if:bannerType,imageText|max:50',
             "header2"       => 'required_if:bannerType,imageText|max:50',
@@ -40,6 +42,9 @@ class ManageBanners extends Component
 
     public function editBannerInit($bannerId)
     {
+        $this->resetErrorBag();
+        $this->resetValidation();
+
         $this->banner = Banner::where('id', $bannerId)->first();
     }
 
@@ -77,7 +82,6 @@ class ManageBanners extends Component
             'action'    => 'hide',
         ]);
     }
-
 
     public function toggleBannerStatus($bannerId)
     {

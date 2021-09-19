@@ -1,7 +1,9 @@
 <div>
 
+    {{ Breadcrumbs::render('admin-manage-banners') }}
+
     <!-- Modal -->
-        <div wire:ignore.self class="modal " id="newBannerModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div wire:ignore.self class="modal fade" id="newBannerModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -139,7 +141,7 @@
     
     <!-- Modal -->
     <div wire:ignore>
-        <div class="modal" id="bannerDeleteModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal fade" id="bannerDeleteModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">

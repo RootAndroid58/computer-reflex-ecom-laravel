@@ -38,28 +38,16 @@
             <label class="form-check-label cursor-pointer" for="editImage">Change Banner Image</label>
         </div>
         
-        <div class="input-group mb-3">
-            <div class="custom-file">
-            <input style="height: unset;" wire:model="bannerImage" @if ($editImage == false) disabled @endif type="file" class="custom-file-input form-control @error('bannerImage') is-invalid @enderror">
-            <label class="custom-file-label">
-                @if (isset($bannerImage))
-                    {{ $bannerImage->getClientOriginalName() }}
-                @else
-                    Upload Banner Image
-                @endif
-                </label>
-            </div>
+        <div class="form-group">
+            <input type="file" wire:model="bannerImage" style="height: unset;" class="form-control-file form-control @error('bannerImage') is-invalid @enderror" @if ($editImage == false) disabled @endif>
             @error('bannerImage') 
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
             @enderror
-        </div> 
+          </div>
+
         
-            
-
-
-
         
         
 
@@ -103,6 +91,7 @@
             @enderror
         </div>
 
+        
         <div class="form-group">
             <label class="mb-0">Button Text <font color="red">*</font></label>
             <input wire:model="buttonText" type="text"
@@ -129,10 +118,11 @@
     @endif
     </div>  
 
+    
 
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success" >Save Changes <i class="fad fa-save"></i></button>
+        <button wire:click="editBanner" type="button" class="btn btn-success" >Save Changes <i class="fad fa-save"></i></button>
     </div>
     
 </div>

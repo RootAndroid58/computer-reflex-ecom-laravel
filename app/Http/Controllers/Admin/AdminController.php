@@ -95,35 +95,6 @@ class AdminController extends Controller
         return view('admin.new-banner');
     }
 
-    public function NewBannerSubmit(Request $req)
-    {
-        $req->validate([
-            "banner_name"       => 'required|max:255|unique:banners,banner_name',
-            "banner_header"     => 'nullable|max:50',
-            "banner_header_2"   => 'nullable|max:50',
-            "banner_caption"    => 'nullable|max:255',
-            "banner_btn_txt"    => 'nullable|max:255',
-            "banner_btn_link"   => 'required',
-            "banner_img"        => 'required|mimes:jpeg,jpg,png',
-        ]);
-
-        $req->banner_img->store('images/banner' , 'public');
-
-        $banner = new Banner;
-
-        $banner->banner_name        = $req->banner_name;
-        $banner->banner_header      = $req->banner_header;
-        $banner->banner_header_2    = $req->banner_header_2;
-        $banner->banner_caption     = $req->banner_caption;
-        $banner->banner_btn_txt     = $req->banner_btn_txt;
-        $banner->banner_btn_link    = $req->banner_btn_link;
-        $banner->banner_btn_color   = '#1a1a1a';
-        $banner->banner_img         = $req->banner_img->hashName();
-        $banner->banner_status      = 0;
-        
-        $banner->save();
-        
-    }
 
     public function EditSmallBannerSubmit(Request $req)
     {
@@ -177,73 +148,6 @@ class AdminController extends Controller
 
         return view('admin.publish-banners', ['banners' => $banners]);
     }
-
-    public function PublishBannersSubmit(Request $req)
-    {
-
-        $req->validate([
-            'banner_1'  => 'numeric|nullable|different:banner_2,banner_3,banner_4,banner_5,banner_6,banner_7,banner_8,banner_9,banner_10',
-            'banner_2'  => 'numeric|nullable|different:banner_1,banner_3,banner_4,banner_5,banner_6,banner_7,banner_8,banner_9,banner_10',
-            'banner_3'  => 'numeric|nullable|different:banner_2,banner_1,banner_4,banner_5,banner_6,banner_7,banner_8,banner_9,banner_10',
-            'banner_4'  => 'numeric|nullable|different:banner_2,banner_3,banner_1,banner_5,banner_6,banner_7,banner_8,banner_9,banner_10',
-            'banner_5'  => 'numeric|nullable|different:banner_2,banner_3,banner_4,banner_1,banner_6,banner_7,banner_8,banner_9,banner_10',
-            'banner_6'  => 'numeric|nullable|different:banner_2,banner_3,banner_4,banner_5,banner_1,banner_7,banner_8,banner_9,banner_10',
-            'banner_7'  => 'numeric|nullable|different:banner_2,banner_3,banner_4,banner_5,banner_6,banner_1,banner_8,banner_9,banner_10',
-            'banner_8'  => 'numeric|nullable|different:banner_2,banner_3,banner_4,banner_5,banner_6,banner_7,banner_1,banner_9,banner_10',
-            'banner_9'  => 'numeric|nullable|different:banner_2,banner_3,banner_4,banner_5,banner_6,banner_7,banner_8,banner_1,banner_10',
-            'banner_10' => 'numeric|nullable|different:banner_2,banner_3,banner_4,banner_5,banner_6,banner_7,banner_8,banner_9,banner_1',
-        ]);
-
-        Banner::query()->update([
-            'banner_status'     => 0,
-            'position'   => null,
-        ]);
-
-        // Set All Banner Positions
-        Banner::where('id', $req->banner_1)->update([
-            'position'   => 1,
-            'banner_status'     => 1,
-        ]);
-        Banner::where('id', $req->banner_2)->update([
-            'position'   => 2,
-            'banner_status'     => 1,
-        ]);
-        Banner::where('id', $req->banner_3)->update([
-            'position'   => 3,
-            'banner_status'     => 1,
-        ]);
-        Banner::where('id', $req->banner_4)->update([
-            'position'   => 4,
-            'banner_status'     => 1,
-        ]);
-        Banner::where('id', $req->banner_5)->update([
-            'position'   => 5,
-            'banner_status'     => 1,
-        ]);
-        Banner::where('id', $req->banner_6)->update([
-            'position'   => 6,
-            'banner_status'     => 1,
-        ]);
-        Banner::where('id', $req->banner_7)->update([
-            'position'   => 7,
-            'banner_status'     => 1,
-        ]);
-        Banner::where('id', $req->banner_8)->update([
-            'position'   => 8,
-            'banner_status'     => 1,
-        ]);
-        Banner::where('id', $req->banner_9)->update([
-            'position'   => 9,
-            'banner_status'     => 1,
-        ]);
-        Banner::where('id', $req->banner_10)->update([
-            'position'   => 10,
-            'banner_status'     => 1,
-        ]);
-
-        return back()->with(['ChangesPublished' => 'Success']);
-    }
-
 
     public function AdminUserRemove($UserID)
     {
