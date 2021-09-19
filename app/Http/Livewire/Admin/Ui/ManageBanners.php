@@ -10,6 +10,7 @@ class ManageBanners extends Component
 {
     use WithFileUploads;
     
+    public $banner;
     public $bannerType="imageOnly";
     public $bannerId;
     public $bannerName;
@@ -23,11 +24,10 @@ class ManageBanners extends Component
 
     protected function rules()
     {
-
         $rules = [
             "bannerType"    => 'required|in:imageOnly,imageText',
             "bannerName"    => 'required|max:255|unique:banners,banner_name',
-            "bannerImage"   => 'required_if:editBannerImage,true|mimes:jpeg,jpg,png',
+            "bannerImage"   => 'required|mimes:jpeg,jpg,png',
             "buttonLink"    => 'required',
             "header"        => 'required_if:bannerType,imageText|max:50',
             "header2"       => 'required_if:bannerType,imageText|max:50',
@@ -38,12 +38,15 @@ class ManageBanners extends Component
         return $rules;
     }
 
+    public function editBannerInit($bannerId)
+    {
+        $this->banner = Banner::where('id', $bannerId)->first();
+    }
+
     public function updated($field)
     {
         $this->validateOnly($field);
     }
-
-    
 
     public function create()
     {

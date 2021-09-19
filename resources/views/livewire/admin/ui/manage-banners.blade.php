@@ -128,7 +128,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success" wire:click="create">Create Banner  </button>
+                        <button type="button" class="btn btn-success" wire:click="create">Create Banner  <i class="fad fa-plus-octagon"></i></button>
                     </div>
                 </div>
             </div>
@@ -176,6 +176,37 @@
 
 
 
+    <!-- Modal -->
+    <div class="modal" wire:ignore.self id="editBannerModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Banner</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+
+                <div class="modal-body" wire:loading wire:target="editBannerInit">
+                    <div class="w-100 text-center" >
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div wire:loading.remove wire:target="editBannerInit">
+                    @if (isset($banner))
+                        @livewire('admin.ui.edit-banner', ['bannerId' => $banner->id], key('edit-banner-modal-'.$banner->id))
+                    @endif
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+
+
 
 
 
@@ -202,7 +233,7 @@
            
         @foreach ($banners as $banner)
         
-        <div class="">
+        
             <div wire:sortable.item="{{ $banner->id }}" wire:key="carousel-home-banner-{{ $banner->id }}" class="row mb-3 HomeCarouselSortable">
             
                 <div wire:sortable.handle class="col-1 d-flex justify-content-center align-items-center cursor-pointer">
@@ -227,7 +258,7 @@
                             
                             <div class="d-flex mt-2" >
                                 <div style="width: 50%">
-                                    <span data-toggle="modal" data-target="#editBannerModal" class="btn btn-dark btn-sm btn-block">Edit &nbsp;<i class="fad fa-edit"></i></span>
+                                    <span data-toggle="modal" data-target="#editBannerModal" wire:click="editBannerInit('{{ $banner->id }}')" class="btn btn-dark btn-sm btn-block">Edit &nbsp;<i class="fad fa-edit"></i></span>
                                 </div>
                                 <div style="width: 50%">
                                     <button data-toggle="modal" data-target="#bannerDeleteModal" wire:click="deleteBannerById('{{ $banner->id }}')" class="btn btn-outline-danger btn-sm btn-block">Delete &nbsp;<i class="fad fa-trash"></i></button>
@@ -246,7 +277,7 @@
                     </div> 
                 </div>
             </div>
-        </div>
+        
       
         @endforeach
     </div>
