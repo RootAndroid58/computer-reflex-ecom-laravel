@@ -1,7 +1,3 @@
-$(window).on('popstate', function() {
-  location.reload(true);
-});
-
 function clickEl(el) {
   $(el).click();
 }

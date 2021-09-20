@@ -7,12 +7,6 @@ use Livewire\Component;
 class HomeSmallBanner extends Component
 {
     public $SmallBanner;
-    public $isReady;
-
-    public function DocReady()
-    {
-        $this->isReady = true; 
-    }
 
     public function render()
     {

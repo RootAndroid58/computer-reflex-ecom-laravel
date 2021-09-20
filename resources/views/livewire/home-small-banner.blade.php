@@ -1,5 +1,4 @@
-<div class="custom-col-style-2 electronic-banner-col-3 mb-30" wire:init='DocReady'>
-    @if ($isReady)
+<div class="custom-col-style-2 electronic-banner-col-3 mb-30">
     <div class="div-shadow">
         <a href="{{ $SmallBanner->link }}">
             <div class="electronic-banner-wrapper">
@@ -13,6 +12,5 @@
         </div>
         @endcanany
     </div> 
-    @endif
     
 </div>
