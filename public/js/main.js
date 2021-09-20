@@ -2,31 +2,6 @@ function clickEl(el) {
   $(el).click();
 }
 
-$(document).on('ajaxStop', function() {
-  initLazyImg();
-});
-
-function initLazyImg() {
-  $("img").lazyload();
-  $(".lazyimgContainer").each(function() {
-    var tthis = $(this);
-    $(this).find('img').lazyload({
-        container: tthis
-    });
-  });
-}
-
-$(".lazyimgContainer").each(function() {
-  var tthis = $(this);
-  $(this).find('img').lazyload({
-      container: tthis
-  });
-});
-
-$("img").lazyload();
-
-
-
 if ($('#dp_uploader').length) {
   window.addEventListener('DOMContentLoaded', function () {
     var avatar = document.getElementById('avatar');

@@ -32,11 +32,11 @@
 
 <div class="container">
     <div class="row">
-
+   
     <div class="col-md-3">
             <div id="ProfileDetailsDiv">
                 <div class="account-details-container row" style="padding: 12px; margin-bottom: 0;">
-                    <img class="account-dp" id="avatar" src="{{ asset('img/grey.gif') }}" data-src="{{ asset('storage/images/dp/'.Auth()->user()->dp)}}">
+                    <img class="account-dp lazyImg" id="avatar" src="{{ asset('img/grey.gif') }}" data-src="{{ asset('storage/images/dp/'.Auth()->user()->dp)}}">
                     <div class="account-greet">
                         <div class="account-hello">Hello,</div>
                         <div class="account-name">{{Auth()->user()->name}}</div>
@@ -46,7 +46,7 @@
                 <div class="row">
                     <div class="pb-4 text-center w-100">
                         <label class="label w-100">
-                            <span class="btn btn-dark btn-sm btn-block"  >Change DP</span>
+                            <span class="btn btn-dark btn-sm btn-block" >Change DP</span>
                             <input type="file" class="sr-only" id="dp_uploader" name="image" accept="image/*">
                         </label>
                     </div>

@@ -12,6 +12,7 @@
 <script src="{{ asset('ezone/js/plugins.js')}}?{{ $assetVer }}"></script>
 <script src="{{ asset('SB-Admin/js/theme.js')}}?{{ $assetVer }}"></script>
 <script src="{{ asset('ezone/js/main.js')}}?{{ $assetVer }}"></script>
+<script src="{{ asset('js/lazyLoadInit.js')}}?{{ $assetVer }}"></script>
 <script src="{{ asset('js/main.js')}}?{{ $assetVer }}"></script>
 
 @stack('scripts')
