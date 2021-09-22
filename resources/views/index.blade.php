@@ -10,47 +10,7 @@
 @section('title', 'Home')
 
 @section('modals')
-<!-- Modal -->
-<div class="modal fade" id="SmallBannerEditModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Edit Small Banner</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-            </div>
-            <form class="w-100" action="{{ route('admin-edit-small-banner-submit') }}" method="post"> @csrf
-                <div class="modal-body">
-                    <div class="w-100">
-                        <input required type="hidden" name="id" id="small_banner_id">
-                        
 
-                        <div class="form-group">
-                        <label for="small_banner_url">Banner Link</label>
-                        <input required type="url" class="form-control" name="link" id="small_banner_link" aria-describedby="helpId" placeholder="">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="small_banner_image">Image URL</label>
-                            <input required type="url" class="form-control" name="image" id="small_banner_img" aria-describedby="helpId" placeholder="">
-                                <small class="text-muted">Get URL from <a href="https://imgbb.com" target="_blank">(https://imgbb.com)</a></small>
-                            </div>
-
-                        <div class="mt-3">
-                            <p>Suggested Image Size: <span style="font-weight: 600" id="small_banner_suggested_size"></span></p>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>    
 @endsection
 
 @section('content')
@@ -79,7 +39,7 @@
         <div class="custom-row-2">
             @foreach ($SmallBanners as $key => $SmallBanner)
                 @if ($key < 3)
-                    @livewire('home-small-banner', ['SmallBanner' => $SmallBanner], key('SmallBanner-'.$SmallBanner->id))
+                    @livewire('home-small-banner', ['SmallBanner' => $SmallBanner, 'type' => 'small'], key('SmallBanner-'.$SmallBanner->id))
                 @endif
             @endforeach
         </div>
@@ -92,7 +52,7 @@
     @endforeach
 
     @if (isset($SmallBanners[3]))
-        @livewire('home-wide-banner', ['SmallBanner' => $SmallBanners[3]], key('SmallBanner-'.$SmallBanners[3]->id))
+        @livewire('home-small-banner', ['SmallBanner' => $SmallBanners[3], 'type' => 'wide'], key('SmallBanner-'.$SmallBanners[3]->id))
     @endif
     
     
@@ -152,7 +112,7 @@
     </div>
 
     @if (isset($SmallBanners[4]))
-        @livewire('home-wide-banner', ['SmallBanner' => $SmallBanners[4]], key('SmallBanner-'.$SmallBanners[4]->id))
+        @livewire('home-small-banner', ['SmallBanner' => $SmallBanners[4], 'type' => 'wide'], key('SmallBanner-'.$SmallBanners[4]->id))
     @endif
     
     

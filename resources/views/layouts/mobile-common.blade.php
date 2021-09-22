@@ -1,3 +1,7 @@
+@php
+    $assetVer = App\Models\SystemSetting::where('key', 'AssetCache')->first()->value ?? 0;
+    $AllCategories = App\Models\Category::get() ?? [];
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -441,7 +441,7 @@
                                 <div class="footer-newsletter">
                                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is dummy.</p>
                                     <div id="mc_embed_signup" class="subscribe-form pr-40">
-                                        <form action="http://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                                        <form action="" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
                                             <div id="mc_embed_signup_scroll" class="mc-form">
                                                 <input type="email" value="" name="EMAIL" class="email" placeholder="Enter Your E-mail" required>
                                                 <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->

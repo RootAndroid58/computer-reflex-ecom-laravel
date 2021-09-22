@@ -1,9 +1,9 @@
 // Main Function
 function StartLazyLoad() {
-    console.log('😃LazyLoad Images Initiated ❤️');
-    $("img.lazyImg").lazyload({ 
+    $("img").lazyload({ 
         effect: "fadeIn" 
-    }).removeClass("lazyImg");
+    });
+    console.log('✔️ LazyLoad Images Initiated 🟢');
 }
 // Initiate on Document Ready
 StartLazyLoad();

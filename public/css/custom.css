@@ -1089,7 +1089,7 @@ Buy now button Custom
 }
 
 .div-shadow{ 
-    box-shadow: 0 0 10px #888888;
+    box-shadow: 0 0 10px #cecece;
 }
 
 .prod-back-div{
@@ -1097,6 +1097,19 @@ Buy now button Custom
     background-position: center;
     background-size: contain;
 }
+
+
+.cover-back {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    transition: 300ms;
+}
+.hover-back-zoom:hover {
+    transition: 300ms;
+    transform: scale(1.1);
+}
+
 
 .green-star {
     color: #28a745!important;

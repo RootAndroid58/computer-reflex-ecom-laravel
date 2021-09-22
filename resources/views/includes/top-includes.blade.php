@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="{{ asset('ezone/css/pe-icon-7-stroke.css')}}?{{ $assetVer }}">
 <link rel="stylesheet" href="{{ asset('bootstrap-toaster/css/bootstrap-toaster.css')}}?{{ $assetVer }}">
 <link rel="stylesheet" href="{{ asset('ezone/css/owl.carousel.min.css')}}?{{ $assetVer }}">
-<link rel="stylesheet" href="{{ asset('css/cropper.css')}}?{{ $assetVer }}">
+
 <link rel="stylesheet" href="{{ asset('css/jquery.tagit.css')}}?{{ $assetVer }}">
 <link rel="stylesheet" href="{{ asset('css/tagit.ui-zendesk.css')}}?{{ $assetVer }}">
 <link rel="stylesheet" href="{{ asset('css/star-rating.css')}}?{{ $assetVer }}">
@@ -37,6 +37,5 @@
 
 @livewireStyles
 @livewireScripts
-
 <script src="{{ asset('js/app.js')}}?{{ $assetVer }}"></script>
 

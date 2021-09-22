@@ -13,5 +13,10 @@ require('summernote/dist/summernote-bs4');
 require('./jquery.bootstrap-growl.min');
 require('livewire-sortable');
 
+// CropperJS + Jquery Cropper
+require('cropperjs');
+require('cropperjs/dist/cropper.css');
+require('jquery-cropper/dist/jquery-cropper')
+
 require('datatables.net');
 require('./datatables/dataTables.bootstrap4.min.js');
