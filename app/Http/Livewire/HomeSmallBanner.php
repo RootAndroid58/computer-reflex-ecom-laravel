@@ -46,8 +46,13 @@ class HomeSmallBanner extends Component
 
     public function updatedImage()
     {
+        $aspectRatio = null;
+        if ($this->type == 'small') {
+            $aspectRatio = 8/5;
+        }
         $this->emit('cropperInit-'.$this->SmallBanner->id, [
             'imageUrl' => $this->image->temporaryUrl(),
+            'aspectRatio' => $aspectRatio,
         ]);
     }
 

@@ -2,7 +2,7 @@
 
     {{-- Banner Edit Modal (Admin Only) --}}
     @canany(['Manage UI', 'Master Admin'])
-    <div wire:ignore.self class="modal SmallBannerEditModal-{{ $SmallBanner->id }}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div wire:ignore.self class="modal fade SmallBannerEditModal-{{ $SmallBanner->id }}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -125,10 +125,11 @@
     <script>
         Livewire.on('cropperInit-{{ $SmallBanner->id }}', e => {
             console.log('CropperJS Initiated. 🟢')
+            console.log(e['aspectRatio']);
             var image = $('#cropperImg-{{ $SmallBanner->id }}');
 
             image.cropper('destroy').attr('src', e['imageUrl']).cropper({
-                aspectRatio: 8/5,
+                aspectRatio: e['aspectRatio'],
                 autoCropArea: 1,
                 viewMode: 1,
                 crop (e) {
