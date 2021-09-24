@@ -19,7 +19,6 @@ class HomeSmallBanner extends Component
     public $url;
     public $editImage=false;
     public $editUrl=false;
-
     public $x;
     public $y;
     public $width;
@@ -29,7 +28,6 @@ class HomeSmallBanner extends Component
     {
         $this->url = $this->SmallBanner->link;
     }
-
 
     public function rules()
     {
@@ -53,6 +51,7 @@ class HomeSmallBanner extends Component
         $this->emit('cropperInit-'.$this->SmallBanner->id, [
             'imageUrl' => $this->image->temporaryUrl(),
             'aspectRatio' => $aspectRatio,
+            'id' => $this->SmallBanner->id,
         ]);
     }
 
@@ -75,19 +74,16 @@ class HomeSmallBanner extends Component
             $this->height = intval($this->height);
             // Crop
             Image::make(public_path('storage/images/banner/'.$this->image->hashName()))->crop($this->width, $this->height, $this->x, $this->y)->save();
-
             Storage::delete('/public/images/banner/'.$this->SmallBanner->image);
         }
         
         $this->SmallBanner->update($data);
-
         $this->emit('modal', [
             'el' => '.SmallBannerEditModal-'.$this->SmallBanner->id,
             'action' => 'hide',
         ]);
 
         $this->reset(['image', 'editImage', 'editUrl']);
-
     }
 
     public function render()

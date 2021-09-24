@@ -2,8 +2,6 @@ function clickEl(el) {
   $(el).click();
 }
 
-
-
 Toast.setTheme(TOAST_THEME.DARK);
 Toast.setPlacement(TOAST_PLACEMENT.BOTTOM_RIGHT);
 Toast.setMaxCount(10);
