@@ -1,7 +1,20 @@
 // Main Function
 function StartLazyLoad() {
-    $("img").lazyload({ 
-        effect: "fadeIn" 
+    $('img').Lazy({
+        effect: 'fadeIn',
+        visibleOnly: true,
+        onError: function(e) {
+            console.log('error loading ' + e.data('src'));
+        },
+        beforeLoad: function(e) {
+            console.log('About to load ' + e.data('src'));
+        },
+        afterLoad: function(e) {
+            console.log('Loaded ' + e.data('src'));
+        },
+        onFinishedAll: function() {
+            console.log('All Loaded ');
+        }
     });
     console.log('✔️ LazyLoad Images Initiated 🟢');
 }

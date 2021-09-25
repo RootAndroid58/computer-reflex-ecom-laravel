@@ -9,7 +9,6 @@
                 </a>
                 <div class="category-menu-dropdown shop-menu">
                     
-                    
                     <div class="w-100">
                         <div class="category-dropdown-style category-common4 mb-2 account-menu-break-vert">
                             <h4 class="categories-subtitle"> shop layout</h4>
@@ -136,7 +135,7 @@
                    
                     <div class="mega-banner-img">
                         <a href="single-product.html">
-                            <img loading=lazy src="https://m9m3k2m8.stackpathcdn.com/image/cachewebp/catalog/2021/may/25-05-21/deepcool-gamerstorm-castle-360ex-1920x400px-1920x400.webp" alt="">
+                            <img src="{{ asset('img/grey.gif') }}" data-src="https://m9m3k2m8.stackpathcdn.com/image/cachewebp/catalog/2021/may/25-05-21/deepcool-gamerstorm-castle-360ex-1920x400px-1920x400.webp" alt="">
                         </a>
                     </div>
                 </div>

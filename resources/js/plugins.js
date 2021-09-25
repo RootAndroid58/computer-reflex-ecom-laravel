@@ -4,7 +4,10 @@ require('jquery-ui/ui/widgets/button');
 require('jquery-ui/ui/widgets/checkboxradio');
 require('jquery-ui/ui/widgets/datepicker');
 require('jquery.counterup');
-require('lazyload');
+
+// Jquery.Lazy (https://www.npmjs.com/package/jquery-lazy)
+require('jquery-lazy');
+
 require('imagesloaded');
 require('isotope-layout/dist/isotope.pkgd');
 require('jquery-waypoints/waypoints');
