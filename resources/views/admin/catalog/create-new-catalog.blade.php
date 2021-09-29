@@ -1,5 +1,6 @@
 @extends('layouts.panel')
 
+
 @section('nav-manage-ui', 'active')
 @section('title','Home Carousel Sliders')
 
