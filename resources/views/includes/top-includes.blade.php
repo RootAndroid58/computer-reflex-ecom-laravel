@@ -1,3 +1,4 @@
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-STJZ4CTNF7"></script>
 <script>
@@ -37,5 +38,3 @@
 
 @livewireStyles
 @livewireScripts
-<script src="{{ asset('js/app.js')}}?{{ $assetVer }}"></script>
-
