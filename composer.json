@@ -24,7 +24,7 @@
         "laravel/ui": "^3.2",
         "livewire/livewire": "^2.4",
         "nicolaslopezj/searchable": "^1.13",
-        "pusher/pusher-php-server": "~3.0",
+        "pusher/pusher-php-server": "4.1.3",
         "seshac/laravel-shiprocket-api": "^1.0",
         "softon/indipay": "^1.2",
         "spatie/laravel-permission": "^3.18",

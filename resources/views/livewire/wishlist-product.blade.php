@@ -1,3 +1,5 @@
+<div>
+    
 <div class="row wishlist-basic-padding" id="WishItem{{ $product->id }}">
     <div class="col-md-3">
         <a href="{{ url('product/'.$product->id) }}" target="_blank">
@@ -22,9 +24,12 @@
             </span>
 
             <div>
-                <span wire:click="$emit('ToggleCart', {{$product->id}})" class="@if(isset($product->carted)) static-red @else hover-blue  @endif">
-                    <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                    @if(isset($product->carted)) Remove From Cart @else Add To Cart @endif
+                <span wire:click="$emit('ToggleCart', {{ $product->id }})" class="cursor-pointer cart-btn-d cart-btn-d{{ $product->id }} @if(isset($product->carted)) cart-btn-active @endif">
+                    @if(isset($product->carted)) 
+                    <i class="fas fa-minus-circle"></i> Remove From Cart
+                    @else 
+                    <i class="fad fa-cart-plus"></i> Add To Cart 
+                    @endif
                 </span>
             </div>
 
@@ -47,3 +52,5 @@
 </div>
 
 <div class="account-menu-break" id="WishBreak{{$product->id}}"></div> {{-- Underline --}}
+
+</div>

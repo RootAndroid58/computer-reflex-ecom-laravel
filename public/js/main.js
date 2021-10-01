@@ -7,21 +7,22 @@ Toast.setPlacement(TOAST_PLACEMENT.BOTTOM_RIGHT);
 Toast.setMaxCount(10);
 
 
-// Cart Toggle Alert And Change Btn
-
-Livewire.on('cartAdded', data => {
-  $('.cart-btn-a'+data['product_id']).addClass('cart-btn-active');
-  $('.cart-btn-b'+data['product_id']).addClass('cart-btn-active');
-  $('.cart-btn-c'+data['product_id']).addClass('cart-btn-active').html(`REMOVE FROM CART`);
-  Toast.create(`Added To Cart`, data['product_name'], TOAST_STATUS.SUCCESS, 5000);
-});
-
-Livewire.on('cartRemoved', data => {
-  $('.cart-btn-a'+data['product_id']).removeClass('cart-btn-active');
-  $('.cart-btn-b'+data['product_id']).removeClass('cart-btn-active');
-  $('.cart-btn-c'+data['product_id']).removeClass('cart-btn-active').html(`ADD FROM CART`);
-  Toast.create(`Removed From Cart`, data['product_name'], TOAST_STATUS.DANGER, 5000);
-});
+function cartEvent(data) {
+  if (data.action == 'cartAdded') {
+      $('.cart-btn-a'+data.product_id).addClass('cart-btn-active');
+      $('.cart-btn-b'+data.product_id).addClass('cart-btn-active');
+      $('.cart-btn-c'+data.product_id).addClass('cart-btn-active').html(`REMOVE FROM CART`);
+      $('.cart-btn-d'+data.product_id).addClass('cart-btn-active').html(`<i class="fas fa-minus-circle"></i> Remove From Cart`);
+      Toast.create(`Added To Cart`, data.product_name, TOAST_STATUS.SUCCESS, 5000);
+  }
+  else if (data.action == 'cartRemoved') {
+      $('.cart-btn-a'+data.product_id).removeClass('cart-btn-active');
+      $('.cart-btn-b'+data.product_id).removeClass('cart-btn-active');
+      $('.cart-btn-c'+data.product_id).removeClass('cart-btn-active').html(`ADD FROM CART`);
+      $('.cart-btn-d'+data.product_id).removeClass('cart-btn-active').html(`<i class="fad fa-cart-plus"></i> Add To Cart`);
+      Toast.create(`Removed From Cart`, data.product_name, TOAST_STATUS.DANGER, 5000);
+  }
+}
 
 
 // Wishlist Toggle Alert And Change Btn

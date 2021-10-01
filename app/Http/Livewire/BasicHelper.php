@@ -3,6 +3,8 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CompareController;
 use App\Http\Controllers\WishlistController;
@@ -27,19 +29,29 @@ class BasicHelper extends Component
         $ToggleCart = new CartController;
         $ToggleCart = $ToggleCart->ToggleCart(Request());
 
+        if (Auth::check()) {
+            $auth = true;
+        }
+
         if ($ToggleCart['status'] == 200) {
             $this->carted = 1;
-            $this->emit('cartAdded', [
+            event(new \App\Events\CartEvent([
+                'auth'          => $auth ?? false,
+                'user_id'       => Auth()->user()->id ?? Session::getId(),
+                'action'        => 'cartAdded',
                 'product_id'    => $product_id,
                 'product_name'  => WordLimit($ToggleCart['product_name'], 18).'...',
-            ]);
+            ]));
         }
         elseif ($ToggleCart['status'] == 500) {
             $this->carted = 0;
-            $this->emit('cartRemoved', [
+            event(new \App\Events\CartEvent([
+                'auth'          => $auth ?? false,
+                'user_id'       => Auth()->user()->id ?? Session::getId(),
+                'action'        => 'cartRemoved',
                 'product_id'    => $product_id,
                 'product_name'  => WordLimit($ToggleCart['product_name'], 18).'...',
-            ]);
+            ]));
         }
     }
 
