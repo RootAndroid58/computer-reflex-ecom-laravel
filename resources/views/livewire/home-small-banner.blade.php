@@ -91,7 +91,7 @@
     <div class="banner-area wrapper-padding pt-30 pb-30" >
         <div class="container-fluid">
             <a href="{{ $SmallBanner->link }}">
-                <img class="div-shadow" data-src="{{ asset('storage/images/banner/'.$SmallBanner->image) }}" alt="Oops... Banner Image Not Loaded" width="100%">
+                <img class="div-shadow" loading="lazy" src="{{ asset('storage/images/banner/'.$SmallBanner->image) }}" width="100%">  
             </a>
             @canany(['Manage UI', 'Master Admin'])
             <div>
