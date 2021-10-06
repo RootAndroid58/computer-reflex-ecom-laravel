@@ -15,7 +15,6 @@ class HomeSmallBanner extends Component
     public $SmallBanner;
     public $type;
     public $image;
-    public $tempImage;
     public $url;
     public $editImage=false;
     public $editUrl=false;

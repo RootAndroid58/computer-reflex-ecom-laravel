@@ -19,10 +19,7 @@ class IndexController extends Controller
 
     public function Index()
     {
-        $SmallBanners = SmallBanner::get();
-        $banners = Banner::where('banner_status', true)->orderBy('position', 'ASC')->get();
-        $categories = Category::get();
-        $sections = HomeSection::orderBy('position', 'asc')->get();    
+        // $sections = HomeSection::orderBy('position', 'asc')->get();    
      
         $BestSellingProducts = Product::with('images')->with('stars')->where('product_status', 1)->whereIn('id', [
                 1,2,3,4,5,6,7,8,9,10
@@ -42,10 +39,7 @@ class IndexController extends Controller
             ])->get();
 
         return view('index', [
-            'banners'               => $banners,
-            'SmallBanners'          => $SmallBanners,
-            'sections'              => $sections,
-            'categories'            => $categories,
+            'banners'               => Banner::where('banner_status', true)->orderBy('position', 'ASC')->get(),
             'BestSellingProducts'   => $BestSellingProducts,
             'topProducts1'          => $topProducts1,
             'topProducts2'          => $topProducts2,

@@ -45,29 +45,19 @@
                             <div class="line-limit-3 w-100 text-center">
                                 {{ $product->product_name }}
                             </div>
-
-                            
                             <a href="{{ route('edit-product', $product->id) }}" target="_blank" class="btn btn-block btn-outline-dark btn-sm">Edit</a>
                             <button type="button" class="btn btn-block btn-danger btn-sm" wire:click="removeProduct('{{ $product->id }}')">Remove</button>
-                           
-
                         </div>
                     @endforeach
                 </div>  
             @endif
         </div>
-        
-
-        
-        
 
         <div class="w-100 text-right">
             <button type="submit" class="btn btn-success">Create Slider</button>
         </div>
         
     </form>
-
-
 
 
     <!--Products Table Start-->

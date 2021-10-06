@@ -1,5 +1,22 @@
 <?php
 
+    function ordinal($number) {
+        $ends = array('th','st','nd','rd','th','th','th','th','th','th');
+        if ((($number % 100) >= 11) && (($number%100) <= 13))
+            return $number. 'th';
+        else
+            return $number. $ends[$number % 10];
+    }
+
+    function bannerAspectRatio($type)
+    {
+        $output = null;
+        if ($type == 'three_col_banner') {
+            $output = 8/5;
+        }
+        return $output;
+    }
+
     function moneyFormatIndia($num) {
         $explrestunits = "" ;
         if(strlen($num)>3) {

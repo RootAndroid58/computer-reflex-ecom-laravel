@@ -44,3 +44,7 @@
 
 @livewireStyles
 @livewireScripts
+
+<script src="{{ asset('js/app.js')}}?{{ $assetVer }}"></script>
+
+@stack('styles') 

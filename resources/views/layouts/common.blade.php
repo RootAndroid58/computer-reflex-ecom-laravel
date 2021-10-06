@@ -123,7 +123,7 @@
                             <div class="select-wrapper">
                                 <select class="select" id="CategorySelect">
                                     <option value="all">All Categories</option>
-                                    @foreach ($categories as $category)
+                                    @foreach ($AllCategories as $category)
                                     <option value="{{$category->category}}">{{$category->category}}</option>
                                     @endforeach
                                 </select>

@@ -106,27 +106,30 @@ Livewire.on('toastAlert', data => {
   })
   
 
-
-  $('.bbb_viewed_slider').owlCarousel(
-    {
-        loop:false,
-        rewind:true,
-        margin:30,
-        autoplay:true,
-        autoplayHoverPause: true,
-        autoplayTimeout:8000,
-        nav:false,
-        lazyLoad:false,
-        dots:false,
-        responsive:
+  
+  initProductCarousel()
+  function initProductCarousel() {
+    $('.bbb_viewed_slider').owlCarousel({
+      loop:false,
+      rewind:true,
+      margin:30,
+      autoplay:true,
+      autoplayHoverPause: true,
+      autoplayTimeout:8000,
+      nav:false,
+      lazyLoad:false,
+      dots:false,
+      responsive:
         {
-            0:{items:2},
-            575:{items:2},
-            768:{items:3},
-            991:{items:4},
-            1199:{items:6}
+          0:{items:2},
+          575:{items:2},
+          768:{items:3},
+          991:{items:4},
+          1199:{items:6}
         }
     });
+  }
+
 
 
 function PrevCarousel(section_id) {
@@ -703,3 +706,82 @@ function copyToClipboard(text, el) {
   });
 
 // Copy To CLipboard End
+
+
+
+
+
+
+
+
+
+Livewire.on('cropperInit', e => {
+  console.log('CropperJS Initiated. 🟢',);
+  var wireId = e['wireId'];
+  var image = $(`#bannerImgCrop-${e['id']}`);
+  console.log(e['aspectRatio']);
+  image.cropper('destroy').attr('src', e['imageUrl']).cropper({
+      aspectRatio: e['aspectRatio'],
+      autoCropArea: 1,
+      viewMode: 1,
+      crop (e) {
+          var component = Livewire.find(wireId);
+          component.set('x', e.detail.x, true);
+          component.set('y', e.detail.y, true);
+          component.set('width', e.detail.width, true);
+          component.set('height', e.detail.height, true);
+      }
+  });
+});
+
+
+
+
+
+AdminProductTableInit()
+function AdminProductTableInit() {
+  var table = $('.AdminProductsTable');
+  $('.AdminProductsTable').DataTable({
+    processing: true,
+    serverSide: true,
+    ajax:{
+        url: table.data('url')
+    },
+    columns: [
+        {
+            data: 'id',
+            name: 'id',
+        },
+        {
+            data: 'product_name',
+            name: 'product_name',
+        },
+        {
+            data: 'product_brand',
+            name: 'product_brand',
+        },
+        {
+            data: 'product_mrp_custom',
+            name: 'product_mrp_custom',
+        },
+        {
+            data: 'product_price_custom',
+            name: 'product_price_custom',
+        },
+        {
+            data: 'stock',
+            name: 'stock',
+        },
+        {
+            data: 'product_status',
+            name: 'product_status',
+        },
+        {
+            data: 'action',
+            name: 'action',
+            orderable: false,
+        },
+    ]
+});
+  
+}

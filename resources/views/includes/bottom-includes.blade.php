@@ -1,7 +1,4 @@
 <!-- all js here -->
-<script src="{{ asset('js/app.js')}}?{{ $assetVer }}"></script>
-<script src="{{ asset('js/broadcast-listner.js')}}?{{ $assetVer }}"></script>
-
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
 <script src="{{ asset('js/zoomsl.min.js')}}?{{ $assetVer }}"></script>
 <script src="{{ asset('js/star-rating.js')}}?{{ $assetVer }}"></script>
@@ -17,5 +14,5 @@
 <script src="{{ asset('ezone/js/main.js')}}?{{ $assetVer }}"></script>
 <script src="{{ asset('js/lazyLoadInit.js')}}?{{ $assetVer }}"></script>
 <script src="{{ asset('js/main.js')}}?{{ $assetVer }}"></script>
-
+<script src="{{ asset('js/broadcast-listner.js')}}?{{ $assetVer }}"></script>
 @stack('scripts')

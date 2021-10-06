@@ -1103,11 +1103,22 @@ Buy now button Custom
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+}
+.hover-zoom {
     transition: 300ms;
 }
-.hover-back-zoom:hover {
+.hover-back-zoom {
     transition: 300ms;
-    transform: scale(1.1);
+}
+.hover-zoom:hover, .hover-back-zoom:hover {
+    transition: 300ms;
+    transform-origin: 50% 50%;
+    transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+}
+.hover-zoom-half:hover {
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
 }
 
 
@@ -1350,6 +1361,7 @@ Buy now button Custom
 
 
 
+
     .ticketHtmlBody p {
         margin: 0 !important;
     }
@@ -1387,4 +1399,20 @@ input[type="color"]:focus,
 }
 .form-control:focus {
     box-shadow: none;
+  }
+
+
+.home-component .manage-components {
+    height: 100px;    
+}
+
+
+.slow-spin {
+    -webkit-animation: fa-spin 6s infinite linear;
+    animation: fa-spin 6s infinite linear;
+}
+
+.fast-spin {
+    -webkit-animation: fa-spin 1.2s infinite linear;
+    animation: fa-spin 1.2s infinite linear;
   }
