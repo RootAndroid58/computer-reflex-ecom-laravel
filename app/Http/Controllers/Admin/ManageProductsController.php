@@ -155,6 +155,7 @@ class ManageProductsController extends Controller
     {
         $req->validate([
             'product_name'                  => 'required',
+            'product_brand'                 => 'required',
             'product_status'                => 'required|numeric|in:0,1',
             'product_stock'                 => 'required|numeric',
             'product_mrp'                   => 'required|numeric|gte:product_price',
@@ -185,6 +186,7 @@ class ManageProductsController extends Controller
         Product::where('id', $req->product_id)->update([
             'tags'                      => serialize($req->tags),
             'product_name'              => $req->product_name,
+            'product_brand'             => $req->product_brand,
             'product_stock'             => $req->product_stock, 
             'product_mrp'               => $req->product_mrp, 
             'product_price'             => $req->product_price, 

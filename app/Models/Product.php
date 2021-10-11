@@ -2,56 +2,83 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use App\Models\ProductImage;
-use App\Models\Category;
-use App\Models\Specification;
-use App\Models\Wishlist;
-use App\Models\Compare;
-use App\Models\SessionCompare;
 use App\Models\Cart;
+use App\Models\Compare;
+use App\Models\Category;
+use App\Models\Wishlist;
 use App\Models\SessionCart;
-use Session;
-
-use Nicolaslopezj\Searchable\SearchableTrait;
+use App\Models\ProductImage;
+use App\Models\Specification;
+use Laravel\Scout\Searchable;
+use App\Models\SessionCompare;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use PhpParser\JsonDecoder;
 
 class Product extends Model
 {
-    use HasFactory, SearchableTrait;
+    
+    use HasFactory, Searchable;
 
-    protected $searchable = [
     /**
-     * Searchable rules.
+     * The accessors to append to the model's array form.
      *
      * @var array
      */
+    protected $appends = ['category', 'specifications', 'images', 'avgStars', 'userStars'];
 
+    protected $guarded = [];
 
-        /**
-         * Columns and their priority in search results.
-         * Columns with higher values are more important.
-         * Columns with equal values have equal importance.
-         *
-         * @var array
-         */
-        'groupBy'=> ['products.id'],
+    public function getCategoryAttribute()
+    {
+        return $this->attributes['category'] = Category::where('id', $this->product_category_id)->first()->category;
+    }
 
-        'columns' => [
-            'products.product_name' => 10,
-            'products.tags' => 9,
-            'products.product_brand' => 6,
-            'products.product_description' => 3,
-            'products.product_long_description' => 2,
-            'products.product_price' => 7,
-            'categories.category' => 8,
-        ],
-        'joins' => [
-            'categories'  => ['categories.id','products.product_category_id'],
-        ],
-    ];
+    public function getTagsAttribute($val)
+    {
+        if (is_array($val)) {
+            $data = $val;
+        } else {
+            $data = unserialize($val);
+        }
+        
+        return $this->attributes['tags'] = json_decode(json_encode($data));
+    }
 
+    public function getSpecificationsAttribute()
+    {
+        return $this->attributes['specifications'] = Specification::where('product_id', $this->id)->get();
+    }
 
+    // Avg stars of the product (All Users)
+    public function getAvgStarsAttribute()
+    {
+        $reviews = ProductReview::where('product_id', $this->id)->get();
+        $starsArr = $reviews->pluck('stars')->toArray();
+        $avgStars = 0;
+        if (count($starsArr)) {
+            $avgStars = floorToFraction(array_sum($starsArr) / count($starsArr), 2);
+        }
+        return $this->attributes['avgStars'] = $avgStars;
+    }
+
+    // Stars given by the logged in user.
+    public function getUserStarsAttribute()
+    {
+        $review = ProductReview::where('product_id', $this->id)->where('user_id', Auth()->user()->id)->first();
+        $userStars = null;
+        if (isset($review->stars)) {
+            $userStars = $review->stars;
+        }
+        return $this->attributes['userStars'] = $userStars;
+    }
+
+    public function getImagesAttribute()
+    {
+        return $this->attributes['images'] = ProductImage::where('product_id', $this->id)->get();
+    }
+    
     public function images()
     {
         return $this->hasMany(ProductImage::class, 'product_id', 'id')->orderBy('id', 'desc');
@@ -63,10 +90,6 @@ class Product extends Model
     public function stars()
     {
         return $this->hasOne(ProductReview::class, 'product_id', 'id')->orderBy('id', 'desc');
-    }
-    public function getTagsAttribute($val)
-    {
-        return unserialize($val);
     }
     public function category()
     {

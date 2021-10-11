@@ -1074,7 +1074,7 @@ Buy now button Custom
     background-position: center;
     background-size: contain;
     width: 100%; 
-    height: 175px;
+    padding-bottom: 75%;
 }
 
 
@@ -1399,7 +1399,7 @@ input[type="color"]:focus,
 }
 .form-control:focus {
     box-shadow: none;
-  }
+}
 
 
 .home-component .manage-components {
@@ -1416,3 +1416,89 @@ input[type="color"]:focus,
     -webkit-animation: fa-spin 1.2s infinite linear;
     animation: fa-spin 1.2s infinite linear;
   }
+
+
+
+  @media (min-width: 768px) {
+    .custom-col-md-3 {
+        flex: 0 0 25%;
+        max-width: 25%;
+      }
+      .custom-col-md-9 {
+        flex: 0 0 75%;
+        max-width: 75%;
+      }
+  }
+  
+  @media (min-width: 1480px) {
+    .custom-col-lg-2 {
+        flex: 0 0 16.6666666667%;
+        max-width: 16.6666666667%;
+      }
+    .custom-col-lg-10 {
+        flex: 0 0 83.3333333333%;
+        max-width: 83.3333333333%;
+      }
+  }
+
+  
+
+  .product-content {
+      padding-top: 20px;
+  }
+
+  .side-product-border {
+    position: relative;
+  }
+  
+  .side-product-border:after {
+    content: '';
+  }
+
+  
+    .transition-low {
+        transition: opacity 500ms;
+    }
+    .hoverChangeImgContainer .childImage:nth-child(1) {
+        opacity: 1;
+        padding-bottom: 100%;
+    }
+    .hoverChangeImgContainer .childImage:nth-child(2) {
+   
+        opacity: 0;
+        padding-bottom: 0;
+    }
+
+    .hoverChangeImgContainer:hover .childImage:nth-child(1) {
+    
+        opacity: 0;
+        padding-bottom: 0;
+    }
+    .hoverChangeImgContainer:hover .childImage:nth-child(2) {
+  
+        opacity: 1;
+        padding-bottom: 100%;
+    }
+
+
+    /* .searchField ul {
+        height: 0;
+    }
+    .searchField:hover ul {
+        height: auto;
+    } */
+
+ 
+
+    .h-0 {
+        height: 0px !important;
+    }
+
+    .products-dropdown-ul {
+        transition: all 500ms;
+    }
+   
+
+    .ratio-4-4-padding {
+        padding-bottom: 100% !important;
+    }

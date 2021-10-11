@@ -107,9 +107,15 @@ Livewire.on('toastAlert', data => {
   
 
   
-  initProductCarousel()
-  function initProductCarousel() {
-    $('.bbb_viewed_slider').owlCarousel({
+
+
+  Livewire.on('initProductCarousel', e => {
+    initProductCarousel(e['component_id']);
+  });
+
+  function initProductCarousel(component_id) {
+    console.log(`✔️ Products Carousel #${component_id} Initiated 🟢`);
+    $('.bbb_viewed_slider_'+component_id).trigger('destroy.owl.carousel').owlCarousel({
       loop:false,
       rewind:true,
       margin:30,

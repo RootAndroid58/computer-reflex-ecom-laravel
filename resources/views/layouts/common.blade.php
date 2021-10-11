@@ -1,10 +1,11 @@
-@php
-    $assetVer = App\Models\SystemSetting::where('key', 'AssetCache')->first()->value ?? 0;
-    $AllCategories = App\Models\Category::get() ?? [];
-@endphp
+
 <!DOCTYPE html>
 <html class="no-js" lang="en">
     <head>
+        @php
+            $assetVer = App\Models\SystemSetting::where('key', 'AssetCache')->first()->value ?? 0;
+            $AllCategories = App\Models\Category::get() ?? [];
+        @endphp
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>@yield('title') - {{ Config::get('app.name') }}</title>
@@ -40,7 +41,7 @@
 
     </head>
     <body >
-
+        
         @yield('modals')
 
         <!--[if lt IE 8]>

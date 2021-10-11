@@ -33,7 +33,15 @@ class HomeComponents extends Component
         abort_unless(Auth::check() && Auth::user()->hasAnyPermission(['Manage UI', 'Master Admin']), '403', 'Unauthorized.');
         
         foreach ($items as $key => $item) {
-            HomeComponent::where('id', $item['value'])->update([
+            $component = HomeComponent::where('id', $item['value'])->first();
+            
+            if ($component->type == 'products_carousel_slider') {
+                $this->emit('initProductCarousel', [
+                    'component_id' => $component->id,
+                ]);
+            }
+
+            $component->update([
                 'position' => $item['order'],
             ]);
         }

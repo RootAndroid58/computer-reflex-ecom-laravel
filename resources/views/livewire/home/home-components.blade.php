@@ -29,7 +29,7 @@
     <div @canany(['Manage UI', 'Master Admin']) wire:sortable="updatePosition" @endcanany>
     @foreach ($components as $component)
         @if ($component->visible || Auth::check() && Auth()->user()->hasAnyPermission(['Master Admin', 'Manage UI']))
-            <div wire:sortable.item="{{ $component->id }}" wire:key="home-component-container-{{ $component->id }}" style="{{ $component->style }}">
+            <div wire:sortable.item="{{ $component->id }}" wire:key="home-component-container-{{ $component->id }}" >
                 @if ($component->type == 'three_col_banner' || $component->type == 'full_width_banner')
                     @livewire('home.home-components.banner-component', ['component' => $component], key('home-component-id-'.$component))
                 @elseif ($component->type == 'products_carousel_slider')

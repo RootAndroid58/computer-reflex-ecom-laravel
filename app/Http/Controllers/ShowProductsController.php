@@ -41,10 +41,7 @@ class ShowProductsController extends Controller
             $category = Category::where('id' , $product->product_category_id)->first();
             $discount = round((($product->product_mrp - $product->product_price) / $product->product_mrp)*100);
            
-            $RelatedProducts = Product::where('product_status', 1)
-            ->search(substr($product->product_name, 0, 100))
-            ->with('images')
-            ->take(10)->get();
+            $RelatedProducts = Product::search(substr($product->product_name, 0, 100))->take(10)->get();
 
             $reviews = ProductReview::with('user')->where('product_id', $pid)->take(5);
             

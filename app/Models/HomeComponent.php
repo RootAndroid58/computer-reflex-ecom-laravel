@@ -17,10 +17,16 @@ class HomeComponent extends Model
     public function getDataAttribute($val)
     {
         $data = unserialize($val);
-        
-        if (isset($data->products) && count($data->products) > 0) {
-            $data->products = Product::whereIn('id', $val->products)->get();
+    
+        if (isset($data->products) && count(collect($data->products))) { 
+            $data->products = Product::whereIn('id', collect($data->products)->toArray())->get();
         }
+        return $data;
+    }
+
+    public function getStyleAttribute($val)
+    {
+        $data = unserialize($val);
 
         return $data;
     }

@@ -94,11 +94,8 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body text-center">
-            <h4>Are you sure, deleteing this image?</h4>
-            <br>
-            <br>
-            <img style="max-width: 375px;" src="{{asset('storage/images/products/'.$image->image)}}" alt="">
+        <div class="modal-body ">
+            <p>Are you sure, deleteing this image?</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -126,10 +123,8 @@
       <a class="btn btn-primary btn-sm" href="{{ route('edit-product', $product->id)}}">Edit Product Details</a>
     </div>
   </div>
-  
-
-
 </h3>
+<span><strong>{{$product->product_name}}</strong></span>
 
 @if(Session::has('ImageRemoved'))
 <div class="alert alert-success" role="alert">
@@ -157,7 +152,7 @@
 @endif
 
     <div class="container" style="margin-bottom: 100px;">
-        <h5><strong>{{$product->product_name}}</strong></h5>
+        
 
         @foreach ($images as $image)
         <div class="row p-3">

@@ -1,4 +1,8 @@
-<div class="livwire-root-div" >
+<div class="livwire-root-div" 
+style="
+    margin-top: {{ $component->style->marginTop->value.$component->style->marginTop->unit }};
+    margin-bottom: {{ $component->style->marginBottom->value.$component->style->marginBottom->unit }};
+">
 
 
     {{-- Modal Start --}}
@@ -30,8 +34,65 @@
                             </div>
                             @enderror
                         </div>
+
+                    {{-- Margin Edit --}}
+                    <div class="row">
+                        <div class="col-12 ">
+                            <div class="input-group mt-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <input wire:loading.remove wire:target="editMarginTop" wire:model="editMarginTop" class="cursor-pointer" type="checkbox" aria-label="Checkbox for following text input">
+                                        <i wire:loading wire:target="editMarginTop" class="fad fa-spin fa-spinner-third"></i>
+                                        <span class="ml-2">Margin Top</span> 
+                                    </span>
+                                </div>
+                            <input type="text" wire:model.lazy="marginTop"  @if (!$editMarginTop) readonly @endif 
+                                class="form-control @error('marginTop') is-invalid @enderror" aria-describedby="helpId" placeholder="">
+                                <div class="input-group-append">
+                                    <select wire:model="marginTopUnit" class="form-control" @if (!$editMarginTop) disabled @endif  style="border-top-left-radius: 0; border-bottom-left-radius: 0; ">
+                                        <option value="px">px</option>
+                                        <option value="in">in</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vh">vh</option>
+                                    </select>
+                                </div>
+                                @error('marginTop') 
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-12 ">
+                            <div class="input-group mt-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <input wire:loading.remove wire:target="editMarginBottom" wire:model="editMarginBottom" class="cursor-pointer" type="checkbox" aria-label="Checkbox for following text input">
+                                        <i wire:loading wire:target="editMarginBottom" class="fad fa-spin fa-spinner-third"></i>
+                                        <span class="ml-2">Margin Bottom</span> 
+                                    </span>
+                                </div>
+                              <input type="text" wire:model.lazy="marginBottom"  @if (!$editMarginBottom) readonly @endif 
+                                class="form-control @error('marginBottom') is-invalid @enderror" aria-describedby="helpId" placeholder="">
+                                <div class="input-group-append">
+                                    <select wire:model="marginBottomUnit" class="form-control" @if (!$editMarginBottom) disabled @endif  style="border-top-left-radius: 0; border-bottom-left-radius: 0; ">
+                                        <option value="px">px</option>
+                                        <option value="in">in</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vh">vh</option>
+                                    </select>
+                                </div>
+                                @error('marginBottom')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
                         {{-- Banner Select Field --}}
-                        <div class="input-group mb-3">
+                        <div class="input-group mb-3 mt-3">
                             <div class="input-group-prepend">
                               <label class="input-group-text">Which Banner?</label>
                             </div>

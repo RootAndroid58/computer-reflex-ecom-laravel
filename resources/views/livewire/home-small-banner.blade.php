@@ -1,5 +1,5 @@
 <div @if ($type == 'small') class="custom-col-style-2 col-4 mb-30" @endif >
-
+    
     {{-- Banner Edit Modal (Admin Only) --}}
     @canany(['Manage UI', 'Master Admin'])
     <div wire:ignore.self class="modal fade SmallBannerEditModal-{{ $SmallBanner->id }}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">

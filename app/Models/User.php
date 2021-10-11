@@ -27,6 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at',
     ];
 
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -50,5 +51,6 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(Affiliate::class, 'user_id', 'id')->orderBy('id', 'desc');
     }
+
 
 }

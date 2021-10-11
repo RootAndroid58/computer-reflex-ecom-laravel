@@ -45,11 +45,20 @@
             <input type="hidden" name="product_id" value="{{ $product->id }}">
 
             <div class="row">
-                <div class="col-9">
+                <div class="col-6">
                     <div class="form-group">
                         <label class="text-dark">Product Name</label>
                         <input name="product_name" maxlength="120" class="form-control @error('product_name') is-invalid @enderror" placeholder="Name of the product you wanna list." value="{{old('product_name') ?? $product->product_name}}" required>
                         @error('product_name')
+                        <div class="invalid-feedback">{{$message}}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label class="text-dark">Brand Name</label>
+                        <input name="product_brand" id="product_brand" class="form-control @error('product_brand') is-invalid @enderror" placeholder="Brand Name." value="{{ $product->product_brand }}" >
+                        @error('product_brand')
                         <div class="invalid-feedback">{{$message}}</div>
                         @enderror
                     </div>
@@ -188,10 +197,6 @@
                 <div class="invalid-feedback">{{$message}}</div>
                 @enderror
             </div>
-
-
-
-
 
 
             <label>Tags</label>

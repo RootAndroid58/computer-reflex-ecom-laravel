@@ -8,6 +8,44 @@
             return $number. $ends[$number % 10];
     }
 
+    function productOrderBy($orderBy)
+    {
+        if ($orderBy == 'A to Z') {
+            $output = [
+                'col'   => 'product_name',
+                'order' => 'asc',
+            ];
+        }
+        if ($orderBy == 'Z to A') {
+            $output = [
+                'col'   => 'product_name',
+                'order' => 'desc',
+            ];
+        }
+        if ($orderBy == 'Price Low to High') {
+            $output = [
+                'col'   => 'product_price',
+                'order' => 'asc',
+            ];
+        }
+        if ($orderBy == 'Price High to Low') {
+            $output = [
+                'col'   => 'product_price',
+                'order' => 'desc',
+            ];
+        }
+
+        return $output ?? false;
+    }
+
+    function floorToFraction($number, $denominator = 1)
+    {
+        $x = $number * $denominator;
+        $x = floor($x);
+        $x = $x / $denominator;
+        return $x;
+    }
+    
     function bannerAspectRatio($type)
     {
         $output = null;

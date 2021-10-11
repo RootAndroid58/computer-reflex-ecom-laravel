@@ -153,7 +153,7 @@
                                     <form action="{{ route('checkout-post') }}" method="post"> @csrf 
                                         <input type="hidden" name="product_id[]" value="{{ $product->id }}">
                                         <input type="hidden" name="product_qty[]" value="1">
-                                        <button href="#">Buy Now</button>
+                                        <button class="w-100">Buy Now</button>
                                     </form>
                                 @endif
                             </div>
@@ -216,7 +216,19 @@
                             <b>{{ $est_dt->format( 'dS M, Y (D)' ) }}</b>
                         </span>
                         @endif
+
+                            {{--  Category --}}
+                        <div class="product-details-cati-tag "  >
+                            <ul>
+                                <li >Category :</li>
+                                <li><b>{{$category->category}}</b></li>
+                            </ul>
+                        </div>
+
                     </div>
+
+
+                    
 
 
                     @can('Admin') 
@@ -289,13 +301,7 @@
 
                     
 
-                    {{--  Category --}}
-                    <div class="product-details-cati-tag mt-35">
-                        <ul>
-                            <li class="categories-title">Category :</li>
-                            <li><a href="#">{{$category->category}}</a></li>
-                        </ul>
-                    </div>
+                    {{-- Category prev --}}
                     
 
 

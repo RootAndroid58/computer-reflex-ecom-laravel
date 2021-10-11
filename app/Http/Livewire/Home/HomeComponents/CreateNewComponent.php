@@ -15,33 +15,40 @@ class CreateNewComponent extends Component
     public $marginBottom=30;
     public $marginBottomUnit='px';
 
-    protected function rules()
-    {
-        return [
-            'layout'            => 'required|in:full_width_banner,three_col_banner,products_carousel_slider',
-            'marginTop'         => 'required|numeric',
-            'marginBottom'      => 'required|numeric',
-            'marginTopUnit'     => 'required|in:px,rem,in,vh',
-            'marginBottomUnit'  => 'required|in:px,rem,in,vh',
-            'visibility'        => 'required|boolean',
-        ];
-    }
-
     public function updated($field)
     {
         $this->validateOnly($field);
     }
 
+    protected function rules()
+    {
+        return [
+            'layout'            => 'required|in:full_width_banner,three_col_banner,products_carousel_slider',
+            'visibility'        => 'required|boolean',
+
+            'marginTop'         => 'required|numeric',
+            'marginBottom'      => 'required|numeric',
+            'marginTopUnit'     => 'required|in:px,rem,in,vh',
+            'marginBottomUnit'  => 'required|in:px,rem,in,vh',
+        ];
+    }
+
     public function create()
     {
         abort_unless(Auth::check() && Auth::user()->hasAnyPermission(['Manage UI', 'Master Admin']), '403', 'Unauthorized.');
-       
+
         $this->validate();
 
-        $style = '
-            margin-top: '.$this->marginTop.$this->marginTopUnit.';
-            margin-bottom: '.$this->marginBottom.$this->marginBottomUnit.';
-        ';
+        $style = [
+            'marginTop' => [
+                'value' => $this->marginTop,
+                'unit' => $this->marginTopUnit,
+            ],
+            'marginBottom' => [
+                'value' => $this->marginBottom,
+                'unit' => $this->marginBottomUnit,
+            ],
+        ];
 
         if ($this->layout == 'full_width_banner') {
             $data = [
@@ -90,15 +97,12 @@ class CreateNewComponent extends Component
             ];
         }
         
-        // Convert to Object & Serialize to store to DB. 
-        $data = serialize(json_decode(json_encode($data)));
-
         // Store to DB
         HomeComponent::create([
             'type'      => $this->layout,
             'visible'   => $this->visibility,
-            'data'      => $data,
-            'style'     => $style,
+            'data'      => serialize(json_decode(json_encode($data))),
+            'style'     => serialize(json_decode(json_encode($style))),
             'position'  => HomeComponent::count()+1,
         ]);
      

@@ -18,6 +18,7 @@
   'home.home-components.create-new-component' => 'App\\Http\\Livewire\\Home\\HomeComponents\\CreateNewComponent',
   'home.home-components.products-carousel-component' => 'App\\Http\\Livewire\\Home\\HomeComponents\\ProductsCarouselComponent',
   'product-quick-actions' => 'App\\Http\\Livewire\\ProductQuickActions',
+  'product-search-component' => 'App\\Http\\Livewire\\ProductSearchComponent',
   'related-product' => 'App\\Http\\Livewire\\RelatedProduct',
   'support.admin-add-ticket-reply' => 'App\\Http\\Livewire\\Support\\AdminAddTicketReply',
   'support.raise-ticket' => 'App\\Http\\Livewire\\Support\\RaiseTicket',

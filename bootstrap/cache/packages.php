@@ -93,6 +93,13 @@
       0 => 'Laravel\\Sail\\SailServiceProvider',
     ),
   ),
+  'laravel/scout' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Laravel\\Scout\\ScoutServiceProvider',
+    ),
+  ),
   'laravel/socialite' => 
   array (
     'providers' => 
@@ -127,6 +134,13 @@
     'aliases' => 
     array (
       'Livewire' => 'Livewire\\Livewire',
+    ),
+  ),
+  'meilisearch/meilisearch-laravel-scout' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Meilisearch\\Scout\\MeilisearchServiceProvider',
     ),
   ),
   'nesbot/carbon' => 
@@ -177,6 +191,17 @@
     'providers' => 
     array (
       0 => 'Te7aHoudini\\LaravelTrix\\LaravelTrixServiceProvider',
+    ),
+  ),
+  'wulfheart/pretty_routes' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Wulfheart\\PrettyRoutes\\PrettyRoutesServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'PrettyRoutes' => 'Wulfheart\\PrettyRoutes\\PrettyRoutesFacade',
     ),
   ),
   'yajra/laravel-datatables-oracle' => 
