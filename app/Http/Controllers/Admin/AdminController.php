@@ -95,27 +95,6 @@ class AdminController extends Controller
         return view('admin.new-banner');
     }
 
-
-    public function EditSmallBannerSubmit(Request $req)
-    {
-        $req->validate([
-            'id'    => 'required',
-            'image' => 'required|url',
-            'link'  => 'required|url',
-        ]);
-
-        $SmallBanner = SmallBanner::where('id', $req->id)->first();
-
-        if (isset($SmallBanner)) {
-            $SmallBanner->update([
-                'image' => $req->image,
-                'link'  => $req->link,
-            ]);
-        }
-
-        return redirect()->back();
-    }
-
     public function EditBannerSubmit(Request $req)
     {
         $banner = Banner::where('id', $req->banner_id)->first();

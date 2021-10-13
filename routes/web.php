@@ -221,18 +221,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:Admin', 'verifie
 
 
 
-    // Home Carousel Routes (Admin)
-    Route::get('/manage-ui/home-carousel-sliders','App\Http\Controllers\Admin\AdminController@ManageHomeCarouselSlider')->middleware('permission:Manage UI|Master Admin')->name('admin-manage-home-carousel-sliders');
-    
-    Route::get('/manage-ui/home-carousel-sliders/create','App\Http\Controllers\Admin\AdminController@HomeCarouselCreatePageView')->middleware('permission:Manage UI|Master Admin')->name('admin-create-home-carousel-slider');
-    
-    Route::get('/manage-ui/home-carousel-slider/{slider_id}/edit','App\Http\Controllers\Admin\AdminController@EditHomeCarouselSlider')->middleware('permission:Manage UI|Master Admin')->name('admin-edit-home-carousel-slider');
-    // -----------------------------
-
-
 
     
-    Route::post('/manage-ui/edit-small-banner/submit','App\Http\Controllers\Admin\AdminController@EditSmallBannerSubmit')->middleware('permission:Manage UI|Master Admin')->name('admin-edit-small-banner-submit');
+    // Route::post('/manage-ui/edit-small-banner/submit','App\Http\Controllers\Admin\AdminController@EditSmallBannerSubmit')->middleware('permission:Manage UI|Master Admin')->name('admin-edit-small-banner-submit');
 
     Route::get('/manage-banners','App\Http\Controllers\Admin\AdminController@ManageBanners')->middleware('permission:Manage UI|Master Admin')->name('admin-manage-banners');
 
