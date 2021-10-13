@@ -87,9 +87,8 @@
                                 <div class="col-md-3">
                                     <a href="{{route('product-index', $Product->id)}}" target="_blank">
                                         <div class="wish-product-image-container">
-                                            <img loading="lazy" src="{{ asset('storage/images/products/'.$cart->Images->image) }}" alt="">
+                                            <img loading="lazy" src="{{ productImage($Product->images[0] ?? null) }}" alt="">
                                         </div>
-
                                     </a>
                                 </div>
     

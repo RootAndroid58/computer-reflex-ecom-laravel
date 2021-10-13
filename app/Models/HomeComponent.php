@@ -19,7 +19,7 @@ class HomeComponent extends Model
         $data = unserialize($val);
     
         if (isset($data->products) && count(collect($data->products))) { 
-            $data->products = Product::whereIn('id', collect($data->products)->toArray())->get();
+            $data->products = Product::whereIn('id', collect($data->products)->toArray())->where('product_status', 1)->get();
         }
         return $data;
     }

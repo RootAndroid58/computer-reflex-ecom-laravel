@@ -1,4 +1,5 @@
 <?php return array (
+  'admin.manage-products.edit-images-component' => 'App\\Http\\Livewire\\Admin\\ManageProducts\\EditImagesComponent',
   'admin.ui.create-home-carousel-form' => 'App\\Http\\Livewire\\Admin\\Ui\\CreateHomeCarouselForm',
   'admin.ui.edit-banner' => 'App\\Http\\Livewire\\Admin\\Ui\\EditBanner',
   'admin.ui.edit-home-carousel' => 'App\\Http\\Livewire\\Admin\\Ui\\EditHomeCarousel',

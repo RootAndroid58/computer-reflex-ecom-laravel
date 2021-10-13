@@ -211,73 +211,18 @@ class ManageProductsController extends Controller
 
     public function RemoveProduct($product_id)
     {
-        
         Product::where('id', $product_id)->delete();
-       
+
         return redirect()->route('admin-manage-products')->with(['ProductRemoved' => 200]);
     }
 
 
 
-    public function EditProductImages($product_id)
+    public function EditProductImages($pid)
     {
-        $product = Product::where('id', $product_id)->first();
-
-        $images = ProductImage::where('product_id', $product_id)->orderBy('id', 'desc')->get();
-
-        return view('admin.edit-product-images',[
-            'images' => $images,
-            'product' => $product,
-        ]);
+        return view('admin.edit-product-images', ['pid' => $pid]);
     }
 
-    public function AddMoreImages(Request $req)
-    {               
-        // dd($req);
-        $req->validate([
-            'images' => 'required',
-            'product_id' => 'required|exists:products,id',
-        ]);
-
-        foreach ($req->images as $req->image) {
-
-            $req->image->store('images/products' , 'public');
-
-            $data = new ProductImage;
-            $data->product_id   = $req->product_id;
-            $data->image        = $req->image->hashName();
-            $data->save();
-        }
-
-        return back()->with(['ImagesAdded' => 200]);
-    }
-    
-    public function EditProductImagesSubmit(Request $req)
-    {
-        $req->validate([
-            'new_image' => 'required|mimes:jpeg,jpg,png|max:10000',
-            'image_id' => 'required|numeric|exists:product_images,id'
-        ]);
-        
-       $image = ProductImage::where('id', $req->image_id)->first();
-
-       Storage::delete('/public/images/products/'.$image->image);
-
-       $req->new_image->store('images/products' , 'public');
-       
-        ProductImage::where('id', $req->image_id)->update([
-            'image' => $req->new_image->hashName(),
-        ]);
-
-        return redirect()->back()->with(['ImageUpdated' => 200]);
-    }
-
-    public function RemoveImage($image_id)
-    {
-        ProductImage::where('id', $image_id)->delete();
-
-        return back()->with(['ImageRemoved' => 200]);
-    }
 
     public function EditProductLicenses($pid)
     {

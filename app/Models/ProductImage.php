@@ -9,8 +9,11 @@ class ProductImage extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     protected static function booted()
     {
-        static::addGlobalScope(fn ($query) => $query->orderBy('id', 'desc'));
+        static::addGlobalScope(fn ($query) => $query->orderBy('position', 'asc'));
     }
+
 }

@@ -34,29 +34,30 @@
     <div class="row">
    
     <div class="col-md-3">
-            <div id="ProfileDetailsDiv">
-                <div class="account-details-container row" style="padding: 12px; margin-bottom: 0;">
-                    <img class="account-dp" id="avatar" src="{{ asset('img/grey.gif') }}" data-src="{{ asset('storage/images/dp/'.Auth()->user()->dp)}}">
-                    <div class="account-greet">
-                        <div class="account-hello">Hello,</div>
-                        <div class="account-name">{{Auth()->user()->name}}</div>
-                    </div>               
-                </div>
 
-                <div class="row">
-                    <div class="pb-4 text-center w-100">
-                        <label class="label w-100">
-                            <span class="btn btn-dark btn-sm btn-block" >Change DP</span>
-                            <input type="file" class="sr-only" id="dp_uploader" name="image" accept="image/*">
-                        </label>
-                    </div>
-                </div>
-                
+
+        {{-- Mini Account Detail (Image + Name) --}}
+        <div class="account-details-container d-flex" style="padding: 12px; margin-bottom: 0; margin-right: -15px; margin-left: -15px;">
+            <img class="account-dp" src="{{ asset('img/grey.gif') }}" data-src="{{ asset('storage/images/dp/'.Auth()->user()->dp)}}">
+            <div class="account-greet">
+                <div class="account-hello">Hello,</div>
+                <div class="account-name">{{Auth()->user()->name}}</div>
+            </div>               
+        </div>
+        <div style="margin-right: -15px; margin-left: -15px;">
+            <div class="mb-4 text-center w-100">
+                <label class="label w-100">
+                    <span class="btn btn-dark btn-sm btn-block" >Change DP</span>
+                    <input type="file" class="sr-only" id="dp_uploader" name="image" accept="image/*">
+                </label>
             </div>
+        </div>
+                
+            
         
                 <div class="account-details-container row">
                     
-                    <div class="account-menu-items-container">
+                    <div class="account-menu-items-container ">
                         <a style="width: 100%;" href="{{ route('orders') }}" >
                         <div class="account-head-menu">
                             <img src="{{ asset('img/svg/orders.svg') }}" alt="" srcset="">

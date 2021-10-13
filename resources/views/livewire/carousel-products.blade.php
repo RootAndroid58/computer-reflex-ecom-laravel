@@ -3,7 +3,7 @@
         <div class="product-img">
             <a href="{{ route('product-index', $product->id) }}" target="_blank">
                 <div class="sm-prod-img-container">
-                    <img loading="lazy" class="d-block" style="margin:auto; width: auto; max-width: 100%; max-height: 100%;" src="{{ asset('storage/images/products/'.$product->images[0]->image) }}" alt="" srcset="">
+                    <img loading="lazy" class="d-block" style="margin:auto; width: auto; max-width: 100%; max-height: 100%;" src="{{ productImage($product->images[0]) }}" alt="" srcset="">
                 </div>
             </a>
             <div class="product-action">

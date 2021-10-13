@@ -126,15 +126,12 @@ style="
                         <div class="w-100 d-flex mb-3" style="overflow-x: scroll; min-height: 260px;">
                             @foreach ($addedProducts as $product)
                             <div style="padding: 15px; width: 175px;" class="text-center ">
+                                
                                 <div class="hoverChangeImgContainer">
-                                    <div class="sm-prod-img-container prod-back-div childImage transition-low" style="background-image: url('{{ asset('storage/images/products/'.$product->images[0]->image) }}');"></div>
-                                    @php
-                                        $image = $product->images[0]->image;
-                                        if(isset($product->images[1])) {
-                                            $image = $product->images[1]->image;
-                                        }
-                                    @endphp
-                                    <div class="sm-prod-img-container prod-back-div childImage transition-low" style="background-image: url('{{ asset('storage/images/products/'.$image) }}');"></div>
+                                    <div class="sm-prod-img-container prod-back-div ratio-4-4-padding @if(isset($product->images[1])) childImage @endif transition-low" style="background-image: url('{{ productImage($product->images[0] ?? null) }}');"></div>
+                                    @if (isset($product->images[1]))
+                                    <div class="sm-prod-img-container prod-back-div ratio-4-4-padding childImage transition-low" style="background-image: url('{{ productImage($product->images[1]) }}');"></div>
+                                    @endif
                                 </div>
                                 
                                 <div class="line-limit-3 w-100 text-center d-flex align-items-center " style="height: 67px">
@@ -171,7 +168,7 @@ style="
                                 <div  class="row">
                                     <div  class="col-2">
                                         <div  class="w-100 h-100 d-flex align-items-center">
-                                            <img  class="w-100" src="{{ asset('storage/images/products/'.$product->images[0]->image) }}">
+                                            <img  class="w-100" src="{{ productImage($product->images[0] ?? null) }}">
                                         </div>
                                     </div>
                                     <div  class="col-7">
@@ -242,16 +239,14 @@ style="
                                 <div class=" product-wrapper right-bottom-shadow mb-3 " style="height: 100%; position: relative;">
                                     <div class="product-img">
                                         <a href="{{route('product-index', $product->id)}}" target="_blank">
+                                            
                                             <div class="hoverChangeImgContainer">
-                                                <div class="sm-prod-img-container prod-back-div childImage transition-low" style="background-image: url('{{asset('storage/images/products/'.$product->images[0]->image)}}');"></div>
-                                                @php
-                                                    $image = $product->images[0]->image;
-                                                    if(isset($product->images[1])) {
-                                                        $image = $product->images[1]->image;
-                                                    }
-                                                @endphp
-                                                <div class="sm-prod-img-container prod-back-div childImage transition-low" style="background-image: url('{{ asset('storage/images/products/'.$image) }}');"></div>
+                                                <div class="sm-prod-img-container prod-back-div ratio-4-4-padding @if(isset($product->images[1])) childImage @endif transition-low" style="background-image: url('{{ productImage($product->images[0] ?? null) }}');"></div>
+                                                @if (isset($product->images[1]))
+                                                <div class="sm-prod-img-container prod-back-div ratio-4-4-padding childImage transition-low" style="background-image: url('{{ asset('storage/images/products/'.$product->images[1]->image) }}');"></div>
+                                                @endif
                                             </div>
+
                                         </a>
                                     </div>
                                     

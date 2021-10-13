@@ -113,7 +113,12 @@ class ProductsCarouselComponent extends Component
 
     public function UpdatedSearch()
     {
-        $this->searchedProducts = Product::search($this->search)->get();
+        $this->searchedProducts = Product::search($this->search, function (Indexes $meilisearch, $query, $options) {
+            $options['filter'] = 'product_status=1';
+            return $meilisearch->search($query, $options);
+        })->get();
+
+        // ['filter' => ['product_status = 1']]
     }
 
     public function addProduct($pid)

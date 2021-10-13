@@ -21,9 +21,9 @@ $UserName=str_word_count(Auth()->user()->name, 1);
             <div class="right-wishlist-container" style="min-height: 0;">
         
                 <div class="wishlist-basic-padding" style="padding: 10px 32px;">
-                    <div class="account-details-title" style="padding-bottom: 0px;">
+                    <div class="account-details-title d-flex align-items-center" style="padding-bottom: 0px;">
                         <img src="{{ asset('img/grey.gif') }}" data-src="{{ asset('/img/svg/gift-box.svg') }}" width="50" alt="" srcset="">
-                        <span style="padding-right: 0;">{{$UserName[0]}}'s Orders</span>
+                        <span style="padding-right: 0;" class="ml-3">{{$UserName[0]}}'s Orders</span>
                     </div>
                 </div>
         
@@ -55,7 +55,7 @@ $UserName=str_word_count(Auth()->user()->name, 1);
 
                             @foreach ($orders as $order)
                             
-                            <div class="wishlist-basic-padding orders-header" >
+                            <div class="wishlist-basic-padding orders-header bg-info" >
                                 <div class="row " style="color: black;">
                                     <div class="col-5 ">
                                         <span>Order <a style="color: #0066c0;" href="{{ route('order-page', $order->id) }}">#{{ $order->id }}</a></span>
@@ -90,7 +90,7 @@ $UserName=str_word_count(Auth()->user()->name, 1);
                             @foreach ($order->OrderItems as $item)
                             <div class="wishlist-basic-padding" style="padding-bottom: 0;">
                                 <div class="row">
-                                    <div class="col-md-2">
+                                    <div class="col-md-2 d-flex align-items-center">
                                         <a href="{{route('product-index', $item->product->id)}}" target="_blank">
                                             <div class="wish-product-image-container">
                                                 <img src="{{ asset('img/grey.gif') }}" data-src="{{ asset('storage/images/products/'.$item->image->image) }}" alt="">
@@ -98,13 +98,13 @@ $UserName=str_word_count(Auth()->user()->name, 1);
                                         </a>
                                     </div>
         
-                                    <div class="col-md-5">
+                                    <div class="col-md-5 d-flex align-items-center">
                                         <a href="{{route('product-index', $item->product->id)}}" target="_blank">
                                             <span class="wish-product-title font-weight-500 color-0066c0">{{$item->product->product_name}}</span>
                                         </a>
                                     </div>
 
-                                    <div class="col-3">
+                                    <div class="col-3 d-flex align-items-center">
                                         <table style="width: 100%">
                                             <tr style="width: 100%">
                                                 <td style="width: 50%">Unit Price:</td>
@@ -121,7 +121,7 @@ $UserName=str_word_count(Auth()->user()->name, 1);
                                         </table>
                                     </div>
 
-                                    <div class="col-md-2">
+                                    <div class="col-md-2 d-flex align-items-center">
                                         @if ($item->status == 'order_placed')
                                         <span style="color: #2874f0">
                                             <span style="">

@@ -47,7 +47,7 @@ class ProductSearchComponent extends Component
     {   
         // All prodocuts without any Filter 
         $allProducts = Product::search($this->search)->get();
-
+        // dd($allProducts);
         // All Brands & Categories wihout filtered
         $this->brands       = $allProducts->pluck('product_brand');
         $this->categories   = $allProducts->pluck('category');
@@ -59,7 +59,7 @@ class ProductSearchComponent extends Component
         ->groupBy('specification_key'); // group by collection
         
         // Initiatl Searched Products (Without any Filter)
-        $filteredProducts = Product::whereIn('id', $allProducts->pluck('id'));
+        $filteredProducts = Product::whereIn('id', $allProducts->pluck('id'))->where('product_status', 1);
 
         // If Brand filter is set... Filter by Brands
         if (count($this->brandsFilter)) { 

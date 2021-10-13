@@ -6,15 +6,16 @@ use App\Models\Cart;
 use App\Models\Compare;
 use App\Models\Category;
 use App\Models\Wishlist;
+use PhpParser\JsonDecoder;
 use App\Models\SessionCart;
 use App\Models\ProductImage;
 use App\Models\Specification;
 use Laravel\Scout\Searchable;
 use App\Models\SessionCompare;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use PhpParser\JsonDecoder;
 
 class Product extends Model
 {
@@ -65,8 +66,10 @@ class Product extends Model
 
     // Stars given by the logged in user.
     public function getUserStarsAttribute()
-    {
-        $review = ProductReview::where('product_id', $this->id)->where('user_id', Auth()->user()->id)->first();
+    {   
+        if (Auth::check()) {
+            $review = ProductReview::where('product_id', $this->id)->where('user_id', Auth()->user()->id)->first();
+        }
         $userStars = null;
         if (isset($review->stars)) {
             $userStars = $review->stars;

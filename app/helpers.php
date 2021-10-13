@@ -1,5 +1,15 @@
 <?php
 
+    function productImage($data)
+    {
+        if (!$data) {
+            $output = asset('img/svg/images.svg');
+        } else {
+            $output = asset('storage/images/products/'.$data->image);
+        }
+        return $output;
+    }
+
     function ordinal($number) {
         $ends = array('th','st','nd','rd','th','th','th','th','th','th');
         if ((($number % 100) >= 11) && (($number%100) <= 13))

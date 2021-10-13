@@ -126,7 +126,7 @@
                                 @foreach ($images as $image)
                                 <li>
                                     <div class="images-menu cursor-pointer prod-back-div small_img" 
-                                        style="background-image: url('{{ asset('storage/images/products/'.$image->image) }}');" >
+                                        style="background-image: url('{{ productImage($image) }}');" >
                                     </div>
                                 </li>
                                 @endforeach
@@ -134,15 +134,9 @@
                         </div>
                         <div class="col-10">
                             <div class="" style="height: 475px; text-align: center;">
-                               <div style="
-                                width: 100%;
-                                height: 475px;
-                                text-align: center;
-                                line-height: 475px;
-                               ">
-                                   <img src="{{ asset('storage/images/products/'.$images[0]->image) }}" alt="" 
-                                   class="big_img" id="big_img" style="vertical-align: middle;"
-                                   data-image="{{ asset('storage/images/products/'.$images[0]->image) }}">
+                               <div style="width: 100%; height: 475px; text-align: center; line-height: 475px;">
+                                   <img src="{{ productImage($images[0] ?? null) }}"
+                                   class="big_img" id="big_img" style="vertical-align: middle;">
                                </div>
                                 
                              

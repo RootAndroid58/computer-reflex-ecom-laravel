@@ -1443,62 +1443,35 @@ input[type="color"]:focus,
 
   
 
-  .product-content {
-      padding-top: 20px;
-  }
-
-  .side-product-border {
-    position: relative;
-  }
-  
-  .side-product-border:after {
-    content: '';
-  }
-
-  
-    .transition-low {
-        transition: opacity 500ms;
-    }
-    .hoverChangeImgContainer .childImage:nth-child(1) {
-        opacity: 1;
-        padding-bottom: 100%;
-    }
-    .hoverChangeImgContainer .childImage:nth-child(2) {
-   
-        opacity: 0;
-        padding-bottom: 0;
-    }
-
-    .hoverChangeImgContainer:hover .childImage:nth-child(1) {
-    
-        opacity: 0;
-        padding-bottom: 0;
-    }
-    .hoverChangeImgContainer:hover .childImage:nth-child(2) {
-  
-        opacity: 1;
-        padding-bottom: 100%;
-    }
+.product-content {
+    padding-top: 20px;
+}
+.transition-low {
+    transition: opacity 300ms;
+}
+.hoverChangeImgContainer .childImage:nth-child(1) {
+    opacity: 1;
+    padding-bottom: 100% !important;
+}
+.hoverChangeImgContainer .childImage:nth-child(2) {
+    opacity: 0;
+    padding-bottom: 0 !important;
+}
+.hoverChangeImgContainer:hover .childImage:nth-child(1) {
+    opacity: 0;
+    padding-bottom: 0 !important;
+}
+.hoverChangeImgContainer:hover .childImage:nth-child(2) {
+    opacity: 1;
+    padding-bottom: 100% !important;
+}
 
 
-    /* .searchField ul {
-        height: 0;
-    }
-    .searchField:hover ul {
-        height: auto;
-    } */
+.h-0 {
+    height: 0px !important;
+}
+.ratio-4-4-padding {
+    padding-bottom: 100% !important;
+}
 
- 
 
-    .h-0 {
-        height: 0px !important;
-    }
-
-    .products-dropdown-ul {
-        transition: all 500ms;
-    }
-   
-
-    .ratio-4-4-padding {
-        padding-bottom: 100% !important;
-    }

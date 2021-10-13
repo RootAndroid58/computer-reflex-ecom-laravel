@@ -156,20 +156,14 @@
                                         <div class=" product-wrapper right-bottom-shadow mb-3 " style="height: 100%; position: relative;">
                                             <div class="product-img">
                                                 <a href="{{route('product-index', $product->id)}}" target="_blank">
+                                                    
                                                     <div class="hoverChangeImgContainer">
-                                                        <div class="sm-prod-img-container prod-back-div childImage transition-low"
-                                                            style="background-image: url('{{ asset('storage/images/products/'.$product->images[0]->image) }}');">
-                                                        </div>
-                                                        @php
-                                                            $image = $product->images[0]->image;
-                                                            if(isset($product->images[1])) {
-                                                                $image = $product->images[1]->image;
-                                                            }
-                                                        @endphp
-                                                        <div class="sm-prod-img-container prod-back-div childImage transition-low"
-                                                            style="background-image: url('{{ asset('storage/images/products/'.$image) }}');">
-                                                        </div>
+                                                        <div class="sm-prod-img-container prod-back-div ratio-4-4-padding @if(isset($product->images[1])) childImage @endif transition-low" style="background-image: url('{{ productImage($product->images[0] ?? null) }}');"></div>
+                                                        @if (isset($product->images[1]))
+                                                        <div class="sm-prod-img-container prod-back-div ratio-4-4-padding childImage transition-low" style="background-image: url('{{ productImage($product->images[1]) }}');"></div>
+                                                        @endif
                                                     </div>
+
                                                 </a>
                                             </div>
                                             {{-- Product Buttons --}}
@@ -188,11 +182,11 @@
                                             </div>
                                             <div class="w-100 mt-2 text-center">
                                                 <div class="product-rating-4">
-                                                    <i class="icofont icofont-star yellow"></i>
-                                                    <i class="icofont icofont-star yellow"></i>
-                                                    <i class="icofont icofont-star yellow"></i>
-                                                    <i class="icofont icofont-star yellow"></i>
-                                                    <i class="icofont icofont-star"></i>
+                                                    <i class="icofont icofont-star @if ($product->avgStars >= 1) yellow @endif "></i>
+                                                    <i class="icofont icofont-star @if ($product->avgStars >= 2) yellow @endif"></i>
+                                                    <i class="icofont icofont-star @if ($product->avgStars >= 3) yellow @endif"></i>
+                                                    <i class="icofont icofont-star @if ($product->avgStars >= 4) yellow @endif"></i> 
+                                                    <i class="icofont icofont-star @if ($product->avgStars >= 5) yellow @endif"></i>
                                                 </div>
                                                 
                                             </div>
