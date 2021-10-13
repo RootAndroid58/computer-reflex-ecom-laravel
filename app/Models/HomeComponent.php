@@ -16,7 +16,7 @@ class HomeComponent extends Model
 
     public function getDataAttribute($val)
     {
-        $data = unserialize($val);
+        $data = json_decode($val);
     
         if (isset($data->products) && count(collect($data->products))) { 
             $data->products = Product::whereIn('id', collect($data->products)->toArray())->where('product_status', 1)->get();
@@ -26,8 +26,7 @@ class HomeComponent extends Model
 
     public function getStyleAttribute($val)
     {
-        $data = unserialize($val);
-
+        $data = json_decode($val);
         return $data;
     }
 }

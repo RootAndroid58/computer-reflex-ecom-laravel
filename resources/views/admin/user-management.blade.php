@@ -254,7 +254,7 @@
     <tbody>
         @foreach ($AdminUsers as $AdminUser)
         <tr>
-            <td><a href="#"><img width="25px" height="25px" class="avatar" style="border-radius: 50%" src="{{'/storage/images/dp/'.$AdminUser->dp}}"> {{ $AdminUser->name }}</a></td>
+            <td><a href="#"><img width="25px" height="25px" class="avatar" style="border-radius: 50%" src="{{ profilePicture($AdminUser->dp) }}"> {{ $AdminUser->name }}</a></td>
             <td><a href="#">{{ $AdminUser->email }}</a></td>
             <td>{{ $AdminUser->created_at }}</td>
             @if ($AdminUser->status == 'active')<td><span class="status text-success">&bull;</span>Active</td>@elseif($AdminUser->status == 'suspended')<td><span class="status text-success">&bull;</span>Suspended</td>@else<td><span class="status">&bull;</span>Error</td>@endif

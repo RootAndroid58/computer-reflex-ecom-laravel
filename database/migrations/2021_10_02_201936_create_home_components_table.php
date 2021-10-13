@@ -16,8 +16,8 @@ class CreateHomeComponentsTable extends Migration
         Schema::create('home_components', function (Blueprint $table) {
             $table->id();
             $table->longText('type');
-            $table->longText('data');
-            $table->longText('style');
+            $table->json('data');
+            $table->json('style');
             $table->boolean('visible')->default(true);
             $table->bigInteger('position')->nullable();
             $table->timestamps();

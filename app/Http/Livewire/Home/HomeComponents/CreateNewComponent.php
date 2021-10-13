@@ -101,8 +101,8 @@ class CreateNewComponent extends Component
         HomeComponent::create([
             'type'      => $this->layout,
             'visible'   => $this->visibility,
-            'data'      => serialize(json_decode(json_encode($data))),
-            'style'     => serialize(json_decode(json_encode($style))),
+            'data'      => json_encode($data),
+            'style'     => json_encode($style),
             'position'  => HomeComponent::count()+1,
         ]);
      

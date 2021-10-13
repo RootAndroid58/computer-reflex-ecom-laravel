@@ -41,7 +41,7 @@
 
 
 <h3 class="text-dark">Edit User</h3>
-<h5 class="text-dark text-center"><i style="color: rgb(255, 196, 0)" class="fa fa-circle"></i> You're currently editing <img width="40px" height="40px" style="border-radius: 50%;" src="{{asset("storage/images/dp/$user->dp")}}"> <strong>{{$user->name}}</strong></h5>
+<h5 class="text-dark text-center"><i style="color: rgb(255, 196, 0)" class="fa fa-circle"></i> You're currently editing <img width="40px" height="40px" style="border-radius: 50%;" src="{{ profilePicture($user->dp) }}"> <strong>{{$user->name}}</strong></h5>
 
 <div class="container form-container p-5" style="background-color: rgb(225, 227, 240); box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
 <div class="row mt-3 mb-3">

@@ -26,6 +26,17 @@ class DefaultUsersSeeder extends Seeder
                 'created_at'        => date('y-m-d h:m:s'),
                 'dp'                => 'default.png',
             ],
+            [
+                'id'                => 2,
+                'name'              => 'Aniket Das',
+                'email'             => 'aniket.das.in@gmail.com',
+                'mobile'            => '9123037267',
+                'password'          => bcrypt('Password1234'),
+                'status'            => 'active',
+                'email_verified_at' => date('y-m-d h:m:s'),
+                'created_at'        => date('y-m-d h:m:s'),
+                'dp'                => null,
+            ],
         ];
 
         User::insert($users);

@@ -190,8 +190,8 @@ class ProductsCarouselComponent extends Component
         $data->products = $this->addedProductIds;
      
         $this->component->update([
-            'data' => serialize(json_decode(json_encode($data))),
-            'style' => serialize(json_decode(json_encode($style))),
+            'data' => json_encode($data),
+            'style' => json_encode($style),
             'visible' => $this->visibility,
         ]);
 

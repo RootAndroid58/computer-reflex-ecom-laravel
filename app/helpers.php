@@ -10,6 +10,16 @@
         return $output;
     }
 
+    function profilePicture($dp)
+    {
+        if (!$dp) {
+            $output = asset('img/svg/default.png');
+        } else {
+            $output = asset('storage/images/dp/'.$dp);
+        }
+        return $output;
+    }
+
     function ordinal($number) {
         $ends = array('th','st','nd','rd','th','th','th','th','th','th');
         if ((($number % 100) >= 11) && (($number%100) <= 13))

@@ -38,11 +38,11 @@
 
         {{-- Mini Account Detail (Image + Name) --}}
         <div class="account-details-container d-flex" style="padding: 12px; margin-bottom: 0; margin-right: -15px; margin-left: -15px;">
-            <img class="account-dp" src="{{ asset('img/grey.gif') }}" data-src="{{ asset('storage/images/dp/'.Auth()->user()->dp)}}">
+            <img class="account-dp" src="{{ profilePicture(Auth()->user()->dp) }}">
             <div class="account-greet">
                 <div class="account-hello">Hello,</div>
-                <div class="account-name">{{Auth()->user()->name}}</div>
-            </div>               
+                <div class="account-name">{{ Auth()->user()->name }}</div>
+            </div>
         </div>
         <div style="margin-right: -15px; margin-left: -15px;">
             <div class="mb-4 text-center w-100">

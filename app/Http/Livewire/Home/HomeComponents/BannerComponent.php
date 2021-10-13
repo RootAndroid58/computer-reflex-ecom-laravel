@@ -152,7 +152,7 @@ class BannerComponent extends Component
                 'unit' => $marginBottomUnit,
             ],
         ];
-       
+     
         $data = $this->component->data;
 
         if ($this->editUrl) {
@@ -184,10 +184,10 @@ class BannerComponent extends Component
                 Storage::delete('/public/images/banner/'.$this->component->data[$this->dataKey]->image);
             }
         }
-
+        
         $this->component->update([
-            'data' => serialize(json_decode(json_encode($data))),
-            'style' => serialize(json_decode(json_encode($style))),
+            'data' => json_encode($data),
+            'style' => json_encode($style),
             'visible' => $this->visibility,
         ]);
 
