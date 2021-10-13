@@ -272,14 +272,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:Admin', 'verifie
 
     Route::get('/manage-product/pid/{product_id}/images/edit','App\Http\Controllers\Admin\ManageProductsController@EditProductImages')->middleware('permission:Manage Products|Master Admin')->name('edit-product-images');
 
-    // Route::post('/manage-products/pid/edit/images/submit', 'App\Http\Controllers\Admin\ManageProductsController@EditProductImagesSubmit')->middleware('permission:Manage Products|Master Admin')->name('edit-product-images-submit');
-
-    // Route::post('/manage-products/pid/edit/add-images/submit', 'App\Http\Controllers\Admin\ManageProductsController@AddMoreImages')->middleware('permission:Manage Products|Master Admin')->name('edit-add-images-submit');
-
-    // Route::get('/manage-products/remove-image/id/{image_id}', 'App\Http\Controllers\Admin\ManageProductsController@RemoveImage')->middleware('permission:Manage Products|Master Admin')->name('remove-image-submit');
-
     Route::get('/manage-products/pid/{product_id}/remove', 'App\Http\Controllers\Admin\ManageProductsController@RemoveProduct')->middleware('permission:Manage Products|Master Admin')->name('remove-product');
-
+    
 });
 
 
@@ -304,12 +298,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:Admin', 'verifie
         
         Route::get('/settings', [App\Http\Controllers\AffiliateController::class, 'SettingsPage'])->middleware('permission:Affiliate')->name('affiliate.settings');
     });
-
-
-
-
-
-
 
 
 
