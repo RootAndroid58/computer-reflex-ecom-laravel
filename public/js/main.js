@@ -9,6 +9,8 @@ Toast.setMaxCount(10);
 
 function cartEvent(data) {
   if (data.action == 'cartAdded') {
+      $('#cartCount').html(data.cart_count);
+      $('.cart-btn-a'+data.product_id).addClass('cart-btn-active');
       $('.cart-btn-a'+data.product_id).addClass('cart-btn-active');
       $('.cart-btn-b'+data.product_id).addClass('cart-btn-active');
       $('.cart-btn-c'+data.product_id).addClass('cart-btn-active').html(`REMOVE FROM CART`);
@@ -16,6 +18,7 @@ function cartEvent(data) {
       Toast.create(`Added To Cart`, data.product_name, TOAST_STATUS.SUCCESS, 5000);
   }
   else if (data.action == 'cartRemoved') {
+      $('#cartCount').html(data.cart_count);
       $('.cart-btn-a'+data.product_id).removeClass('cart-btn-active');
       $('.cart-btn-b'+data.product_id).removeClass('cart-btn-active');
       $('.cart-btn-c'+data.product_id).removeClass('cart-btn-active').html(`ADD FROM CART`);
@@ -25,36 +28,36 @@ function cartEvent(data) {
 }
 
 
-// Wishlist Toggle Alert And Change Btn
-Livewire.on('wishlistAdded', data => {
-  $('.wishlist-btn-a'+data['product_id']).addClass('wishlist-btn-active');
-  $('.wishlist-btn-b'+data['product_id']).addClass('wishlist-btn-active');
-  $('.wishlist-btn-c'+data['product_id']).addClass('btn-wishlisted').removeClass('btn-not-wishlisted');
-  Toast.create("Added To Wishlist", data['product_name'], TOAST_STATUS.SUCCESS, 5000);
-});
+function wishlistEvent(data) {
+  if (data.action == 'wishlistAdded') {
+    $('.wishlist-btn-a'+data['product_id']).addClass('wishlist-btn-active');
+    $('.wishlist-btn-b'+data['product_id']).addClass('wishlist-btn-active');
+    $('.wishlist-btn-c'+data['product_id']).addClass('btn-wishlisted').removeClass('btn-not-wishlisted');
+    Toast.create("Added To Wishlist", data['product_name'], TOAST_STATUS.SUCCESS, 5000);
+  }
+  else if (data.action == 'wishlistRemoved') { 
+    $('.wishlist-btn-a'+data['product_id']).removeClass('wishlist-btn-active');
+    $('.wishlist-btn-b'+data['product_id']).removeClass('wishlist-btn-active');
+    $('.wishlist-btn-c'+data['product_id']).removeClass('btn-wishlisted').addClass('btn-not-wishlisted');
+    Toast.create("Removed From Wishlist", data['product_name'], TOAST_STATUS.DANGER, 5000);
+  }
+}
 
-Livewire.on('wishlistRemoved', data => {
-  $('.wishlist-btn-a'+data['product_id']).removeClass('wishlist-btn-active');
-  $('.wishlist-btn-b'+data['product_id']).removeClass('wishlist-btn-active');
-  $('.wishlist-btn-c'+data['product_id']).removeClass('btn-wishlisted').addClass('btn-not-wishlisted');
-  Toast.create("Removed From Wishlist", data['product_name'], TOAST_STATUS.DANGER, 5000);
-});
 
+function compareEvent(data) { 
+  if (data.action == 'compareAdded') {
+    $('.compare-btn-a'+data['product_id']).addClass('compare-btn-active');
+    $('.compare-btn-b'+data['product_id']).addClass('compare-btn-active');
+    $('.compare-btn-c'+data['product_id']).addClass('btn-danger').removeClass('btn-info');
+    Toast.create("Added To Compare", data['product_name'], TOAST_STATUS.SUCCESS, 5000);
+  } else if (data.action == 'compareRemoved') {
+    $('.compare-btn-a'+data['product_id']).removeClass('compare-btn-active');
+    $('.compare-btn-b'+data['product_id']).removeClass('compare-btn-active');
+    $('.compare-btn-c'+data['product_id']).removeClass('btn-danger').addClass('btn-info');
+    Toast.create("Removed From Compare", data['product_name'], TOAST_STATUS.DANGER, 5000);
+  }
+}
 
-// Compare Toggle Alert And Change Btn
-Livewire.on('compareAdded', data => {
-  $('.compare-btn-a'+data['product_id']).addClass('compare-btn-active');
-  $('.compare-btn-b'+data['product_id']).addClass('compare-btn-active');
-  $('.compare-btn-c'+data['product_id']).addClass('btn-danger').removeClass('btn-info');
-  Toast.create("Added To Compare", data['product_name'], TOAST_STATUS.SUCCESS, 5000);
-});
-
-Livewire.on('compareRemoved', data => {
-  $('.compare-btn-a'+data['product_id']).removeClass('compare-btn-active');
-  $('.compare-btn-b'+data['product_id']).removeClass('compare-btn-active');
-  $('.compare-btn-c'+data['product_id']).removeClass('btn-danger').addClass('btn-info');
-  Toast.create("Removed From Compare", data['product_name'], TOAST_STATUS.DANGER, 5000);
-});
 
 Livewire.on('modal', data => {
   $(data['el']).modal(data['action']);

@@ -3,15 +3,14 @@
 namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 
-class CartEvent implements ShouldBroadcastNow
+class QuickActionEvent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -35,9 +34,9 @@ class CartEvent implements ShouldBroadcastNow
     public function broadcastOn()
     {
         if ($this->data['auth']) {
-            return new PrivateChannel('CartEvent.User.'.$this->data['user_id']);
+            return new PrivateChannel('QuickActionEvent.User.'.$this->data['user_id']);
         } else {
-            return new Channel('CartEvent.Session.'.$this->data['user_id']);
+            return new Channel('QuickActionEvent.Session.'.$this->data['user_id']);
         }
     }
 }

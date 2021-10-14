@@ -193,17 +193,6 @@
       0 => 'Te7aHoudini\\LaravelTrix\\LaravelTrixServiceProvider',
     ),
   ),
-  'wulfheart/pretty_routes' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Wulfheart\\PrettyRoutes\\PrettyRoutesServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'PrettyRoutes' => 'Wulfheart\\PrettyRoutes\\PrettyRoutesFacade',
-    ),
-  ),
   'yajra/laravel-datatables-oracle' => 
   array (
     'providers' => 

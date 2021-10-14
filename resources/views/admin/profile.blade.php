@@ -60,14 +60,13 @@
 <div class="row mb-3">
     <div class="col-lg-4">
         <div class="card mb-3">
-            <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="{{ asset('/storage/images/dp/'.Auth::user()->dp) }}" width="160" height="160">
+            <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="{{ profilePicture(Auth::user()->dp) }}" width="160" height="160">
                 <div class="mb-3" data-toggle="modal" data-target="#DPupdateModal"><button class="btn btn-primary btn-sm" type="button">Change Photo</button></div>
                 @error('dp')
                 <div class="alert alert-danger" role="alert">
                     {{ $message }}
                 </div>
                 @enderror
-
             </div>
         </div>
     </div>

@@ -133,7 +133,7 @@
 
                             <div style="display: flex; ">
                                 <div style="padding-left: 0px; padding-right: 10px;">
-                                    <img style="border: 1px rgb(192, 192, 192) solid" src="{{ asset('storage/images/dp/'.$ticket->user->dp) }}" alt="" width="40px" height="40px">
+                                    <img style="border: 1px rgb(192, 192, 192) solid" src="{{ profilePicture($ticket->user->dp) }}" alt="" width="40px" height="40px">
                                 </div>
 
                                 <div class="user w-100" > 

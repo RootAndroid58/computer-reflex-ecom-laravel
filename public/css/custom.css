@@ -1441,7 +1441,10 @@ input[type="color"]:focus,
       }
   }
 
-  
+.href-disabled {
+    pointer-events: none;
+    cursor: default;
+}
 
 .product-content {
     padding-top: 20px;
@@ -1473,5 +1476,4 @@ input[type="color"]:focus,
 .ratio-4-4-padding {
     padding-bottom: 100% !important;
 }
-
 

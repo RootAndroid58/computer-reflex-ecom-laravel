@@ -252,23 +252,26 @@ style="
                                     
                                     <div class="w-100 text-center pt-3">
                                         <div class="product-action-electro">
-                                            <a class="animate-top cursor-pointer cart-btn-b cart-btn-b{{$product->id}}  " title="Add To Cart" wire:click="$emit('ToggleCart', {{$product->id}})">
+                                            <a class="animate-top cursor-pointer cart-btn-b cart-btn-b{{$product->id}} @if($product->carted) cart-btn-active @endif" title="Add To Cart" wire:click="$emit('ToggleCart', {{$product->id}})">
                                                 <i class="pe-7s-cart"></i>
                                             </a>    
-                                            <a class="animate-left cursor-pointer wishlist-btn-b wishlist-btn-b{{$product->id}} " title="Wishlist" wire:click="$emit('ToggleWishlist', {{$product->id}})">
+                                            @if(Auth::check())
+                                            <a class=" animate-left cursor-pointer wishlist-btn-b wishlist-btn-b{{$product->id}} @if($product->wishlisted) wishlist-btn-active @endif" title="Wishlist" wire:click="$emit('ToggleWishlist', {{$product->id}})">
                                                 <i class="pe-7s-like"></i>
                                             </a>
-                                            <a class="animate-right cursor-pointer compare-btn-b compare-btn-b{{$product->id}} " title="Compare" wire:click="$emit('ToggleCompare', {{$product->id}})">
+                                            @endif
+                                            
+                                            <a class="animate-right cursor-pointer compare-btn-b compare-btn-b{{$product->id}} @if($product->compared) compare-btn-active @endif" title="Compare" wire:click="$emit('ToggleCompare', {{$product->id}})">
                                                 <i class="pe-7s-repeat"></i>
                                             </a>
                                         </div>
                                     </div>
                                     <div class="w-100 mt-2 text-center">
                                         <div class="product-rating-4">
-                                            <i class="icofont icofont-star @if ($product->avgStars >= 1) yellow @endif "></i>
+                                            <i class="icofont icofont-star @if ($product->avgStars >= 1) yellow @endif"></i>
                                             <i class="icofont icofont-star @if ($product->avgStars >= 2) yellow @endif"></i>
                                             <i class="icofont icofont-star @if ($product->avgStars >= 3) yellow @endif"></i>
-                                            <i class="icofont icofont-star @if ($product->avgStars >= 4) yellow @endif"></i> 
+                                            <i class="icofont icofont-star @if ($product->avgStars >= 4) yellow @endif"></i>
                                             <i class="icofont icofont-star @if ($product->avgStars >= 5) yellow @endif"></i>
                                         </div>
                                     </div>

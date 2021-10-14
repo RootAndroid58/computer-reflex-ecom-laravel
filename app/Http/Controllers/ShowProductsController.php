@@ -22,8 +22,11 @@ class ShowProductsController extends Controller
 {
     public function ProductIndex($pid)
     {
-       
-        $product = Product::with('comission')->with('questions.answers')->where('id', $pid)->first();
+        $product = Product::with('comission')
+        ->with('images')
+        ->with('questions.answers')
+        ->where('id', $pid)
+        ->first();
 
         if (!isset($product)) {
             abort(404);
@@ -36,7 +39,7 @@ class ShowProductsController extends Controller
 
         if ($product->product_status == 1) {
             
-            $images = ProductImage::Where('product_id' , $pid)->orderBy('id', 'desc')->get();
+            // $images = ProductImage::Where('product_id' , $pid)->orderBy('id', 'desc')->get();
             $specifications = Specification::Where('product_id' , $pid)->orderBy('id', 'asc')->get();
             $category = Category::where('id' , $product->product_category_id)->first();
             $discount = round((($product->product_mrp - $product->product_price) / $product->product_mrp)*100);
@@ -162,7 +165,6 @@ class ShowProductsController extends Controller
                 'compared'          => $compared,
                 'reviews'           => $reviews->get(),
                 'RelatedProducts'   => $RelatedProducts,
-                'images'            => $images,
                 'category'          => $category,
                 'discount'          => $discount,
                 'carted'            => $carted,

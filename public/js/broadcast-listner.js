@@ -1,11 +1,11 @@
 // Cart Event GLobal Broadcast Listner 
 if ($('meta[name=user-id]').length) {
-    var CartEventChannel = Echo.private(`CartEvent.User.${$('meta[name=user-id]').attr('content')}`)
+    var QuickActionEventChannel = Echo.private(`QuickActionEvent.User.${$('meta[name=user-id]').attr('content')}`)
 } else {
-    var CartEventChannel = Echo.channel(`CartEvent.Session.${$('meta[name=session-id]').attr('content')}`);
+    var QuickActionEventChannel = Echo.channel(`QuickActionEvent.Session.${$('meta[name=session-id]').attr('content')}`);
 }
 
-CartEventChannel.listen('CartEvent', (e) => cartEvent(e.data)); 
+QuickActionEventChannel.listen('QuickActionEvent', (e) => window[e.data.type + 'Event'](e.data)); 
 
 
 

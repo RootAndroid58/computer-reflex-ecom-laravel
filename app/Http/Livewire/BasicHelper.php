@@ -2,7 +2,10 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Cart;
 use Livewire\Component;
+use App\Events\QuickActionEvent;
+use App\Models\SessionCart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\CartController;
@@ -12,7 +15,7 @@ use App\Http\Controllers\WishlistController;
 class BasicHelper extends Component
 {
 
-    public $carted;
+    // public $carted;
     public $wishlisted;
     public $compared;
 
@@ -25,32 +28,19 @@ class BasicHelper extends Component
     public function ToggleCart($product_id)
     {
         Request()->request->add(['product_id' => $product_id]);
-    
         $ToggleCart = new CartController;
         $ToggleCart = $ToggleCart->ToggleCart(Request());
-
-        if (Auth::check()) {
-            $auth = true;
-        }
-
-        if ($ToggleCart['status'] == 200) {
-            $this->carted = 1;
-            event(new \App\Events\CartEvent([
-                'auth'          => $auth ?? false,
+        $authCheck = Auth::check();
+        
+        if ($ToggleCart['status'] == 200 || $ToggleCart['status'] == 500) {
+            event(new QuickActionEvent([
+                'type'          => 'cart',
+                'auth'          => $authCheck,
                 'user_id'       => Auth()->user()->id ?? Session::getId(),
-                'action'        => 'cartAdded',
+                'action'        => ($ToggleCart['status'] == 200) ? 'cartAdded' : 'cartRemoved',
                 'product_id'    => $product_id,
                 'product_name'  => WordLimit($ToggleCart['product_name'], 18).'...',
-            ]));
-        }
-        elseif ($ToggleCart['status'] == 500) {
-            $this->carted = 0;
-            event(new \App\Events\CartEvent([
-                'auth'          => $auth ?? false,
-                'user_id'       => Auth()->user()->id ?? Session::getId(),
-                'action'        => 'cartRemoved',
-                'product_id'    => $product_id,
-                'product_name'  => WordLimit($ToggleCart['product_name'], 18).'...',
+                'cart_count'    => ($authCheck) ? Cart::where('user_id', Auth::user()->id)->count() : SessionCart::where('session_id', Session::getId())->count(),
             ]));
         }
     }
@@ -62,43 +52,40 @@ class BasicHelper extends Component
         $ToggleCompare = new CompareController;
         $ToggleCompare = $ToggleCompare->ToggleCompare(Request());
 
-        if ($ToggleCompare['status'] == 200) {
-            $this->compared = 1;
-            $this->emit('compareAdded', [
+        if ($ToggleCompare['status'] == 200 || $ToggleCompare['status'] == 500) {
+            $authCheck = Auth::check();
+            event(new QuickActionEvent([
+                'type'          => 'compare',
+                'auth'          => $authCheck,
+                'user_id'       => Auth()->user()->id ?? Session::getId(),
+                'action'        => ($ToggleCompare['status'] == 200) ? 'compareAdded' : 'compareRemoved',
                 'product_id'    => $product_id,
                 'product_name'  => WordLimit($ToggleCompare['product_name'], 18).'...',
-            ]);
+            ]));
         } 
-        elseif ($ToggleCompare['status'] == 500) {
-            $this->compared = 0;
-            $this->emit('compareRemoved', [
-                'product_id'    => $product_id,
-                'product_name'  => WordLimit($ToggleCompare['product_name'], 18).'...',
-            ]);
-        }
     }
 
     public function ToggleWishlist($product_id)
     {
+        abort_unless(Auth::check(), '403', 'Unauthorized.');
+
         Request()->request->add(['product_id' => $product_id]);
         
         $ToggleWishlist = new WishlistController;
         $ToggleWishlist = $ToggleWishlist->ToggleWishlist(Request());
 
-        if ($ToggleWishlist['status'] == 200) {
-            $this->wishlistd = 1;
-            $this->emit('wishlistAdded', [
-                'product_id' => $product_id,
-                'product_name' => WordLimit($ToggleWishlist['product_name'], 18).'...',
-            ]);
+        if ($ToggleWishlist['status'] == 200 || $ToggleWishlist['status'] == 500) {
+            $authCheck = Auth::check();
+            event(new QuickActionEvent([
+                'type'          => 'wishlist',
+                'auth'          => $authCheck,
+                'user_id'       => Auth()->user()->id,
+                'action'        => ($ToggleWishlist['status'] == 200) ? 'wishlistAdded' : 'wishlistRemoved',
+                'product_id'    => $product_id,
+                'product_name'  => WordLimit($ToggleWishlist['product_name'], 18).'...',
+            ]));
         } 
-        elseif ($ToggleWishlist['status'] == 500) {
-            $this->wishlistd = 0;
-            $this->emit('wishlistRemoved', [
-                'product_id' => $product_id,
-                'product_name' => WordLimit($ToggleWishlist['product_name'], 18).'...',
-            ]);
-        }
+        
     }
 
     public function render()

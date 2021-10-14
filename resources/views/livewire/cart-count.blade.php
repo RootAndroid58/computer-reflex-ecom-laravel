@@ -6,7 +6,8 @@
                 <a href="{{ route('cart') }}"><i class="pe-7s-cart"></i></a>
             </div>
             <div class="same-style-text">
-                <a href="{{ route('cart') }}">My Cart <br>{{ $cartCount }} Item</a>
+                <a href="{{ route('cart') }}">My Cart <br>
+                    <span id="cartCount">{{ $cartCount }}</span> Item</a>
             </div>
         </div>
     </div>

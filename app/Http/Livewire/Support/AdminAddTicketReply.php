@@ -82,12 +82,11 @@ class AdminAddTicketReply extends Component
 
         $header = '<p>Hi <b>'.$this->ticket->user->name.'</b>,<br><br>This message is regarding the <b>Ticket #'.$this->ticket->id.' </b>raised by you.&nbsp;</p>';
         $body = $description;
-        $footer = '<br><p><b >Best Regards,</b><br></p><p><span ><span style="font-family: Arial;">'.Auth()->user()->name.'</span><br></span><span >Computer Reflex Support Team<br></span><a href="tel:+917003373754" target="_blank" style="background-color: rgb(255, 255, 255); ">+91 7003 373 754</a><span >&nbsp;| </span><a href="mailto:contact@computerreflex.tk" target="_blank" style="background-color: rgb(255, 255, 255); ">contact@computerreflex.tk</a></p><p><br></p>';
+        $footer = '<br><p><b >Best Regards,</b><br></p><p><span ><span style="font-family: Arial;">'.Auth()->user()->name.'</span><br></span><span >Computer Reflex Support Team<br></span><a href="tel:+917003373754" target="_blank" style="background-color: rgb(255, 255, 255); ">+91 7003 373 754</a><span >&nbsp;| </span><a href="mailto:contact@computerreflex.tk" target="_blank" style="background-color: rgb(255, 255, 255); ">contact@computerreflex.tk</a></p>';
         
         if ($this->reply_as == 'staff') {
             $description = $header.$description.$footer;
         }
-        
 
         $SupportTicketMsg = new SupportTicketMsg; 
         $SupportTicketMsg->ticket_id = $this->ticket->id; 

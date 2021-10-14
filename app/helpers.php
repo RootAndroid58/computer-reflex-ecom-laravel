@@ -2,22 +2,12 @@
 
     function productImage($data)
     {
-        if (!$data) {
-            $output = asset('img/svg/images.svg');
-        } else {
-            $output = asset('storage/images/products/'.$data->image);
-        }
-        return $output;
+        return ($data) ? asset('storage/images/products/'.$data->image) : asset('img/svg/images.svg');
     }
 
     function profilePicture($dp)
     {
-        if (!$dp) {
-            $output = asset('img/svg/default.png');
-        } else {
-            $output = asset('storage/images/dp/'.$dp);
-        }
-        return $output;
+        return ($dp) ? asset('storage/images/dp/'.$dp) : asset('img/svg/default.png');
     }
 
     function ordinal($number) {

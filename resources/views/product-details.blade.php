@@ -123,7 +123,7 @@
                     <div class="row">
                         <div class="col-2">
                             <ul>
-                                @foreach ($images as $image)
+                                @foreach ($product->images as $image)
                                 <li>
                                     <div class="images-menu cursor-pointer prod-back-div small_img" 
                                         style="background-image: url('{{ productImage($image) }}');" >
@@ -135,7 +135,7 @@
                         <div class="col-10">
                             <div class="" style="height: 475px; text-align: center;">
                                <div style="width: 100%; height: 475px; text-align: center; line-height: 475px;">
-                                   <img src="{{ productImage($images[0] ?? null) }}"
+                                   <img src="{{ productImage($product->images[0] ?? null) }}"
                                    class="big_img" id="big_img" style="vertical-align: middle;">
                                </div>
                                 

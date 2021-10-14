@@ -10,7 +10,7 @@
     <div class="col-md-3">
             <div id="ProfileDetailsDiv">
                 <div class="account-details-container row" style="padding: 12px;">
-                    <img class="account-dp" src="{{ asset('storage/images/dp/'.Auth()->user()->dp)}}">
+                    <img class="account-dp" src="{{ profilePicture(Auth()->user()->dp) }}">
                     <div class="account-greet">
                         <div class="account-hello">Hello,</div>
                         <div class="account-name">{{Auth()->user()->name}}</div>
